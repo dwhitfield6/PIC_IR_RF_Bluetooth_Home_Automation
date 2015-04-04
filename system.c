@@ -6,7 +6,8 @@
  * Date         Revision    Comments
  * MM/DD/YY
  * --------     ---------   ----------------------------------------------------
- * 01/21/15     1.2         Added log.
+ * 04/02/15     1.0_DW0a    Initial project make.
+ *                          Derived from project 'PIC_PS2_to_UART'.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -39,9 +40,7 @@
 /******************************************************************************/
 void ConfigureOscillator(void)
 {
-    OSCCON= 0b11110000;//32MHz
-    while(!(OSCSTAT & HFIOFS));//Wait for High frequency inernal oscillator to be ready
-    while(!(OSCSTAT & PllR));//Wait for PLL to be ready
+    /* this is done in configuration_bits.c */
 }
 /*-----------------------------------------------------------------------------/
  End of File

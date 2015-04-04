@@ -6,13 +6,8 @@
  * Date         Revision    Comments
  * MM/DD/YY
  * --------     ---------   ----------------------------------------------------
- * 01/21/15     1.2         Added log.
- *                          Fixed Baud rate sting logic to save memory.
- *                          Added "keyboard" before every baud rate change.
- *                          Added wait to let previous character send before
- *                            before refilling the buffer.
- *  03/05/15     1.3_DW0a   Add line feed when f3 is pressed with a rs232
- *                            system.
+ * 04/02/15     1.0_DW0a    Initial project make.
+ *                          Derived from project 'PIC_PS2_to_UART'.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -49,24 +44,29 @@
 /******************************************************************************/
 /* User Global Variable Declaration                                           */
 /******************************************************************************/
-
-extern unsigned char BAUDMODE;
-extern unsigned char LineOverride;
+unsigned char ReceivedString[RXbufsize];
+unsigned char ReceivedStringPos = 0;
+unsigned char CommandString[RXCommandsize];
+unsigned char CommandStringPos = 0;
+unsigned char NewReceivedString = FALSE;
 
 /******************************************************************************/
 /* Functions
 /******************************************************************************/
 
 /******************************************************************************/
-/* CloseUSART
+/* Local_CloseUSART
  *
- * The function disables the uart.
+ * The function disables the UART.
 /******************************************************************************/
-void CloseUSART(void )
+void Local_CloseUSART(void )
 {
-    RCSTA&=0b01001111;
-    TX1STAbits.TXEN=0;
-    PIE1&=0b11001111;
+    PIE1bits.RCIE   = OFF;
+    PIE1bits.TXIE   = OFF;
+    RCSTAbits.SPEN  = OFF;
+    RCSTAbits.CREN  = OFF;
+    RCSTAbits.FERR  = FALSE;
+    TXSTAbits.TXEN = OFF;
 }
 
 /******************************************************************************/
@@ -75,83 +75,33 @@ void CloseUSART(void )
  * The function initializes the UART. The Baud is set and the Parity setting is
  *   also set.
 /******************************************************************************/
-void InitUART(unsigned long Baud, unsigned char parity)
+void InitUART(unsigned long Baud)
 {
     unsigned long temp;
-    unsigned char config;
+    unsigned char config = 0;
     unsigned int spbrg;
-    unsigned char baudconfig;
-    /*
-     * parity options
-     * 0 is none
-     * 1 is Odd
-     * 2 is Even
-     * 3 is mark
-     * 4 is space
-     */
-    PIE1bits.RCIE = 0;
-    LATC |= TX;
-    PPSLOCK =0;//unlock PPS
-    RC2PPS = 0b00000000;//RC2 is LATxy
-    PPSLOCK =1; //lock PPS
 
-    CloseUSART(); //turn off usart if was previously on
-    config =0;
-    baudconfig =0;
+    Local_CloseUSART(); //turn off usart if was previously on
 
     //-----configure USART -----
-    config |= USART_TX_INT_OFF;
-    config |= USART_ASYNCH_MODE;
-    config |= USART_CONT_RX;//single mode
-    config |= USART_BRGH_HIGH;
-    PARITY = parity;
-    BAUD = Baud;
-    if(parity)
-    {
-        config |= USART_NINE_BIT;
-    }
-    else
-    {
-        config &= ~USART_NINE_BIT;
-    }
-    baudconfig |= USART_BRG16;
+    config |= Local_USART_TX_INT_OFF; // Tx interrupts off
+    config |= Local_USART_ASYNCH_MODE;// Asynchronous mode
+    config |= Local_USART_CONT_RX;    // Enable receive
+    config |= Local_USART_BRGH_HIGH;  // High speed
+    config &= ~Local_USART_NINE_BIT;  // eight bits
 
     //calculate the spbrg from the baud rate.
     temp = (SYS_FREQ / Baud) - 1;
     temp = (temp >> 2) - 1;
-    spbrg = (unsigned int)temp;
+    spbrg = (unsigned int) Round(temp);
 
-    RCSTAbits.CREN = 0;
+    BAUDCONbits.BRG16 = 1; // 16 bit baud
+    
     OpenUSART(config, spbrg);
-    baudUSART(baudconfig);
-    temp = ReadUSART(); //clear the buffer
-    temp = ReadUSART(); //clear the buffer
-    temp = ReadUSART(); //clear the buffer
-    temp = ReadUSART(); //clear the buffer
-    temp = ReadUSART(); //clear the buffer
 
-    PPSLOCK =0;//unlock PPS
-    RC2PPS = 0b00010100;//RC2 is TX/CK
-    CKPPS = 0b00010010;//RC2 is TX
-    #ifndef ARDUINO
-    RXPPS = 0b00010101;//RC5 is RX
-    #endif
-    PPSLOCK =1; //lock PPS
-
-    PIR1bits.RCIF = 0; //reset RX pin flag
-    PIE1bits.RCIE = 1;
+    PIR1bits.RCIF   = 0;   // reset RX pin flag
+    PIE1bits.RCIE   = 1;   // enable RX interrupts
     INTCONbits.PEIE = 1; //Enable pheripheral interrupt
-}
-
-/******************************************************************************/
-/* baudUSART
- *
- * The function sets up the special functions registers to set up the Baud.
-/******************************************************************************/
-void baudUSART (unsigned char baudconfig)
-{
-    BAUD1CON =0;
-    BAUD1CON = baudconfig;
 }
 
 /******************************************************************************/
@@ -161,42 +111,42 @@ void baudUSART (unsigned char baudconfig)
 /******************************************************************************/
 void OpenUSART( unsigned char config, unsigned int spbrg)
 {
-    TX1STA = 0;           // Reset USART registers to POR state
-    RC1STA = 0;
+    TXSTA = 0;           // Reset USART registers to POR state
+    RCSTA = 0;
 
     if(config&0x01)      // Sync or async operation
     {
-        TX1STAbits.SYNC = 1;
+        TXSTAbits.SYNC = 1;
     }
 
     if(config&0x02)      // 8- or 9-bit mode
     {
-        TX1STAbits.TX9 = 1;
-        RC1STAbits.RX9 = 1;
+        TXSTAbits.TX9 = 1;
+        RCSTAbits.RX9 = 1;
     }
 
     if(config&0x04)      // Master or Slave (sync only)
     {
-        TX1STAbits.CSRC = 1;
+        TXSTAbits.CSRC = 1;
     }
 
     if(config&0x08)      // Continuous or single reception
     {
-        RC1STAbits.CREN = 1;
+        RCSTAbits.CREN = 1;
     }
     else
     {
-        RC1STAbits.SREN = 1;
+        RCSTAbits.SREN = 1;
     }
 
     if(config&0x10)      // Baud rate select (asychronous mode only)
     {
-        TX1STAbits.BRGH = 1;
+        TXSTAbits.BRGH = 1;
     }
 
     if(config&0x20)  // Address Detect Enable
     {
-         //RCSTAbits.ADEN = 1;
+         RCSTAbits.ADEN = 1;
     }
 
     if(config&0x40)      // Interrupt on receipt
@@ -223,8 +173,8 @@ void OpenUSART( unsigned char config, unsigned int spbrg)
     SPBRG = spbrg;       // Write baudrate to SPBRG1
     SPBRGH = spbrg >> 8; // For 16-bit baud rate generation
 
-    TX1STAbits.TXEN = 1;  // Enable transmitter
-    RC1STAbits.SPEN = 1;  // Enable receiver
+    TXSTAbits.TXEN = 1;  // Enable transmitter
+    RCSTAbits.SPEN = 1;  // Enable receiver
 }
 
 /******************************************************************************/
@@ -232,54 +182,14 @@ void OpenUSART( unsigned char config, unsigned int spbrg)
  *
  * The function sends one character over the UART.
 /******************************************************************************/
-void UARTchar(unsigned char data, unsigned char override, unsigned char NinethBit_override_data)
+void UARTchar(unsigned char data)
 {
-    if(TXSTAbits.TX9)  
+    if(data == 0)
     {
-        // 9-bit mode
-        if(!override)
-        {
-            //no override 9th bit so we will calculate it
-            switch (PARITY)
-            {
-                case 1:
-                    TXSTAbits.TX9D = CheckSum_byte((unsigned int) data, Odd);//Odd parity
-                    break;
-                case 2:
-                    TXSTAbits.TX9D = CheckSum_byte((unsigned int) data, Even);//Even parity
-                    break;
-                case 3:
-                    TXSTAbits.TX9D = 1;//mark
-                    break;
-                default:
-                    TXSTAbits.TX9D = 0;//space
-                    break;
-            }
-        }
-        else
-        {
-            TXSTAbits.TX9D = (NinethBit_override_data & 0x01);
-        }
+        NOP();
     }
-    #ifndef ADDLINE
-    if(data == '\n')
-    {
-        if(override || LineOverride)
-        {
-            while(!TXSTAbits.TRMT); //Wait for previous character to be output
-            TXREG = data;      // Write the data byte to the USART
-            LineOverride = 0;
-        }
-    }
-    else
-    {
-        while(!TXSTAbits.TRMT); //Wait for previous character to be output
-        TXREG = data;      // Write the data byte to the USART
-    }
-    #else
-    while(!TXSTAbits.TRMT); //Wait for previous character to be output
     TXREG = data;      // Write the data byte to the USART
-    #endif
+    while(!TXSTAbits.TRMT); //Wait for previous character to be output
 }
 
 /******************************************************************************/
@@ -287,16 +197,13 @@ void UARTchar(unsigned char data, unsigned char override, unsigned char NinethBi
  *
  * The function sends a group of characters over the UART.
 /******************************************************************************/
-void UARTstring(const unsigned char *data)
+void UARTstring(unsigned char *data)
 {
-  do
-  {  // Transmit a byte
-      if(*data != 0)
-      {
-    UARTchar(*data, NO, 0);
-    while(BusyUSART());
-      }
-  } while( *data++);
+    while(*data != 0)
+    {
+        UARTchar(*data); // Transmit a byte
+        *data++;
+    }    
 }
 
 /******************************************************************************/
@@ -304,18 +211,20 @@ void UARTstring(const unsigned char *data)
  *
  * The function reads the UART and returns the data read.
 /******************************************************************************/
-char ReadUSART(void)		
+unsigned char ReadUSART(void)
 {
-  char data;   // Holds received data
+    unsigned char data;   // Holds received data
     
-  if(RCSTAbits.OERR)                 // If an overrun error occured
-  {
-    RCSTAbits.CREN = 0;
-  }
+    if(RCSTAbits.OERR)
+    {
+        /* If an overrun error occured clear error */
+        RCSTAbits.CREN = 0;
+        RCSTAbits.CREN = 1;
+        return FALSE;
+    }
 
-  data = RCREG;                      // Read data
-
-  return (data);                     // Return the received data
+    data = RCREG;                      // Read data
+    return (data);                     // Return the received data
 }
 
 /******************************************************************************/
@@ -326,35 +235,9 @@ char ReadUSART(void)
 /******************************************************************************/
 void UART_send_break(void)
 {
-    TX1STA |= SENDB;
-    TXREG = 'd';      // arbitrary
-}
-
-/******************************************************************************/
-/* UART_send_break_timed
- *
- * The function sends a timed break over the UART. It can be used to send a
- *   hard/long break or a short break.
-/******************************************************************************/
-void UART_send_break_timed(unsigned int US)
-{
-    //a long break of 100,000 is 285 mS
-    LATC |= TX;
-    PPSLOCK =0;//unlock PPS
-    RC2PPS = 0b00000000;//RC2 is LATxy
-    PPSLOCK =1; //lock PPS
-    
-    LATC &= ~TX;
-    delayUS(US);
-    LATC |= TX;
-
-    PPSLOCK =0;//unlock PPS
-    RC2PPS = 0b00010100;//RC2 is TX/CK
-    CKPPS = 0b00010010;//RC2 is TX
-    #ifndef ARDUINO
-    RXPPS = 0b00010101;//RC5 is RX
-    #endif
-    PPSLOCK =1; //lock PPS
+    TXSTAbits.SENDB = TRUE;
+    TXREG = 'd';                // arbitrary
+    while(TXSTAbits.SENDB);    // Break sent successfully
 }
 
 /******************************************************************************/
@@ -363,82 +246,13 @@ void UART_send_break_timed(unsigned int US)
  * The function sends a group of characters over the UART. There is a wait of
  *   the character_spacing value between character sends.
 /******************************************************************************/
-void UARTstringWAIT(const unsigned char *data)
+void UARTstringWAIT(unsigned char *data)
 {
-  do
-  {  // Transmit a byte
-      delayUS(Character_Spacing);
-      if(*data != 0)
-      {
-    UARTchar(*data, NO, 0);
-    while(BusyUSART());
-      }
-  } while( *data++);
-}
-
-/******************************************************************************/
-/* SetBaud
- *
- * The function is called when a new baud rate is to be saved to memory. It also
- *  sets the baud rate and parity setting by calling InitUART();
-/******************************************************************************/
-void SetBaud(unsigned long Baud, unsigned char Parity)
-{
-    unsigned char buf[50];
-    unsigned long Baudtemp=0;
-    unsigned long Paritytemp=0;
-    unsigned long temp;
-    unsigned char i =0;
-    //Program Baud to Flash
-    WriteBaud(FLASH_ADDRESS_ROW, Baud, Parity);
-    temp = ReadBaud(FLASH_ADDRESS_ROW, 0);
-    Baudtemp   = temp & 0x000FFFFF;
-    Paritytemp = (unsigned char)((temp & 0x00F00000) >> 20);
-    //Read Flash to make sure it was written correctly
-    InitUART(Baud, Parity);
-    UARTstringWAIT("\r\n");
-    delayUS(Word_Spacing);
-    if((Baud != Baudtemp) || (Parity != Paritytemp))
+    while(*data != 0)
     {
-        UARTstringWAIT("Flash Program Fail\r\n");
-        delayUS(Word_Spacing);
-    }
-
-    //blink LED
-    for(i =0;i<10;i++)
-    {
-       LATC |= KeyLED;
-       delayUS(10000);
-       LATC &= ~KeyLED;
-       delayUS(10000);
-    }
-
-    sprintf(buf,"Baud is %lu",Baud);
-    UARTstringWAIT(buf);
-    if(Parity)
-    {
-        switch (Parity)
-        {
-            case 1:
-                UARTstringWAIT(OddParityMSG);//Odd parity
-                break;
-            case 2:
-                UARTstringWAIT(EvenParityMSG);//Even parity
-                break;
-            case 3:
-                UARTstringWAIT(MarkParityMSG);//Mark parity
-                break;
-            default:
-                UARTstringWAIT(SpaceParityMSG);//Space parity
-                break;
-        }
-    }
-    else
-    {
-        UARTstringWAIT(NoParityMSG);
-    }
-    UARTstringWAIT("\r\n");
-    delayUS(Word_Spacing);
+        UARTchar(*data); // Transmit a byte
+        *data++;
+    } 
 }
 /*-----------------------------------------------------------------------------/
  End of File

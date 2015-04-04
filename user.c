@@ -6,14 +6,8 @@
  * Date         Revision    Comments
  * MM/DD/YY
  * --------     ---------   ----------------------------------------------------
- * 01/09/15     1.0C        Written.
- * 01/20/15     1.0F        Commented out Timer2 interrupt since we no longer
- *                            use this to flash the power LED.
- * 01/21/15     1.1         Fixed error in calculating the parity bit for
- *                            initialization.
- * 01/23/15     1.2         Fixed Baud rate sting logic to save memory.
- *                          Added "keyboard" before every baud rate change.
- *                          Added macro for arduino shield system.
+ * 04/02/15     1.0_DW0a    Initial project make.
+ *                          Derived from project 'PIC_PS2_to_UART'.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -42,14 +36,18 @@
 
 #include "user.h"
 #include "UART.h"
-#include "FLASH.h"
+#include "EEPROM.h"
 #include "MISC.h"
 #include "Timer.h"
+#include "ADC.h"
+#include "Bluetooth.h"
+#include "IR.h"
 
 /******************************************************************************/
 /* User Global Variable Declaration                                           */
 /******************************************************************************/
 extern const unsigned char Version[];
+
 /******************************************************************************/
 /* Functions
 /******************************************************************************/
@@ -61,100 +59,65 @@ extern const unsigned char Version[];
 /******************************************************************************/
 void InitApp(void)
 {
-    LATC =0;
-    LATA =0;
-    TXTRIS     = OUTPUT;
-    pwrLEDTRIS = OUTPUT;
-    SinLEDTRIS = OUTPUT;
-    KeyLEDTRIS = OUTPUT;
-    BatINTRIS  = INPUT;
-    #ifdef RS232
-    configTRIS = INPUT;
-    #else
-    DivONTRIS  = OUTPUT;
-    #endif
-    
-    RXTRIS     = INPUT;
+    InputVoltageTris        = INPUT;
+    BLUE_ConnectedTris      = INPUT;
+    BLUE_ResetTris          = OUTPUT;
+    BLUE_AutoDiscoveryTris  = OUTPUT;
+    BLUE_AutoMasterTris     = OUTPUT;
+    BLUE_FactoryTris        = OUTPUT;
+    PushbuttonTris          = INPUT;
+    BiRedTris               = OUTPUT;
+    BiGreenTris             = OUTPUT;
+    IRLEDTris               = OUTPUT;
+    SWcodePwrTris           = OUTPUT;
+    RFtransTris             = OUTPUT;
+    BLUE_TxTris             = OUTPUT;
+    BLUE_RxTris             = INPUT;
+    Swcode4Tris             = INPUT;
+    Swcode3Tris             = INPUT;
+    Swcode2Tris             = INPUT;
+    Swcode1Tris             = INPUT;
+    IRreceiverTris          = INPUT;
+    VoltageDividerTris      = INPUT;
 
-    //turn on power LED and initialize the pins
-    LATC |= pwrLED;
-    PPSLOCK =0;//unlock PPS
-    RC2PPS = 0b00010100;//RC2 is TX/CK
-    CKPPS = 0b00010010;//RC2 is TX
-    #ifndef ARDUINO
-    RXPPS = 0b00010101;//RC5 is RX
-    #endif
-    PPSLOCK =1; //lock PPS
+    /* set all pins to digital except pin RA0 which is the voltage input */
+    ANSEL = 0x01;
+    ANSELH = 0x00;
 
-    ANSELA &= ~0xFF;//set ALL PortA to digital
-    ANSELA |= 0b00000100;//set RA2 to analog
-    ANSELC &= ~0xFF;//set ALL PortC to digital
-    OPTION_REGbits.nWPUEN = 0;//pull-ups enabled
-    WPUC = 0b00100000;//enable RC5 (RX) pull-up
-    WPUA = 0;
+    /* Individualy set the pull-up pins */
+    INTCON2bits.RBPU = 0;
+    /* Turn on weak pull-ups on pins RB0 - RB3 */
+    WPUB = 0x0F;
 }
 
 /******************************************************************************/
 /* Init_System
  *
- * The function initializes the system by setting up the initial starting baud
- *   and prints the baud rate over the baud.
+ * The function initializes the system
 /******************************************************************************/
 void Init_System (void)
 {
-    unsigned long temp =0;
-    unsigned long Baud =0;
-    unsigned char Parity =0;
+    cleanBuffer(&ReceivedString, RXbufsize);
 
-    temp = ReadBaud(FLASH_ADDRESS_ROW,0);
-    Baud   = temp & 0x000FFFFF;
-    Parity = (unsigned char)((temp & 0x00F00000) >> 20);
-    if(Baud <2400 || Baud > 115200)
-    {
-        //default is 9600 with no parity bit
-        Baud = 9600;
-        Parity = 0;
-    }
-    InitUART(Baud, Parity);
+    /* set up interrupt priorities */
+    IPR1bits.RCIP       = OFF;  // UART receive is Low priority
+    INTCON2bits.RBIP    = ON;   // KBI0 is High priority
+    INTCON2bits.TMR0IP  = ON;   // Timer0 overflow is High priority
+    IPR1bits.TMR2IP     = ON;   // Timer2 compare is High priority
+    IPR1bits.TMR1IP     = OFF;  // Timer1 overflow is Low priority
+    IPR2bits.TMR3IP     = ON;   // Timer3 overflow is High priority
 
-    //Start message
-    delayUS(Word_Spacing);
-    UARTstringWAIT("\r\nPS/2 Keyboard to RS-232\r\n");
-    delayUS(Word_Spacing);
-    UARTstringWAIT("Firmware Version: ");
-    UARTstringWAIT(Version);
-    UARTstringWAIT("\r\n");    
-    delayUS(Word_Spacing);
-    UARTstringWAIT("Change BAUD: \"CNT + ALT + DEL\"\r\n");
-    delayUS(Word_Spacing);
-    UARTstringWAIT("\r\n");
-    
-    if(Parity)
-    {
-        switch (Parity)
-        {
-            case 1:
-                UARTstringWAIT(OddParityMSG);//Odd parity
-                break;
-            case 2:
-                UARTstringWAIT(EvenParityMSG);//Even parity
-                break;
-            case 3:
-                UARTstringWAIT(MarkParityMSG);//Mark parity
-                break;
-            default:
-                UARTstringWAIT(SpaceParityMSG);//Space parity
-                break;
-        }
-    }
-    else
-    {
-        UARTstringWAIT(NoParityMSG);
-    }
-    UARTstringWAIT("\r\n");
-    delayUS(Word_Spacing);
-    INTCON |= iocie;// int on change
-    INTCONbits.GIE = 1;
+    /* Enable interrupts */
+    RCONbits.IPEN   = ON; //Priority interrupts
+    INTCONbits.PEIE = ON; //Peripheral interrupts
+    INTCONbits.GIE  = ON; //Global interrupts
+
+    SyncEEPROMToGlobal();
+    InitADC();
+    InitIR();
+    InitUART(BAUD);
+    InitBluetooth();
+    InitTimers();
 }
 /*-----------------------------------------------------------------------------/
  End of File

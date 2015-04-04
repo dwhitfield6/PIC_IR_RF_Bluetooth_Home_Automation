@@ -27,11 +27,11 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=PIC_IR_RF_Bluetooth_Home_Automation
 
 # Active Configuration
-DEFAULTCONF=xc8_pic16f1705
+DEFAULTCONF=xc8_pic18f26k20
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=xc8_pic16f1704 xc8_pic16f1705 
+ALLCONFS=xc8_pic18f26k20 
 
 
 # build
@@ -45,15 +45,13 @@ ALLCONFS=xc8_pic16f1704 xc8_pic16f1705
 
 # clobber
 .clobber-impl: .clobber-pre .depcheck-impl
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=xc8_pic16f1704 clean
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=xc8_pic16f1705 clean
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=xc8_pic18f26k20 clean
 
 
 
 # all
 .all-impl: .all-pre .depcheck-impl
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=xc8_pic16f1704 build
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=xc8_pic16f1705 build
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=xc8_pic18f26k20 build
 
 
 

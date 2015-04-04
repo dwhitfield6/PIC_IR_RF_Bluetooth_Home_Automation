@@ -6,7 +6,8 @@
  * Date         Revision    Comments
  * MM/DD/YY
  * --------     ---------   ----------------------------------------------------
- * 01/21/15     1.2         Created log.
+ * 04/02/15     1.0_DW0a    Initial project make.
+ *                          Derived from project 'PIC_PS2_to_UART'.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -39,28 +40,27 @@
  *   from guess and check.
 /******************************************************************************/
 
-#define delayConst 6
+#define delayConst 5
 //inverse relationship
 
 /******************************************************************************/
 /* Defines                                                                    */
 /******************************************************************************/
 
-#define SYS_FREQ_US 32
+#define SYS_FREQ_US 64
 #define Even 2
 #define Odd 3
-#define PASS 1
-#define FAIL 0
 
 /******************************************************************************/
 /* Function prototypes                                                        */
 /******************************************************************************/
-
 void delayUS(long US);
+unsigned char IsCharacter(unsigned char data);
 void cleanBuffer(unsigned char* data, int count);
-unsigned char CheckSum_byte(unsigned int This, unsigned char Odd_Even);
-unsigned char Reverse_Byte(unsigned char This);
-unsigned char ISNUMBER(unsigned char ascii);
-unsigned char BufferShiftBack(unsigned char* buffer, unsigned char shift, unsigned char size);
+void cleanBuffer16bit(unsigned int* data, int count);
+double Round(double input);
+void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
+unsigned char StringMatch(unsigned char* This,const unsigned char* That);
+unsigned char StringContains(unsigned char* This, const unsigned char* That);
 
 #endif	/* MISC_H */

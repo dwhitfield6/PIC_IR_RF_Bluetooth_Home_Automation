@@ -6,7 +6,8 @@
  * Date         Revision    Comments
  * MM/DD/YY
  * --------     ---------   ----------------------------------------------------
- * 01/21/15     1.2         Created log.
+ * 04/02/15     1.0_DW0a    Initial project make.
+ *                          Derived from project 'PIC_PS2_to_UART'.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -35,61 +36,50 @@
 /******************************************************************************/
 /* Ratio of voltage divider
  *
- * Set this to the ratio of R2 to R1. The voltage divider = ((R1 + R2) / R1)
+ * Set this to the ratio of R2 to R1. The voltage divider = ((R15 + R16) / R16)
 /******************************************************************************/
-#define ratio 5.7
+#define ratio 11
 
 /******************************************************************************/
-/* Set the ADC reference
+/* Acquisition Time
  *
- * Set this to the voltage refeence required.
- * For 0 - 5.8 volts use Ref_1x.
- * For 0 - 11.6 volts use Ref_2x.
- * For 0 - 23.2 volts use Ref_4x.
+ * Set this parameter is the required settling time for an ADC measurement
 /******************************************************************************/
-#ifdef RS232
-#define Ref_Multiplier Ref_4x
-#else
-#define Ref_Multiplier Ref_1x
-#endif
-
-
-/* Below is not used due to speed*/
-
-/*
- * #define R1 1000
- * #define R2 4700
- * #define ratio ((R1 + R2) / R1)
- */
+#define ACQtime 50
 
 /******************************************************************************/
 /* Defines                                                                    */
 /******************************************************************************/
 
-#define ADC_INT_ENABLE()     (PIR1bits.ADIF=0,INTCONbits.PEIE=1,PIE1bits.ADIE=1)
-#define ADC_INT_DISABLE()    (PIE1bits.ADIE=0)
-#define ADC_GO  0b00000010
-#define ADON    0b00000001
-#define FVREN   0b10000000
-#define FVRrdy  0b01000000
+#define OK 1
+#define ERROR 0
 
-#define Ref_OFF 0b00000000
-#define Ref_1x  0b00000001
-#define Ref_2x  0b00000010
-#define Ref_4x  0b00000011
+/******************************************************************************/
+/* Macro Functions                                                            */
+/******************************************************************************/
+
+/******************************************************************************/
+/* DisableADC
+ *
+ * The function turns off the internal ADC module.
+/******************************************************************************/
+#define DisableADC() (ADCON0bits.ADON = FALSE)
+
+/******************************************************************************/
+/* EnableADC
+ *
+ * The function turns on the internal ADC module.
+/******************************************************************************/
+#define EnableADC() (ADCON0bits.ADON = TRUE)
 
 /******************************************************************************/
 /* Function prototypes                                                        */
 /******************************************************************************/
-
 double ReadVoltage(void);
-void DisableInternalADC(void);
-unsigned int InternalADC_Read(unsigned char channel);
-void ShutDown_ADC(void);
-
-/******************************************************************************/
-/* Printf messages                                                            */
-/******************************************************************************/
-const unsigned char VoltageMSG[] = {"Voltage too "};
+unsigned char InternalADC_Read(unsigned char channel, unsigned int *ADCcounts);
+void ResetADC(void);
+void InitADC(void);
+void VoltageDividerON(void);
+void VoltageDividerOFF(void);
 
 #endif	/* ADC_H */

@@ -6,10 +6,8 @@
  * Date         Revision    Comments
  * MM/DD/YY
  * --------     ---------   ----------------------------------------------------
- * 01/26/15     1.2         Created log.
- *                          Add macro to allow the voltage equation to be
- *                            compensatied for reference change.
- *                          Added function ShutDown_ADC to reset ADC module.
+ * 04/02/15     1.0_DW0a    Initial project make.
+ *                          Derived from project 'PIC_PS2_to_UART'.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -35,15 +33,13 @@
 
 #endif
 
-#include "ADC.h"        /* System funct/params, like osc/peripheral config */
-#include "user.h"          /* User funct/params, such as InitApp */
-#include "UART.h"          /* User funct/params, such as InitApp */
-#include "MISC.h"          /* User funct/params, such as InitApp */
+#include "ADC.h"        
+#include "user.h"          
+#include "MISC.h"          
 
 /******************************************************************************/
 /* Defines                                                                    */
 /******************************************************************************/
-#define USE_OR_MASKS
 
 /******************************************************************************/
 /* User Global Variable Declaration                                           */
@@ -63,29 +59,18 @@ double ReadVoltage(void)
 {
     unsigned int temp;
     double voltage;
-    #ifndef RS232
-    LATC &= ~DivON;//power voltage divider
-    #endif
-    
-    temp = InternalADC_Read(2);
-    DisableInternalADC();
-    #ifndef RS232
-    LATC |= DivON;//release voltage divider
-    //reference is 1.024 * reference multiplier and its 10 bits
-    //therefore 1.024*Ref_Multiplier/1024 = 1000
-    //the bottom 2 bits are the Ref_Multiplier
-    #endif
-    if((FVRCON & 0x03) == 0x03)
+
+    VoltageDividerON();
+    delayUS(5); // wait for the voltage divider to settle
+    if(InternalADC_Read(0, &temp))
     {
-        //reference is 4 times higher
-        temp <<= 2;
+        voltage = ((double)temp / 1024.0) * ratio * NominalVDD;
     }
-    else if((FVRCON & 0x03) == 0x02)
+    else
     {
-        //reference is 2 times higher
-        temp <<= 1;
+        voltage = 0.0;
     }
-    voltage = ((double)temp / 1000) * ratio;
+    VoltageDividerOFF();
     return voltage;
 }
 
@@ -94,47 +79,86 @@ double ReadVoltage(void)
  *
  * The function returns the digital adc counts of the channel.
 /******************************************************************************/
-unsigned int InternalADC_Read(unsigned char channel)
+unsigned char InternalADC_Read(unsigned char channel, unsigned int *ADCcounts)
 {
-    ADCON0 =0;
-    ADCON1 =0;
-    ADCON1 |= 0b01010000;//FOSC/16
-    FVRCON |= FVREN;
-    FVRCON |= Ref_Multiplier;//buffer is set to 4x
-    while(!(FVRCON & FVRrdy));//wait for reference to be ready
-    ADCON0 |= (channel << 2);//input channel
-    ADCON1 |= 0b10000011; //right justified and VREF is FVR
-    ADCON0 |= ADON;
-    ADC_INT_DISABLE();
-    delayUS(5);
-    ADCON0 |= ADC_GO; //GO
-    while(ADCON0 & ADC_GO);
-    return ((ADRESH << 8) + ADRESL);
+    unsigned char AnaChanSel = 1;
+    if(channel > 0b1100)
+    {
+        *ADCcounts = ERROR;
+        return ERROR;
+    }
+    if(channel > 1)
+    {
+        AnaChanSel <= (channel - 1);
+    }
+    else if (channel == 0)
+    {
+        AnaChanSel = 0;
+    }
+
+    ADCON0 |= (AnaChanSel << 2); // select channel
+
+    ADCON1bits.VCFG0 = 0; //Positive voltage is VDD
+    ADCON1bits.VCFG1 = 0; //Negative voltage is VSS
+
+    EnableADC();
+    delayUS(ACQtime);
+
+    ADCON0bits.GO = TRUE;
+    while(ADCON0bits.GO);
+    DisableADC();
+
+    *ADCcounts = ((ADRESH << 8) + ADRESL);
+    return OK;
 }
 
 /******************************************************************************/
-/* DisableInternalADC
- *
- * The function turns off the internal ADC module.
-/******************************************************************************/
-void DisableInternalADC(void)
-{
-    ADCON0 &= ~ADON;
-}
-
-/******************************************************************************/
-/* ShutDown_ADC
+/* ResetADC
  *
  * The function shutsdown the ADC module and sets all registers to their
  *   preinitialized values.
 /******************************************************************************/
-void ShutDown_ADC(void)
+void ResetADC(void)
 {
-    FVRCON =0;
     ADCON0 =0;
     ADCON1 =0;
     ADCON2 =0;
 }
+
+/******************************************************************************/
+/* InitADC
+ *
+ * This function initializes the ADC.
+/******************************************************************************/
+void InitADC(void)
+{
+    ResetADC();
+    ADCON2bits.ADFM = 1;    // Right justified
+    ADCON2bits.ACQT = 0x7;  // sample and hold for 20 TAD
+    ADCON2bits.ADCS = 0x4;  // AD conversion clock if FOSC/4
+}
+
+/******************************************************************************/
+/* VoltageDividerON()
+ *
+ * The function turns on the voltage divider to take a voltage reading.
+/******************************************************************************/
+void VoltageDividerON(void)
+{
+    VoltageDividerTris  = OUTPUT;
+    LATB &= ~VoltageDivider;
+}
+
+/******************************************************************************/
+/* VoltageDividerOFF()
+ *
+ * The function turns off the voltage divider to take a voltage reading.
+/******************************************************************************/
+void VoltageDividerOFF(void)
+{
+    VoltageDividerTris  = INPUT;
+}
+
 /*-----------------------------------------------------------------------------/
  End of File
 /-----------------------------------------------------------------------------*/

@@ -6,7 +6,8 @@
  * Date         Revision    Comments
  * MM/DD/YY
  * --------     ---------   ----------------------------------------------------
- * 01/21/15     1.2         Added log.
+ * 04/02/15     1.0_DW0a    Initial project make.
+ *                          Derived from project 'PIC_PS2_to_UART'.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -29,58 +30,137 @@
 #include "Timer.h"
 
 /******************************************************************************/
+/* Global Variables                                                           */
+/******************************************************************************/
+unsigned char Timer1_Postscaler = 0;
+unsigned char Timer2_Postscaler = 0;
+unsigned char Timer3_Postscaler = 0;
+
+/******************************************************************************/
 /* Functions
  *
 /******************************************************************************/
 
 /******************************************************************************/
+/* InitTimers
+ *
+ * The function initializes timers 1, 2, and 3.
+/******************************************************************************/
+void InitTimers(void)
+{
+    InitTimer1(); // Used for LED timing
+    EnableTimer1Int();
+    InitTimer2(); // Used for RF
+    EnableTimer2Int();
+    InitTimer3();
+    EnableTimer3Int();
+}
+
+/******************************************************************************/
+/* Timer0Init
+ *
+ * The function initializes timer 0.
+/******************************************************************************/
+void InitTimer0(void)
+{
+    T0CONbits.T08BIT = FALSE;   // 16 bit timer
+    T0CONbits.T0CS = FALSE;     // FOSC/4 is system clock
+    T0CONbits.PSA = FALSE;      // Use Prescaler
+    T0CONbits.T0PS = 0x4;      // Prescaler is 32
+}
+
+/******************************************************************************/
+/* ResetTimer0
+ *
+ * The function resets the counter on Timer 0.
+/******************************************************************************/
+void ResetTimer0(void)
+{
+    /*
+     * Reset count to 2 because when the TMR0 register is written to,
+     * the increment is inhibited for the following two instruction cycles
+     */
+    TMR0H = 0;
+    TMR0L = 2;
+}
+
+/******************************************************************************/
+/* Timer1Init
+ *
+ * The function initializes timer 1.
+/******************************************************************************/
+void InitTimer1(void)
+{
+    T1CONbits.RD16      = TRUE;         // Write in one operation
+    T1CONbits.T1RUN     = FALSE;        // FOSC/4 is system clock
+    T1CONbits.T1CKPS    = 0x3;          // Prescaler is 8
+    T1CONbits.T1OSCEN   = FALSE;        // Oscillator is off
+    T1CONbits.TMR1CS    = FALSE;        // Clocked by FOSC/4
+}
+
+/******************************************************************************/
+/* ResetTimer1
+ *
+ * The function resets the counter on Timer 1.
+/******************************************************************************/
+void ResetTimer1(void)
+{
+    /*
+     * Reset count to 2 because when the TMR1 register is written to,
+     * the increment is inhibited for the following two instruction cycles
+     */
+    TMR1H = 0;
+    TMR1L = 2;
+}
+
+/******************************************************************************/
 /* Timer2Init
  *
- * The function initializes timer 2. The interrupt is enabled.
+ * The function initializes timer 2.
 /******************************************************************************/
-void Timer2Init(unsigned char time)
+void InitTimer2(void)
 {
-    unsigned char postscaler =0xF;// postscaler divide by 6
-    unsigned char prescaler =3;// divide by 64
-    CCP2CONbits.CCP2M = 0b1010;//generate software interrupt only 
-    PR2 = time;        
-    T2CON |= postscaler << 3;
-    T2CON |= prescaler;
-    
-    Timer2ON();         //timer2 on
-    PIE1bits.TMR2IE = 0;//disable timer 2 interupt
+    T2CONbits.T2OUTPS = 0xE; // Postscaler is 15
+    T2CONbits.T2CKPS = 0x3; // Prescaler is 16
 }
 
 /******************************************************************************/
-/* Timer2ON
+/* LEDTimerON
  *
- * This function turns on Timer 2.
+ * The function uses timer 2 to time the turning off of the LEDS.
 /******************************************************************************/
-void Timer2ON(void)
+void LEDTimerON(void)
 {
-    T2CONbits.TMR2ON = 1;
+    Timer1_Postscaler = 0;
+    ResetTimer1();
+    Timer1ON();
 }
 
-
 /******************************************************************************/
-/* Timer2OFF
+/* Timer3Init
  *
- * This function turns off Timer 2.
+ * The function initializes timer 3.
 /******************************************************************************/
-void Timer2OFF(void)
+void InitTimer3(void)
 {
-    T2CONbits.TMR2ON = 0;
+    T3CONbits.RD16      = TRUE;         // Write in one operation
+    T3CONbits.T3CKPS    = 0x3;          // Prescaler is 8
+    T3CONbits.TMR3CS    = FALSE;        // Clocked by FOSC/4
 }
 
-
 /******************************************************************************/
-/* Timer2Reset
+/* ResetTimer3
  *
- * The function resets Timer 2.
+ * The function resets the counter on Timer 3.
 /******************************************************************************/
-void Timer2Reset(void)
+void ResetTimer3(void)
 {
-    TMR2 = 0;
+    /*
+     * Reset count to 2 because when the TMR3 register is written to,
+     * the increment is inhibited for the following two instruction cycles
+     */
+    TMR3H = 0;
+    TMR3L = 2;
 }
 /*-----------------------------------------------------------------------------/
  End of File

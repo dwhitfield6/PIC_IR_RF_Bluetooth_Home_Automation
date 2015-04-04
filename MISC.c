@@ -6,10 +6,8 @@
  * Date         Revision    Comments
  * MM/DD/YY
  * --------     ---------   ----------------------------------------------------
- * 01/09/15     1.0C           Taken from proj6_UART_RF_ADC_LCD_RTC.
- * 03/03/15     1.3_DW0a       Define out the config code when product is an
- *                               Arduino.
- *
+ * 04/02/15     1.0_DW0a    Initial project make.
+ *                          Derived from project 'PIC_PS2_to_UART'.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -62,97 +60,19 @@ void delayUS(long US)
 }
 
 /******************************************************************************/
-/* CheckSum_byte
+/* IsCharacter
+ * Input the number in microseconds to be delayed.
  *
- * The function reads the value of 'This' and retunrn the checksum. The Odd_Even
- * parameter determines if it returns an even polarity bit or an odd polarity
- * bit.
+ * The function waists loops for the entered bumber of cycles.
+ * The actual delay can be scewed when interrupts are enabled.
 /******************************************************************************/
-unsigned char CheckSum_byte(unsigned int This, unsigned char Odd_Even)
+unsigned char IsCharacter(unsigned char data)
 {
-    char i = 0;
-    unsigned char Parity = 0;
-    unsigned int ThisTemp = This;
-
-    for (i =0; i<8; i++)
+    if(data >= 32 && data <= 126)
     {
-        if((ThisTemp & 0x01) == 1)
-        {
-            Parity++;
-        }
-        ThisTemp >>= 1;
+        return TRUE;
     }
-    if(Odd_Even == Odd)
-    {
-        if(Parity % 2 == 0) //even
-        {
-            return 1;
-        }
-        return 0;
-    }
-    else
-    {
-        if(Parity % 2 == 1) //odd
-        {
-            return 1;
-        }
-        return 0;
-    }
-}
-
-/******************************************************************************/
-/* Reverse_Byte
- *
- * The function reads the value of 'This' and returns the reverse of the data.
-/******************************************************************************/
-unsigned char Reverse_Byte(unsigned char This)
-{
-    unsigned char temp=0;
-
-    temp += (This & 0x01) << 7;
-    temp += (This & 0x02) << 5;
-    temp += (This & 0x04) << 3;
-    temp += (This & 0x08) << 1;
-    temp += (This & 0x10) >> 1;
-    temp += (This & 0x20) >> 3;
-    temp += (This & 0x40) >> 5;
-    temp += (This & 0x80) >> 7;
-
-    return temp;
-}
-
-/******************************************************************************/
-/* ISNUMBER
- *
- * The function returns TRUE if the ascii value is associated with a number.
-/******************************************************************************/
-unsigned char ISNUMBER(unsigned char ascii)
-{
-    if(ascii >= '0' && ascii <='9')
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-}
-
-/******************************************************************************/
-/* unsigned char READ_CONFIG_PIN(void)
- *
- * The function returns configuration based off of the config pin.
-/******************************************************************************/
-unsigned char READ_CONFIG_PIN(void)
-{
-        //READ RC0
-        #ifdef RS232
-        if((PORTC & Config) == Config)
-        {
-            return (1);
-        }
-        #endif
-        return 0;
+    return FALSE;
 }
 
 /******************************************************************************/
@@ -170,31 +90,106 @@ void cleanBuffer(unsigned char* data, int count)
 }
 
 /******************************************************************************/
-/* BufferShiftBack 
+/* cleanBuffer16bit
  *
- * This function shifts all of the elements in the buffer to the left the
- * designated amount of times. The Buffer is filled with zeros on the right
- * end.
+ * This function sets an amount of data in the array as 0.
 /******************************************************************************/
-unsigned char BufferShiftBack(unsigned char* buffer, unsigned char shift, unsigned char size)
+void cleanBuffer16bit(unsigned int* data, int count)
 {
     unsigned char i=0;
-    if(shift > size)
+    for(i=0; i<count;i++)
     {
-        return FAIL;
+        data[i]= 0;
     }
-    for(i = 0; i < size; i++)
+}
+
+/******************************************************************************/
+/* round
+ *
+ * This function rounds to the nearest whole number.
+/******************************************************************************/
+double Round(double input)
+{
+    long temp = (long)(input + 0.5);
+
+    return temp;
+}
+
+/******************************************************************************/
+/* BufferCopy
+ *
+ * This function copies the 'from' array to the 'to' array.
+/******************************************************************************/
+void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift)
+{
+    unsigned char i=0;
+    cleanBuffer(to,count);
+    for(i = shift; i>0;i--)
     {
-        if(i < (size - shift))
-        {
-            buffer[i] = buffer[i+shift];
-        }
-        else
-        {
-            buffer[i] = 0;
-        }
+        *to = ' ';
+        to++;
     }
-    return PASS;
+    while(*from != 0 && count >0)
+    {
+    *to = *from;
+    from++;
+    to++;
+    count--;
+    }
+}
+
+/******************************************************************************/
+/* StringMatch
+ *
+ * This function returns TRUE if the array 'This' matches the array 'That'.
+/******************************************************************************/
+unsigned char StringMatch(unsigned char* This,const unsigned char* That)
+{
+    while(*This != 0)
+    {
+       if(*This != *That || *That == 0)
+       {
+           return FALSE;
+       }
+       This++;
+       That++;
+    }
+    if(*That == 0)
+    {
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
+}
+
+/******************************************************************************/
+/* StringContains
+ *
+ * This function returns TRUE if the array 'That' is contained in the array
+ *   'This'.
+/******************************************************************************/
+unsigned char StringContains(unsigned char* This, const unsigned char* That)
+{
+    while(*This != 0)
+    {
+       while(*This == *That)
+       {
+           That++;
+           This++;
+           if(*That == 0)
+           {
+               return TRUE;
+           }
+           if(*This == 0)
+           {
+               return FALSE;
+           }
+       }
+       This++;
+    }
+    return FALSE;
 }
 /*-----------------------------------------------------------------------------/
  End of File
