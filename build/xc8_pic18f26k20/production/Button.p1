@@ -3,7 +3,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _PORTC `Vuc ~T0 @X0 0 e@3970 ]
 "1691
 [v _LATC `Vuc ~T0 @X0 0 e@3979 ]
-"57 MISC.h
+"62 MISC.h
 [v _delayUS `(v ~T0 @X0 0 ef1`l ]
 "739 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [v _PORTB `Vuc ~T0 @X0 0 e@3969 ]
@@ -3698,17 +3698,28 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> -> 1 `i `l `ul
 ]
 [; ;user.h: 58: unsigned long SN = 1;
-[; ;user.h: 272: void InitApp(void);
-[; ;user.h: 273: void Init_System (void);
+[; ;user.h: 286: void InitApp(void);
+[; ;user.h: 287: void Init_System (void);
 [; ;system.h: 55: void ConfigureOscillator(void);
-[; ;MISC.h: 57: void delayUS(long US);
-[; ;MISC.h: 58: unsigned char IsCharacter(unsigned char data);
-[; ;MISC.h: 59: void cleanBuffer(unsigned char* data, int count);
-[; ;MISC.h: 60: void cleanBuffer16bit(unsigned int* data, int count);
-[; ;MISC.h: 61: double Round(double input);
-[; ;MISC.h: 62: void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
-[; ;MISC.h: 63: unsigned char StringMatch(unsigned char* This,const unsigned char* That);
-[; ;MISC.h: 64: unsigned char StringContains(unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 62: void delayUS(long US);
+[; ;MISC.h: 63: unsigned char IsCharacter(unsigned char data);
+[; ;MISC.h: 64: void cleanBuffer(unsigned char* data, int count);
+[; ;MISC.h: 65: void cleanBuffer16bit(unsigned int* data, int count);
+[; ;MISC.h: 66: double Round(double input);
+[; ;MISC.h: 67: void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
+[; ;MISC.h: 68: unsigned char StringMatch(unsigned char* This,const unsigned char* That);
+[; ;MISC.h: 69: unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
+[; ;MISC.h: 70: unsigned char StringContains(unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 71: unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 72: void CalibrateDelay(void);
+[; ;MISC.h: 73: void lowercaseChar(unsigned char* Input);
+[; ;MISC.h: 74: void lowercaseString(unsigned char* Input);
+[; ;MISC.h: 75: void delayNOP(unsigned char NOPs);
+[; ;MISC.h: 76: unsigned char Reverse_Byte(unsigned char This);
+[; ;MISC.h: 77: unsigned int Reverse_2Byte(unsigned int This);
+[; ;MISC.h: 78: unsigned long Reverse_4Byte(unsigned long This);
+[; ;MISC.h: 79: unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
+[; ;MISC.h: 80: unsigned char StringAddEqual(unsigned char* Input);
 "50 Button.c
 [v _ReadPushButton `(uc ~T0 @X0 1 ef ]
 "51

@@ -1,8 +1,14 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "37 EEPROM.h
-[s S380 `uc 1 `ul 1 ]
-[n S380 EEdata BlueToothFlag NECcode ]
-"1834 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
+[s S380 `uc 1 `ul 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
+[n S380 EEdata BlueToothFlag SWNECcode RemoteButton1NECaddr RemoteButton1NECcom RemoteButton2NECaddr RemoteButton2NECcom RemoteButton3NECaddr RemoteButton3NECcom RemoteButton4NECaddr RemoteButton4NECcom RemoteButton5NECaddr RemoteButton5NECcom RemoteButton6NECaddr RemoteButton6NECcom RemoteButton7NECaddr RemoteButton7NECcom RemoteButton8NECaddr RemoteButton8NECcom RemoteButton9NECaddr RemoteButton9NECcom RemoteButton10NECaddr RemoteButton10NECcom RemoteButton11NECaddr RemoteButton11NECcom RemoteButton12NECaddr RemoteButton12NECcom RemoteButton13NECaddr RemoteButton13NECcom RemoteButton14NECaddr RemoteButton14NECcom RemoteButton15NECaddr RemoteButton15NECcom RemoteButton16NECaddr RemoteButton16NECcom RemoteButton17NECaddr RemoteButton17NECcom RemoteButton18NECaddr RemoteButton18NECcom RemoteButton19NECaddr RemoteButton19NECcom RemoteButton20NECaddr RemoteButton20NECcom ]
+"1427 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
+[v _LATA `Vuc ~T0 @X0 0 e@3977 ]
+"1559
+[v _LATB `Vuc ~T0 @X0 0 e@3978 ]
+"1691
+[v _LATC `Vuc ~T0 @X0 0 e@3979 ]
+"1834
 [s S109 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S109 . TRISA0 TRISA1 TRISA2 TRISA3 TRISA4 TRISA5 TRISA6 TRISA7 ]
 "1844
@@ -55,9 +61,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _INTCON2bits `VS330 ~T0 @X0 0 e@4081 ]
 "317
 [v _WPUB `Vuc ~T0 @X0 0 e@3964 ]
-"59 MISC.h
+"64 MISC.h
 [v _cleanBuffer `(v ~T0 @X0 0 ef2`*uc`i ]
-"99 UART.h
+"113 UART.h
 [v _ReceivedString `uc ~T0 @X0 -> 0 `x e ]
 "2707 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [s S138 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -133,14 +139,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S334 . . . . . . ]
 "6470
 [v _INTCONbits `VS334 ~T0 @X0 0 e@4082 ]
-"82 EEPROM.h
+"245 EEPROM.h
 [v _SyncEEPROMToGlobal `(v ~T0 @X0 0 ef ]
 "81 ADC.h
 [v _InitADC `(v ~T0 @X0 0 ef ]
-"114 IR.h
+"204 IR.h
 [v _InitIR `(v ~T0 @X0 0 ef ]
-"109 UART.h
+"125 UART.h
 [v _InitUART `(v ~T0 @X0 0 ef1`ul ]
+"128
+[v _UARTstring `(v ~T0 @X0 0 ef1`*uc ]
+"127
+[v _UARTchar `(v ~T0 @X0 0 ef1`uc ]
 "49 Bluetooth.h
 [v _InitBluetooth `(v ~T0 @X0 0 ef ]
 "182 Timer.h
@@ -3836,28 +3846,111 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> -> 1 `i `l `ul
 ]
 [; ;user.h: 58: unsigned long SN = 1;
-[; ;user.h: 272: void InitApp(void);
-[; ;user.h: 273: void Init_System (void);
+[; ;user.h: 286: void InitApp(void);
+[; ;user.h: 287: void Init_System (void);
 [; ;system.h: 55: void ConfigureOscillator(void);
-[; ;UART.h: 99: extern unsigned char ReceivedString[255];
-[; ;UART.h: 100: extern unsigned char ReceivedStringPos;
-[; ;UART.h: 101: extern unsigned char CommandString[255];
-[; ;UART.h: 102: extern unsigned char CommandStringPos;
-[; ;UART.h: 103: extern unsigned char NewReceivedString;
-[; ;UART.h: 108: void Local_CloseUSART(void );
-[; ;UART.h: 109: void InitUART(unsigned long Baud);
-[; ;UART.h: 110: void OpenUSART( unsigned char config, unsigned int spbrg);
-[; ;UART.h: 111: void UARTchar(unsigned char data);
-[; ;UART.h: 112: void UARTstring(unsigned char *data);
-[; ;UART.h: 113: unsigned char ReadUSART(void);
-[; ;UART.h: 114: void UART_send_break(void);
-[; ;UART.h: 115: void UARTstringWAIT(unsigned char *data);
+[; ;UART.h: 113: extern unsigned char ReceivedString[255];
+[; ;UART.h: 114: extern unsigned char ReceivedStringPos;
+[; ;UART.h: 115: extern unsigned char CommandString[255];
+[; ;UART.h: 116: extern unsigned char CommandStringPos;
+[; ;UART.h: 117: extern unsigned char NewReceivedString;
+"118 UART.h
+[v _SYNTAX_ERR `Cuc ~T0 @X0 -> 0 `x e ]
+[i _SYNTAX_ERR
+:U ..
+-> 83 `c
+-> 121 `c
+-> 110 `c
+-> 116 `c
+-> 97 `c
+-> 120 `c
+-> 32 `c
+-> 69 `c
+-> 114 `c
+-> 114 `c
+-> 111 `c
+-> 114 `c
+-> 32 `c
+-> 105 `c
+-> 110 `c
+-> 32 `c
+-> 99 `c
+-> 111 `c
+-> 109 `c
+-> 109 `c
+-> 97 `c
+-> 110 `c
+-> 100 `c
+-> 0 `c
+..
+]
+[; ;UART.h: 118: const unsigned char SYNTAX_ERR[] = "Syntax Error in command";
+"119
+[v _CRLN `Cuc ~T0 @X0 -> 0 `x e ]
+[i _CRLN
+:U ..
+-> 13 `c
+-> 10 `c
+-> 0 `c
+..
+]
+[; ;UART.h: 119: const unsigned char CRLN[] = "\r\n";
+[; ;UART.h: 124: void Local_CloseUSART(void );
+[; ;UART.h: 125: void InitUART(unsigned long Baud);
+[; ;UART.h: 126: void OpenUSART( unsigned char config, unsigned int spbrg);
+[; ;UART.h: 127: void UARTchar(unsigned char data);
+[; ;UART.h: 128: void UARTstring(unsigned char *data);
+[; ;UART.h: 129: unsigned char ReadUSART(void);
+[; ;UART.h: 130: void UART_send_break(void);
+[; ;UART.h: 131: void UARTstringCRLN(unsigned char *data);
+[; ;UART.h: 132: void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
+[; ;UART.h: 133: void EraseScreen(unsigned char characters);
 [; ;EEPROM.h: 37: typedef struct EEdata
 [; ;EEPROM.h: 38: {
 [; ;EEPROM.h: 39: unsigned char BlueToothFlag;
-[; ;EEPROM.h: 40: unsigned long NECcode;
-[; ;EEPROM.h: 41: }GBLdata;
-"47 EEPROM.h
+[; ;EEPROM.h: 40: unsigned long SWNECcode;
+[; ;EEPROM.h: 41: unsigned char RemoteButton1NECaddr;
+[; ;EEPROM.h: 42: unsigned char RemoteButton1NECcom;
+[; ;EEPROM.h: 43: unsigned char RemoteButton2NECaddr;
+[; ;EEPROM.h: 44: unsigned char RemoteButton2NECcom;
+[; ;EEPROM.h: 45: unsigned char RemoteButton3NECaddr;
+[; ;EEPROM.h: 46: unsigned char RemoteButton3NECcom;
+[; ;EEPROM.h: 47: unsigned char RemoteButton4NECaddr;
+[; ;EEPROM.h: 48: unsigned char RemoteButton4NECcom;
+[; ;EEPROM.h: 49: unsigned char RemoteButton5NECaddr;
+[; ;EEPROM.h: 50: unsigned char RemoteButton5NECcom;
+[; ;EEPROM.h: 51: unsigned char RemoteButton6NECaddr;
+[; ;EEPROM.h: 52: unsigned char RemoteButton6NECcom;
+[; ;EEPROM.h: 53: unsigned char RemoteButton7NECaddr;
+[; ;EEPROM.h: 54: unsigned char RemoteButton7NECcom;
+[; ;EEPROM.h: 55: unsigned char RemoteButton8NECaddr;
+[; ;EEPROM.h: 56: unsigned char RemoteButton8NECcom;
+[; ;EEPROM.h: 57: unsigned char RemoteButton9NECaddr;
+[; ;EEPROM.h: 58: unsigned char RemoteButton9NECcom;
+[; ;EEPROM.h: 59: unsigned char RemoteButton10NECaddr;
+[; ;EEPROM.h: 60: unsigned char RemoteButton10NECcom;
+[; ;EEPROM.h: 61: unsigned char RemoteButton11NECaddr;
+[; ;EEPROM.h: 62: unsigned char RemoteButton11NECcom;
+[; ;EEPROM.h: 63: unsigned char RemoteButton12NECaddr;
+[; ;EEPROM.h: 64: unsigned char RemoteButton12NECcom;
+[; ;EEPROM.h: 65: unsigned char RemoteButton13NECaddr;
+[; ;EEPROM.h: 66: unsigned char RemoteButton13NECcom;
+[; ;EEPROM.h: 67: unsigned char RemoteButton14NECaddr;
+[; ;EEPROM.h: 68: unsigned char RemoteButton14NECcom;
+[; ;EEPROM.h: 69: unsigned char RemoteButton15NECaddr;
+[; ;EEPROM.h: 70: unsigned char RemoteButton15NECcom;
+[; ;EEPROM.h: 71: unsigned char RemoteButton16NECaddr;
+[; ;EEPROM.h: 72: unsigned char RemoteButton16NECcom;
+[; ;EEPROM.h: 73: unsigned char RemoteButton17NECaddr;
+[; ;EEPROM.h: 74: unsigned char RemoteButton17NECcom;
+[; ;EEPROM.h: 75: unsigned char RemoteButton18NECaddr;
+[; ;EEPROM.h: 76: unsigned char RemoteButton18NECcom;
+[; ;EEPROM.h: 77: unsigned char RemoteButton19NECaddr;
+[; ;EEPROM.h: 78: unsigned char RemoteButton19NECcom;
+[; ;EEPROM.h: 79: unsigned char RemoteButton20NECaddr;
+[; ;EEPROM.h: 80: unsigned char RemoteButton20NECcom;
+[; ;EEPROM.h: 82: }GBLdata;
+"88 EEPROM.h
 [v _Global `S380 ~T0 @X0 1 e ]
 [i _Global
 :U ..
@@ -3866,28 +3959,39 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ..
 ]
-[; ;EEPROM.h: 47: GBLdata Global =0;
-[; ;EEPROM.h: 70: unsigned int ReadEEPROM_1Byte(unsigned int address);
-[; ;EEPROM.h: 71: void EEPROM_UNLOCK(void);
-[; ;EEPROM.h: 72: void WriteEEPROM_1Byte(unsigned int address, unsigned char data);
-[; ;EEPROM.h: 73: GBLdata GetEEPROM(void);
-[; ;EEPROM.h: 74: unsigned long SetEEPROM(GBLdata Temp,unsigned long burn);
-[; ;EEPROM.h: 75: unsigned long GetMemoryLong(unsigned char AddressFirst);
-[; ;EEPROM.h: 76: unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst);
-[; ;EEPROM.h: 77: unsigned long GetMemoryInt(unsigned char AddressFirst);
-[; ;EEPROM.h: 78: unsigned char SetMemoryInt(unsigned int Data, unsigned char AddressFirst);
-[; ;EEPROM.h: 79: unsigned long GetMemoryChar(unsigned char AddressFirst);
-[; ;EEPROM.h: 80: unsigned char SetMemoryChar(unsigned char Data, unsigned char AddressFirst);
-[; ;EEPROM.h: 81: unsigned char SyncGlobalToEEPROM(void);
-[; ;EEPROM.h: 82: void SyncEEPROMToGlobal(void);
-[; ;MISC.h: 57: void delayUS(long US);
-[; ;MISC.h: 58: unsigned char IsCharacter(unsigned char data);
-[; ;MISC.h: 59: void cleanBuffer(unsigned char* data, int count);
-[; ;MISC.h: 60: void cleanBuffer16bit(unsigned int* data, int count);
-[; ;MISC.h: 61: double Round(double input);
-[; ;MISC.h: 62: void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
-[; ;MISC.h: 63: unsigned char StringMatch(unsigned char* This,const unsigned char* That);
-[; ;MISC.h: 64: unsigned char StringContains(unsigned char* This, const unsigned char* That);
+[; ;EEPROM.h: 88: GBLdata Global =0;
+[; ;EEPROM.h: 233: unsigned int ReadEEPROM_1Byte(unsigned int address);
+[; ;EEPROM.h: 234: void EEPROM_UNLOCK(void);
+[; ;EEPROM.h: 235: void WriteEEPROM_1Byte(unsigned int address, unsigned char data);
+[; ;EEPROM.h: 236: GBLdata GetEEPROM(void);
+[; ;EEPROM.h: 237: unsigned long SetEEPROM(GBLdata Temp,unsigned long burn);
+[; ;EEPROM.h: 238: unsigned long GetMemoryLong(unsigned char AddressFirst);
+[; ;EEPROM.h: 239: unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst);
+[; ;EEPROM.h: 240: unsigned long GetMemoryInt(unsigned char AddressFirst);
+[; ;EEPROM.h: 241: unsigned char SetMemoryInt(unsigned int Data, unsigned char AddressFirst);
+[; ;EEPROM.h: 242: unsigned long GetMemoryChar(unsigned char AddressFirst);
+[; ;EEPROM.h: 243: unsigned char SetMemoryChar(unsigned char Data, unsigned char AddressFirst);
+[; ;EEPROM.h: 244: unsigned char SyncGlobalToEEPROM(void);
+[; ;EEPROM.h: 245: void SyncEEPROMToGlobal(void);
+[; ;MISC.h: 62: void delayUS(long US);
+[; ;MISC.h: 63: unsigned char IsCharacter(unsigned char data);
+[; ;MISC.h: 64: void cleanBuffer(unsigned char* data, int count);
+[; ;MISC.h: 65: void cleanBuffer16bit(unsigned int* data, int count);
+[; ;MISC.h: 66: double Round(double input);
+[; ;MISC.h: 67: void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
+[; ;MISC.h: 68: unsigned char StringMatch(unsigned char* This,const unsigned char* That);
+[; ;MISC.h: 69: unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
+[; ;MISC.h: 70: unsigned char StringContains(unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 71: unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 72: void CalibrateDelay(void);
+[; ;MISC.h: 73: void lowercaseChar(unsigned char* Input);
+[; ;MISC.h: 74: void lowercaseString(unsigned char* Input);
+[; ;MISC.h: 75: void delayNOP(unsigned char NOPs);
+[; ;MISC.h: 76: unsigned char Reverse_Byte(unsigned char This);
+[; ;MISC.h: 77: unsigned int Reverse_2Byte(unsigned int This);
+[; ;MISC.h: 78: unsigned long Reverse_4Byte(unsigned long This);
+[; ;MISC.h: 79: unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
+[; ;MISC.h: 80: unsigned char StringAddEqual(unsigned char* Input);
 [; ;Timer.h: 37: extern unsigned char Timer1_Postscaler;
 [; ;Timer.h: 38: extern unsigned char Timer2_Postscaler;
 [; ;Timer.h: 39: extern unsigned char Timer3_Postscaler;
@@ -3912,15 +4016,32 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Bluetooth.h: 52: unsigned char EnterCommandMode(void);
 [; ;Bluetooth.h: 53: unsigned char BluetoothInitialSetup(void);
 [; ;Bluetooth.h: 54: unsigned char BluetoothConfigured(void);
-[; ;IR.h: 104: extern unsigned char IRpinOLD;
-[; ;IR.h: 105: extern unsigned int IRRawCode[72];
-[; ;IR.h: 106: extern unsigned long IR_NEC;
-[; ;IR.h: 107: extern unsigned char IRrawCodeNum;
-[; ;IR.h: 108: extern unsigned char IR_New_Code;
-[; ;IR.h: 114: void InitIR(void);
-[; ;IR.h: 115: unsigned char ReadIRpin(void);
-[; ;IR.h: 116: unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char Invert);
-[; ;IR.h: 117: void UseIRCode(unsigned char* Code, unsigned long NEC);
+[; ;Bluetooth.h: 55: unsigned char UseBluetooth(void);
+[; ;IR.h: 185: extern unsigned char IRpinOLD;
+[; ;IR.h: 186: extern unsigned int IRRawCode[72];
+[; ;IR.h: 187: extern unsigned long IR_NEC;
+[; ;IR.h: 188: extern unsigned char IRrawCodeNum;
+[; ;IR.h: 189: extern unsigned char IR_New_Code;
+[; ;IR.h: 190: extern unsigned char IRbit;
+[; ;IR.h: 191: extern unsigned char IRrepeatflag;
+[; ;IR.h: 192: extern unsigned char IRsendFlag;
+[; ;IR.h: 193: extern unsigned char IRcodeBit;
+[; ;IR.h: 194: extern unsigned char IRcodePlace;
+[; ;IR.h: 195: extern unsigned long IRsendCode;
+[; ;IR.h: 196: extern unsigned char IRrepeatAmount;
+[; ;IR.h: 197: extern volatile unsigned char IRmod;
+[; ;IR.h: 198: extern volatile unsigned char ReceivingIR;
+[; ;IR.h: 199: extern volatile unsigned char IRbitPosition;
+[; ;IR.h: 204: void InitIR(void);
+[; ;IR.h: 205: unsigned char ReadIRpin(void);
+[; ;IR.h: 206: unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char Invert);
+[; ;IR.h: 207: void UseIRCode(unsigned char* Code, unsigned long NEC);
+[; ;IR.h: 208: unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount);
+[; ;IR.h: 209: void SendNEC_wait(unsigned long code, unsigned char RepeatAmount);
+[; ;IR.h: 210: void CalibrateIR(void);
+[; ;IR.h: 211: unsigned char CheckReceivingIR(void);
+[; ;IR.h: 212: unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
+[; ;IR.h: 213: unsigned long EncodeNEC(unsigned char address, unsigned char command);
 [; ;user.c: 49: extern const unsigned char Version[];
 "60 user.c
 [v _InitApp `(v ~T0 @X0 1 ef ]
@@ -3930,139 +4051,154 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;user.c: 61: {
 [e :U _InitApp ]
 [f ]
-[; ;user.c: 62: TRISAbits.TRISA0 = 1;
+[; ;user.c: 62: LATA = 0;
 "62
-[e = . . _TRISAbits 0 0 -> -> 1 `i `uc ]
-[; ;user.c: 63: TRISAbits.TRISA1 = 1;
+[e = _LATA -> -> 0 `i `uc ]
+[; ;user.c: 63: LATB = 0;
 "63
-[e = . . _TRISAbits 0 1 -> -> 1 `i `uc ]
-[; ;user.c: 64: TRISAbits.TRISA2 = 0;
+[e = _LATB -> -> 0 `i `uc ]
+[; ;user.c: 64: LATC = 0;
 "64
-[e = . . _TRISAbits 0 2 -> -> 0 `i `uc ]
-[; ;user.c: 65: TRISAbits.TRISA3 = 0;
+[e = _LATC -> -> 0 `i `uc ]
+[; ;user.c: 65: TRISAbits.TRISA0 = 1;
 "65
-[e = . . _TRISAbits 0 3 -> -> 0 `i `uc ]
-[; ;user.c: 66: TRISAbits.TRISA4 = 0;
+[e = . . _TRISAbits 0 0 -> -> 1 `i `uc ]
+[; ;user.c: 66: TRISAbits.TRISA1 = 1;
 "66
-[e = . . _TRISAbits 0 4 -> -> 0 `i `uc ]
-[; ;user.c: 67: TRISAbits.TRISA5 = 0;
+[e = . . _TRISAbits 0 1 -> -> 1 `i `uc ]
+[; ;user.c: 67: TRISAbits.TRISA2 = 0;
 "67
-[e = . . _TRISAbits 0 5 -> -> 0 `i `uc ]
-[; ;user.c: 68: TRISCbits.TRISC0 = 1;
+[e = . . _TRISAbits 0 2 -> -> 0 `i `uc ]
+[; ;user.c: 68: TRISAbits.TRISA3 = 0;
 "68
-[e = . . _TRISCbits 0 0 -> -> 1 `i `uc ]
-[; ;user.c: 69: TRISCbits.TRISC1 = 0;
+[e = . . _TRISAbits 0 3 -> -> 0 `i `uc ]
+[; ;user.c: 69: TRISAbits.TRISA4 = 0;
 "69
-[e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
-[; ;user.c: 70: TRISCbits.TRISC2 = 0;
+[e = . . _TRISAbits 0 4 -> -> 0 `i `uc ]
+[; ;user.c: 70: TRISAbits.TRISA5 = 0;
 "70
-[e = . . _TRISCbits 0 2 -> -> 0 `i `uc ]
-[; ;user.c: 71: TRISCbits.TRISC3 = 0;
+[e = . . _TRISAbits 0 5 -> -> 0 `i `uc ]
+[; ;user.c: 71: TRISCbits.TRISC0 = 1;
 "71
-[e = . . _TRISCbits 0 3 -> -> 0 `i `uc ]
-[; ;user.c: 72: TRISCbits.TRISC4 = 0;
+[e = . . _TRISCbits 0 0 -> -> 1 `i `uc ]
+[; ;user.c: 72: TRISCbits.TRISC1 = 0;
 "72
-[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
-[; ;user.c: 73: TRISCbits.TRISC5 = 0;
+[e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
+[; ;user.c: 73: TRISCbits.TRISC2 = 0;
 "73
-[e = . . _TRISCbits 0 5 -> -> 0 `i `uc ]
-[; ;user.c: 74: TRISCbits.TRISC6 = 0;
+[e = . . _TRISCbits 0 2 -> -> 0 `i `uc ]
+[; ;user.c: 74: TRISCbits.TRISC3 = 0;
 "74
-[e = . . _TRISCbits 0 6 -> -> 0 `i `uc ]
-[; ;user.c: 75: TRISCbits.TRISC7 = 1;
+[e = . . _TRISCbits 0 3 -> -> 0 `i `uc ]
+[; ;user.c: 75: TRISCbits.TRISC4 = 0;
 "75
-[e = . . _TRISCbits 0 7 -> -> 1 `i `uc ]
-[; ;user.c: 76: TRISBbits.TRISB0 = 1;
+[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
+[; ;user.c: 76: TRISCbits.TRISC5 = 0;
 "76
-[e = . . _TRISBbits 0 0 -> -> 1 `i `uc ]
-[; ;user.c: 77: TRISBbits.TRISB1 = 1;
+[e = . . _TRISCbits 0 5 -> -> 0 `i `uc ]
+[; ;user.c: 77: TRISCbits.TRISC6 = 0;
 "77
-[e = . . _TRISBbits 0 1 -> -> 1 `i `uc ]
-[; ;user.c: 78: TRISBbits.TRISB2 = 1;
+[e = . . _TRISCbits 0 6 -> -> 0 `i `uc ]
+[; ;user.c: 78: TRISCbits.TRISC7 = 1;
 "78
-[e = . . _TRISBbits 0 2 -> -> 1 `i `uc ]
-[; ;user.c: 79: TRISBbits.TRISB3 = 1;
+[e = . . _TRISCbits 0 7 -> -> 1 `i `uc ]
+[; ;user.c: 79: TRISBbits.TRISB0 = 1;
 "79
-[e = . . _TRISBbits 0 3 -> -> 1 `i `uc ]
-[; ;user.c: 80: TRISBbits.TRISB4 = 1;
+[e = . . _TRISBbits 0 0 -> -> 1 `i `uc ]
+[; ;user.c: 80: TRISBbits.TRISB1 = 1;
 "80
-[e = . . _TRISBbits 0 4 -> -> 1 `i `uc ]
-[; ;user.c: 81: TRISBbits.TRISB5 = 1;
+[e = . . _TRISBbits 0 1 -> -> 1 `i `uc ]
+[; ;user.c: 81: TRISBbits.TRISB2 = 1;
 "81
-[e = . . _TRISBbits 0 5 -> -> 1 `i `uc ]
-[; ;user.c: 84: ANSEL = 0x01;
+[e = . . _TRISBbits 0 2 -> -> 1 `i `uc ]
+[; ;user.c: 82: TRISBbits.TRISB3 = 1;
+"82
+[e = . . _TRISBbits 0 3 -> -> 1 `i `uc ]
+[; ;user.c: 83: TRISBbits.TRISB4 = 1;
+"83
+[e = . . _TRISBbits 0 4 -> -> 1 `i `uc ]
+[; ;user.c: 84: TRISBbits.TRISB5 = 1;
 "84
+[e = . . _TRISBbits 0 5 -> -> 1 `i `uc ]
+[; ;user.c: 87: ANSEL = 0x01;
+"87
 [e = _ANSEL -> -> 1 `i `uc ]
-[; ;user.c: 85: ANSELH = 0x00;
-"85
-[e = _ANSELH -> -> 0 `i `uc ]
-[; ;user.c: 88: INTCON2bits.RBPU = 0;
+[; ;user.c: 88: ANSELH = 0x00;
 "88
-[e = . . _INTCON2bits 2 1 -> -> 0 `i `uc ]
-[; ;user.c: 90: WPUB = 0x0F;
-"90
-[e = _WPUB -> -> 15 `i `uc ]
-[; ;user.c: 91: }
+[e = _ANSELH -> -> 0 `i `uc ]
+[; ;user.c: 91: INTCON2bits.RBPU = 0;
 "91
+[e = . . _INTCON2bits 2 1 -> -> 0 `i `uc ]
+[; ;user.c: 93: WPUB = 0x0F;
+"93
+[e = _WPUB -> -> 15 `i `uc ]
+[; ;user.c: 94: }
+"94
 [e :UE 381 ]
 }
-"98
+"101
 [v _Init_System `(v ~T0 @X0 1 ef ]
-"99
+"102
 {
-[; ;user.c: 98: void Init_System (void)
-[; ;user.c: 99: {
+[; ;user.c: 101: void Init_System (void)
+[; ;user.c: 102: {
 [e :U _Init_System ]
 [f ]
-[; ;user.c: 100: cleanBuffer(&ReceivedString, 255);
-"100
-[e ( _cleanBuffer (2 , &U _ReceivedString -> 255 `i ]
-[; ;user.c: 103: IPR1bits.RCIP = 0;
+[; ;user.c: 103: cleanBuffer(&ReceivedString, 255);
 "103
-[e = . . _IPR1bits 0 5 -> -> 0 `i `uc ]
-[; ;user.c: 104: INTCON2bits.RBIP = 1;
-"104
-[e = . . _INTCON2bits 1 0 -> -> 1 `i `uc ]
-[; ;user.c: 105: INTCON2bits.TMR0IP = 1;
-"105
-[e = . . _INTCON2bits 1 2 -> -> 1 `i `uc ]
-[; ;user.c: 106: IPR1bits.TMR2IP = 1;
+[e ( _cleanBuffer (2 , &U _ReceivedString -> 255 `i ]
+[; ;user.c: 106: IPR1bits.RCIP = 0;
 "106
-[e = . . _IPR1bits 0 1 -> -> 1 `i `uc ]
-[; ;user.c: 107: IPR1bits.TMR1IP = 0;
+[e = . . _IPR1bits 0 5 -> -> 0 `i `uc ]
+[; ;user.c: 107: INTCON2bits.RBIP = 1;
 "107
-[e = . . _IPR1bits 0 0 -> -> 0 `i `uc ]
-[; ;user.c: 108: IPR2bits.TMR3IP = 1;
+[e = . . _INTCON2bits 1 0 -> -> 1 `i `uc ]
+[; ;user.c: 108: INTCON2bits.TMR0IP = 1;
 "108
-[e = . . _IPR2bits 0 1 -> -> 1 `i `uc ]
-[; ;user.c: 111: RCONbits.IPEN = 1;
+[e = . . _INTCON2bits 1 2 -> -> 1 `i `uc ]
+[; ;user.c: 109: IPR1bits.TMR2IP = 1;
+"109
+[e = . . _IPR1bits 0 1 -> -> 1 `i `uc ]
+[; ;user.c: 110: IPR1bits.TMR1IP = 0;
+"110
+[e = . . _IPR1bits 0 0 -> -> 0 `i `uc ]
+[; ;user.c: 111: IPR2bits.TMR3IP = 1;
 "111
+[e = . . _IPR2bits 0 1 -> -> 1 `i `uc ]
+[; ;user.c: 114: RCONbits.IPEN = 1;
+"114
 [e = . . _RCONbits 5 7 -> -> 1 `i `uc ]
-[; ;user.c: 112: INTCONbits.PEIE = 1;
-"112
-[e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
-[; ;user.c: 113: INTCONbits.GIE = 1;
-"113
-[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
-[; ;user.c: 115: SyncEEPROMToGlobal();
+[; ;user.c: 115: INTCONbits.PEIE = 1;
 "115
-[e ( _SyncEEPROMToGlobal ..  ]
-[; ;user.c: 116: InitADC();
+[e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
+[; ;user.c: 116: INTCONbits.GIE = 1;
 "116
-[e ( _InitADC ..  ]
-[; ;user.c: 117: InitIR();
-"117
-[e ( _InitIR ..  ]
-[; ;user.c: 118: InitUART(115200);
+[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
+[; ;user.c: 118: SyncEEPROMToGlobal();
 "118
-[e ( _InitUART (1 -> -> 115200 `l `ul ]
-[; ;user.c: 119: InitBluetooth();
+[e ( _SyncEEPROMToGlobal ..  ]
+[; ;user.c: 119: InitADC();
 "119
-[e ( _InitBluetooth ..  ]
-[; ;user.c: 120: InitTimers();
+[e ( _InitADC ..  ]
+[; ;user.c: 120: InitIR();
 "120
-[e ( _InitTimers ..  ]
-[; ;user.c: 121: }
+[e ( _InitIR ..  ]
+[; ;user.c: 121: InitUART(115200);
 "121
+[e ( _InitUART (1 -> -> 115200 `l `ul ]
+[; ;user.c: 122: UARTstring(CRLN);
+"122
+[e ( _UARTstring (1 -> &U _CRLN `*uc ]
+[; ;user.c: 123: UARTchar('>');
+"123
+[e ( _UARTchar (1 -> -> 62 `ui `uc ]
+[; ;user.c: 124: InitBluetooth();
+"124
+[e ( _InitBluetooth ..  ]
+[; ;user.c: 125: InitTimers();
+"125
+[e ( _InitTimers ..  ]
+[; ;user.c: 126: }
+"126
 [e :UE 382 ]
 }

@@ -4998,7 +4998,7 @@ void ResetTimer1(void)
 
 # 112
 TMR1H = 0;
-TMR1L = 0;
+TMR1L = 2;
 }
 
 # 121
@@ -5030,6 +5030,6 @@ void ResetTimer3(void)
 
 # 162
 TMR3H = 0;
-TMR3L = 0;
+TMR3L = 2;
 }
 

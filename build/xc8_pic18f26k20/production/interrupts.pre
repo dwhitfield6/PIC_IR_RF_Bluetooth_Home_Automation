@@ -4935,7 +4935,7 @@ typedef unsigned char bool;
 # 55 "system.h"
 void ConfigureOscillator(void);
 
-# 57 "MISC.h"
+# 62 "MISC.h"
 void delayUS(long US);
 unsigned char IsCharacter(unsigned char data);
 void cleanBuffer(unsigned char* data, int count);
@@ -4943,7 +4943,18 @@ void cleanBuffer16bit(unsigned int* data, int count);
 double Round(double input);
 void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
 unsigned char StringMatch(unsigned char* This,const unsigned char* That);
+unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
 unsigned char StringContains(unsigned char* This, const unsigned char* That);
+unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
+void CalibrateDelay(void);
+void lowercaseChar(unsigned char* Input);
+void lowercaseString(unsigned char* Input);
+void delayNOP(unsigned char NOPs);
+unsigned char Reverse_Byte(unsigned char This);
+unsigned int Reverse_2Byte(unsigned int This);
+unsigned long Reverse_4Byte(unsigned long This);
+unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
+unsigned char StringAddEqual(unsigned char* Input);
 
 # 50 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
@@ -4951,16 +4962,18 @@ unsigned char ProductName[50] = {"Home Automation"};
 # 58
 unsigned long SN = 1;
 
-# 272
+# 286
 void InitApp(void);
 void Init_System (void);
 
-# 99 "UART.h"
+# 113 "UART.h"
 extern unsigned char ReceivedString[255];
 extern unsigned char ReceivedStringPos;
 extern unsigned char CommandString[255];
 extern unsigned char CommandStringPos;
 extern unsigned char NewReceivedString;
+const unsigned char SYNTAX_ERR[] = "Syntax Error in command";
+const unsigned char CRLN[] = "\r\n";
 
 
 
@@ -4972,20 +4985,40 @@ void UARTchar(unsigned char data);
 void UARTstring(unsigned char *data);
 unsigned char ReadUSART(void);
 void UART_send_break(void);
-void UARTstringWAIT(unsigned char *data);
+void UARTstringCRLN(unsigned char *data);
+void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
+void EraseScreen(unsigned char characters);
 
-# 104 "IR.h"
+# 185 "IR.h"
 extern unsigned char IRpinOLD;
 extern unsigned int IRRawCode[72];
 extern unsigned long IR_NEC;
 extern unsigned char IRrawCodeNum;
 extern unsigned char IR_New_Code;
+extern unsigned char IRbit;
+extern unsigned char IRrepeatflag;
+extern unsigned char IRsendFlag;
+extern unsigned char IRcodeBit;
+extern unsigned char IRcodePlace;
+extern unsigned long IRsendCode;
+extern unsigned char IRrepeatAmount;
+extern volatile unsigned char IRmod;
+extern volatile unsigned char ReceivingIR;
+extern volatile unsigned char IRbitPosition;
 
-# 114
+
+
+
 void InitIR(void);
 unsigned char ReadIRpin(void);
 unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char Invert);
 void UseIRCode(unsigned char* Code, unsigned long NEC);
+unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount);
+void SendNEC_wait(unsigned long code, unsigned char RepeatAmount);
+void CalibrateIR(void);
+unsigned char CheckReceivingIR(void);
+unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
+unsigned long EncodeNEC(unsigned char address, unsigned char command);
 
 # 37 "Timer.h"
 extern unsigned char Timer1_Postscaler;
@@ -5010,21 +5043,61 @@ void ResetBlue(void);
 unsigned char EnterCommandMode(void);
 unsigned char BluetoothInitialSetup(void);
 unsigned char BluetoothConfigured(void);
+unsigned char UseBluetooth(void);
 
-# 52 "RF.h"
-unsigned char ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
+# 62 "RF.h"
+const unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
+const unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
 
-# 92
+
+const unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
+const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
+
+
+const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
+const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
+
+# 86
+const unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
+const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
+const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
+const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
+
+
+const unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
+const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
+const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
+const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
+
+
+const unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
+const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
+const unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
+const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
+const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
+const unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
+const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
+
+# 172
 extern unsigned char RFsendCode[20];
 extern volatile unsigned char RFsendFlag;
 extern unsigned char RFcodePlace;
 extern unsigned char RFcodeBit;
 extern volatile unsigned char Sendcount;
+extern unsigned char RFConfig;
 volatile unsigned char Sent;
+extern volatile unsigned char RF_IR_Postscaler;
+extern unsigned char RF_IR;
 
-# 103
-unsigned char SendRF(unsigned char* Code, unsigned char size, unsigned char RepeatAmount);
-void SendRF_wait(unsigned char* Code, unsigned char size, unsigned char amount);
+# 186
+unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
+void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
+void SendRF_Channel(unsigned char channel);
 unsigned char GetRFstatus(void);
 
 # 57 "interrupts.c"
@@ -5044,22 +5117,28 @@ if(IRpin != IRpinOLD)
 {
 (T0CONbits.TMR0ON = 1);
 (INTCONbits.TMR0IE = 1);
+ReceivingIR = 19;
+IR_New_Code = 0;
 Time0 = TMR0L;
 Time0 += (TMR0H << 8);
 if(IRrawCodeNum < 72)
 {
 if(IRrawCodeNum > 0)
 {
+IRRawCode[IRrawCodeNum - 1] = Time0;
 if((Time0 <= 21000 && Time0 >= 19000) ||
 (Time0 <= 50000 && Time0 >= 45000))
 {
+
+(IOCBbits.IOCB4 = 0);
 INTCONbits.RBIE = 0;
+
+INTCONbits.TMR0IF = 1;
 }
 else
 {
 ResetTimer0();
 }
-IRRawCode[IRrawCodeNum - 1] = Time0;
 }
 else
 {
@@ -5069,6 +5148,7 @@ IRrawCodeNum++;
 }
 else
 {
+(IOCBbits.IOCB4 = 0);
 INTCONbits.RBIE = 0;
 }
 IRpinOLD = IRpin;
@@ -5081,32 +5161,32 @@ __nop();
 
 INTCONbits.RBIF = 0;
 }
-
-if(INTCONbits.TMR0IF)
+else if(INTCONbits.TMR0IF)
 {
 
 (INTCONbits.TMR0IE = 0);
 (T0CONbits.TMR0ON = 0);
 IR_New_Code = IRrawToNEC(&IRRawCode, &IR_NEC, 1);
-if(IR_New_Code)
+if(!IR_New_Code)
 {
-UseIRCode(&IR_New_Code, IR_NEC);
-}
-else
-{
+IRpinOLD = ReadIRpin();
+INTCONbits.RBIF = 0;
+(IOCBbits.IOCB4 = 1);
 INTCONbits.RBIE = 1;
 }
 IRrawCodeNum = 0;
-
+ReceivingIR = 13;
 INTCONbits.TMR0IF = 0;
 }
-if(PIR1bits.TMR2IF)
+else if(PIR1bits.TMR2IF)
 {
 
 
-PIE1bits.TMR2IE = 0;
 Timer2_Postscaler++;
-if(Timer2_Postscaler > 1)
+if(RF_IR == 55)
+{
+
+if(Timer2_Postscaler >= RF_IR_Postscaler)
 {
 Timer2_Postscaler = 0;
 if(RFsendCode[RFcodeBit] != 99)
@@ -5116,6 +5196,9 @@ if(RFsendFlag)
 {
 if(RFsendCode[RFcodeBit] == 0)
 {
+
+if(RFConfig == 1)
+{
 if(RFcodePlace == 1)
 {
 (LATC |= 0x20);
@@ -5146,12 +5229,48 @@ RFcodeBit++;
 else
 {
 
+(T2CONbits.TMR2ON = 0);
+Sent = 1;
+RFsendFlag = 0;
+}
+}
+else if(RFConfig == 2)
+{
+
+if(RFcodePlace == 1)
+{
+(LATC |= 0x20);
+(PR2 = 11);
+RFcodePlace++;
+(TMR2 = 0);
+}
+else if(RFcodePlace == 2)
+{
+(LATC &= ~0x20);
+(PR2 = 29);
 RFcodePlace = 1;
+RFcodeBit++;
+}
+else
+{
+
+(T2CONbits.TMR2ON = 0);
+Sent = 1;
+RFsendFlag = 0;
+}
+}
+else
+{
+
+(T2CONbits.TMR2ON = 0);
+Sent = 1;
 RFsendFlag = 0;
 }
 }
 else if(RFsendCode[RFcodeBit] == 1)
 {
+if(RFConfig == 1)
+{
 if(RFcodePlace == 1)
 {
 (LATC |= 0x20);
@@ -5182,11 +5301,47 @@ RFcodeBit++;
 else
 {
 
+(T2CONbits.TMR2ON = 0);
+Sent = 1;
+RFsendFlag = 0;
+}
+}
+else if(RFConfig == 2)
+{
+
+if(RFcodePlace == 1)
+{
+(LATC |= 0x20);
+(PR2 = 29);
+RFcodePlace++;
+(TMR2 = 0);
+}
+else if(RFcodePlace == 2)
+{
+(LATC &= ~0x20);
+(PR2 = 11);
 RFcodePlace = 1;
+RFcodeBit++;
+}
+else
+{
+
+(T2CONbits.TMR2ON = 0);
+Sent = 1;
 RFsendFlag = 0;
 }
 }
 else
+{
+
+(T2CONbits.TMR2ON = 0);
+Sent = 1;
+RFsendFlag = 0;
+}
+}
+else
+{
+if(RFConfig == 1)
 {
 
 if(RFcodePlace == 1)
@@ -5219,7 +5374,23 @@ RFcodeBit++;
 else
 {
 
-RFcodePlace = 1;
+(T2CONbits.TMR2ON = 0);
+Sent = 1;
+RFsendFlag = 0;
+}
+}
+else if(RFConfig == 2)
+{
+
+(T2CONbits.TMR2ON = 0);
+Sent = 1;
+RFsendFlag = 0;
+}
+else
+{
+
+(T2CONbits.TMR2ON = 0);
+Sent = 1;
 RFsendFlag = 0;
 }
 }
@@ -5230,15 +5401,42 @@ else
 
 if(RFcodePlace == 1)
 {
+if(RFConfig == 1)
+{
 (LATC |= 0x20);
 (PR2 = 8);
-RFcodePlace++;
+}
+else if(RFConfig == 2)
+{
+(LATC &= ~0x20);
+(PR2 = 11);
+}
+else
+{
+
+(T2CONbits.TMR2ON = 0);
+Sent = 1;
+}
 (TMR2 = 0);
+RFcodePlace++;
 }
 else if( RFcodePlace == 2)
 {
+if(RFConfig == 1)
+{
 (LATC &= ~0x20);
-(PR2 = 240);
+(PR2 = 250);
+}
+else if(RFConfig == 2)
+{
+(PR2 = 187);
+}
+else
+{
+
+(T2CONbits.TMR2ON = 0);
+Sent = 1;
+}
 RFcodePlace++;
 Sendcount--;
 if(Sendcount)
@@ -5259,17 +5457,146 @@ Timer3_Postscaler = 0;
 RFsendFlag = 0;
 }
 }
-PIR1bits.TMR2IF = 0;
+}
 if(RFsendFlag)
 {
 
-PIE1bits.TMR2IE = 1;
+(T2CONbits.TMR2ON = 1);
 }
 }
-
-}
-if(PIR2bits.TMR3IF)
+else
 {
+
+if(Timer2_Postscaler >= RF_IR_Postscaler)
+{
+Timer2_Postscaler = 0;
+if(IRcodePlace == 7)
+{
+IRbitPosition = 32;
+(IRmod = 0);
+(LATC &= ~0x08);
+IRcodePlace = 8;
+RF_IR_Postscaler = 4;
+(PR2 = 75);
+}
+else if(IRcodePlace == 8 || IRcodePlace == 10)
+{
+(IRmod = 1);
+RF_IR_Postscaler = 1;
+IRbit = (unsigned char) (IRsendCode & 0x01);
+IRsendCode >>= 1;
+(PR2 = 38);
+IRcodePlace = 9;
+}
+else if(IRcodePlace == 9)
+{
+(IRmod = 0);
+(LATC &= ~0x08);
+RF_IR_Postscaler = 1;
+if(IRbit)
+{
+
+(PR2 = 113);
+}
+else
+{
+
+(PR2 = 38);
+}
+IRbitPosition--;
+if(IRbitPosition == 0)
+{
+IRcodePlace = 11;
+}
+else
+{
+IRcodePlace = 10;
+}
+}
+else if(IRcodePlace == 11)
+{
+(IRmod = 1);
+(PR2 = 38);
+IRcodePlace = 12;
+}
+else if(IRcodePlace == 12)
+{
+(IRmod = 0);
+(LATC &= ~0x08);
+if(!IRrepeatflag)
+{
+
+IRcodePlace = 13;
+(T2CONbits.TMR2ON = 0);
+Sent = 1;
+}
+else
+{
+RF_IR_Postscaler = 11;
+(PR2 = 242);
+IRcodePlace = 14;
+}
+}
+else if(IRcodePlace == 14 || IRcodePlace == 18)
+{
+(IRmod = 1);
+RF_IR_Postscaler = 4;
+(PR2 = 150);
+IRcodePlace = 15;
+}
+else if(IRcodePlace == 15)
+{
+(IRmod = 0);
+(LATC &= ~0x08);
+RF_IR_Postscaler = 1;
+(PR2 = 149);
+IRcodePlace = 16;
+}
+else if(IRcodePlace == 16)
+{
+(IRmod = 1);
+RF_IR_Postscaler = 1;
+(PR2 = 38);
+IRcodePlace = 17;
+}
+else if(IRcodePlace == 17)
+{
+(IRmod = 0);
+(LATC &= ~0x08);
+RF_IR_Postscaler = 26;
+(PR2 = 246);
+IRrepeatAmount--;
+if(IRrepeatAmount)
+{
+IRcodePlace = 18;
+}
+else
+{
+IRcodePlace = 13;
+}
+}
+else if(IRcodePlace == 13)
+{
+
+(T2CONbits.TMR2ON = 0);
+Sent = 1;
+}
+else
+{
+
+(IRmod = 0);
+(LATC &= ~0x08);
+IRcodePlace = 0;
+(T2CONbits.TMR2ON = 0);
+Sent = 1;
+}
+}
+}
+PIR1bits.TMR2IF = 0;
+}
+else if(PIR2bits.TMR3IF)
+{
+(T3CONbits.TMR3ON = 0);
 if(Timer3_Postscaler < 6)
 {
 ResetTimer3();
@@ -5279,22 +5606,28 @@ Timer3_Postscaler++;
 else
 {
 
-# 316
+# 570
 Sent = 1;
 }
+PIR2bits.TMR3IF = 0;
+}
+else
+{
+
+__nop();
 }
 
 INTCONbits.GIE = 1;
 }
 
-# 327
+# 587
 void low_priority interrupt low_isr(void)
 
-# 335
+# 595
 {
 char data = 0;
 
-INTCONbits.GIE = 0;
+INTCONbits.PEIE = 0;
 
 if(PIR1bits.RCIF)
 {
@@ -5311,20 +5644,42 @@ CommandStringPos++;
 }
 else
 {
-if(IsCharacter(data))
-{
 if(data != '\r' && data != '\n')
 {
-if(ReceivedStringPos < 255 && NewReceivedString == 0)
+if((data == 127 || data == 8) && (ReceivedStringPos > 0))
 {
+
+EraseScreen(ReceivedStringPos + 1);
+ReceivedStringPos--;
+ReceivedString[ReceivedStringPos] = '\0';
+UARTchar('>');
+UARTstring(ReceivedString);
+}
+else if(ReceivedStringPos < 255)
+{
+if(NewReceivedString == 0)
+{
+if(IsCharacter(data))
+{
+UARTchar(data);
 ReceivedString[ReceivedStringPos] = data;
 ReceivedStringPos++;
 }
 }
+}
+else
+{
+cleanBuffer(&ReceivedString,255);
+ReceivedStringPos = 0;
+UARTstring(CRLN);
+UARTstringCRLN("Buffer Overflow");
+
+}
+}
 else if(ReceivedStringPos > 0)
 {
+UARTstring(CRLN);
 NewReceivedString = 1;
-}
 }
 }
 PIR1bits.RCIF = 0;
@@ -5340,8 +5695,12 @@ if(Timer1_Postscaler == 3)
 }
 PIR1bits.TMR1IF = 0;
 }
+else
+{
 
-INTCONbits.GIE = 1;
+__nop();
+}
+INTCONbits.PEIE = 1;
 
 }
 

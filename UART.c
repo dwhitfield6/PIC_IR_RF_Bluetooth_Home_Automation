@@ -184,12 +184,11 @@ void OpenUSART( unsigned char config, unsigned int spbrg)
 /******************************************************************************/
 void UARTchar(unsigned char data)
 {
-    if(data == 0)
+    if(data != 0)
     {
-        NOP();
+        TXREG = data;      // Write the data byte to the USART
+        while(!TXSTAbits.TRMT); //Wait for previous character to be output
     }
-    TXREG = data;      // Write the data byte to the USART
-    while(!TXSTAbits.TRMT); //Wait for previous character to be output
 }
 
 /******************************************************************************/
@@ -241,18 +240,67 @@ void UART_send_break(void)
 }
 
 /******************************************************************************/
-/* UARTstringWAIT
+/* UARTstringCRLN
  *
- * The function sends a group of characters over the UART. There is a wait of
- *   the character_spacing value between character sends.
+ * The function sends a group of characters over the UART. There is a carriage
+ *  retun and line feed after the string.
 /******************************************************************************/
-void UARTstringWAIT(unsigned char *data)
+void UARTstringCRLN(unsigned char *data)
 {
     while(*data != 0)
     {
         UARTchar(*data); // Transmit a byte
         *data++;
-    } 
+    }
+    UARTstring("\r\n");
+}
+/******************************************************************************/
+/* UARTcommandMenu
+ *
+ * The function sends the Command string followed by a bunch of dashes followed
+ *  by the description string used for the command menu.
+/******************************************************************************/
+void UARTcommandMenu(unsigned char *Command, unsigned char *Desc)
+{
+    unsigned char place = 0;
+    unsigned char i;
+
+    while((*Command != 0) && (place < MaxCommandLen))
+    {
+        UARTchar(*Command); // Transmit a byte
+        *Command++;
+        place++;
+    }
+    for(i =0; i < ((MaxCommandLen - place) + 1); i++)
+    {
+        UARTchar('-');
+    }
+    place = 0;
+    while((*Desc != 0) && (place < MaxDescLen))
+    {
+        UARTchar(*Desc); // Transmit a byte
+        *Desc++;
+        place++;
+    }
+    UARTstring("\r\n");
+}
+/******************************************************************************/
+/* EraseScreen
+ *
+ * The function does a carriage return and rints all spaces (blank character)
+ *  then does anoth carriage return. This is used to clear the screen on a
+ *  terminal software.
+/******************************************************************************/
+void EraseScreen(unsigned char characters)
+{
+    unsigned char i;
+    
+    UARTchar('\r');
+    for (i = 0; i < characters; i++)
+    {
+        UARTchar(' ');
+    }
+    UARTchar('\r');
 }
 /*-----------------------------------------------------------------------------/
  End of File

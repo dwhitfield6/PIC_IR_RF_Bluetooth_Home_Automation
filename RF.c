@@ -44,6 +44,14 @@ unsigned char RFcodePlace = 0;
 unsigned char RFcodeBit = 0;
 volatile unsigned char Sendcount =0;
 volatile unsigned char Sent = 1;
+unsigned char RFConfig = 0;
+volatile unsigned char RF_IR_Postscaler = 2;
+unsigned char Conf2_ChannelB_Status = OFF;
+unsigned char Conf2_ChannelD_Status = OFF;
+unsigned char Conf2_ChannelH_1_Status = OFF;
+unsigned char Conf2_ChannelH_2_Status = OFF;
+unsigned char Conf2_ChannelH_3_Status = OFF;
+unsigned char RF_IR = RF;
 
 /******************************************************************************/
 /* Functions
@@ -55,12 +63,31 @@ volatile unsigned char Sent = 1;
  *
  * The function sends the RF channel code.
 /******************************************************************************/
-unsigned char SendRF(unsigned char* Code, unsigned char size, unsigned char RepeatAmount)
+unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount)
 {
     unsigned char i;
     if(Sent == YES)
     {
         /* Previous send finished */
+        RF_IR = RF;
+        if(Config < 0 || Config > NumRfConfigs)
+        {
+            return FAIL;
+        }
+        RFConfig = Config;
+        if(Config == 1)
+        {
+            RF_IR_Postscaler = 2;
+        }
+        else if(Config == 2)
+        {
+            RF_IR_Postscaler = 4;
+        }
+        else
+        {
+            return FAIL;
+        }
+
         Sent = NO;
         Sendcount = RepeatAmount;
         RFsendFlag = 1;
@@ -79,7 +106,14 @@ unsigned char SendRF(unsigned char* Code, unsigned char size, unsigned char Repe
         RFsendCode[i] = EndofRFcode;
 
         ResetTimer2();
-        SetTimer2(Sync);
+        if(Config == 1)
+        {
+            SetTimer2(Conf1_Sync);
+        }
+        else
+        {
+            SetTimer2(Conf2_Sync);
+        }
         Timer2ON();
         return PASS;        
     }
@@ -106,14 +140,117 @@ unsigned char GetRFstatus(void)
  * Sends the code and waits here until finished. Send the 'amount' of repeats
  *  passed in as amount.
 /******************************************************************************/
-void SendRF_wait(unsigned char* Code, unsigned char size, unsigned char amount)
+void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount)
 {
-    INTCONbits.RBIE = FALSE;
-    while(SendRF(Code, size, amount) == SENDING);
-    INTCONbits.RBIF = FALSE;
-    INTCONbits.RBIE = TRUE;
-}
+    IRreceiverIntOff();
+    INTCONbits.RBIE = OFF;
+    INTCONbits.PEIE = OFF;
 
+    SendRF(Code, Config, size, amount);
+    while(!Sent);
+    INTCONbits.PEIE = ON;
+    IRpinOLD = ReadIRpin();
+    INTCONbits.RBIF = FALSE;
+    IRreceiverIntOn();
+    INTCONbits.RBIE = ON;
+}
+/******************************************************************************/
+/* SendRF_Channel
+ *
+ * Sends the code associated with the RF channel.
+/******************************************************************************/
+void SendRF_Channel(unsigned char channel)
+{
+    switch (channel)
+    {
+        case 0:
+            // Configuration 1 channel D
+            SendRF_wait(Conf1_ChannelD,1,12,8);
+            break;
+        case 1:
+            // Configuration 1 channel E
+            SendRF_wait(Conf1_ChannelE,1,12,8);
+            break;
+        case 2:
+            // Configuration 1 channel F
+            SendRF_wait(Conf1_ChannelF,1,12,8);
+            break;
+        case 3:
+            // Configuration 2 channel B
+            if(Conf2_ChannelB_Status)
+            {
+                SendRF_wait(Conf2_ChannelB_OFF,2,16,8);
+                Conf2_ChannelB_Status = OFF;
+            }
+            else
+            {
+                SendRF_wait(Conf2_ChannelB_ON,2,16,8);
+                Conf2_ChannelB_Status = ON;
+            }
+            break;
+        case 4:
+            // Configuration 2 channel D
+            if(Conf2_ChannelD_Status)
+            {
+                SendRF_wait(Conf2_ChannelD_OFF,2,16,8);
+                Conf2_ChannelD_Status = OFF;
+            }
+            else
+            {
+                SendRF_wait(Conf2_ChannelD_ON,2,16,8);
+                Conf2_ChannelD_Status = ON;
+            }
+            break;
+        case 5:
+            // Configuration 2 channel H device 1
+            if(Conf2_ChannelH_1_Status)
+            {
+                SendRF_wait(Conf2_ChannelH_1_ON,2,16,8);
+                Conf2_ChannelH_1_Status = OFF;
+            }
+            else
+            {
+                SendRF_wait(Conf2_ChannelH_1_OFF,2,16,8);
+                Conf2_ChannelH_1_Status = ON;
+            }
+            break;
+        case 6:
+            // Configuration 2 channel H device 2
+            if(Conf2_ChannelH_2_Status)
+            {
+                SendRF_wait(Conf2_ChannelH_2_ON,2,16,8);
+                Conf2_ChannelH_2_Status = OFF;
+            }
+            else
+            {
+                SendRF_wait(Conf2_ChannelH_2_OFF,2,16,8);
+                Conf2_ChannelH_2_Status = ON;
+            }
+            break;
+        case 7:
+            // Configuration 2 channel H device 3
+            if(Conf2_ChannelH_3_Status)
+            {
+                SendRF_wait(Conf2_ChannelH_3_ON,2,16,8);
+                Conf2_ChannelH_3_Status = OFF;
+            }
+            else
+            {
+                SendRF_wait(Conf2_ChannelH_3_OFF,2,16,8);
+                Conf2_ChannelH_3_Status = ON;
+            }
+            break;
+        case 8:            
+        case 9:
+        case 10:
+        case 11:
+        case 12:
+        case 13:
+        case 14:
+        default:
+            break;
+    }
+}
 /*-----------------------------------------------------------------------------/
  End of File
 /-----------------------------------------------------------------------------*/

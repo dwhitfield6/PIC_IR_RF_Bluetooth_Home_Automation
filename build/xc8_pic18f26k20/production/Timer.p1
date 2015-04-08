@@ -3885,9 +3885,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Timer.c: 112: TMR1H = 0;
 "112
 [e = _TMR1H -> -> 0 `i `uc ]
-[; ;Timer.c: 113: TMR1L = 0;
+[; ;Timer.c: 113: TMR1L = 2;
 "113
-[e = _TMR1L -> -> 0 `i `uc ]
+[e = _TMR1L -> -> 2 `i `uc ]
 [; ;Timer.c: 114: }
 "114
 [e :UE 383 ]
@@ -3963,9 +3963,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Timer.c: 162: TMR3H = 0;
 "162
 [e = _TMR3H -> -> 0 `i `uc ]
-[; ;Timer.c: 163: TMR3L = 0;
+[; ;Timer.c: 163: TMR3L = 2;
 "163
-[e = _TMR3L -> -> 0 `i `uc ]
+[e = _TMR3L -> -> 2 `i `uc ]
 [; ;Timer.c: 164: }
 "164
 [e :UE 387 ]

@@ -4935,7 +4935,7 @@ typedef unsigned char bool;
 # 55 "system.h"
 void ConfigureOscillator(void);
 
-# 57 "MISC.h"
+# 62 "MISC.h"
 void delayUS(long US);
 unsigned char IsCharacter(unsigned char data);
 void cleanBuffer(unsigned char* data, int count);
@@ -4943,7 +4943,18 @@ void cleanBuffer16bit(unsigned int* data, int count);
 double Round(double input);
 void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
 unsigned char StringMatch(unsigned char* This,const unsigned char* That);
+unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
 unsigned char StringContains(unsigned char* This, const unsigned char* That);
+unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
+void CalibrateDelay(void);
+void lowercaseChar(unsigned char* Input);
+void lowercaseString(unsigned char* Input);
+void delayNOP(unsigned char NOPs);
+unsigned char Reverse_Byte(unsigned char This);
+unsigned int Reverse_2Byte(unsigned int This);
+unsigned long Reverse_4Byte(unsigned long This);
+unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
+unsigned char StringAddEqual(unsigned char* Input);
 
 # 50 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
@@ -4951,7 +4962,7 @@ unsigned char ProductName[50] = {"Home Automation"};
 # 58
 unsigned long SN = 1;
 
-# 272
+# 286
 void InitApp(void);
 void Init_System (void);
 
@@ -4959,17 +4970,47 @@ void Init_System (void);
 void delayUS(long US)
 {
 long i;
-unsigned char j;
-for(i=0;i<US;i+=5)
-{
-for(j=0;j<64;j++)
+for(i=0; i<US; i += 2)
 {
 __nop();
 }
 }
+
+# 63
+void delayNOP(unsigned char NOPs)
+{
+unsigned char i;
+for(i=0; i<NOPs; i++)
+{
+__nop();
+}
 }
 
-# 69
+# 79
+void CalibrateDelay(void)
+{
+INTCONbits.PEIE = 0;
+INTCONbits.GIE = 0;
+while (1)
+{
+(LATC |= 0x08);
+delayUS(5000);
+(LATC &= ~0x08);
+delayUS(5000);
+}
+}
+
+# 97
+unsigned char IsLetter(unsigned char data)
+{
+if(data >= 65 && data <= 90)
+{
+return 1;
+}
+return 0;
+}
+
+# 111
 unsigned char IsCharacter(unsigned char data)
 {
 if(data >= 32 && data <= 126)
@@ -4979,7 +5020,7 @@ return 1;
 return 0;
 }
 
-# 83
+# 125
 void cleanBuffer(unsigned char* data, int count)
 {
 unsigned char i=0;
@@ -4989,7 +5030,7 @@ data[i]= 0;
 }
 }
 
-# 97
+# 139
 void cleanBuffer16bit(unsigned int* data, int count)
 {
 unsigned char i=0;
@@ -4999,7 +5040,7 @@ data[i]= 0;
 }
 }
 
-# 111
+# 153
 double Round(double input)
 {
 long temp = (long)(input + 0.5);
@@ -5007,7 +5048,7 @@ long temp = (long)(input + 0.5);
 return temp;
 }
 
-# 123
+# 165
 void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift)
 {
 unsigned char i=0;
@@ -5026,7 +5067,7 @@ count--;
 }
 }
 
-# 146
+# 188
 unsigned char StringMatch(unsigned char* This,const unsigned char* That)
 {
 while(*This != 0)
@@ -5048,15 +5089,47 @@ return 0;
 }
 }
 
-# 173
-unsigned char StringContains(unsigned char* This, const unsigned char* That)
+# 215
+unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That)
 {
+unsigned char tempThis,
+tempThat;
+
 while(*This != 0)
 {
-while(*This == *That)
+tempThis = *This;
+tempThat = *That;
+lowercaseChar(&tempThis);
+lowercaseChar(&tempThat);
+
+if((tempThis != tempThat) || (tempThat == 0))
 {
-That++;
+return 0;
+}
 This++;
+That++;
+}
+if(*That == 0)
+{
+return 1;
+}
+else
+{
+return 0;
+}
+}
+
+# 250
+unsigned char StringContains(unsigned char* This, const unsigned char* That)
+{
+unsigned char begin = 0;
+
+while(*This != 0)
+{
+if(*This == *That)
+{
+begin = 1;
+That++;
 if(*That == 0)
 {
 return 1;
@@ -5066,8 +5139,318 @@ if(*This == 0)
 return 0;
 }
 }
+else
+{
+if(begin == 1)
+{
+return 0;
+}
+}
 This++;
 }
 return 0;
+}
+
+# 287
+unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That)
+{
+unsigned char tempThis,
+tempThat;
+unsigned char begin = 0;
+
+while(*This != 0)
+{
+tempThis = *This;
+tempThat = *That;
+lowercaseChar(&tempThis);
+lowercaseChar(&tempThat);
+
+if(tempThis == tempThat)
+{
+begin = 1;
+That++;
+if(*That == 0)
+{
+return 1;
+}
+if(*This == 0)
+{
+return 0;
+}
+}
+else
+{
+if(begin == 1)
+{
+return 0;
+}
+}
+This++;
+}
+return 0;
+}
+
+# 330
+void lowercaseString(unsigned char* Input)
+{
+while((*Input != 0))
+{
+if((*Input >= 65) && (*Input <= 90 ))
+{
+*Input += 32;
+}
+Input++;
+}
+}
+
+# 347
+void lowercaseChar(unsigned char* Input)
+{
+if((*Input >= 65) && (*Input <= 90 ))
+{
+*Input += 32;
+}
+}
+
+# 360
+unsigned char Reverse_Byte(unsigned char This)
+{
+unsigned char temp=0;
+
+temp += (This & 0x01) << 7;
+temp += (This & 0x02) << 5;
+temp += (This & 0x04) << 3;
+temp += (This & 0x08) << 1;
+temp += (This & 0x10) >> 1;
+temp += (This & 0x20) >> 3;
+temp += (This & 0x40) >> 5;
+temp += (This & 0x80) >> 7;
+
+return temp;
+}
+
+# 381
+unsigned int Reverse_2Byte(unsigned int This)
+{
+unsigned int temp=0;
+
+temp += (This & 0x0001) << 15;
+temp += (This & 0x0002) << 13;
+temp += (This & 0x0004) << 11;
+temp += (This & 0x0008) << 9;
+temp += (This & 0x0010) << 7;
+temp += (This & 0x0020) << 5;
+temp += (This & 0x0040) << 3;
+temp += (This & 0x0080) << 1;
+temp += (This & 0x0100) >> 1;
+temp += (This & 0x0200) >> 3;
+temp += (This & 0x0400) >> 5;
+temp += (This & 0x0800) >> 7;
+temp += (This & 0x1000) >> 9;
+temp += (This & 0x2000) >> 11;
+temp += (This & 0x4000) >> 13;
+temp += (This & 0x8000) >> 15;
+
+return temp;
+}
+
+# 410
+unsigned long Reverse_4Byte(unsigned long This)
+{
+unsigned long temp=0;
+
+temp += (This & 0x00000001) << 31;
+temp += (This & 0x00000002) << 29;
+temp += (This & 0x00000004) << 27;
+temp += (This & 0x00000008) << 25;
+temp += (This & 0x00000010) << 23;
+temp += (This & 0x00000020) << 21;
+temp += (This & 0x00000040) << 19;
+temp += (This & 0x00000080) << 17;
+temp += (This & 0x00000100) << 15;
+temp += (This & 0x00000200) << 13;
+temp += (This & 0x00000400) << 11;
+temp += (This & 0x00000800) << 9;
+temp += (This & 0x00001000) << 7;
+temp += (This & 0x00002000) << 5;
+temp += (This & 0x00004000) << 3;
+temp += (This & 0x00008000) << 1;
+temp += (This & 0x00010000) >> 1;
+temp += (This & 0x00020000) >> 3;
+temp += (This & 0x00040000) >> 5;
+temp += (This & 0x00080000) >> 7;
+temp += (This & 0x00100000) >> 9;
+temp += (This & 0x00200000) >> 11;
+temp += (This & 0x00400000) >> 13;
+temp += (This & 0x00800000) >> 15;
+temp += (This & 0x01000000) >> 17;
+temp += (This & 0x02000000) >> 19;
+temp += (This & 0x04000000) >> 21;
+temp += (This & 0x08000000) >> 23;
+temp += (This & 0x10000000) >> 25;
+temp += (This & 0x20000000) >> 27;
+temp += (This & 0x40000000) >> 29;
+temp += (This & 0x80000000) >> 31;
+
+return temp;
+}
+
+# 455
+unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result)
+{
+unsigned char i =0;
+long temp =0;
+unsigned char negative =0;
+unsigned char tempCommaNumber = 1;
+unsigned char count =0;
+unsigned char Hex = 0;
+unsigned char tempThis;
+
+while(*This != 0)
+{
+if(*This == '0')
+{
+count++;
+This++;
+if(*This == 'x' || *This == 'X')
+{
+Hex = 1;
+}
+}
+count++;
+This++;
+}
+This-=count;
+
+SCAN:while(*This != '=' && *This != ',' && *This != 0)
+{
+
+This++;
+}
+if(*This == 0)
+{
+return 1;
+}
+else if(*This != '=' || *This != ',')
+{
+if(tempCommaNumber < CommaNumber)
+{
+tempCommaNumber++;
+This++;
+goto SCAN;
+}
+}
+if(*This == 0)
+{
+return 1;
+}
+This++;
+if(*This == ' ')
+{
+This++;
+
+}
+else if (*This == '=')
+{
+return 2;
+}
+else if(*This == '-')
+{
+negative = 1;
+This++;
+
+}
+else if(*This == 0)
+{
+return 3;
+}
+if(!Hex)
+{
+while(*This >=48 && *This <= 57)
+{
+temp = temp * 10;
+temp += *This - 48;
+i++;
+if(i>32)
+{
+return 4;
+}
+This++;
+}
+}
+else
+{
+negative = 0;
+while(*This != 'x' && *This != 'X')
+{
+This++;
+}
+This++;
+while((*This >=48 && *This <= 57) || (*This >=65 && *This <= 70) || (*This >= 97 && *This <= 102))
+{
+temp <<= 4;
+tempThis = *This;
+if(IsLetter(tempThis))
+{
+lowercaseChar(&tempThis);
+temp += (tempThis - 87);
+}
+else
+{
+temp += (*This - 48);
+}
+i++;
+if(i>32)
+{
+return 4;
+}
+This++;
+}
+}
+if(negative)
+{
+temp = (temp * -1);
+}
+*result = temp;
+return 0;
+}
+
+# 579
+unsigned char StringAddEqual(unsigned char* Input)
+{
+unsigned char i =0;
+unsigned char j =0;
+unsigned char firstnumber = 200;
+unsigned char temp[100];
+cleanBuffer(temp,100);
+while(Input[i] != 0)
+{
+if((Input[i] >= 48) && (Input[i] <= 57) || (Input[i] == '-'))
+{
+firstnumber = i;
+break;
+}
+i++;
+}
+if(firstnumber > 99)
+{
+
+return 0;
+}
+for(j=0;j<firstnumber;j++)
+{
+temp[j] = Input[j];
+}
+temp[firstnumber] = '=';
+for(j = (firstnumber);j<99;j++)
+{
+temp[j+1] = Input[j];
+if(Input[j] ==0)
+{
+break;
+}
+}
+BufferCopy(temp,Input,100, 0);
+return 1;
 }
 

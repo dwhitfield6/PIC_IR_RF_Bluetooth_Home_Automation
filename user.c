@@ -59,6 +59,9 @@ extern const unsigned char Version[];
 /******************************************************************************/
 void InitApp(void)
 {
+    LATA = 0;
+    LATB = 0;
+    LATC = 0;
     InputVoltageTris        = INPUT;
     BLUE_ConnectedTris      = INPUT;
     BLUE_ResetTris          = OUTPUT;
@@ -116,6 +119,8 @@ void Init_System (void)
     InitADC();
     InitIR();
     InitUART(BAUD);
+    UARTstring(CRLN);
+    UARTchar('>');
     InitBluetooth();
     InitTimers();
 }

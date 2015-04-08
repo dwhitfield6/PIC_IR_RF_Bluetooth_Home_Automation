@@ -40,16 +40,21 @@
  *   from guess and check.
 /******************************************************************************/
 
-#define delayConst 5
-//inverse relationship
+#define delayConst 2
 
 /******************************************************************************/
 /* Defines                                                                    */
 /******************************************************************************/
 
 #define SYS_FREQ_US 64
-#define Even 2
-#define Odd 3
+#define Even        2
+#define Odd         3
+#define NOCOMMA     1
+#define DOUBLECOMMA 2
+#define NOVALUE     3
+#define TOOBIG      4
+#define NoError     0
+
 
 /******************************************************************************/
 /* Function prototypes                                                        */
@@ -61,6 +66,17 @@ void cleanBuffer16bit(unsigned int* data, int count);
 double Round(double input);
 void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
 unsigned char StringMatch(unsigned char* This,const unsigned char* That);
+unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
 unsigned char StringContains(unsigned char* This, const unsigned char* That);
+unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
+void CalibrateDelay(void);
+void lowercaseChar(unsigned char* Input);
+void lowercaseString(unsigned char* Input);
+void delayNOP(unsigned char NOPs);
+unsigned char Reverse_Byte(unsigned char This);
+unsigned int Reverse_2Byte(unsigned int This);
+unsigned long Reverse_4Byte(unsigned long This);
+unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
+unsigned char StringAddEqual(unsigned char* Input);
 
 #endif	/* MISC_H */

@@ -52,6 +52,18 @@ unsigned int IRRawCode[IR_SIZE];
 unsigned long IR_NEC;
 unsigned char IRrawCodeNum = 0;
 unsigned char IR_New_Code  = 0;
+unsigned char IRsendFlag = 0;
+unsigned char IRcodeBit = 0;
+unsigned char IRcodePlace = 1;
+unsigned long IRsendCode = 0;
+unsigned char IRbit = 0;
+unsigned char IRrepeatflag = FALSE;
+unsigned char IRrepeatAmount = 0;
+volatile unsigned char IRmod = FALSE;
+volatile unsigned char ReceivingIR = Finished;
+volatile unsigned char IRbitPosition = 32;
+unsigned char IRaddress = 0;
+unsigned char IRcommand = 0;
 
 /******************************************************************************/
 /* Functions                                                                  */
@@ -65,7 +77,7 @@ unsigned char IR_New_Code  = 0;
 void InitIR(void)
 {
     /* Turn on interrupt on pin RB4 */
-    IOCBbits.IOCB4 = ON;
+    IRreceiverIntOn();
     /* Initialize compare value of IR pin */
     IRpinOLD = ReadIRpin();
     /* Timer 0 is used for IR timing */
@@ -263,15 +275,15 @@ unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char In
 /******************************************************************************/
 void UseIRCode(unsigned char* Code, unsigned long NEC)
 {
-    unsigned char i = 0;
+    unsigned char   i;
 
     if(*Code == 2)
     {
         /* Repeat character */
-        if(NEC == Global.NECcode)
+        if(NEC == Global.SWNECcode)
         {
-            SendRF_wait(ChannelF,12,8);
             RedLEDON();
+            SendRF_Channel(ReadCodeButtons());
             GreenLEDON();
             LEDTimerON();
         }
@@ -281,16 +293,16 @@ void UseIRCode(unsigned char* Code, unsigned long NEC)
         /* New Code */
         if(ReadPushButton())
         {
-            Global.NECcode = NEC;
+            Global.SWNECcode = NEC;
             if(SyncGlobalToEEPROM())
             {
                 /* Successful EEPROM burn */
                 for(i =0;i<10;i++)
                 {
                    GreenLEDON();
-                   delayUS(10000);
+                   delayUS(50000);
                    GreenLEDOFF();
-                   delayUS(10000);
+                   delayUS(50000);
                 }
             }
             else
@@ -299,18 +311,20 @@ void UseIRCode(unsigned char* Code, unsigned long NEC)
                 for(i =0;i<10;i++)
                 {
                    RedLEDON();
-                   delayUS(10000);
+                   delayUS(50000);
                    RedLEDOFF();
-                   delayUS(10000);
+                   delayUS(50000);
                 }
             }
+            DecodeNEC(NEC, &IRaddress, &IRcommand);
         }
         else
         {
-            if(NEC == Global.NECcode)
+            if(NEC == Global.SWNECcode)
             {
-                SendRF_wait(ChannelF,12,8);
                 GreenLEDON();
+                SendRF_Channel(ReadCodeButtons());
+                DecodeNEC(NEC, &IRaddress, &IRcommand);
                 LEDTimerON();
             }
             else
@@ -320,9 +334,232 @@ void UseIRCode(unsigned char* Code, unsigned long NEC)
             }
         }
     }
-
     *Code = 0;
+    IRpinOLD = ReadIRpin();
+    INTCONbits.RBIF = FALSE;
+    IRreceiverIntOn();
     INTCONbits.RBIE = TRUE;
+}
+/******************************************************************************/
+/* SendNEC_bytes
+ *
+ * The function sends the following NEC code to the IR LED (unmodulated).
+/******************************************************************************/
+unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount)
+{
+     /* the Protocol is as follows
+     *
+     * 1. A 9ms leading pulse burst (16 times the pulse burst length used for
+     *   a logical data bit)
+     *
+     * 2. A 4.5ms space
+     *
+     * 3. The 8-bit address for the receiving device
+     *
+     * 4. The 8-bit logical inverse of the address
+     *
+     * 5. The 8-bit command
+     *
+     * 6. The 8-bit logical inverse of the command
+     *
+     * 7. A final 562.5µs pulse burst to signify the end of message transmission.
+     *
+     * 8. A 40 mS pause signifies the end of entire transmission
+     *
+     * 9. A 9ms leading pulse burst
+     *
+     * 10. A 2.25ms space
+     *
+     * 11.A 562.5µs pulse burst to mark the end of the space
+     *  (and hence end of the transmitted repeat code).
+     */
+
+    if(Sent == YES)
+    {
+        /* Previous send finished */
+        if(!code)
+        {
+            return FAIL;
+        }
+        RF_IR = IR;
+        Sent = NO;
+        IRsendFlag = 1;
+        IRcodeBit = 0;
+        IRcodePlace = Start1;
+        IRsendCode = Reverse_4Byte(code);
+        if(RepeatAmount)
+        {
+            IRrepeatflag = TRUE;
+        }
+        IRrepeatAmount = RepeatAmount;
+        ResetTimer2();
+        SetTimer2(StartbitHIGHnominal);
+        RF_IR_Postscaler = 4;
+        IRLEDmodON();
+        Timer2ON();
+        return PASS;
+    }
+    return SENDING;
+}
+
+/******************************************************************************/
+/* SendRF_wait
+ *
+ * Sends the code and waits here until finished. Send the 'amount' of repeats
+ *  passed in as amount. The modulation is done here without interrupts.
+/******************************************************************************/
+void SendNEC_wait(unsigned long code, unsigned char RepeatAmount)
+{
+    unsigned char toggle = 0;
+    while(CheckReceivingIR()); // Wait for IR to get received.
+
+    IRreceiverIntOff();
+    INTCONbits.RBIE = OFF;
+    INTCONbits.PEIE = OFF;
+
+    SendNEC_bytes(code, RepeatAmount);
+    while(!Sent)
+    {
+        if(IRmod)
+        {
+            /* This needs to oscilate at 38kHz */            
+            if(toggle < IRmodCalOn)
+            {
+                IRLEDon();
+            }
+            else if(toggle < IRmodCalOff)
+            {
+                IRLEDoff();
+            }
+            else
+            {
+                toggle = 0;
+            }
+            toggle++;
+        }
+        else
+        {
+            IRLEDoff();
+            toggle = 0;
+        }
+    }
+    
+    if(IRbitPosition)
+    {
+        /* this is means that the ir code did not completely send */
+        NOP();
+    }
+
+    INTCONbits.PEIE = ON;
+    delayUS(8000);
+    IRpinOLD = ReadIRpin();
+    INTCONbits.RBIF = FALSE;
+    IRreceiverIntOn();
+    INTCONbits.RBIE = ON;
+}
+
+/******************************************************************************/
+/* CalibrateIR
+ *
+ * This function is used to calibrate the IR sending. This function does not
+ *  return.
+/******************************************************************************/
+void CalibrateIR(void)
+{
+    unsigned char toggle = 0;
+    INTCONbits.GIE  = OFF;
+    INTCONbits.RBIE = OFF;
+    IRreceiverIntOff();
+    INTCONbits.PEIE = OFF;
+
+    while(1)
+    {
+            /* This needs to oscilate at 38kHz */
+            if(toggle < IRmodCalOn)
+            {
+                IRLEDon();
+            }
+            else if(toggle < IRmodCalOff)
+            {
+                IRLEDoff();
+            }
+            else
+            {
+                toggle = 0;
+            }
+            toggle++;
+    }
+}
+
+/******************************************************************************/
+/* CheckReceivingIR
+ *
+ * This function return true if we are in the process of receiving an IR code.
+ *  Otherwise it returns false.
+/******************************************************************************/
+unsigned char CheckReceivingIR(void)
+{
+    if(ReceivingIR == Finished)
+    {
+        return FALSE;
+    }
+    return TRUE;
+}
+
+/******************************************************************************/
+/* EncodeNEC
+ *
+ * This function takes in a command and address and makes the NEC code.
+/******************************************************************************/
+unsigned long EncodeNEC(unsigned char address, unsigned char command)
+{
+    unsigned long   temp1,
+                    temp2,
+                    temp3,
+                    temp4;
+
+    /*
+     * The encoding scheme is as follows:
+     * the address and command are both least significant bit first
+     * and are both 1 byte.
+     * |Address|inverted address|command|inverted command|
+     */
+    temp1 = (unsigned long) Reverse_Byte(address);
+    temp2 = (unsigned long) Reverse_Byte(~address);
+    temp3 = (unsigned long) Reverse_Byte(command);
+    temp4 = (unsigned long) Reverse_Byte(~command);
+
+    return ((temp1 << 24) + (temp2 << 16) + (temp3 << 8) + temp4);
+}
+
+/******************************************************************************/
+/* DecodeNEC
+ *
+ * This function takes in the NEC code and calculates the address adn command.
+/******************************************************************************/
+unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command)
+{
+    unsigned char   temp1,
+                    temp2,
+                    temp3;
+
+    temp1 = ~Reverse_Byte((unsigned char) (Nec & 0x00FF));
+    temp2 = Reverse_Byte((unsigned char) ((Nec & 0xFF00)>> 8));
+    if(temp1 != temp2)
+    {
+        /* the logic inverse version doe not match */
+        return FAIL;
+    }
+    temp1 = ~Reverse_Byte((unsigned char) ((Nec & 0x00FF0000) >> 16));
+    temp3 = Reverse_Byte((unsigned char) ((Nec & 0xFF000000) >> 24));
+    if(temp1 != temp3)
+    {
+        /* the logic inverse version doe not match */
+        return FAIL;
+    }
+    *command = temp2;
+    *address = temp3;
+    return PASS;
 }
 /*-----------------------------------------------------------------------------/
  End of File

@@ -35,6 +35,20 @@
 #include "user.h"          /* User funct/params, such as InitApp */
 
 /******************************************************************************/
+/* MaxCommandLen
+ *
+ * This is the Maximum commmand length.
+/******************************************************************************/
+#define MaxCommandLen   30
+
+/******************************************************************************/
+/* MaxDescLen
+ *
+ * This is the Maximum commmand description length.
+/******************************************************************************/
+#define MaxDescLen   50
+
+/******************************************************************************/
 /* Uart character and word spacing
  *
  * This parameter modifies the amount of time waited between characters and
@@ -101,6 +115,8 @@ extern unsigned char ReceivedStringPos;
 extern unsigned char CommandString[RXCommandsize];
 extern unsigned char CommandStringPos;
 extern unsigned char NewReceivedString;
+const unsigned char SYNTAX_ERR[] = "Syntax Error in command";
+const unsigned char CRLN[] = "\r\n";
 
 /******************************************************************************/
 /* Function prototypes                                                        */
@@ -112,6 +128,8 @@ void UARTchar(unsigned char data);
 void UARTstring(unsigned char *data);
 unsigned char ReadUSART(void);
 void UART_send_break(void);
-void UARTstringWAIT(unsigned char *data);
+void UARTstringCRLN(unsigned char *data);
+void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
+void EraseScreen(unsigned char characters);
 
 #endif	/* UART_H */

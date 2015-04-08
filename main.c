@@ -34,13 +34,14 @@
 #include <stdint.h>        /* For uint8_t definition */
 #include <stdbool.h>       /* For true/false definition */
 
-#include "system.h"        /* System funct/params, like osc/peripheral config */
-#include "user.h"          /* User funct/params, such as InitApp */
+#include "system.h"
+#include "user.h"
 #include "MISC.h"
 #include "UART.h"
 #include "FLASH.h"
 #include "ADC.h"
 #include "IR.h"
+#include "Bluetooth.h"
 
 /******************************************************************************/
 /* Version number                                                             */
@@ -49,7 +50,7 @@
 const unsigned char Version[] = {"1.0_DW0a"};
 
 /******************************************************************************/
-/* Defines                                           */
+/* Defines                                                                    */
 /******************************************************************************/
 
 /******************************************************************************/
@@ -74,10 +75,10 @@ void main(void)
     {
        RedLEDON();
        GreenLEDOFF();
-       delayUS(10000);
+       delayUS(50000);
        RedLEDOFF();
        GreenLEDON();
-       delayUS(10000);
+       delayUS(50000);
     }
     GreenLEDOFF();
 
@@ -96,6 +97,15 @@ void main(void)
         if(IR_New_Code)
         {
             UseIRCode(&IR_New_Code, IR_NEC);
+        }
+        if(NewReceivedString)
+        {
+            UseBluetooth();
+            cleanBuffer(ReceivedString, ReceivedStringPos);
+            ReceivedStringPos = 0;
+            UARTstring(CRLN);
+            UARTchar('>');
+            NewReceivedString = FALSE;
         }
     }
 }

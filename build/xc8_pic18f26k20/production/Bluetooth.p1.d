@@ -6,4 +6,6 @@ Bluetooth.h  \
 MISC.h  \
 EEPROM.h  \
 user.h  \
-system.h 
+IR.h  \
+system.h  \
+RF.h 

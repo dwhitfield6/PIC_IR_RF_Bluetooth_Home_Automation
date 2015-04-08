@@ -4840,7 +4840,7 @@ extern __nonreentrant void _delaywdt(unsigned long);
 extern __nonreentrant void _delay3(unsigned char);
 
 
-# 37 "configuration_bits.c"
+# 33 "configuration_bits.c"
 #pragma config FOSC = HSPLL
 #pragma config FCMEN = OFF
 #pragma config IESO = OFF
@@ -4848,7 +4848,7 @@ extern __nonreentrant void _delay3(unsigned char);
 
 #pragma config PWRT = OFF
 #pragma config BOREN = SBORDIS
-#pragma config BORV = 18
+#pragma config BORV = 27
 
 
 #pragma config WDTEN = OFF
@@ -4856,7 +4856,7 @@ extern __nonreentrant void _delay3(unsigned char);
 
 
 #pragma config CCP2MX = PORTC
-#pragma config PBADEN = ON
+#pragma config PBADEN = OFF
 #pragma config LPT1OSC = OFF
 #pragma config HFOFST = ON
 #pragma config MCLRE = ON

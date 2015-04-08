@@ -5001,22 +5001,40 @@ unsigned char ProductName[50] = {"Home Automation"};
 # 58
 unsigned long SN = 1;
 
-# 272
+# 286
 void InitApp(void);
 void Init_System (void);
 
-# 104 "IR.h"
+# 185 "IR.h"
 extern unsigned char IRpinOLD;
 extern unsigned int IRRawCode[72];
 extern unsigned long IR_NEC;
 extern unsigned char IRrawCodeNum;
 extern unsigned char IR_New_Code;
+extern unsigned char IRbit;
+extern unsigned char IRrepeatflag;
+extern unsigned char IRsendFlag;
+extern unsigned char IRcodeBit;
+extern unsigned char IRcodePlace;
+extern unsigned long IRsendCode;
+extern unsigned char IRrepeatAmount;
+extern volatile unsigned char IRmod;
+extern volatile unsigned char ReceivingIR;
+extern volatile unsigned char IRbitPosition;
 
-# 114
+
+
+
 void InitIR(void);
 unsigned char ReadIRpin(void);
 unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char Invert);
 void UseIRCode(unsigned char* Code, unsigned long NEC);
+unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount);
+void SendNEC_wait(unsigned long code, unsigned char RepeatAmount);
+void CalibrateIR(void);
+unsigned char CheckReceivingIR(void);
+unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
+unsigned long EncodeNEC(unsigned char address, unsigned char command);
 
 # 37 "Timer.h"
 extern unsigned char Timer1_Postscaler;
@@ -5037,7 +5055,7 @@ void InitTimers(void);
 # 55 "system.h"
 void ConfigureOscillator(void);
 
-# 57 "MISC.h"
+# 62 "MISC.h"
 void delayUS(long US);
 unsigned char IsCharacter(unsigned char data);
 void cleanBuffer(unsigned char* data, int count);
@@ -5045,14 +5063,27 @@ void cleanBuffer16bit(unsigned int* data, int count);
 double Round(double input);
 void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
 unsigned char StringMatch(unsigned char* This,const unsigned char* That);
+unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
 unsigned char StringContains(unsigned char* This, const unsigned char* That);
+unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
+void CalibrateDelay(void);
+void lowercaseChar(unsigned char* Input);
+void lowercaseString(unsigned char* Input);
+void delayNOP(unsigned char NOPs);
+unsigned char Reverse_Byte(unsigned char This);
+unsigned int Reverse_2Byte(unsigned int This);
+unsigned long Reverse_4Byte(unsigned long This);
+unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
+unsigned char StringAddEqual(unsigned char* Input);
 
-# 99 "UART.h"
+# 113 "UART.h"
 extern unsigned char ReceivedString[255];
 extern unsigned char ReceivedStringPos;
 extern unsigned char CommandString[255];
 extern unsigned char CommandStringPos;
 extern unsigned char NewReceivedString;
+const unsigned char SYNTAX_ERR[] = "Syntax Error in command";
+const unsigned char CRLN[] = "\r\n";
 
 
 
@@ -5064,7 +5095,9 @@ void UARTchar(unsigned char data);
 void UARTstring(unsigned char *data);
 unsigned char ReadUSART(void);
 void UART_send_break(void);
-void UARTstringWAIT(unsigned char *data);
+void UARTstringCRLN(unsigned char *data);
+void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
+void EraseScreen(unsigned char characters);
 
 # 35 "Button.h"
 unsigned char ReadPushButton(void);
@@ -5074,13 +5107,54 @@ unsigned char ReadCodeButtons(void);
 typedef struct EEdata
 {
 unsigned char BlueToothFlag;
-unsigned long NECcode;
+unsigned long SWNECcode;
+unsigned char RemoteButton1NECaddr;
+unsigned char RemoteButton1NECcom;
+unsigned char RemoteButton2NECaddr;
+unsigned char RemoteButton2NECcom;
+unsigned char RemoteButton3NECaddr;
+unsigned char RemoteButton3NECcom;
+unsigned char RemoteButton4NECaddr;
+unsigned char RemoteButton4NECcom;
+unsigned char RemoteButton5NECaddr;
+unsigned char RemoteButton5NECcom;
+unsigned char RemoteButton6NECaddr;
+unsigned char RemoteButton6NECcom;
+unsigned char RemoteButton7NECaddr;
+unsigned char RemoteButton7NECcom;
+unsigned char RemoteButton8NECaddr;
+unsigned char RemoteButton8NECcom;
+unsigned char RemoteButton9NECaddr;
+unsigned char RemoteButton9NECcom;
+unsigned char RemoteButton10NECaddr;
+unsigned char RemoteButton10NECcom;
+unsigned char RemoteButton11NECaddr;
+unsigned char RemoteButton11NECcom;
+unsigned char RemoteButton12NECaddr;
+unsigned char RemoteButton12NECcom;
+unsigned char RemoteButton13NECaddr;
+unsigned char RemoteButton13NECcom;
+unsigned char RemoteButton14NECaddr;
+unsigned char RemoteButton14NECcom;
+unsigned char RemoteButton15NECaddr;
+unsigned char RemoteButton15NECcom;
+unsigned char RemoteButton16NECaddr;
+unsigned char RemoteButton16NECcom;
+unsigned char RemoteButton17NECaddr;
+unsigned char RemoteButton17NECcom;
+unsigned char RemoteButton18NECaddr;
+unsigned char RemoteButton18NECcom;
+unsigned char RemoteButton19NECaddr;
+unsigned char RemoteButton19NECcom;
+unsigned char RemoteButton20NECaddr;
+unsigned char RemoteButton20NECcom;
+
 }GBLdata;
 
-# 47
+# 88
 GBLdata Global =0;
 
-# 70
+# 233
 unsigned int ReadEEPROM_1Byte(unsigned int address);
 void EEPROM_UNLOCK(void);
 void WriteEEPROM_1Byte(unsigned int address, unsigned char data);
@@ -5095,20 +5169,59 @@ unsigned char SetMemoryChar(unsigned char Data, unsigned char AddressFirst);
 unsigned char SyncGlobalToEEPROM(void);
 void SyncEEPROMToGlobal(void);
 
-# 52 "RF.h"
-unsigned char ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
+# 62 "RF.h"
+const unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
+const unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
 
-# 92
+
+const unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
+const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
+
+
+const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
+const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
+
+# 86
+const unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
+const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
+const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
+const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
+
+
+const unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
+const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
+const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
+const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
+
+
+const unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
+const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
+const unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
+const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
+const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
+const unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
+const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
+
+# 172
 extern unsigned char RFsendCode[20];
 extern volatile unsigned char RFsendFlag;
 extern unsigned char RFcodePlace;
 extern unsigned char RFcodeBit;
 extern volatile unsigned char Sendcount;
+extern unsigned char RFConfig;
 volatile unsigned char Sent;
+extern volatile unsigned char RF_IR_Postscaler;
+extern unsigned char RF_IR;
 
-# 103
-unsigned char SendRF(unsigned char* Code, unsigned char size, unsigned char RepeatAmount);
-void SendRF_wait(unsigned char* Code, unsigned char size, unsigned char amount);
+# 186
+unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
+void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
+void SendRF_Channel(unsigned char channel);
 unsigned char GetRFstatus(void);
 
 # 50 "IR.c"
@@ -5117,12 +5230,24 @@ unsigned int IRRawCode[72];
 unsigned long IR_NEC;
 unsigned char IRrawCodeNum = 0;
 unsigned char IR_New_Code = 0;
+unsigned char IRsendFlag = 0;
+unsigned char IRcodeBit = 0;
+unsigned char IRcodePlace = 1;
+unsigned long IRsendCode = 0;
+unsigned char IRbit = 0;
+unsigned char IRrepeatflag = 0;
+unsigned char IRrepeatAmount = 0;
+volatile unsigned char IRmod = 0;
+volatile unsigned char ReceivingIR = 13;
+volatile unsigned char IRbitPosition = 32;
+unsigned char IRaddress = 0;
+unsigned char IRcommand = 0;
 
-# 65
+# 77
 void InitIR(void)
 {
 
-IOCBbits.IOCB4 = 1;
+(IOCBbits.IOCB4 = 1);
 
 IRpinOLD = ReadIRpin();
 
@@ -5130,19 +5255,18 @@ InitTimer0();
 
 cleanBuffer16bit(IRRawCode, 72);
 IR_NEC = 0;
+(T0CONbits.TMR0ON = 0);
 
 ResetTimer0();
 
 (INTCONbits.TMR0IE = 0);
 INTCONbits.TMR0IF = 0;
 
-(T0CONbits.TMR0ON = 1);
-
 INTCONbits.RBIF = 0;
 INTCONbits.RBIE = 1;
 }
 
-# 93
+# 104
 unsigned char ReadIRpin(void)
 {
 
@@ -5156,11 +5280,11 @@ return 0;
 }
 }
 
-# 111
+# 122
 unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char Invert)
 {
 
-# 139
+# 150
 unsigned char i;
 unsigned char first =0;
 unsigned char StartBit=72;
@@ -5254,7 +5378,7 @@ return 0;
 else if(Raw[StartBit] == 0 && first == 1)
 {
 
-# 235
+# 246
 *NEC = NECtemp;
 return 1;
 }
@@ -5279,17 +5403,18 @@ StartBit++;
 return 0;
 }
 
-# 265
+# 276
 void UseIRCode(unsigned char* Code, unsigned long NEC)
 {
-unsigned char i = 0;
+unsigned char i;
 
 if(*Code == 2)
 {
 
-if(NEC == Global.NECcode)
+if(NEC == Global.SWNECcode)
 {
 (LATC |= 0x02);
+SendRF_Channel(ReadCodeButtons());
 (LATC |= 0x04);
 LEDTimerON();
 }
@@ -5299,16 +5424,16 @@ else
 
 if(ReadPushButton())
 {
-Global.NECcode = NEC;
+Global.SWNECcode = NEC;
 if(SyncGlobalToEEPROM())
 {
 
 for(i =0;i<10;i++)
 {
 (LATC |= 0x04);
-delayUS(10000);
+delayUS(50000);
 (LATC &= ~0x04);
-delayUS(10000);
+delayUS(50000);
 }
 }
 else
@@ -5317,18 +5442,20 @@ else
 for(i =0;i<10;i++)
 {
 (LATC |= 0x02);
-delayUS(10000);
+delayUS(50000);
 (LATC &= ~0x02);
-delayUS(10000);
+delayUS(50000);
 }
 }
+DecodeNEC(NEC, &IRaddress, &IRcommand);
 }
 else
 {
-if(NEC == Global.NECcode)
+if(NEC == Global.SWNECcode)
 {
-SendRF_wait(ChannelF,12,8);
 (LATC |= 0x04);
+SendRF_Channel(ReadCodeButtons());
+DecodeNEC(NEC, &IRaddress, &IRcommand);
 LEDTimerON();
 }
 else
@@ -5338,8 +5465,175 @@ LEDTimerON();
 }
 }
 }
-
 *Code = 0;
+IRpinOLD = ReadIRpin();
+INTCONbits.RBIF = 0;
+(IOCBbits.IOCB4 = 1);
 INTCONbits.RBIE = 1;
+}
+
+# 348
+unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount)
+{
+
+# 377
+if(Sent == 1)
+{
+
+if(!code)
+{
+return 0;
+}
+RF_IR = 66;
+Sent = 0;
+IRsendFlag = 1;
+IRcodeBit = 0;
+IRcodePlace = 7;
+IRsendCode = Reverse_4Byte(code);
+if(RepeatAmount)
+{
+IRrepeatflag = 1;
+}
+IRrepeatAmount = RepeatAmount;
+(TMR2 = 0);
+(PR2 = 4500);
+RF_IR_Postscaler = 4;
+(IRmod = 1);
+(T2CONbits.TMR2ON = 1);
+return 1;
+}
+return 2;
+}
+
+# 411
+void SendNEC_wait(unsigned long code, unsigned char RepeatAmount)
+{
+unsigned char toggle = 0;
+while(CheckReceivingIR());
+
+(IOCBbits.IOCB4 = 0);
+INTCONbits.RBIE = 0;
+INTCONbits.PEIE = 0;
+
+SendNEC_bytes(code, RepeatAmount);
+while(!Sent)
+{
+if(IRmod)
+{
+
+if(toggle < 9)
+{
+(LATC |= 0x08);
+}
+else if(toggle < 17)
+{
+(LATC &= ~0x08);
+}
+else
+{
+toggle = 0;
+}
+toggle++;
+}
+else
+{
+(LATC &= ~0x08);
+toggle = 0;
+}
+}
+
+if(IRbitPosition)
+{
+
+__nop();
+}
+
+INTCONbits.PEIE = 1;
+delayUS(8000);
+IRpinOLD = ReadIRpin();
+INTCONbits.RBIF = 0;
+(IOCBbits.IOCB4 = 1);
+INTCONbits.RBIE = 1;
+}
+
+# 467
+void CalibrateIR(void)
+{
+unsigned char toggle = 0;
+INTCONbits.GIE = 0;
+INTCONbits.RBIE = 0;
+(IOCBbits.IOCB4 = 0);
+INTCONbits.PEIE = 0;
+
+while(1)
+{
+
+if(toggle < 9)
+{
+(LATC |= 0x08);
+}
+else if(toggle < 17)
+{
+(LATC &= ~0x08);
+}
+else
+{
+toggle = 0;
+}
+toggle++;
+}
+}
+
+# 500
+unsigned char CheckReceivingIR(void)
+{
+if(ReceivingIR == 13)
+{
+return 0;
+}
+return 1;
+}
+
+# 514
+unsigned long EncodeNEC(unsigned char address, unsigned char command)
+{
+unsigned long temp1,
+temp2,
+temp3,
+temp4;
+
+# 527
+temp1 = (unsigned long) Reverse_Byte(address);
+temp2 = (unsigned long) Reverse_Byte(~address);
+temp3 = (unsigned long) Reverse_Byte(command);
+temp4 = (unsigned long) Reverse_Byte(~command);
+
+return ((temp1 << 24) + (temp2 << 16) + (temp3 << 8) + temp4);
+}
+
+# 540
+unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command)
+{
+unsigned char temp1,
+temp2,
+temp3;
+
+temp1 = ~Reverse_Byte((unsigned char) (Nec & 0x00FF));
+temp2 = Reverse_Byte((unsigned char) ((Nec & 0xFF00)>> 8));
+if(temp1 != temp2)
+{
+
+return 0;
+}
+temp1 = ~Reverse_Byte((unsigned char) ((Nec & 0x00FF0000) >> 16));
+temp3 = Reverse_Byte((unsigned char) ((Nec & 0xFF000000) >> 24));
+if(temp1 != temp3)
+{
+
+return 0;
+}
+*command = temp2;
+*address = temp3;
+return 1;
 }
 

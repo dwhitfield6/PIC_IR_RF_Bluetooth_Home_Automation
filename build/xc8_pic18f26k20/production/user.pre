@@ -5001,19 +5001,21 @@ unsigned char ProductName[50] = {"Home Automation"};
 # 58
 unsigned long SN = 1;
 
-# 272
+# 286
 void InitApp(void);
 void Init_System (void);
 
 # 55 "system.h"
 void ConfigureOscillator(void);
 
-# 99 "UART.h"
+# 113 "UART.h"
 extern unsigned char ReceivedString[255];
 extern unsigned char ReceivedStringPos;
 extern unsigned char CommandString[255];
 extern unsigned char CommandStringPos;
 extern unsigned char NewReceivedString;
+const unsigned char SYNTAX_ERR[] = "Syntax Error in command";
+const unsigned char CRLN[] = "\r\n";
 
 
 
@@ -5025,19 +5027,62 @@ void UARTchar(unsigned char data);
 void UARTstring(unsigned char *data);
 unsigned char ReadUSART(void);
 void UART_send_break(void);
-void UARTstringWAIT(unsigned char *data);
+void UARTstringCRLN(unsigned char *data);
+void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
+void EraseScreen(unsigned char characters);
 
 # 37 "EEPROM.h"
 typedef struct EEdata
 {
 unsigned char BlueToothFlag;
-unsigned long NECcode;
+unsigned long SWNECcode;
+unsigned char RemoteButton1NECaddr;
+unsigned char RemoteButton1NECcom;
+unsigned char RemoteButton2NECaddr;
+unsigned char RemoteButton2NECcom;
+unsigned char RemoteButton3NECaddr;
+unsigned char RemoteButton3NECcom;
+unsigned char RemoteButton4NECaddr;
+unsigned char RemoteButton4NECcom;
+unsigned char RemoteButton5NECaddr;
+unsigned char RemoteButton5NECcom;
+unsigned char RemoteButton6NECaddr;
+unsigned char RemoteButton6NECcom;
+unsigned char RemoteButton7NECaddr;
+unsigned char RemoteButton7NECcom;
+unsigned char RemoteButton8NECaddr;
+unsigned char RemoteButton8NECcom;
+unsigned char RemoteButton9NECaddr;
+unsigned char RemoteButton9NECcom;
+unsigned char RemoteButton10NECaddr;
+unsigned char RemoteButton10NECcom;
+unsigned char RemoteButton11NECaddr;
+unsigned char RemoteButton11NECcom;
+unsigned char RemoteButton12NECaddr;
+unsigned char RemoteButton12NECcom;
+unsigned char RemoteButton13NECaddr;
+unsigned char RemoteButton13NECcom;
+unsigned char RemoteButton14NECaddr;
+unsigned char RemoteButton14NECcom;
+unsigned char RemoteButton15NECaddr;
+unsigned char RemoteButton15NECcom;
+unsigned char RemoteButton16NECaddr;
+unsigned char RemoteButton16NECcom;
+unsigned char RemoteButton17NECaddr;
+unsigned char RemoteButton17NECcom;
+unsigned char RemoteButton18NECaddr;
+unsigned char RemoteButton18NECcom;
+unsigned char RemoteButton19NECaddr;
+unsigned char RemoteButton19NECcom;
+unsigned char RemoteButton20NECaddr;
+unsigned char RemoteButton20NECcom;
+
 }GBLdata;
 
-# 47
+# 88
 GBLdata Global =0;
 
-# 70
+# 233
 unsigned int ReadEEPROM_1Byte(unsigned int address);
 void EEPROM_UNLOCK(void);
 void WriteEEPROM_1Byte(unsigned int address, unsigned char data);
@@ -5052,7 +5097,7 @@ unsigned char SetMemoryChar(unsigned char Data, unsigned char AddressFirst);
 unsigned char SyncGlobalToEEPROM(void);
 void SyncEEPROMToGlobal(void);
 
-# 57 "MISC.h"
+# 62 "MISC.h"
 void delayUS(long US);
 unsigned char IsCharacter(unsigned char data);
 void cleanBuffer(unsigned char* data, int count);
@@ -5060,7 +5105,18 @@ void cleanBuffer16bit(unsigned int* data, int count);
 double Round(double input);
 void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
 unsigned char StringMatch(unsigned char* This,const unsigned char* That);
+unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
 unsigned char StringContains(unsigned char* This, const unsigned char* That);
+unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
+void CalibrateDelay(void);
+void lowercaseChar(unsigned char* Input);
+void lowercaseString(unsigned char* Input);
+void delayNOP(unsigned char NOPs);
+unsigned char Reverse_Byte(unsigned char This);
+unsigned int Reverse_2Byte(unsigned int This);
+unsigned long Reverse_4Byte(unsigned long This);
+unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
+unsigned char StringAddEqual(unsigned char* Input);
 
 # 37 "Timer.h"
 extern unsigned char Timer1_Postscaler;
@@ -5093,19 +5149,38 @@ void ResetBlue(void);
 unsigned char EnterCommandMode(void);
 unsigned char BluetoothInitialSetup(void);
 unsigned char BluetoothConfigured(void);
+unsigned char UseBluetooth(void);
 
-# 104 "IR.h"
+# 185 "IR.h"
 extern unsigned char IRpinOLD;
 extern unsigned int IRRawCode[72];
 extern unsigned long IR_NEC;
 extern unsigned char IRrawCodeNum;
 extern unsigned char IR_New_Code;
+extern unsigned char IRbit;
+extern unsigned char IRrepeatflag;
+extern unsigned char IRsendFlag;
+extern unsigned char IRcodeBit;
+extern unsigned char IRcodePlace;
+extern unsigned long IRsendCode;
+extern unsigned char IRrepeatAmount;
+extern volatile unsigned char IRmod;
+extern volatile unsigned char ReceivingIR;
+extern volatile unsigned char IRbitPosition;
 
-# 114
+
+
+
 void InitIR(void);
 unsigned char ReadIRpin(void);
 unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char Invert);
 void UseIRCode(unsigned char* Code, unsigned long NEC);
+unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount);
+void SendNEC_wait(unsigned long code, unsigned char RepeatAmount);
+void CalibrateIR(void);
+unsigned char CheckReceivingIR(void);
+unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
+unsigned long EncodeNEC(unsigned char address, unsigned char command);
 
 # 49 "user.c"
 extern const unsigned char Version[];
@@ -5113,6 +5188,9 @@ extern const unsigned char Version[];
 # 60
 void InitApp(void)
 {
+LATA = 0;
+LATB = 0;
+LATC = 0;
 TRISAbits.TRISA0 = 1;
 TRISAbits.TRISA1 = 1;
 TRISAbits.TRISA2 = 0;
@@ -5144,7 +5222,7 @@ INTCON2bits.RBPU = 0;
 WPUB = 0x0F;
 }
 
-# 98
+# 101
 void Init_System (void)
 {
 cleanBuffer(&ReceivedString, 255);
@@ -5166,6 +5244,8 @@ SyncEEPROMToGlobal();
 InitADC();
 InitIR();
 InitUART(115200);
+UARTstring(CRLN);
+UARTchar('>');
 InitBluetooth();
 InitTimers();
 }

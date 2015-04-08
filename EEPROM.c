@@ -119,7 +119,7 @@ GBLdata GetEEPROM(void)
 {
     GBLdata Temp;
     Temp.BlueToothFlag = GetMemoryChar(EE_BlueToothFlag);
-    Temp.NECcode = GetMemoryLong(EE_NECcodeBYTE1);
+    Temp.SWNECcode = GetMemoryLong(EE_NECcodeBYTE1);
     return Temp;
 }
 
@@ -141,7 +141,7 @@ unsigned long SetEEPROM(GBLdata Temp,unsigned long burn)
     }
     if(burn & 0x00000002)
     {
-        if(!SetMemoryLong(Temp.NECcode,EE_NECcodeBYTE1))
+        if(!SetMemoryLong(Temp.SWNECcode,EE_NECcodeBYTE1))
         {
             /* Failed to burn NECcode */
             fail += 0x00000002;
@@ -175,8 +175,50 @@ void SyncEEPROMToGlobal(void)
 
     Temp = GetEEPROM();
 
-    Global.BlueToothFlag    = Temp.BlueToothFlag;
-    Global.NECcode          = Temp.NECcode;
+    Global.BlueToothFlag            = Temp.BlueToothFlag;
+    Global.SWNECcode                = Temp.SWNECcode;
+    Global.RemoteButton1NECaddr     = Temp.RemoteButton1NECaddr;
+    Global.RemoteButton1NECcom      = Temp.RemoteButton1NECcom;
+    Global.RemoteButton2NECaddr     = Temp.RemoteButton2NECaddr;
+    Global.RemoteButton2NECcom      = Temp.RemoteButton2NECcom;
+    Global.RemoteButton3NECaddr     = Temp.RemoteButton3NECaddr;
+    Global.RemoteButton3NECcom      = Temp.RemoteButton3NECcom;
+    Global.RemoteButton4NECaddr     = Temp.RemoteButton4NECaddr;
+    Global.RemoteButton4NECcom      = Temp.RemoteButton4NECcom;
+    Global.RemoteButton5NECaddr     = Temp.RemoteButton5NECaddr;
+    Global.RemoteButton5NECcom      = Temp.RemoteButton5NECcom;
+    Global.RemoteButton6NECaddr     = Temp.RemoteButton6NECaddr;
+    Global.RemoteButton6NECcom      = Temp.RemoteButton6NECcom;
+    Global.RemoteButton7NECaddr     = Temp.RemoteButton7NECaddr;
+    Global.RemoteButton7NECcom      = Temp.RemoteButton7NECcom;
+    Global.RemoteButton8NECaddr     = Temp.RemoteButton8NECaddr;
+    Global.RemoteButton8NECcom      = Temp.RemoteButton8NECcom;
+    Global.RemoteButton9NECaddr     = Temp.RemoteButton9NECaddr;
+    Global.RemoteButton9NECcom      = Temp.RemoteButton9NECcom;
+    Global.RemoteButton10NECaddr     = Temp.RemoteButton10NECaddr;
+    Global.RemoteButton10NECcom      = Temp.RemoteButton10NECcom;
+    Global.RemoteButton11NECaddr     = Temp.RemoteButton11NECaddr;
+    Global.RemoteButton11NECcom      = Temp.RemoteButton11NECcom;
+    Global.RemoteButton12NECaddr     = Temp.RemoteButton12NECaddr;
+    Global.RemoteButton12NECcom      = Temp.RemoteButton12NECcom;
+    Global.RemoteButton13NECaddr     = Temp.RemoteButton13NECaddr;
+    Global.RemoteButton13NECcom      = Temp.RemoteButton13NECcom;
+    Global.RemoteButton14NECaddr     = Temp.RemoteButton14NECaddr;
+    Global.RemoteButton14NECcom      = Temp.RemoteButton14NECcom;
+    Global.RemoteButton15NECaddr     = Temp.RemoteButton15NECaddr;
+    Global.RemoteButton15NECcom      = Temp.RemoteButton15NECcom;
+    Global.RemoteButton16NECaddr     = Temp.RemoteButton16NECaddr;
+    Global.RemoteButton16NECcom      = Temp.RemoteButton16NECcom;
+    Global.RemoteButton17NECaddr     = Temp.RemoteButton17NECaddr;
+    Global.RemoteButton17NECcom      = Temp.RemoteButton17NECcom;
+    Global.RemoteButton18NECaddr     = Temp.RemoteButton18NECaddr;
+    Global.RemoteButton18NECcom      = Temp.RemoteButton18NECcom;
+    Global.RemoteButton19NECaddr     = Temp.RemoteButton19NECaddr;
+    Global.RemoteButton19NECcom      = Temp.RemoteButton19NECcom;
+    Global.RemoteButton20NECaddr     = Temp.RemoteButton20NECaddr;
+    Global.RemoteButton20NECcom      = Temp.RemoteButton20NECcom;
+
+
 }
 
 /******************************************************************************/

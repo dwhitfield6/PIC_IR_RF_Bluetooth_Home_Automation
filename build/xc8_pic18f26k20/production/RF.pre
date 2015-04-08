@@ -4938,24 +4938,63 @@ unsigned char ProductName[50] = {"Home Automation"};
 # 58
 unsigned long SN = 1;
 
-# 272
+# 286
 void InitApp(void);
 void Init_System (void);
 
-# 52 "RF.h"
-unsigned char ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
+# 62 "RF.h"
+const unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
+const unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
 
-# 92
+
+const unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
+const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
+
+
+const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
+const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
+
+# 86
+const unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
+const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
+const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
+const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
+
+
+const unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
+const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
+const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
+const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
+
+
+const unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
+const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
+const unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
+const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
+const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
+const unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
+const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
+
+# 172
 extern unsigned char RFsendCode[20];
 extern volatile unsigned char RFsendFlag;
 extern unsigned char RFcodePlace;
 extern unsigned char RFcodeBit;
 extern volatile unsigned char Sendcount;
+extern unsigned char RFConfig;
 volatile unsigned char Sent;
+extern volatile unsigned char RF_IR_Postscaler;
+extern unsigned char RF_IR;
 
-# 103
-unsigned char SendRF(unsigned char* Code, unsigned char size, unsigned char RepeatAmount);
-void SendRF_wait(unsigned char* Code, unsigned char size, unsigned char amount);
+# 186
+unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
+void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
+void SendRF_Channel(unsigned char channel);
 unsigned char GetRFstatus(void);
 
 # 37 "Timer.h"
@@ -4977,7 +5016,7 @@ void InitTimers(void);
 # 55 "system.h"
 void ConfigureOscillator(void);
 
-# 57 "MISC.h"
+# 62 "MISC.h"
 void delayUS(long US);
 unsigned char IsCharacter(unsigned char data);
 void cleanBuffer(unsigned char* data, int count);
@@ -4985,20 +5024,49 @@ void cleanBuffer16bit(unsigned int* data, int count);
 double Round(double input);
 void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
 unsigned char StringMatch(unsigned char* This,const unsigned char* That);
+unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
 unsigned char StringContains(unsigned char* This, const unsigned char* That);
+unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
+void CalibrateDelay(void);
+void lowercaseChar(unsigned char* Input);
+void lowercaseString(unsigned char* Input);
+void delayNOP(unsigned char NOPs);
+unsigned char Reverse_Byte(unsigned char This);
+unsigned int Reverse_2Byte(unsigned int This);
+unsigned long Reverse_4Byte(unsigned long This);
+unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
+unsigned char StringAddEqual(unsigned char* Input);
 
-# 104 "IR.h"
+# 185 "IR.h"
 extern unsigned char IRpinOLD;
 extern unsigned int IRRawCode[72];
 extern unsigned long IR_NEC;
 extern unsigned char IRrawCodeNum;
 extern unsigned char IR_New_Code;
+extern unsigned char IRbit;
+extern unsigned char IRrepeatflag;
+extern unsigned char IRsendFlag;
+extern unsigned char IRcodeBit;
+extern unsigned char IRcodePlace;
+extern unsigned long IRsendCode;
+extern unsigned char IRrepeatAmount;
+extern volatile unsigned char IRmod;
+extern volatile unsigned char ReceivingIR;
+extern volatile unsigned char IRbitPosition;
 
-# 114
+
+
+
 void InitIR(void);
 unsigned char ReadIRpin(void);
 unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char Invert);
 void UseIRCode(unsigned char* Code, unsigned long NEC);
+unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount);
+void SendNEC_wait(unsigned long code, unsigned char RepeatAmount);
+void CalibrateIR(void);
+unsigned char CheckReceivingIR(void);
+unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
+unsigned long EncodeNEC(unsigned char address, unsigned char command);
 
 # 41 "RF.c"
 unsigned char RFsendCode[20];
@@ -5007,13 +5075,40 @@ unsigned char RFcodePlace = 0;
 unsigned char RFcodeBit = 0;
 volatile unsigned char Sendcount =0;
 volatile unsigned char Sent = 1;
+unsigned char RFConfig = 0;
+volatile unsigned char RF_IR_Postscaler = 2;
+unsigned char Conf2_ChannelB_Status = 0;
+unsigned char Conf2_ChannelD_Status = 0;
+unsigned char Conf2_ChannelH_1_Status = 0;
+unsigned char Conf2_ChannelH_2_Status = 0;
+unsigned char Conf2_ChannelH_3_Status = 0;
+unsigned char RF_IR = 55;
 
-# 58
-unsigned char SendRF(unsigned char* Code, unsigned char size, unsigned char RepeatAmount)
+# 66
+unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount)
 {
 unsigned char i;
 if(Sent == 1)
 {
+
+RF_IR = 55;
+if(Config < 0 || Config > 2)
+{
+return 0;
+}
+RFConfig = Config;
+if(Config == 1)
+{
+RF_IR_Postscaler = 2;
+}
+else if(Config == 2)
+{
+RF_IR_Postscaler = 4;
+}
+else
+{
+return 0;
+}
 
 Sent = 0;
 Sendcount = RepeatAmount;
@@ -5032,15 +5127,22 @@ RFsendCode[i] = Code[i];
 }
 RFsendCode[i] = 99;
 
-
-
+(TMR2 = 0);
+if(Config == 1)
+{
+(PR2 = 250);
+}
+else
+{
+(PR2 = 187);
+}
 (T2CONbits.TMR2ON = 1);
 return 1;
 }
 return 2;
 }
 
-# 94
+# 128
 unsigned char GetRFstatus(void)
 {
 if(!RFsendFlag)
@@ -5050,9 +5152,113 @@ return 1;
 return 2;
 }
 
-# 109
-void SendRF_wait(unsigned char* Code, unsigned char size, unsigned char amount)
+# 143
+void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount)
 {
-while(SendRF(Code, size, amount) == 2);
+(IOCBbits.IOCB4 = 0);
+INTCONbits.RBIE = 0;
+INTCONbits.PEIE = 0;
+
+SendRF(Code, Config, size, amount);
+while(!Sent);
+INTCONbits.PEIE = 1;
+IRpinOLD = ReadIRpin();
+INTCONbits.RBIF = 0;
+(IOCBbits.IOCB4 = 1);
+INTCONbits.RBIE = 1;
+}
+
+# 162
+void SendRF_Channel(unsigned char channel)
+{
+switch (channel)
+{
+case 0:
+
+SendRF_wait(Conf1_ChannelD,1,12,8);
+break;
+case 1:
+
+SendRF_wait(Conf1_ChannelE,1,12,8);
+break;
+case 2:
+
+SendRF_wait(Conf1_ChannelF,1,12,8);
+break;
+case 3:
+
+if(Conf2_ChannelB_Status)
+{
+SendRF_wait(Conf2_ChannelB_OFF,2,16,8);
+Conf2_ChannelB_Status = 0;
+}
+else
+{
+SendRF_wait(Conf2_ChannelB_ON,2,16,8);
+Conf2_ChannelB_Status = 1;
+}
+break;
+case 4:
+
+if(Conf2_ChannelD_Status)
+{
+SendRF_wait(Conf2_ChannelD_OFF,2,16,8);
+Conf2_ChannelD_Status = 0;
+}
+else
+{
+SendRF_wait(Conf2_ChannelD_ON,2,16,8);
+Conf2_ChannelD_Status = 1;
+}
+break;
+case 5:
+
+if(Conf2_ChannelH_1_Status)
+{
+SendRF_wait(Conf2_ChannelH_1_ON,2,16,8);
+Conf2_ChannelH_1_Status = 0;
+}
+else
+{
+SendRF_wait(Conf2_ChannelH_1_OFF,2,16,8);
+Conf2_ChannelH_1_Status = 1;
+}
+break;
+case 6:
+
+if(Conf2_ChannelH_2_Status)
+{
+SendRF_wait(Conf2_ChannelH_2_ON,2,16,8);
+Conf2_ChannelH_2_Status = 0;
+}
+else
+{
+SendRF_wait(Conf2_ChannelH_2_OFF,2,16,8);
+Conf2_ChannelH_2_Status = 1;
+}
+break;
+case 7:
+
+if(Conf2_ChannelH_3_Status)
+{
+SendRF_wait(Conf2_ChannelH_3_ON,2,16,8);
+Conf2_ChannelH_3_Status = 0;
+}
+else
+{
+SendRF_wait(Conf2_ChannelH_3_OFF,2,16,8);
+Conf2_ChannelH_3_Status = 1;
+}
+break;
+case 8:
+case 9:
+case 10:
+case 11:
+case 12:
+case 13:
+case 14:
+default:
+break;
+}
 }
 
