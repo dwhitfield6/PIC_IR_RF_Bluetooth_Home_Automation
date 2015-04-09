@@ -5013,9 +5013,9 @@ extern unsigned char ReceivedString[255];
 extern unsigned char ReceivedStringPos;
 extern unsigned char CommandString[255];
 extern unsigned char CommandStringPos;
-extern unsigned char NewReceivedString;
-const unsigned char SYNTAX_ERR[] = "Syntax Error in command";
-const unsigned char CRLN[] = "\r\n";
+extern volatile unsigned char NewReceivedString;
+unsigned char SYNTAX_ERR[] = "Error: Syntax not understood";
+unsigned char CRLN[] = "\r\n";
 
 
 
@@ -5031,58 +5031,29 @@ void UARTstringCRLN(unsigned char *data);
 void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
 void EraseScreen(unsigned char characters);
 
-# 37 "EEPROM.h"
+# 96 "EEPROM.h"
 typedef struct EEdata
 {
 unsigned char BlueToothFlag;
 unsigned long SWNECcode;
-unsigned char RemoteButton1NECaddr;
-unsigned char RemoteButton1NECcom;
-unsigned char RemoteButton2NECaddr;
-unsigned char RemoteButton2NECcom;
-unsigned char RemoteButton3NECaddr;
-unsigned char RemoteButton3NECcom;
-unsigned char RemoteButton4NECaddr;
-unsigned char RemoteButton4NECcom;
-unsigned char RemoteButton5NECaddr;
-unsigned char RemoteButton5NECcom;
-unsigned char RemoteButton6NECaddr;
-unsigned char RemoteButton6NECcom;
-unsigned char RemoteButton7NECaddr;
-unsigned char RemoteButton7NECcom;
-unsigned char RemoteButton8NECaddr;
-unsigned char RemoteButton8NECcom;
-unsigned char RemoteButton9NECaddr;
-unsigned char RemoteButton9NECcom;
-unsigned char RemoteButton10NECaddr;
-unsigned char RemoteButton10NECcom;
-unsigned char RemoteButton11NECaddr;
-unsigned char RemoteButton11NECcom;
-unsigned char RemoteButton12NECaddr;
-unsigned char RemoteButton12NECcom;
-unsigned char RemoteButton13NECaddr;
-unsigned char RemoteButton13NECcom;
-unsigned char RemoteButton14NECaddr;
-unsigned char RemoteButton14NECcom;
-unsigned char RemoteButton15NECaddr;
-unsigned char RemoteButton15NECcom;
-unsigned char RemoteButton16NECaddr;
-unsigned char RemoteButton16NECcom;
-unsigned char RemoteButton17NECaddr;
-unsigned char RemoteButton17NECcom;
-unsigned char RemoteButton18NECaddr;
-unsigned char RemoteButton18NECcom;
-unsigned char RemoteButton19NECaddr;
-unsigned char RemoteButton19NECcom;
-unsigned char RemoteButton20NECaddr;
-unsigned char RemoteButton20NECcom;
+unsigned char RemoteButtonNEC[20][2];
+unsigned char EEPROMinitFlag;
+
+# 113
+unsigned char RemoteButton1RF[20][2];
+unsigned char RemoteButton2RF[20][2];
+unsigned char RemoteButton3RF[20][2];
+unsigned char RemoteButton4RF[20][2];
+unsigned char RemoteButton5RF[20][2];
 
 }GBLdata;
 
-# 88
+
+
+
 GBLdata Global =0;
 
-# 233
+# 130
 unsigned int ReadEEPROM_1Byte(unsigned int address);
 void EEPROM_UNLOCK(void);
 void WriteEEPROM_1Byte(unsigned int address, unsigned char data);
@@ -5096,6 +5067,8 @@ unsigned long GetMemoryChar(unsigned char AddressFirst);
 unsigned char SetMemoryChar(unsigned char Data, unsigned char AddressFirst);
 unsigned char SyncGlobalToEEPROM(void);
 void SyncEEPROMToGlobal(void);
+void SetEEPROMdefault(void);
+unsigned char EEPROMinitialized(void);
 
 # 62 "MISC.h"
 void delayUS(long US);
@@ -5117,6 +5090,7 @@ unsigned int Reverse_2Byte(unsigned int This);
 unsigned long Reverse_4Byte(unsigned long This);
 unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
 unsigned char StringAddEqual(unsigned char* Input);
+unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
 
 # 37 "Timer.h"
 extern unsigned char Timer1_Postscaler;
@@ -5150,6 +5124,7 @@ unsigned char EnterCommandMode(void);
 unsigned char BluetoothInitialSetup(void);
 unsigned char BluetoothConfigured(void);
 unsigned char UseBluetooth(void);
+unsigned char WaitForIRsignal(void);
 
 # 185 "IR.h"
 extern unsigned char IRpinOLD;
@@ -5191,6 +5166,8 @@ void InitApp(void)
 LATA = 0;
 LATB = 0;
 LATC = 0;
+LATA |= 0x04;
+
 TRISAbits.TRISA0 = 1;
 TRISAbits.TRISA1 = 1;
 TRISAbits.TRISA2 = 0;
@@ -5222,7 +5199,7 @@ INTCON2bits.RBPU = 0;
 WPUB = 0x0F;
 }
 
-# 101
+# 103
 void Init_System (void)
 {
 cleanBuffer(&ReceivedString, 255);
@@ -5241,6 +5218,12 @@ INTCONbits.PEIE = 1;
 INTCONbits.GIE = 1;
 
 SyncEEPROMToGlobal();
+if(!EEPROMinitialized())
+{
+SetEEPROMdefault();
+Global.EEPROMinitFlag = 59;
+SyncGlobalToEEPROM();
+}
 InitADC();
 InitIR();
 InitUART(115200);

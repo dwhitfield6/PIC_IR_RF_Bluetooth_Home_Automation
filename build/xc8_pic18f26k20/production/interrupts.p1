@@ -79,19 +79,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _PIR1bits `VS133 ~T0 @X0 0 e@3998 ]
 "38 Timer.h
 [v _Timer2_Postscaler `uc ~T0 @X0 0 e ]
-"180 RF.h
+"182 RF.h
 [v _RF_IR `uc ~T0 @X0 0 e ]
-"179
+"181
 [v _RF_IR_Postscaler `Vuc ~T0 @X0 0 e ]
-"172
-[v _RFsendCode `uc ~T0 @X0 -> 0 `x e ]
-"175
-[v _RFcodeBit `uc ~T0 @X0 0 e ]
-"173
-[v _RFsendFlag `Vuc ~T0 @X0 0 e ]
-"177
-[v _RFConfig `uc ~T0 @X0 0 e ]
 "174
+[v _RFsendCode `uc ~T0 @X0 -> 0 `x e ]
+"177
+[v _RFcodeBit `uc ~T0 @X0 0 e ]
+"175
+[v _RFsendFlag `Vuc ~T0 @X0 0 e ]
+"179
+[v _RFConfig `uc ~T0 @X0 0 e ]
+"176
 [v _RFcodePlace `uc ~T0 @X0 0 e ]
 "1691 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [v _LATC `Vuc ~T0 @X0 0 e@3979 ]
@@ -110,7 +110,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S273 . . . ]
 "5142
 [v _T2CONbits `VS273 ~T0 @X0 0 e@4042 ]
-"176 RF.h
+"178 RF.h
 [v _Sendcount `Vuc ~T0 @X0 0 e ]
 "181 Timer.h
 [v _ResetTimer3 `(v ~T0 @X0 0 ef ]
@@ -186,7 +186,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "128
 [v _UARTstring `(v ~T0 @X0 0 ef1`*uc ]
 "117
-[v _NewReceivedString `uc ~T0 @X0 0 e ]
+[v _NewReceivedString `Vuc ~T0 @X0 0 e ]
 "63 MISC.h
 [v _IsCharacter `(uc ~T0 @X0 0 ef1`uc ]
 "64
@@ -3867,6 +3867,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;MISC.h: 78: unsigned long Reverse_4Byte(unsigned long This);
 [; ;MISC.h: 79: unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
 [; ;MISC.h: 80: unsigned char StringAddEqual(unsigned char* Input);
+[; ;MISC.h: 81: unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
 "50 user.h
 [v _ProductName `uc ~T0 @X0 -> 50 `i e ]
 [i _ProductName
@@ -3902,11 +3903,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;UART.h: 114: extern unsigned char ReceivedStringPos;
 [; ;UART.h: 115: extern unsigned char CommandString[255];
 [; ;UART.h: 116: extern unsigned char CommandStringPos;
-[; ;UART.h: 117: extern unsigned char NewReceivedString;
+[; ;UART.h: 117: extern volatile unsigned char NewReceivedString;
 "118 UART.h
-[v _SYNTAX_ERR `Cuc ~T0 @X0 -> 0 `x e ]
+[v _SYNTAX_ERR `uc ~T0 @X0 -> 0 `x e ]
 [i _SYNTAX_ERR
 :U ..
+-> 69 `c
+-> 114 `c
+-> 114 `c
+-> 111 `c
+-> 114 `c
+-> 58 `c
+-> 32 `c
 -> 83 `c
 -> 121 `c
 -> 110 `c
@@ -3914,28 +3922,26 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 97 `c
 -> 120 `c
 -> 32 `c
--> 69 `c
--> 114 `c
--> 114 `c
--> 111 `c
--> 114 `c
--> 32 `c
--> 105 `c
 -> 110 `c
--> 32 `c
--> 99 `c
 -> 111 `c
--> 109 `c
--> 109 `c
--> 97 `c
+-> 116 `c
+-> 32 `c
+-> 117 `c
 -> 110 `c
+-> 100 `c
+-> 101 `c
+-> 114 `c
+-> 115 `c
+-> 116 `c
+-> 111 `c
+-> 111 `c
 -> 100 `c
 -> 0 `c
 ..
 ]
-[; ;UART.h: 118: const unsigned char SYNTAX_ERR[] = "Syntax Error in command";
+[; ;UART.h: 118: unsigned char SYNTAX_ERR[] = "Error: Syntax not understood";
 "119
-[v _CRLN `Cuc ~T0 @X0 -> 0 `x e ]
+[v _CRLN `uc ~T0 @X0 -> 0 `x e ]
 [i _CRLN
 :U ..
 -> 13 `c
@@ -3943,7 +3949,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;UART.h: 119: const unsigned char CRLN[] = "\r\n";
+[; ;UART.h: 119: unsigned char CRLN[] = "\r\n";
 [; ;UART.h: 124: void Local_CloseUSART(void );
 [; ;UART.h: 125: void InitUART(unsigned long Baud);
 [; ;UART.h: 126: void OpenUSART( unsigned char config, unsigned int spbrg);
@@ -3998,8 +4004,20 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Bluetooth.h: 53: unsigned char BluetoothInitialSetup(void);
 [; ;Bluetooth.h: 54: unsigned char BluetoothConfigured(void);
 [; ;Bluetooth.h: 55: unsigned char UseBluetooth(void);
-"62 RF.h
-[v _Conf1_ChannelD `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;Bluetooth.h: 56: unsigned char WaitForIRsignal(void);
+"60 RF.h
+[v _Conf1_Channels `uc ~T0 @X0 -> 0 `x e ]
+[i _Conf1_Channels
+:U ..
+-> 68 `c
+-> 69 `c
+-> 70 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 60: unsigned char Conf1_Channels[] = "DEF";
+"63
+[v _Conf1_ChannelD `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelD
 :U ..
 -> -> 3 `i `uc
@@ -4016,9 +4034,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 62: const unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
-"63
-[v _Conf1_ChannelD_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 63: unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
+"64
+[v _Conf1_ChannelD_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelD_STR
 :U ..
 -> 67 `c
@@ -4038,9 +4056,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 63: const unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
-"66
-[v _Conf1_ChannelE `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 64: unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
+"67
+[v _Conf1_ChannelE `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelE
 :U ..
 -> -> 0 `i `uc
@@ -4057,9 +4075,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 66: const unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
-"67
-[v _Conf1_ChannelE_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 67: unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
+"68
+[v _Conf1_ChannelE_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelE_STR
 :U ..
 -> 67 `c
@@ -4079,9 +4097,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 67: const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
-"70
-[v _Conf1_ChannelF `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 68: unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
+"71
+[v _Conf1_ChannelF `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelF
 :U ..
 -> -> 3 `i `uc
@@ -4098,9 +4116,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 70: const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
-"71
-[v _Conf1_ChannelF_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 71: unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
+"72
+[v _Conf1_ChannelF_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelF_STR
 :U ..
 -> 67 `c
@@ -4120,9 +4138,20 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 71: const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
+[; ;RF.h: 72: unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
 "86
-[v _Conf2_ChannelB_ON `Cuc ~T0 @X0 -> 0 `x e ]
+[v _Conf2_Channels `uc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_Channels
+:U ..
+-> 66 `c
+-> 68 `c
+-> 72 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 86: unsigned char Conf2_Channels[] = "BDH";
+"88
+[v _Conf2_ChannelB_ON `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_ON
 :U ..
 -> -> 0 `i `uc
@@ -4143,9 +4172,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 86: const unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
-"87
-[v _Conf2_ChannelB_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 88: unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
+"89
+[v _Conf2_ChannelB_ON_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_ON_STR
 :U ..
 -> 67 `c
@@ -4168,9 +4197,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 87: const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
-"88
-[v _Conf2_ChannelB_OFF `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 89: unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
+"90
+[v _Conf2_ChannelB_OFF `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_OFF
 :U ..
 -> -> 0 `i `uc
@@ -4191,9 +4220,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 88: const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
-"89
-[v _Conf2_ChannelB_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 90: unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
+"91
+[v _Conf2_ChannelB_OFF_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_OFF_STR
 :U ..
 -> 67 `c
@@ -4217,9 +4246,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 89: const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
-"92
-[v _Conf2_ChannelD_ON `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 91: unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
+"94
+[v _Conf2_ChannelD_ON `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_ON
 :U ..
 -> -> 0 `i `uc
@@ -4240,9 +4269,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 1 `i `uc
 ..
 ]
-[; ;RF.h: 92: const unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
-"93
-[v _Conf2_ChannelD_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 94: unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
+"95
+[v _Conf2_ChannelD_ON_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_ON_STR
 :U ..
 -> 67 `c
@@ -4265,9 +4294,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 93: const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
-"94
-[v _Conf2_ChannelD_OFF `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 95: unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
+"96
+[v _Conf2_ChannelD_OFF `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_OFF
 :U ..
 -> -> 0 `i `uc
@@ -4288,9 +4317,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 1 `i `uc
 ..
 ]
-[; ;RF.h: 94: const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
-"95
-[v _Conf2_ChannelD_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 96: unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
+"97
+[v _Conf2_ChannelD_OFF_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_OFF_STR
 :U ..
 -> 67 `c
@@ -4314,9 +4343,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 95: const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
-"98
-[v _Conf2_ChannelH_1_ON `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 97: unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
+"100
+[v _Conf2_ChannelH_1_ON `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_ON
 :U ..
 -> -> 0 `i `uc
@@ -4337,9 +4366,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 98: const unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
-"99
-[v _Conf2_ChannelH_1_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 100: unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
+"101
+[v _Conf2_ChannelH_1_ON_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_ON_STR
 :U ..
 -> 67 `c
@@ -4364,9 +4393,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 99: const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
-"100
-[v _Conf2_ChannelH_1_OFF `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 101: unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
+"102
+[v _Conf2_ChannelH_1_OFF `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_OFF
 :U ..
 -> -> 0 `i `uc
@@ -4387,9 +4416,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 100: const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
-"101
-[v _Conf2_ChannelH_1_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 102: unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
+"103
+[v _Conf2_ChannelH_1_OFF_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_OFF_STR
 :U ..
 -> 67 `c
@@ -4415,9 +4444,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 101: const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
-"102
-[v _Conf2_ChannelH_2_ON `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 103: unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
+"104
+[v _Conf2_ChannelH_2_ON `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_ON
 :U ..
 -> -> 0 `i `uc
@@ -4438,9 +4467,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 102: const unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
-"103
-[v _Conf2_ChannelH_2_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 104: unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
+"105
+[v _Conf2_ChannelH_2_ON_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_ON_STR
 :U ..
 -> 67 `c
@@ -4465,9 +4494,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 103: const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
-"104
-[v _Conf2_ChannelH_2_OFF `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 105: unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
+"106
+[v _Conf2_ChannelH_2_OFF `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_OFF
 :U ..
 -> -> 0 `i `uc
@@ -4488,9 +4517,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 104: const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
-"105
-[v _Conf2_ChannelH_2_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 106: unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
+"107
+[v _Conf2_ChannelH_2_OFF_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_OFF_STR
 :U ..
 -> 67 `c
@@ -4516,9 +4545,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 105: const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
-"106
-[v _Conf2_ChannelH_3_ON `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 107: unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
+"108
+[v _Conf2_ChannelH_3_ON `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_ON
 :U ..
 -> -> 0 `i `uc
@@ -4539,9 +4568,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 106: const unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
-"107
-[v _Conf2_ChannelH_3_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 108: unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
+"109
+[v _Conf2_ChannelH_3_ON_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_ON_STR
 :U ..
 -> 67 `c
@@ -4566,9 +4595,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 107: const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
-"108
-[v _Conf2_ChannelH_3_OFF `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 109: unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
+"110
+[v _Conf2_ChannelH_3_OFF `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_OFF
 :U ..
 -> -> 0 `i `uc
@@ -4589,9 +4618,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 108: const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
-"109
-[v _Conf2_ChannelH_3_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 110: unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
+"111
+[v _Conf2_ChannelH_3_OFF_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_OFF_STR
 :U ..
 -> 67 `c
@@ -4617,25 +4646,25 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 109: const unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
-[; ;RF.h: 172: extern unsigned char RFsendCode[20];
-[; ;RF.h: 173: extern volatile unsigned char RFsendFlag;
-[; ;RF.h: 174: extern unsigned char RFcodePlace;
-[; ;RF.h: 175: extern unsigned char RFcodeBit;
-[; ;RF.h: 176: extern volatile unsigned char Sendcount;
-[; ;RF.h: 177: extern unsigned char RFConfig;
-"178
+[; ;RF.h: 111: unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
+[; ;RF.h: 174: extern unsigned char RFsendCode[20];
+[; ;RF.h: 175: extern volatile unsigned char RFsendFlag;
+[; ;RF.h: 176: extern unsigned char RFcodePlace;
+[; ;RF.h: 177: extern unsigned char RFcodeBit;
+[; ;RF.h: 178: extern volatile unsigned char Sendcount;
+[; ;RF.h: 179: extern unsigned char RFConfig;
+"180
 [v _Sent `Vuc ~T0 @X0 1 e ]
-[; ;RF.h: 178: volatile unsigned char Sent;
-[; ;RF.h: 179: extern volatile unsigned char RF_IR_Postscaler;
-[; ;RF.h: 180: extern unsigned char RF_IR;
-[; ;RF.h: 186: unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
-[; ;RF.h: 187: void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
-[; ;RF.h: 188: void SendRF_Channel(unsigned char channel);
-[; ;RF.h: 189: unsigned char GetRFstatus(void);
-[v F4214 `(v ~T0 @X0 1 tf ]
+[; ;RF.h: 180: volatile unsigned char Sent;
+[; ;RF.h: 181: extern volatile unsigned char RF_IR_Postscaler;
+[; ;RF.h: 182: extern unsigned char RF_IR;
+[; ;RF.h: 188: unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
+[; ;RF.h: 189: void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
+[; ;RF.h: 190: void SendRF_Channel(unsigned char channel);
+[; ;RF.h: 191: unsigned char GetRFstatus(void);
+[v F4222 `(v ~T0 @X0 1 tf ]
 "57 interrupts.c
-[v _high_isr `IF4214 ~T0 @X0 1 e ]
+[v _high_isr `IF4222 ~T0 @X0 1 e ]
 "65
 {
 [; ;interrupts.c: 57: void interrupt high_isr(void)
@@ -4812,7 +4841,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 126: (T0CONbits.TMR0ON = 0);
 "126
 [e = . . _T0CONbits 0 5 -> -> 0 `i `uc ]
-[; ;interrupts.c: 127: IR_New_Code = IRrawToNEC(&IRRawCode, &IR_NEC, 1);
+[; ;interrupts.c: 127: IR_New_Code = IRrawToNEC(IRRawCode, &IR_NEC, 1);
 "127
 [e = _IR_New_Code ( _IRrawToNEC (3 , , &U _IRRawCode &U _IR_NEC -> -> 1 `i `uc ]
 [; ;interrupts.c: 128: if(!IR_New_Code)
@@ -6209,9 +6238,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "581
 [e :UE 379 ]
 }
-[v F4220 `(v ~T0 @X0 1 tf ]
+[v F4228 `(v ~T0 @X0 1 tf ]
 "587
-[v _low_isr `ILF4220 ~T0 @X0 1 e ]
+[v _low_isr `ILF4228 ~T0 @X0 1 e ]
 "595
 {
 [; ;interrupts.c: 587: void low_priority interrupt low_isr(void)
@@ -6343,7 +6372,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 639: {
 "639
 {
-[; ;interrupts.c: 640: cleanBuffer(&ReceivedString,255);
+[; ;interrupts.c: 640: cleanBuffer(ReceivedString,255);
 "640
 [e ( _cleanBuffer (2 , &U _ReceivedString -> 255 `i ]
 [; ;interrupts.c: 641: ReceivedStringPos = 0;
@@ -6351,8 +6380,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _ReceivedStringPos -> -> 0 `i `uc ]
 [; ;interrupts.c: 642: UARTstring(CRLN);
 "642
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
-[; ;interrupts.c: 643: UARTstringCRLN("Buffer Overflow");
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;interrupts.c: 643: UARTstringCRLN((unsigned char *)"Buffer Overflow");
 "643
 [e ( _UARTstringCRLN (1 -> :s 1C `*uc ]
 "645
@@ -6373,7 +6402,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;interrupts.c: 649: UARTstring(CRLN);
 "649
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
+[e ( _UARTstring (1 &U _CRLN ]
 [; ;interrupts.c: 650: NewReceivedString = 1;
 "650
 [e = _NewReceivedString -> -> 1 `i `uc ]

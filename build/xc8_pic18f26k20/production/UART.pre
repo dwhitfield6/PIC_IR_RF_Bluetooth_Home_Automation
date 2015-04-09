@@ -5013,9 +5013,9 @@ extern unsigned char ReceivedString[255];
 extern unsigned char ReceivedStringPos;
 extern unsigned char CommandString[255];
 extern unsigned char CommandStringPos;
-extern unsigned char NewReceivedString;
-const unsigned char SYNTAX_ERR[] = "Syntax Error in command";
-const unsigned char CRLN[] = "\r\n";
+extern volatile unsigned char NewReceivedString;
+unsigned char SYNTAX_ERR[] = "Error: Syntax not understood";
+unsigned char CRLN[] = "\r\n";
 
 
 
@@ -5051,13 +5051,14 @@ unsigned int Reverse_2Byte(unsigned int This);
 unsigned long Reverse_4Byte(unsigned long This);
 unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
 unsigned char StringAddEqual(unsigned char* Input);
+unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
 
 # 47 "UART.c"
 unsigned char ReceivedString[255];
 unsigned char ReceivedStringPos = 0;
 unsigned char CommandString[255];
 unsigned char CommandStringPos = 0;
-unsigned char NewReceivedString = 0;
+volatile unsigned char NewReceivedString = 0;
 
 # 62
 void Local_CloseUSART(void )
@@ -5222,7 +5223,7 @@ while(*data != 0)
 UARTchar(*data);
 *data++;
 }
-UARTstring("\r\n");
+UARTstring((unsigned char*)"\r\n");
 }
 
 # 263
@@ -5248,7 +5249,7 @@ UARTchar(*Desc);
 *Desc++;
 place++;
 }
-UARTstring("\r\n");
+UARTstring((unsigned char*)"\r\n");
 }
 
 # 294

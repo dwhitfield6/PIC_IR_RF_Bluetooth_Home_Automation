@@ -276,21 +276,11 @@ unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char In
 void UseIRCode(unsigned char* Code, unsigned long NEC)
 {
     unsigned char   i;
+    unsigned char found = FALSE;
 
-    if(*Code == 2)
+    if(*Code == 2 || *Code == 1)
     {
-        /* Repeat character */
-        if(NEC == Global.SWNECcode)
-        {
-            RedLEDON();
-            SendRF_Channel(ReadCodeButtons());
-            GreenLEDON();
-            LEDTimerON();
-        }
-    }
-    else
-    {
-        /* New Code */
+        DecodeNEC(NEC, &IRaddress, &IRcommand);
         if(ReadPushButton())
         {
             Global.SWNECcode = NEC;
@@ -315,23 +305,46 @@ void UseIRCode(unsigned char* Code, unsigned long NEC)
                    RedLEDOFF();
                    delayUS(50000);
                 }
-            }
-            DecodeNEC(NEC, &IRaddress, &IRcommand);
+            }            
         }
         else
         {
             if(NEC == Global.SWNECcode)
             {
+                if(*Code == 2)
+                {
+                    RedLEDON();
+                }
                 GreenLEDON();
                 SendRF_Channel(ReadCodeButtons());
-                DecodeNEC(NEC, &IRaddress, &IRcommand);
-                LEDTimerON();
+                found = TRUE;
             }
             else
             {
-                RedLEDON();
-                LEDTimerON();
+                for(i=0; i < RFcodesAmount; i++)
+                {
+                    if(IRaddress == Global.RemoteButton1RF[i][0])
+                    {
+                        if(IRcommand == Global.RemoteButton1RF[i][1])
+                        {
+                            if(*Code == 2)
+                            {
+                                RedLEDON();
+                            }
+                            GreenLEDON();
+                            SendRF_Channel(i);
+                            found = TRUE;
+                        }
+                    }
+                }
             }
+
+            if(found == FALSE)
+            {
+                RedLEDON();                
+            }
+
+            LEDTimerON();
         }
     }
     *Code = 0;
@@ -393,7 +406,7 @@ unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount)
         }
         IRrepeatAmount = RepeatAmount;
         ResetTimer2();
-        SetTimer2(StartbitHIGHnominal);
+        SetTimer2(Scale_StartbitHIGHnominal);
         RF_IR_Postscaler = 4;
         IRLEDmodON();
         Timer2ON();
@@ -561,6 +574,7 @@ unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char
     *address = temp3;
     return PASS;
 }
+
 /*-----------------------------------------------------------------------------/
  End of File
 /-----------------------------------------------------------------------------*/

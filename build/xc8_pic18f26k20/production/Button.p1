@@ -3720,6 +3720,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;MISC.h: 78: unsigned long Reverse_4Byte(unsigned long This);
 [; ;MISC.h: 79: unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
 [; ;MISC.h: 80: unsigned char StringAddEqual(unsigned char* Input);
+[; ;MISC.h: 81: unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
 "50 Button.c
 [v _ReadPushButton `(uc ~T0 @X0 1 ef ]
 "51

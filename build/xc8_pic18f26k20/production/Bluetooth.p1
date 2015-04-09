@@ -1,7 +1,13 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"37 EEPROM.h
-[s S380 `uc 1 `ul 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
-[n S380 EEdata BlueToothFlag SWNECcode RemoteButton1NECaddr RemoteButton1NECcom RemoteButton2NECaddr RemoteButton2NECcom RemoteButton3NECaddr RemoteButton3NECcom RemoteButton4NECaddr RemoteButton4NECcom RemoteButton5NECaddr RemoteButton5NECcom RemoteButton6NECaddr RemoteButton6NECcom RemoteButton7NECaddr RemoteButton7NECcom RemoteButton8NECaddr RemoteButton8NECcom RemoteButton9NECaddr RemoteButton9NECcom RemoteButton10NECaddr RemoteButton10NECcom RemoteButton11NECaddr RemoteButton11NECcom RemoteButton12NECaddr RemoteButton12NECcom RemoteButton13NECaddr RemoteButton13NECcom RemoteButton14NECaddr RemoteButton14NECcom RemoteButton15NECaddr RemoteButton15NECcom RemoteButton16NECaddr RemoteButton16NECcom RemoteButton17NECaddr RemoteButton17NECcom RemoteButton18NECaddr RemoteButton18NECcom RemoteButton19NECaddr RemoteButton19NECcom RemoteButton20NECaddr RemoteButton20NECcom ]
+[v F4169 `uc ~T0 @X0 -> 2 `i t ]
+[v F4172 `uc ~T0 @X0 -> 2 `i t ]
+[v F4174 `uc ~T0 @X0 -> 2 `i t ]
+[v F4176 `uc ~T0 @X0 -> 2 `i t ]
+[v F4178 `uc ~T0 @X0 -> 2 `i t ]
+[v F4180 `uc ~T0 @X0 -> 2 `i t ]
+"96 EEPROM.h
+[s S380 `uc 1 `ul 1 `F4169 -> 20 `i `uc 1 `F4172 -> 20 `i `F4174 -> 20 `i `F4176 -> 20 `i `F4178 -> 20 `i `F4180 -> 20 `i ]
+[n S380 EEdata BlueToothFlag SWNECcode RemoteButtonNEC EEPROMinitFlag RemoteButton1RF RemoteButton2RF RemoteButton3RF RemoteButton4RF RemoteButton5RF ]
 "64 MISC.h
 [v _cleanBuffer `(v ~T0 @X0 0 ef2`*uc`i ]
 "113 UART.h
@@ -14,12 +20,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _CommandStringPos `uc ~T0 @X0 0 e ]
 "1427 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [v _LATA `Vuc ~T0 @X0 0 e@3977 ]
-"51 Bluetooth.h
-[v _ResetBlue `(v ~T0 @X0 0 ef ]
-"54
+"54 Bluetooth.h
 [v _BluetoothConfigured `(uc ~T0 @X0 0 ef ]
 "53
 [v _BluetoothInitialSetup `(uc ~T0 @X0 0 ef ]
+"51
+[v _ResetBlue `(v ~T0 @X0 0 ef ]
 "502 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [v _PORTA `Vuc ~T0 @X0 0 e@3968 ]
 "62 MISC.h
@@ -30,13 +36,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _StringContains `(uc ~T0 @X0 0 ef2`*uc`*Cuc ]
 "206 C:\Program Files (x86)\Microchip\xc8\v1.34\include\stdio.h
 [v _sprintf `(i ~T0 @X0 0 e1v`*uc`*Cuc ]
-"244 EEPROM.h
+"141 EEPROM.h
 [v _SyncGlobalToEEPROM `(uc ~T0 @X0 0 ef ]
 "71 MISC.h
 [v _StringContainsCaseInsensitive `(uc ~T0 @X0 0 ef2`*uc`*Cuc ]
 "69
 [v _StringMatchCaseInsensitive `(uc ~T0 @X0 0 ef2`*uc`*Cuc ]
-"187 RF.h
+"189 RF.h
 [v _SendRF_wait `(v ~T0 @X0 0 ef4`*Cuc`uc`uc`uc ]
 "131 UART.h
 [v _UARTstringCRLN `(v ~T0 @X0 0 ef1`*uc ]
@@ -50,16 +56,24 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _DecodeNEC `(uc ~T0 @X0 0 ef3`ul`*uc`*uc ]
 "80 MISC.h
 [v _StringAddEqual `(uc ~T0 @X0 0 ef1`*uc ]
-"127 UART.h
-[v _UARTchar `(v ~T0 @X0 0 ef1`uc ]
-"189 IR.h
-[v _IR_New_Code `uc ~T0 @X0 0 e ]
-"187
+"56 Bluetooth.h
+[v _WaitForIRsignal `(uc ~T0 @X0 0 ef ]
+"187 IR.h
 [v _IR_NEC `ul ~T0 @X0 0 e ]
+"81 MISC.h
+[v _GetStringAfterComma `(uc ~T0 @X0 0 ef3`*uc`uc`*uc ]
+"74
+[v _lowercaseString `(v ~T0 @X0 0 ef1`*uc ]
+"117 UART.h
+[v _NewReceivedString `Vuc ~T0 @X0 0 e ]
+"127
+[v _UARTchar `(v ~T0 @X0 0 ef1`uc ]
 "68 MISC.h
 [v _StringMatch `(uc ~T0 @X0 0 ef2`*uc`*Cuc ]
 "132 UART.h
 [v _UARTcommandMenu `(v ~T0 @X0 0 ef2`*uc`*uc ]
+"189 IR.h
+[v _IR_New_Code `uc ~T0 @X0 0 e ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic18f26k20.h: 49: extern volatile unsigned char SSPMSK @ 0xF77;
@@ -3760,16 +3774,24 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Bluetooth.h: 53: unsigned char BluetoothInitialSetup(void);
 [; ;Bluetooth.h: 54: unsigned char BluetoothConfigured(void);
 [; ;Bluetooth.h: 55: unsigned char UseBluetooth(void);
+[; ;Bluetooth.h: 56: unsigned char WaitForIRsignal(void);
 [; ;system.h: 55: void ConfigureOscillator(void);
 [; ;UART.h: 113: extern unsigned char ReceivedString[255];
 [; ;UART.h: 114: extern unsigned char ReceivedStringPos;
 [; ;UART.h: 115: extern unsigned char CommandString[255];
 [; ;UART.h: 116: extern unsigned char CommandStringPos;
-[; ;UART.h: 117: extern unsigned char NewReceivedString;
+[; ;UART.h: 117: extern volatile unsigned char NewReceivedString;
 "118 UART.h
-[v _SYNTAX_ERR `Cuc ~T0 @X0 -> 0 `x e ]
+[v _SYNTAX_ERR `uc ~T0 @X0 -> 0 `x e ]
 [i _SYNTAX_ERR
 :U ..
+-> 69 `c
+-> 114 `c
+-> 114 `c
+-> 111 `c
+-> 114 `c
+-> 58 `c
+-> 32 `c
 -> 83 `c
 -> 121 `c
 -> 110 `c
@@ -3777,28 +3799,26 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 97 `c
 -> 120 `c
 -> 32 `c
--> 69 `c
--> 114 `c
--> 114 `c
--> 111 `c
--> 114 `c
--> 32 `c
--> 105 `c
 -> 110 `c
--> 32 `c
--> 99 `c
 -> 111 `c
--> 109 `c
--> 109 `c
--> 97 `c
+-> 116 `c
+-> 32 `c
+-> 117 `c
 -> 110 `c
+-> 100 `c
+-> 101 `c
+-> 114 `c
+-> 115 `c
+-> 116 `c
+-> 111 `c
+-> 111 `c
 -> 100 `c
 -> 0 `c
 ..
 ]
-[; ;UART.h: 118: const unsigned char SYNTAX_ERR[] = "Syntax Error in command";
+[; ;UART.h: 118: unsigned char SYNTAX_ERR[] = "Error: Syntax not understood";
 "119
-[v _CRLN `Cuc ~T0 @X0 -> 0 `x e ]
+[v _CRLN `uc ~T0 @X0 -> 0 `x e ]
 [i _CRLN
 :U ..
 -> 13 `c
@@ -3806,7 +3826,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;UART.h: 119: const unsigned char CRLN[] = "\r\n";
+[; ;UART.h: 119: unsigned char CRLN[] = "\r\n";
 [; ;UART.h: 124: void Local_CloseUSART(void );
 [; ;UART.h: 125: void InitUART(unsigned long Baud);
 [; ;UART.h: 126: void OpenUSART( unsigned char config, unsigned int spbrg);
@@ -3836,52 +3856,20 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;MISC.h: 78: unsigned long Reverse_4Byte(unsigned long This);
 [; ;MISC.h: 79: unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
 [; ;MISC.h: 80: unsigned char StringAddEqual(unsigned char* Input);
-[; ;EEPROM.h: 37: typedef struct EEdata
-[; ;EEPROM.h: 38: {
-[; ;EEPROM.h: 39: unsigned char BlueToothFlag;
-[; ;EEPROM.h: 40: unsigned long SWNECcode;
-[; ;EEPROM.h: 41: unsigned char RemoteButton1NECaddr;
-[; ;EEPROM.h: 42: unsigned char RemoteButton1NECcom;
-[; ;EEPROM.h: 43: unsigned char RemoteButton2NECaddr;
-[; ;EEPROM.h: 44: unsigned char RemoteButton2NECcom;
-[; ;EEPROM.h: 45: unsigned char RemoteButton3NECaddr;
-[; ;EEPROM.h: 46: unsigned char RemoteButton3NECcom;
-[; ;EEPROM.h: 47: unsigned char RemoteButton4NECaddr;
-[; ;EEPROM.h: 48: unsigned char RemoteButton4NECcom;
-[; ;EEPROM.h: 49: unsigned char RemoteButton5NECaddr;
-[; ;EEPROM.h: 50: unsigned char RemoteButton5NECcom;
-[; ;EEPROM.h: 51: unsigned char RemoteButton6NECaddr;
-[; ;EEPROM.h: 52: unsigned char RemoteButton6NECcom;
-[; ;EEPROM.h: 53: unsigned char RemoteButton7NECaddr;
-[; ;EEPROM.h: 54: unsigned char RemoteButton7NECcom;
-[; ;EEPROM.h: 55: unsigned char RemoteButton8NECaddr;
-[; ;EEPROM.h: 56: unsigned char RemoteButton8NECcom;
-[; ;EEPROM.h: 57: unsigned char RemoteButton9NECaddr;
-[; ;EEPROM.h: 58: unsigned char RemoteButton9NECcom;
-[; ;EEPROM.h: 59: unsigned char RemoteButton10NECaddr;
-[; ;EEPROM.h: 60: unsigned char RemoteButton10NECcom;
-[; ;EEPROM.h: 61: unsigned char RemoteButton11NECaddr;
-[; ;EEPROM.h: 62: unsigned char RemoteButton11NECcom;
-[; ;EEPROM.h: 63: unsigned char RemoteButton12NECaddr;
-[; ;EEPROM.h: 64: unsigned char RemoteButton12NECcom;
-[; ;EEPROM.h: 65: unsigned char RemoteButton13NECaddr;
-[; ;EEPROM.h: 66: unsigned char RemoteButton13NECcom;
-[; ;EEPROM.h: 67: unsigned char RemoteButton14NECaddr;
-[; ;EEPROM.h: 68: unsigned char RemoteButton14NECcom;
-[; ;EEPROM.h: 69: unsigned char RemoteButton15NECaddr;
-[; ;EEPROM.h: 70: unsigned char RemoteButton15NECcom;
-[; ;EEPROM.h: 71: unsigned char RemoteButton16NECaddr;
-[; ;EEPROM.h: 72: unsigned char RemoteButton16NECcom;
-[; ;EEPROM.h: 73: unsigned char RemoteButton17NECaddr;
-[; ;EEPROM.h: 74: unsigned char RemoteButton17NECcom;
-[; ;EEPROM.h: 75: unsigned char RemoteButton18NECaddr;
-[; ;EEPROM.h: 76: unsigned char RemoteButton18NECcom;
-[; ;EEPROM.h: 77: unsigned char RemoteButton19NECaddr;
-[; ;EEPROM.h: 78: unsigned char RemoteButton19NECcom;
-[; ;EEPROM.h: 79: unsigned char RemoteButton20NECaddr;
-[; ;EEPROM.h: 80: unsigned char RemoteButton20NECcom;
-[; ;EEPROM.h: 82: }GBLdata;
-"88 EEPROM.h
+[; ;MISC.h: 81: unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
+[; ;EEPROM.h: 96: typedef struct EEdata
+[; ;EEPROM.h: 97: {
+[; ;EEPROM.h: 98: unsigned char BlueToothFlag;
+[; ;EEPROM.h: 99: unsigned long SWNECcode;
+[; ;EEPROM.h: 100: unsigned char RemoteButtonNEC[20][2];
+[; ;EEPROM.h: 101: unsigned char EEPROMinitFlag;
+[; ;EEPROM.h: 113: unsigned char RemoteButton1RF[20][2];
+[; ;EEPROM.h: 114: unsigned char RemoteButton2RF[20][2];
+[; ;EEPROM.h: 115: unsigned char RemoteButton3RF[20][2];
+[; ;EEPROM.h: 116: unsigned char RemoteButton4RF[20][2];
+[; ;EEPROM.h: 117: unsigned char RemoteButton5RF[20][2];
+[; ;EEPROM.h: 119: }GBLdata;
+"124 EEPROM.h
 [v _Global `S380 ~T0 @X0 1 e ]
 [i _Global
 :U ..
@@ -3890,22 +3878,35 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ..
 ]
-[; ;EEPROM.h: 88: GBLdata Global =0;
-[; ;EEPROM.h: 233: unsigned int ReadEEPROM_1Byte(unsigned int address);
-[; ;EEPROM.h: 234: void EEPROM_UNLOCK(void);
-[; ;EEPROM.h: 235: void WriteEEPROM_1Byte(unsigned int address, unsigned char data);
-[; ;EEPROM.h: 236: GBLdata GetEEPROM(void);
-[; ;EEPROM.h: 237: unsigned long SetEEPROM(GBLdata Temp,unsigned long burn);
-[; ;EEPROM.h: 238: unsigned long GetMemoryLong(unsigned char AddressFirst);
-[; ;EEPROM.h: 239: unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst);
-[; ;EEPROM.h: 240: unsigned long GetMemoryInt(unsigned char AddressFirst);
-[; ;EEPROM.h: 241: unsigned char SetMemoryInt(unsigned int Data, unsigned char AddressFirst);
-[; ;EEPROM.h: 242: unsigned long GetMemoryChar(unsigned char AddressFirst);
-[; ;EEPROM.h: 243: unsigned char SetMemoryChar(unsigned char Data, unsigned char AddressFirst);
-[; ;EEPROM.h: 244: unsigned char SyncGlobalToEEPROM(void);
-[; ;EEPROM.h: 245: void SyncEEPROMToGlobal(void);
-"62 RF.h
-[v _Conf1_ChannelD `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;EEPROM.h: 124: GBLdata Global =0;
+[; ;EEPROM.h: 130: unsigned int ReadEEPROM_1Byte(unsigned int address);
+[; ;EEPROM.h: 131: void EEPROM_UNLOCK(void);
+[; ;EEPROM.h: 132: void WriteEEPROM_1Byte(unsigned int address, unsigned char data);
+[; ;EEPROM.h: 133: GBLdata GetEEPROM(void);
+[; ;EEPROM.h: 134: unsigned long SetEEPROM(GBLdata Temp,unsigned long burn);
+[; ;EEPROM.h: 135: unsigned long GetMemoryLong(unsigned char AddressFirst);
+[; ;EEPROM.h: 136: unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst);
+[; ;EEPROM.h: 137: unsigned long GetMemoryInt(unsigned char AddressFirst);
+[; ;EEPROM.h: 138: unsigned char SetMemoryInt(unsigned int Data, unsigned char AddressFirst);
+[; ;EEPROM.h: 139: unsigned long GetMemoryChar(unsigned char AddressFirst);
+[; ;EEPROM.h: 140: unsigned char SetMemoryChar(unsigned char Data, unsigned char AddressFirst);
+[; ;EEPROM.h: 141: unsigned char SyncGlobalToEEPROM(void);
+[; ;EEPROM.h: 142: void SyncEEPROMToGlobal(void);
+[; ;EEPROM.h: 143: void SetEEPROMdefault(void);
+[; ;EEPROM.h: 144: unsigned char EEPROMinitialized(void);
+"60 RF.h
+[v _Conf1_Channels `uc ~T0 @X0 -> 0 `x e ]
+[i _Conf1_Channels
+:U ..
+-> 68 `c
+-> 69 `c
+-> 70 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 60: unsigned char Conf1_Channels[] = "DEF";
+"63
+[v _Conf1_ChannelD `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelD
 :U ..
 -> -> 3 `i `uc
@@ -3922,9 +3923,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 62: const unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
-"63
-[v _Conf1_ChannelD_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 63: unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
+"64
+[v _Conf1_ChannelD_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelD_STR
 :U ..
 -> 67 `c
@@ -3944,9 +3945,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 63: const unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
-"66
-[v _Conf1_ChannelE `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 64: unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
+"67
+[v _Conf1_ChannelE `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelE
 :U ..
 -> -> 0 `i `uc
@@ -3963,9 +3964,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 66: const unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
-"67
-[v _Conf1_ChannelE_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 67: unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
+"68
+[v _Conf1_ChannelE_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelE_STR
 :U ..
 -> 67 `c
@@ -3985,9 +3986,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 67: const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
-"70
-[v _Conf1_ChannelF `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 68: unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
+"71
+[v _Conf1_ChannelF `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelF
 :U ..
 -> -> 3 `i `uc
@@ -4004,9 +4005,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 70: const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
-"71
-[v _Conf1_ChannelF_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 71: unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
+"72
+[v _Conf1_ChannelF_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelF_STR
 :U ..
 -> 67 `c
@@ -4026,9 +4027,20 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 71: const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
+[; ;RF.h: 72: unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
 "86
-[v _Conf2_ChannelB_ON `Cuc ~T0 @X0 -> 0 `x e ]
+[v _Conf2_Channels `uc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_Channels
+:U ..
+-> 66 `c
+-> 68 `c
+-> 72 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 86: unsigned char Conf2_Channels[] = "BDH";
+"88
+[v _Conf2_ChannelB_ON `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_ON
 :U ..
 -> -> 0 `i `uc
@@ -4049,9 +4061,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 86: const unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
-"87
-[v _Conf2_ChannelB_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 88: unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
+"89
+[v _Conf2_ChannelB_ON_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_ON_STR
 :U ..
 -> 67 `c
@@ -4074,9 +4086,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 87: const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
-"88
-[v _Conf2_ChannelB_OFF `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 89: unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
+"90
+[v _Conf2_ChannelB_OFF `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_OFF
 :U ..
 -> -> 0 `i `uc
@@ -4097,9 +4109,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 88: const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
-"89
-[v _Conf2_ChannelB_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 90: unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
+"91
+[v _Conf2_ChannelB_OFF_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_OFF_STR
 :U ..
 -> 67 `c
@@ -4123,9 +4135,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 89: const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
-"92
-[v _Conf2_ChannelD_ON `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 91: unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
+"94
+[v _Conf2_ChannelD_ON `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_ON
 :U ..
 -> -> 0 `i `uc
@@ -4146,9 +4158,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 1 `i `uc
 ..
 ]
-[; ;RF.h: 92: const unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
-"93
-[v _Conf2_ChannelD_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 94: unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
+"95
+[v _Conf2_ChannelD_ON_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_ON_STR
 :U ..
 -> 67 `c
@@ -4171,9 +4183,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 93: const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
-"94
-[v _Conf2_ChannelD_OFF `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 95: unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
+"96
+[v _Conf2_ChannelD_OFF `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_OFF
 :U ..
 -> -> 0 `i `uc
@@ -4194,9 +4206,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 1 `i `uc
 ..
 ]
-[; ;RF.h: 94: const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
-"95
-[v _Conf2_ChannelD_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 96: unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
+"97
+[v _Conf2_ChannelD_OFF_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_OFF_STR
 :U ..
 -> 67 `c
@@ -4220,9 +4232,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 95: const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
-"98
-[v _Conf2_ChannelH_1_ON `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 97: unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
+"100
+[v _Conf2_ChannelH_1_ON `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_ON
 :U ..
 -> -> 0 `i `uc
@@ -4243,9 +4255,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 98: const unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
-"99
-[v _Conf2_ChannelH_1_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 100: unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
+"101
+[v _Conf2_ChannelH_1_ON_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_ON_STR
 :U ..
 -> 67 `c
@@ -4270,9 +4282,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 99: const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
-"100
-[v _Conf2_ChannelH_1_OFF `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 101: unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
+"102
+[v _Conf2_ChannelH_1_OFF `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_OFF
 :U ..
 -> -> 0 `i `uc
@@ -4293,9 +4305,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 100: const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
-"101
-[v _Conf2_ChannelH_1_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 102: unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
+"103
+[v _Conf2_ChannelH_1_OFF_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_OFF_STR
 :U ..
 -> 67 `c
@@ -4321,9 +4333,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 101: const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
-"102
-[v _Conf2_ChannelH_2_ON `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 103: unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
+"104
+[v _Conf2_ChannelH_2_ON `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_ON
 :U ..
 -> -> 0 `i `uc
@@ -4344,9 +4356,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 102: const unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
-"103
-[v _Conf2_ChannelH_2_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 104: unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
+"105
+[v _Conf2_ChannelH_2_ON_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_ON_STR
 :U ..
 -> 67 `c
@@ -4371,9 +4383,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 103: const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
-"104
-[v _Conf2_ChannelH_2_OFF `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 105: unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
+"106
+[v _Conf2_ChannelH_2_OFF `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_OFF
 :U ..
 -> -> 0 `i `uc
@@ -4394,9 +4406,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 104: const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
-"105
-[v _Conf2_ChannelH_2_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 106: unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
+"107
+[v _Conf2_ChannelH_2_OFF_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_OFF_STR
 :U ..
 -> 67 `c
@@ -4422,9 +4434,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 105: const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
-"106
-[v _Conf2_ChannelH_3_ON `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 107: unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
+"108
+[v _Conf2_ChannelH_3_ON `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_ON
 :U ..
 -> -> 0 `i `uc
@@ -4445,9 +4457,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 106: const unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
-"107
-[v _Conf2_ChannelH_3_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 108: unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
+"109
+[v _Conf2_ChannelH_3_ON_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_ON_STR
 :U ..
 -> 67 `c
@@ -4472,9 +4484,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 107: const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
-"108
-[v _Conf2_ChannelH_3_OFF `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 109: unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
+"110
+[v _Conf2_ChannelH_3_OFF `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_OFF
 :U ..
 -> -> 0 `i `uc
@@ -4495,9 +4507,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 108: const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
-"109
-[v _Conf2_ChannelH_3_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 110: unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
+"111
+[v _Conf2_ChannelH_3_OFF_STR `uc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_OFF_STR
 :U ..
 -> 67 `c
@@ -4523,22 +4535,22 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 109: const unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
-[; ;RF.h: 172: extern unsigned char RFsendCode[20];
-[; ;RF.h: 173: extern volatile unsigned char RFsendFlag;
-[; ;RF.h: 174: extern unsigned char RFcodePlace;
-[; ;RF.h: 175: extern unsigned char RFcodeBit;
-[; ;RF.h: 176: extern volatile unsigned char Sendcount;
-[; ;RF.h: 177: extern unsigned char RFConfig;
-"178
+[; ;RF.h: 111: unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
+[; ;RF.h: 174: extern unsigned char RFsendCode[20];
+[; ;RF.h: 175: extern volatile unsigned char RFsendFlag;
+[; ;RF.h: 176: extern unsigned char RFcodePlace;
+[; ;RF.h: 177: extern unsigned char RFcodeBit;
+[; ;RF.h: 178: extern volatile unsigned char Sendcount;
+[; ;RF.h: 179: extern unsigned char RFConfig;
+"180
 [v _Sent `Vuc ~T0 @X0 1 e ]
-[; ;RF.h: 178: volatile unsigned char Sent;
-[; ;RF.h: 179: extern volatile unsigned char RF_IR_Postscaler;
-[; ;RF.h: 180: extern unsigned char RF_IR;
-[; ;RF.h: 186: unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
-[; ;RF.h: 187: void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
-[; ;RF.h: 188: void SendRF_Channel(unsigned char channel);
-[; ;RF.h: 189: unsigned char GetRFstatus(void);
+[; ;RF.h: 180: volatile unsigned char Sent;
+[; ;RF.h: 181: extern volatile unsigned char RF_IR_Postscaler;
+[; ;RF.h: 182: extern unsigned char RF_IR;
+[; ;RF.h: 188: unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
+[; ;RF.h: 189: void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
+[; ;RF.h: 190: void SendRF_Channel(unsigned char channel);
+[; ;RF.h: 191: unsigned char GetRFstatus(void);
 [; ;IR.h: 185: extern unsigned char IRpinOLD;
 [; ;IR.h: 186: extern unsigned int IRRawCode[72];
 [; ;IR.h: 187: extern unsigned long IR_NEC;
@@ -4572,13 +4584,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Bluetooth.c: 62: {
 [e :U _InitBluetooth ]
 [f ]
-[; ;Bluetooth.c: 63: cleanBuffer(&ReceivedString,255);
+[; ;Bluetooth.c: 63: cleanBuffer(ReceivedString,255);
 "63
 [e ( _cleanBuffer (2 , &U _ReceivedString -> 255 `i ]
 [; ;Bluetooth.c: 64: ReceivedStringPos = 0;
 "64
 [e = _ReceivedStringPos -> -> 0 `i `uc ]
-[; ;Bluetooth.c: 65: cleanBuffer(&CommandString,255);
+[; ;Bluetooth.c: 65: cleanBuffer(CommandString,255);
 "65
 [e ( _cleanBuffer (2 , &U _CommandString -> 255 `i ]
 [; ;Bluetooth.c: 66: CommandStringPos = 0;
@@ -4587,24 +4599,24 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Bluetooth.c: 68: LATA &= ~0x10;
 "68
 [e =& _LATA -> ~ -> 16 `i `uc ]
-[; ;Bluetooth.c: 69: ResetBlue();
+[; ;Bluetooth.c: 69: LATA |= 0x08;
 "69
-[e ( _ResetBlue ..  ]
-[; ;Bluetooth.c: 70: LATA |= 0x08;
-"70
 [e =| _LATA -> -> 8 `i `uc ]
-[; ;Bluetooth.c: 71: LATA &= ~0x10;
-"71
+[; ;Bluetooth.c: 70: LATA &= ~0x10;
+"70
 [e =& _LATA -> ~ -> 16 `i `uc ]
-[; ;Bluetooth.c: 72: if(!BluetoothConfigured())
-"72
+[; ;Bluetooth.c: 71: if(!BluetoothConfigured())
+"71
 [e $ ! ! != -> ( _BluetoothConfigured ..  `i -> -> -> 0 `i `uc `i 382  ]
-[; ;Bluetooth.c: 73: {
-"73
+[; ;Bluetooth.c: 72: {
+"72
 {
-[; ;Bluetooth.c: 74: BluetoothInitialSetup();
-"74
+[; ;Bluetooth.c: 73: BluetoothInitialSetup();
+"73
 [e ( _BluetoothInitialSetup ..  ]
+[; ;Bluetooth.c: 74: ResetBlue();
+"74
+[e ( _ResetBlue ..  ]
 "75
 }
 [e :U 382 ]
@@ -4716,19 +4728,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Bluetooth.c: 125: delayUS(50000);
 "125
 [e ( _delayUS (1 -> 50000 `l ]
-[; ;Bluetooth.c: 126: UARTstring("$$$");
+[; ;Bluetooth.c: 126: UARTstring((unsigned char *)"$$$");
 "126
 [e ( _UARTstring (1 -> :s 1C `*uc ]
 [; ;Bluetooth.c: 127: delayUS(50000);
 "127
 [e ( _delayUS (1 -> 50000 `l ]
-[; ;Bluetooth.c: 128: if(StringContains(CommandString,"CMD"))
+[; ;Bluetooth.c: 128: if(StringContains(CommandString,(unsigned char *)"CMD"))
 "128
-[e $ ! != -> ( _StringContains (2 , &U _CommandString :s 2C `i -> -> -> 0 `i `uc `i 391  ]
+[e $ ! != -> ( _StringContains (2 , &U _CommandString -> -> :s 2C `*uc `*Cuc `i -> -> -> 0 `i `uc `i 391  ]
 [; ;Bluetooth.c: 129: {
 "129
 {
-[; ;Bluetooth.c: 130: cleanBuffer(&CommandString,CommandStringPos);
+[; ;Bluetooth.c: 130: cleanBuffer(CommandString,CommandStringPos);
 "130
 [e ( _cleanBuffer (2 , &U _CommandString -> _CommandStringPos `i ]
 [; ;Bluetooth.c: 131: CommandStringPos = 0;
@@ -4742,7 +4754,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 [e :U 391 ]
 [; ;Bluetooth.c: 133: }
-[; ;Bluetooth.c: 134: cleanBuffer(&CommandString,CommandStringPos);
+[; ;Bluetooth.c: 134: cleanBuffer(CommandString,CommandStringPos);
 "134
 [e ( _cleanBuffer (2 , &U _CommandString -> _CommandStringPos `i ]
 [; ;Bluetooth.c: 135: CommandStringPos = 0;
@@ -4771,618 +4783,657 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Bluetooth.c: 146: unsigned char buf[50];
 [; ;Bluetooth.c: 147: unsigned char ok = 1;
 [e = _ok -> -> 1 `i `uc ]
-[; ;Bluetooth.c: 149: cleanBuffer(buf,50);
-"149
+"148
+[v _RFchannel `uc ~T0 @X0 -> 10 `i a ]
+[; ;Bluetooth.c: 148: unsigned char RFchannel[10];
+[; ;Bluetooth.c: 150: cleanBuffer(buf,50);
+"150
 [e ( _cleanBuffer (2 , &U _buf -> 50 `i ]
-[; ;Bluetooth.c: 151: if(!EnterCommandMode())
+[; ;Bluetooth.c: 151: cleanBuffer(RFchannel,10);
 "151
-[e $ ! ! != -> ( _EnterCommandMode ..  `i -> -> -> 0 `i `uc `i 393  ]
-[; ;Bluetooth.c: 152: {
-"152
-{
-[; ;Bluetooth.c: 153: return 0;
+[e ( _cleanBuffer (2 , &U _RFchannel -> 10 `i ]
+[; ;Bluetooth.c: 153: if(!EnterCommandMode())
 "153
+[e $ ! ! != -> ( _EnterCommandMode ..  `i -> -> -> 0 `i `uc `i 393  ]
+[; ;Bluetooth.c: 154: {
+"154
+{
+[; ;Bluetooth.c: 155: return 0;
+"155
 [e ) -> -> 0 `i `uc ]
 [e $UE 392  ]
-"154
+"156
 }
 [e :U 393 ]
-[; ;Bluetooth.c: 154: }
-[; ;Bluetooth.c: 155: sprintf(buf,"SN,Home Automation %ld\r",SN);
-"155
-[e ( _sprintf (1 , (. , &U _buf :s 3C _SN ]
-[; ;Bluetooth.c: 156: UARTstring(buf);
-"156
-[e ( _UARTstring (1 &U _buf ]
-[; ;Bluetooth.c: 157: delayUS(50000);
+[; ;Bluetooth.c: 156: }
+[; ;Bluetooth.c: 157: sprintf(buf,(unsigned char *)"SN,Home Automation %ld\r",SN);
 "157
-[e ( _delayUS (1 -> 50000 `l ]
-[; ;Bluetooth.c: 158: if(!StringContains(CommandString,"AOK"))
+[e ( _sprintf (1 , (. , &U _buf -> -> :s 3C `*uc `*Cuc _SN ]
+[; ;Bluetooth.c: 158: UARTstring(buf);
 "158
-[e $ ! ! != -> ( _StringContains (2 , &U _CommandString :s 4C `i -> -> -> 0 `i `uc `i 394  ]
-[; ;Bluetooth.c: 159: {
+[e ( _UARTstring (1 &U _buf ]
+[; ;Bluetooth.c: 159: delayUS(50000);
 "159
-{
-[; ;Bluetooth.c: 160: ok = 0;
+[e ( _delayUS (1 -> 50000 `l ]
+[; ;Bluetooth.c: 160: if(!StringContains(CommandString,(unsigned char *)"AOK"))
 "160
-[e = _ok -> -> 0 `i `uc ]
+[e $ ! ! != -> ( _StringContains (2 , &U _CommandString -> -> :s 4C `*uc `*Cuc `i -> -> -> 0 `i `uc `i 394  ]
+[; ;Bluetooth.c: 161: {
 "161
+{
+[; ;Bluetooth.c: 162: ok = 0;
+"162
+[e = _ok -> -> 0 `i `uc ]
+"163
 }
 [e :U 394 ]
-[; ;Bluetooth.c: 161: }
-[; ;Bluetooth.c: 162: cleanBuffer(&CommandString,CommandStringPos);
-"162
+[; ;Bluetooth.c: 163: }
+[; ;Bluetooth.c: 164: cleanBuffer(CommandString,CommandStringPos);
+"164
 [e ( _cleanBuffer (2 , &U _CommandString -> _CommandStringPos `i ]
-[; ;Bluetooth.c: 163: CommandStringPos = 0;
-"163
-[e = _CommandStringPos -> -> 0 `i `uc ]
-[; ;Bluetooth.c: 165: if(ok)
+[; ;Bluetooth.c: 165: CommandStringPos = 0;
 "165
-[e $ ! != -> _ok `i -> -> -> 0 `i `uc `i 395  ]
-[; ;Bluetooth.c: 166: {
-"166
-{
-[; ;Bluetooth.c: 167: UARTstring("SU, 115K\r");
+[e = _CommandStringPos -> -> 0 `i `uc ]
+[; ;Bluetooth.c: 167: if(ok)
 "167
-[e ( _UARTstring (1 -> :s 5C `*uc ]
-[; ;Bluetooth.c: 168: delayUS(50000);
+[e $ ! != -> _ok `i -> -> -> 0 `i `uc `i 395  ]
+[; ;Bluetooth.c: 168: {
 "168
-[e ( _delayUS (1 -> 50000 `l ]
-[; ;Bluetooth.c: 169: if(!StringContains(CommandString,"AOK"))
-"169
-[e $ ! ! != -> ( _StringContains (2 , &U _CommandString :s 6C `i -> -> -> 0 `i `uc `i 396  ]
-[; ;Bluetooth.c: 170: {
-"170
 {
-[; ;Bluetooth.c: 171: ok = 0;
+[; ;Bluetooth.c: 169: UARTstring((unsigned char *)"SU, 115K\r");
+"169
+[e ( _UARTstring (1 -> :s 5C `*uc ]
+[; ;Bluetooth.c: 170: delayUS(50000);
+"170
+[e ( _delayUS (1 -> 50000 `l ]
+[; ;Bluetooth.c: 171: if(!StringContains(CommandString,(unsigned char *)"AOK"))
 "171
-[e = _ok -> -> 0 `i `uc ]
+[e $ ! ! != -> ( _StringContains (2 , &U _CommandString -> -> :s 6C `*uc `*Cuc `i -> -> -> 0 `i `uc `i 396  ]
+[; ;Bluetooth.c: 172: {
 "172
+{
+[; ;Bluetooth.c: 173: ok = 0;
+"173
+[e = _ok -> -> 0 `i `uc ]
+"174
 }
 [e :U 396 ]
-"173
+"175
 }
 [e :U 395 ]
-[; ;Bluetooth.c: 172: }
-[; ;Bluetooth.c: 173: }
-[; ;Bluetooth.c: 175: if(ok)
-"175
-[e $ ! != -> _ok `i -> -> -> 0 `i `uc `i 397  ]
-[; ;Bluetooth.c: 176: {
-"176
-{
-[; ;Bluetooth.c: 177: UARTstring("SS, Home Automation\r");
+[; ;Bluetooth.c: 174: }
+[; ;Bluetooth.c: 175: }
+[; ;Bluetooth.c: 177: if(ok)
 "177
-[e ( _UARTstring (1 -> :s 7C `*uc ]
-[; ;Bluetooth.c: 178: delayUS(50000);
+[e $ ! != -> _ok `i -> -> -> 0 `i `uc `i 397  ]
+[; ;Bluetooth.c: 178: {
 "178
-[e ( _delayUS (1 -> 50000 `l ]
-[; ;Bluetooth.c: 179: if(!StringContains(CommandString,"AOK"))
-"179
-[e $ ! ! != -> ( _StringContains (2 , &U _CommandString :s 8C `i -> -> -> 0 `i `uc `i 398  ]
-[; ;Bluetooth.c: 180: {
-"180
 {
-[; ;Bluetooth.c: 181: ok = 0;
+[; ;Bluetooth.c: 179: UARTstring((unsigned char *)"SS, Home Automation\r");
+"179
+[e ( _UARTstring (1 -> :s 7C `*uc ]
+[; ;Bluetooth.c: 180: delayUS(50000);
+"180
+[e ( _delayUS (1 -> 50000 `l ]
+[; ;Bluetooth.c: 181: if(!StringContains(CommandString,(unsigned char *)"AOK"))
 "181
-[e = _ok -> -> 0 `i `uc ]
+[e $ ! ! != -> ( _StringContains (2 , &U _CommandString -> -> :s 8C `*uc `*Cuc `i -> -> -> 0 `i `uc `i 398  ]
+[; ;Bluetooth.c: 182: {
 "182
+{
+[; ;Bluetooth.c: 183: ok = 0;
+"183
+[e = _ok -> -> 0 `i `uc ]
+"184
 }
 [e :U 398 ]
-"183
+"185
 }
 [e :U 397 ]
-[; ;Bluetooth.c: 182: }
-[; ;Bluetooth.c: 183: }
-[; ;Bluetooth.c: 184: cleanBuffer(&CommandString,CommandStringPos);
-"184
+[; ;Bluetooth.c: 184: }
+[; ;Bluetooth.c: 185: }
+[; ;Bluetooth.c: 186: cleanBuffer(CommandString,CommandStringPos);
+"186
 [e ( _cleanBuffer (2 , &U _CommandString -> _CommandStringPos `i ]
-[; ;Bluetooth.c: 185: CommandStringPos = 0;
-"185
-[e = _CommandStringPos -> -> 0 `i `uc ]
-[; ;Bluetooth.c: 187: if(ok)
+[; ;Bluetooth.c: 187: CommandStringPos = 0;
 "187
-[e $ ! != -> _ok `i -> -> -> 0 `i `uc `i 399  ]
-[; ;Bluetooth.c: 188: {
-"188
-{
-[; ;Bluetooth.c: 189: UARTstring("SY,0010\r");
+[e = _CommandStringPos -> -> 0 `i `uc ]
+[; ;Bluetooth.c: 189: if(ok)
 "189
-[e ( _UARTstring (1 -> :s 9C `*uc ]
-[; ;Bluetooth.c: 190: delayUS(50000);
+[e $ ! != -> _ok `i -> -> -> 0 `i `uc `i 399  ]
+[; ;Bluetooth.c: 190: {
 "190
-[e ( _delayUS (1 -> 50000 `l ]
-[; ;Bluetooth.c: 191: if(!StringContains(CommandString,"AOK"))
-"191
-[e $ ! ! != -> ( _StringContains (2 , &U _CommandString :s 10C `i -> -> -> 0 `i `uc `i 400  ]
-[; ;Bluetooth.c: 192: {
-"192
 {
-[; ;Bluetooth.c: 193: ok = 0;
+[; ;Bluetooth.c: 191: UARTstring((unsigned char *)"SY,0010\r");
+"191
+[e ( _UARTstring (1 -> :s 9C `*uc ]
+[; ;Bluetooth.c: 192: delayUS(50000);
+"192
+[e ( _delayUS (1 -> 50000 `l ]
+[; ;Bluetooth.c: 193: if(!StringContains(CommandString,(unsigned char *)"AOK"))
 "193
-[e = _ok -> -> 0 `i `uc ]
+[e $ ! ! != -> ( _StringContains (2 , &U _CommandString -> -> :s 10C `*uc `*Cuc `i -> -> -> 0 `i `uc `i 400  ]
+[; ;Bluetooth.c: 194: {
 "194
+{
+[; ;Bluetooth.c: 195: ok = 0;
+"195
+[e = _ok -> -> 0 `i `uc ]
+"196
 }
 [e :U 400 ]
-"195
+"197
 }
 [e :U 399 ]
-[; ;Bluetooth.c: 194: }
-[; ;Bluetooth.c: 195: }
-[; ;Bluetooth.c: 196: cleanBuffer(&CommandString,CommandStringPos);
-"196
+[; ;Bluetooth.c: 196: }
+[; ;Bluetooth.c: 197: }
+[; ;Bluetooth.c: 198: cleanBuffer(CommandString,CommandStringPos);
+"198
 [e ( _cleanBuffer (2 , &U _CommandString -> _CommandStringPos `i ]
-[; ;Bluetooth.c: 197: CommandStringPos = 0;
-"197
-[e = _CommandStringPos -> -> 0 `i `uc ]
-[; ;Bluetooth.c: 199: if(ok)
+[; ;Bluetooth.c: 199: CommandStringPos = 0;
 "199
-[e $ ! != -> _ok `i -> -> -> 0 `i `uc `i 401  ]
-[; ;Bluetooth.c: 200: {
-"200
-{
-[; ;Bluetooth.c: 201: UARTstring("S~,0\r");
+[e = _CommandStringPos -> -> 0 `i `uc ]
+[; ;Bluetooth.c: 201: if(ok)
 "201
-[e ( _UARTstring (1 -> :s 11C `*uc ]
-[; ;Bluetooth.c: 202: delayUS(50000);
+[e $ ! != -> _ok `i -> -> -> 0 `i `uc `i 401  ]
+[; ;Bluetooth.c: 202: {
 "202
-[e ( _delayUS (1 -> 50000 `l ]
-[; ;Bluetooth.c: 203: if(!StringContains(CommandString,"AOK"))
-"203
-[e $ ! ! != -> ( _StringContains (2 , &U _CommandString :s 12C `i -> -> -> 0 `i `uc `i 402  ]
-[; ;Bluetooth.c: 204: {
-"204
 {
-[; ;Bluetooth.c: 205: ok = 0;
+[; ;Bluetooth.c: 203: UARTstring((unsigned char *)"S~,0\r");
+"203
+[e ( _UARTstring (1 -> :s 11C `*uc ]
+[; ;Bluetooth.c: 204: delayUS(50000);
+"204
+[e ( _delayUS (1 -> 50000 `l ]
+[; ;Bluetooth.c: 205: if(!StringContains(CommandString,(unsigned char *)"AOK"))
 "205
-[e = _ok -> -> 0 `i `uc ]
+[e $ ! ! != -> ( _StringContains (2 , &U _CommandString -> -> :s 12C `*uc `*Cuc `i -> -> -> 0 `i `uc `i 402  ]
+[; ;Bluetooth.c: 206: {
 "206
+{
+[; ;Bluetooth.c: 207: ok = 0;
+"207
+[e = _ok -> -> 0 `i `uc ]
+"208
 }
 [e :U 402 ]
-"207
+"209
 }
 [e :U 401 ]
-[; ;Bluetooth.c: 206: }
-[; ;Bluetooth.c: 207: }
-[; ;Bluetooth.c: 208: cleanBuffer(&CommandString,CommandStringPos);
-"208
+[; ;Bluetooth.c: 208: }
+[; ;Bluetooth.c: 209: }
+[; ;Bluetooth.c: 210: cleanBuffer(CommandString,CommandStringPos);
+"210
 [e ( _cleanBuffer (2 , &U _CommandString -> _CommandStringPos `i ]
-[; ;Bluetooth.c: 209: CommandStringPos = 0;
-"209
-[e = _CommandStringPos -> -> 0 `i `uc ]
-[; ;Bluetooth.c: 211: if(ok)
+[; ;Bluetooth.c: 211: CommandStringPos = 0;
 "211
-[e $ ! != -> _ok `i -> -> -> 0 `i `uc `i 403  ]
-[; ;Bluetooth.c: 212: {
-"212
-{
-[; ;Bluetooth.c: 213: UARTstring("S~,0\r");
+[e = _CommandStringPos -> -> 0 `i `uc ]
+[; ;Bluetooth.c: 213: if(ok)
 "213
-[e ( _UARTstring (1 -> :s 13C `*uc ]
-[; ;Bluetooth.c: 214: delayUS(50000);
+[e $ ! != -> _ok `i -> -> -> 0 `i `uc `i 403  ]
+[; ;Bluetooth.c: 214: {
 "214
-[e ( _delayUS (1 -> 50000 `l ]
-[; ;Bluetooth.c: 215: if(!StringContains(CommandString,"AOK"))
-"215
-[e $ ! ! != -> ( _StringContains (2 , &U _CommandString :s 14C `i -> -> -> 0 `i `uc `i 404  ]
-[; ;Bluetooth.c: 216: {
-"216
 {
-[; ;Bluetooth.c: 217: ok = 0;
+[; ;Bluetooth.c: 215: UARTstring((unsigned char *)"S~,0\r");
+"215
+[e ( _UARTstring (1 -> :s 13C `*uc ]
+[; ;Bluetooth.c: 216: delayUS(50000);
+"216
+[e ( _delayUS (1 -> 50000 `l ]
+[; ;Bluetooth.c: 217: if(!StringContains(CommandString,(unsigned char *)"AOK"))
 "217
-[e = _ok -> -> 0 `i `uc ]
+[e $ ! ! != -> ( _StringContains (2 , &U _CommandString -> -> :s 14C `*uc `*Cuc `i -> -> -> 0 `i `uc `i 404  ]
+[; ;Bluetooth.c: 218: {
 "218
+{
+[; ;Bluetooth.c: 219: ok = 0;
+"219
+[e = _ok -> -> 0 `i `uc ]
+"220
 }
 [e :U 404 ]
-"219
+"221
 }
 [e :U 403 ]
-[; ;Bluetooth.c: 218: }
-[; ;Bluetooth.c: 219: }
-[; ;Bluetooth.c: 220: cleanBuffer(&CommandString,CommandStringPos);
-"220
+[; ;Bluetooth.c: 220: }
+[; ;Bluetooth.c: 221: }
+[; ;Bluetooth.c: 222: cleanBuffer(CommandString,CommandStringPos);
+"222
 [e ( _cleanBuffer (2 , &U _CommandString -> _CommandStringPos `i ]
-[; ;Bluetooth.c: 221: CommandStringPos = 0;
-"221
-[e = _CommandStringPos -> -> 0 `i `uc ]
-[; ;Bluetooth.c: 223: if(ok)
+[; ;Bluetooth.c: 223: CommandStringPos = 0;
 "223
-[e $ ! != -> _ok `i -> -> -> 0 `i `uc `i 405  ]
-[; ;Bluetooth.c: 224: {
-"224
-{
-[; ;Bluetooth.c: 225: UARTstring("D,0\r");
+[e = _CommandStringPos -> -> 0 `i `uc ]
+[; ;Bluetooth.c: 225: if(ok)
 "225
-[e ( _UARTstring (1 -> :s 15C `*uc ]
-[; ;Bluetooth.c: 226: delayUS(50000);
+[e $ ! != -> _ok `i -> -> -> 0 `i `uc `i 405  ]
+[; ;Bluetooth.c: 226: {
 "226
-[e ( _delayUS (1 -> 50000 `l ]
-[; ;Bluetooth.c: 227: sprintf(buf,"BTName=Home Automation %ld\r",SN);
-"227
-[e ( _sprintf (1 , (. , &U _buf :s 16C _SN ]
-[; ;Bluetooth.c: 228: if(!StringContains(CommandString, buf))
-"228
-[e $ ! ! != -> ( _StringContains (2 , &U _CommandString -> &U _buf `*Cuc `i -> -> -> 0 `i `uc `i 406  ]
-[; ;Bluetooth.c: 229: {
-"229
 {
-[; ;Bluetooth.c: 230: ok = 0;
+[; ;Bluetooth.c: 227: UARTstring((unsigned char *)"D,0\r");
+"227
+[e ( _UARTstring (1 -> :s 15C `*uc ]
+[; ;Bluetooth.c: 228: delayUS(50000);
+"228
+[e ( _delayUS (1 -> 50000 `l ]
+[; ;Bluetooth.c: 229: sprintf(buf,(unsigned char *)"BTName=Home Automation %ld\r",SN);
+"229
+[e ( _sprintf (1 , (. , &U _buf -> -> :s 16C `*uc `*Cuc _SN ]
+[; ;Bluetooth.c: 230: if(!StringContains(CommandString, buf))
 "230
-[e = _ok -> -> 0 `i `uc ]
+[e $ ! ! != -> ( _StringContains (2 , &U _CommandString -> &U _buf `*Cuc `i -> -> -> 0 `i `uc `i 406  ]
+[; ;Bluetooth.c: 231: {
 "231
+{
+[; ;Bluetooth.c: 232: ok = 0;
+"232
+[e = _ok -> -> 0 `i `uc ]
+"233
 }
 [e :U 406 ]
-"232
+"234
 }
 [e :U 405 ]
-[; ;Bluetooth.c: 231: }
-[; ;Bluetooth.c: 232: }
-[; ;Bluetooth.c: 233: cleanBuffer(&CommandString,CommandStringPos);
-"233
+[; ;Bluetooth.c: 233: }
+[; ;Bluetooth.c: 234: }
+[; ;Bluetooth.c: 235: cleanBuffer(CommandString,CommandStringPos);
+"235
 [e ( _cleanBuffer (2 , &U _CommandString -> _CommandStringPos `i ]
-[; ;Bluetooth.c: 234: CommandStringPos = 0;
-"234
-[e = _CommandStringPos -> -> 0 `i `uc ]
-[; ;Bluetooth.c: 236: UARTstring("---\r");
+[; ;Bluetooth.c: 236: CommandStringPos = 0;
 "236
-[e ( _UARTstring (1 -> :s 17C `*uc ]
-[; ;Bluetooth.c: 237: delayUS(50000);
-"237
-[e ( _delayUS (1 -> 50000 `l ]
-[; ;Bluetooth.c: 238: if(!StringContains(CommandString, "END"))
+[e = _CommandStringPos -> -> 0 `i `uc ]
+[; ;Bluetooth.c: 238: UARTstring((unsigned char *)"---\r");
 "238
-[e $ ! ! != -> ( _StringContains (2 , &U _CommandString :s 18C `i -> -> -> 0 `i `uc `i 407  ]
-[; ;Bluetooth.c: 239: {
+[e ( _UARTstring (1 -> :s 17C `*uc ]
+[; ;Bluetooth.c: 239: delayUS(50000);
 "239
-{
-[; ;Bluetooth.c: 240: ok = 0;
+[e ( _delayUS (1 -> 50000 `l ]
+[; ;Bluetooth.c: 240: if(!StringContains(CommandString,(unsigned char *)"END"))
 "240
-[e = _ok -> -> 0 `i `uc ]
+[e $ ! ! != -> ( _StringContains (2 , &U _CommandString -> -> :s 18C `*uc `*Cuc `i -> -> -> 0 `i `uc `i 407  ]
+[; ;Bluetooth.c: 241: {
 "241
+{
+[; ;Bluetooth.c: 242: ok = 0;
+"242
+[e = _ok -> -> 0 `i `uc ]
+"243
 }
 [e :U 407 ]
-[; ;Bluetooth.c: 241: }
-[; ;Bluetooth.c: 242: cleanBuffer(&CommandString,CommandStringPos);
-"242
+[; ;Bluetooth.c: 243: }
+[; ;Bluetooth.c: 244: cleanBuffer(CommandString,CommandStringPos);
+"244
 [e ( _cleanBuffer (2 , &U _CommandString -> _CommandStringPos `i ]
-[; ;Bluetooth.c: 243: CommandStringPos = 0;
-"243
-[e = _CommandStringPos -> -> 0 `i `uc ]
-[; ;Bluetooth.c: 245: if(ok)
+[; ;Bluetooth.c: 245: CommandStringPos = 0;
 "245
-[e $ ! != -> _ok `i -> -> -> 0 `i `uc `i 408  ]
-[; ;Bluetooth.c: 246: {
-"246
-{
-[; ;Bluetooth.c: 247: return 1;
+[e = _CommandStringPos -> -> 0 `i `uc ]
+[; ;Bluetooth.c: 247: if(ok)
 "247
+[e $ ! != -> _ok `i -> -> -> 0 `i `uc `i 408  ]
+[; ;Bluetooth.c: 248: {
+"248
+{
+[; ;Bluetooth.c: 249: return 1;
+"249
 [e ) -> -> 1 `i `uc ]
 [e $UE 392  ]
-"248
+"250
 }
 [e :U 408 ]
-[; ;Bluetooth.c: 248: }
-[; ;Bluetooth.c: 249: return 0;
-"249
+[; ;Bluetooth.c: 250: }
+[; ;Bluetooth.c: 251: return 0;
+"251
 [e ) -> -> 0 `i `uc ]
 [e $UE 392  ]
-[; ;Bluetooth.c: 250: }
-"250
+[; ;Bluetooth.c: 252: }
+"252
 [e :UE 392 ]
 }
-"257
-[v _BluetoothConfigured `(uc ~T0 @X0 1 ef ]
-"258
-{
-[; ;Bluetooth.c: 257: unsigned char BluetoothConfigured(void)
-[; ;Bluetooth.c: 258: {
-[e :U _BluetoothConfigured ]
-[f ]
-[; ;Bluetooth.c: 259: if(Global.BlueToothFlag != 1)
 "259
-[e $ ! != -> . _Global 0 `i -> 1 `i 410  ]
-[; ;Bluetooth.c: 260: {
+[v _BluetoothConfigured `(uc ~T0 @X0 1 ef ]
 "260
 {
-[; ;Bluetooth.c: 261: Global.BlueToothFlag = 1;
+[; ;Bluetooth.c: 259: unsigned char BluetoothConfigured(void)
+[; ;Bluetooth.c: 260: {
+[e :U _BluetoothConfigured ]
+[f ]
+[; ;Bluetooth.c: 261: if(Global.BlueToothFlag != 1)
 "261
-[e = . _Global 0 -> -> 1 `i `uc ]
-[; ;Bluetooth.c: 262: SyncGlobalToEEPROM();
+[e $ ! != -> . _Global 0 `i -> 1 `i 410  ]
+[; ;Bluetooth.c: 262: {
 "262
-[e ( _SyncGlobalToEEPROM ..  ]
-[; ;Bluetooth.c: 263: return 0;
+{
+[; ;Bluetooth.c: 263: Global.BlueToothFlag = 1;
 "263
+[e = . _Global 0 -> -> 1 `i `uc ]
+[; ;Bluetooth.c: 264: SyncGlobalToEEPROM();
+"264
+[e ( _SyncGlobalToEEPROM ..  ]
+[; ;Bluetooth.c: 265: return 0;
+"265
 [e ) -> -> 0 `i `uc ]
 [e $UE 409  ]
-"264
+"266
 }
 [e :U 410 ]
-[; ;Bluetooth.c: 264: }
-[; ;Bluetooth.c: 265: return 1;
-"265
+[; ;Bluetooth.c: 266: }
+[; ;Bluetooth.c: 267: return 1;
+"267
 [e ) -> -> 1 `i `uc ]
 [e $UE 409  ]
-[; ;Bluetooth.c: 266: }
-"266
+[; ;Bluetooth.c: 268: }
+"268
 [e :UE 409 ]
 }
-"273
+"275
 [v _UseBluetooth `(uc ~T0 @X0 1 ef ]
-"274
+"276
 {
-[; ;Bluetooth.c: 273: unsigned char UseBluetooth(void)
-[; ;Bluetooth.c: 274: {
+[; ;Bluetooth.c: 275: unsigned char UseBluetooth(void)
+[; ;Bluetooth.c: 276: {
 [e :U _UseBluetooth ]
 [f ]
-"275
-[v _ok `uc ~T0 @X0 1 a ]
-[; ;Bluetooth.c: 275: unsigned char ok = 1;
-[e = _ok -> -> 1 `i `uc ]
 "277
-[v _EnteredNEC `ul ~T0 @X0 1 a ]
-[; ;Bluetooth.c: 277: unsigned long EnteredNEC = 0;
-[e = _EnteredNEC -> -> -> 0 `i `l `ul ]
-"278
-[v _NecAddress `uc ~T0 @X0 1 a ]
-[; ;Bluetooth.c: 278: unsigned char NecAddress = 0;
-[e = _NecAddress -> -> 0 `i `uc ]
+[v _ok `uc ~T0 @X0 1 a ]
+[; ;Bluetooth.c: 277: unsigned char ok = 1;
+[e = _ok -> -> 1 `i `uc ]
 "279
-[v _NecCommand `uc ~T0 @X0 1 a ]
-[; ;Bluetooth.c: 279: unsigned char NecCommand = 0;
-[e = _NecCommand -> -> 0 `i `uc ]
+[v _EnteredNEC `ul ~T0 @X0 1 a ]
+[; ;Bluetooth.c: 279: unsigned long EnteredNEC = 0;
+[e = _EnteredNEC -> -> -> 0 `i `l `ul ]
 "280
-[v _temp `ul ~T0 @X0 1 a ]
-[; ;Bluetooth.c: 280: unsigned long temp = 0;
-[e = _temp -> -> -> 0 `i `l `ul ]
+[v _NecAddress `uc ~T0 @X0 1 a ]
+[; ;Bluetooth.c: 280: unsigned char NecAddress = 0;
+[e = _NecAddress -> -> 0 `i `uc ]
 "281
-[v _buf `uc ~T0 @X0 -> 50 `i a ]
+[v _NecCommand `uc ~T0 @X0 1 a ]
+[; ;Bluetooth.c: 281: unsigned char NecCommand = 0;
+[e = _NecCommand -> -> 0 `i `uc ]
 "282
-[v _timeout `uc ~T0 @X0 1 a ]
-[; ;Bluetooth.c: 281: unsigned char buf[50];
-[; ;Bluetooth.c: 282: unsigned char timeout =0;
-[e = _timeout -> -> 0 `i `uc ]
-[; ;Bluetooth.c: 284: cleanBuffer(buf,50);
+[v _temp `ul ~T0 @X0 1 a ]
+[; ;Bluetooth.c: 282: unsigned long temp = 0;
+[e = _temp -> -> -> 0 `i `l `ul ]
+"283
+[v _tempNec `ul ~T0 @X0 1 a ]
+[; ;Bluetooth.c: 283: unsigned long tempNec = 0;
+[e = _tempNec -> -> -> 0 `i `l `ul ]
 "284
-[e ( _cleanBuffer (2 , &U _buf -> 50 `i ]
-[; ;Bluetooth.c: 286: if(StringContainsCaseInsensitive(ReceivedString,"Conf1"))
+[v _buf `uc ~T0 @X0 -> 50 `i a ]
+"285
+[v _timeout `uc ~T0 @X0 1 a ]
+[; ;Bluetooth.c: 284: unsigned char buf[50];
+[; ;Bluetooth.c: 285: unsigned char timeout =0;
+[e = _timeout -> -> 0 `i `uc ]
 "286
-[e $ ! != -> ( _StringContainsCaseInsensitive (2 , &U _ReceivedString :s 19C `i -> -> -> 0 `i `uc `i 412  ]
-[; ;Bluetooth.c: 287: {
+[v _rfchannelSTR `uc ~T0 @X0 -> 10 `i a ]
 "287
-{
-[; ;Bluetooth.c: 288: if(StringMatchCaseInsensitive(ReceivedString,Conf1_ChannelD_STR))
+[v _rfconf `uc ~T0 @X0 1 a ]
+[v _i `uc ~T0 @X0 1 a ]
+[v _tempRFArray `uc ~T0 @X0 1 a ]
 "288
-[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString &U _Conf1_ChannelD_STR `i -> -> -> 0 `i `uc `i 413  ]
-[; ;Bluetooth.c: 289: {
-"289
-{
-[; ;Bluetooth.c: 291: SendRF_wait(Conf1_ChannelD,1,12,8);
+[v _device `uc ~T0 @X0 1 a ]
+[; ;Bluetooth.c: 286: unsigned char rfchannelSTR[10];
+[; ;Bluetooth.c: 287: unsigned char rfconf, i, tempRFArray;
+[; ;Bluetooth.c: 288: unsigned char device = 0;
+[e = _device -> -> 0 `i `uc ]
+[; ;Bluetooth.c: 290: cleanBuffer(buf,50);
+"290
+[e ( _cleanBuffer (2 , &U _buf -> 50 `i ]
+[; ;Bluetooth.c: 291: cleanBuffer(rfchannelSTR,10);
 "291
-[e ( _SendRF_wait (4 , , , &U _Conf1_ChannelD -> -> 1 `i `uc -> -> 12 `i `uc -> -> 8 `i `uc ]
-"292
-}
-[; ;Bluetooth.c: 292: }
-[e $U 414  ]
+[e ( _cleanBuffer (2 , &U _rfchannelSTR -> 10 `i ]
+[; ;Bluetooth.c: 293: if(StringContainsCaseInsensitive(ReceivedString,(unsigned char *)"Conf1"))
 "293
-[e :U 413 ]
-[; ;Bluetooth.c: 293: else if(StringMatchCaseInsensitive(ReceivedString,Conf1_ChannelE_STR))
-[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString &U _Conf1_ChannelE_STR `i -> -> -> 0 `i `uc `i 415  ]
+[e $ ! != -> ( _StringContainsCaseInsensitive (2 , &U _ReceivedString -> -> :s 19C `*uc `*Cuc `i -> -> -> 0 `i `uc `i 412  ]
 [; ;Bluetooth.c: 294: {
 "294
 {
-[; ;Bluetooth.c: 296: SendRF_wait(Conf1_ChannelE,1,12,8);
+[; ;Bluetooth.c: 295: if(StringMatchCaseInsensitive(ReceivedString,Conf1_ChannelD_STR))
+"295
+[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString -> &U _Conf1_ChannelD_STR `*Cuc `i -> -> -> 0 `i `uc `i 413  ]
+[; ;Bluetooth.c: 296: {
 "296
-[e ( _SendRF_wait (4 , , , &U _Conf1_ChannelE -> -> 1 `i `uc -> -> 12 `i `uc -> -> 8 `i `uc ]
-"297
-}
-[; ;Bluetooth.c: 297: }
-[e $U 416  ]
+{
+[; ;Bluetooth.c: 298: SendRF_wait(Conf1_ChannelD,1,12,8);
 "298
-[e :U 415 ]
-[; ;Bluetooth.c: 298: else if(StringMatchCaseInsensitive(ReceivedString,Conf1_ChannelF_STR))
-[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString &U _Conf1_ChannelF_STR `i -> -> -> 0 `i `uc `i 417  ]
-[; ;Bluetooth.c: 299: {
+[e ( _SendRF_wait (4 , , , -> &U _Conf1_ChannelD `*Cuc -> -> 1 `i `uc -> -> 12 `i `uc -> -> 8 `i `uc ]
 "299
-{
-[; ;Bluetooth.c: 301: SendRF_wait(Conf1_ChannelF,1,12,8);
-"301
-[e ( _SendRF_wait (4 , , , &U _Conf1_ChannelF -> -> 1 `i `uc -> -> 12 `i `uc -> -> 8 `i `uc ]
-"302
 }
-[; ;Bluetooth.c: 302: }
-[e $U 418  ]
-"303
-[e :U 417 ]
-[; ;Bluetooth.c: 303: else
-[; ;Bluetooth.c: 304: {
-"304
+[; ;Bluetooth.c: 299: }
+[e $U 414  ]
+"300
+[e :U 413 ]
+[; ;Bluetooth.c: 300: else if(StringMatchCaseInsensitive(ReceivedString,Conf1_ChannelE_STR))
+[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString -> &U _Conf1_ChannelE_STR `*Cuc `i -> -> -> 0 `i `uc `i 415  ]
+[; ;Bluetooth.c: 301: {
+"301
 {
-[; ;Bluetooth.c: 306: ok = 0;
+[; ;Bluetooth.c: 303: SendRF_wait(Conf1_ChannelE,1,12,8);
+"303
+[e ( _SendRF_wait (4 , , , -> &U _Conf1_ChannelE `*Cuc -> -> 1 `i `uc -> -> 12 `i `uc -> -> 8 `i `uc ]
+"304
+}
+[; ;Bluetooth.c: 304: }
+[e $U 416  ]
+"305
+[e :U 415 ]
+[; ;Bluetooth.c: 305: else if(StringMatchCaseInsensitive(ReceivedString,Conf1_ChannelF_STR))
+[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString -> &U _Conf1_ChannelF_STR `*Cuc `i -> -> -> 0 `i `uc `i 417  ]
+[; ;Bluetooth.c: 306: {
 "306
-[e = _ok -> -> 0 `i `uc ]
-"307
+{
+[; ;Bluetooth.c: 308: SendRF_wait(Conf1_ChannelF,1,12,8);
+"308
+[e ( _SendRF_wait (4 , , , -> &U _Conf1_ChannelF `*Cuc -> -> 1 `i `uc -> -> 12 `i `uc -> -> 8 `i `uc ]
+"309
+}
+[; ;Bluetooth.c: 309: }
+[e $U 418  ]
+"310
+[e :U 417 ]
+[; ;Bluetooth.c: 310: else
+[; ;Bluetooth.c: 311: {
+"311
+{
+[; ;Bluetooth.c: 313: UARTstring((unsigned char *)SYNTAX_ERR);
+"313
+[e ( _UARTstring (1 &U _SYNTAX_ERR ]
+[; ;Bluetooth.c: 314: UARTstring((unsigned char *)CRLN);
+"314
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 315: return 0;
+"315
+[e ) -> -> 0 `i `uc ]
+[e $UE 411  ]
+"316
 }
 [e :U 418 ]
 [e :U 416 ]
 [e :U 414 ]
-[; ;Bluetooth.c: 307: }
-[; ;Bluetooth.c: 308: if(ok)
-"308
+[; ;Bluetooth.c: 316: }
+[; ;Bluetooth.c: 317: if(ok)
+"317
 [e $ ! != -> _ok `i -> -> -> 0 `i `uc `i 419  ]
-[; ;Bluetooth.c: 309: {
-"309
+[; ;Bluetooth.c: 318: {
+"318
 {
-[; ;Bluetooth.c: 310: UARTstringCRLN("Configuration 1 RF code sent");
-"310
+[; ;Bluetooth.c: 319: UARTstringCRLN((unsigned char *)"Configuration 1 RF code sent");
+"319
 [e ( _UARTstringCRLN (1 -> :s 20C `*uc ]
-[; ;Bluetooth.c: 311: return 1;
-"311
+[; ;Bluetooth.c: 320: return 1;
+"320
 [e ) -> -> 1 `i `uc ]
 [e $UE 411  ]
-"312
+"321
 }
 [e :U 419 ]
-"313
-}
-[; ;Bluetooth.c: 312: }
-[; ;Bluetooth.c: 313: }
-[e $U 420  ]
-"314
-[e :U 412 ]
-[; ;Bluetooth.c: 314: else if(StringContainsCaseInsensitive(ReceivedString,"Conf2"))
-[e $ ! != -> ( _StringContainsCaseInsensitive (2 , &U _ReceivedString :s 21C `i -> -> -> 0 `i `uc `i 421  ]
-[; ;Bluetooth.c: 315: {
-"315
-{
-[; ;Bluetooth.c: 316: if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelB_ON_STR))
-"316
-[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString &U _Conf2_ChannelB_ON_STR `i -> -> -> 0 `i `uc `i 422  ]
-[; ;Bluetooth.c: 317: {
-"317
-{
-[; ;Bluetooth.c: 319: SendRF_wait(Conf2_ChannelB_ON,2,16,8);
-"319
-[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelB_ON -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
-"320
-}
-[; ;Bluetooth.c: 320: }
-[e $U 423  ]
-"321
-[e :U 422 ]
-[; ;Bluetooth.c: 321: else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelB_OFF_STR))
-[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString &U _Conf2_ChannelB_OFF_STR `i -> -> -> 0 `i `uc `i 424  ]
-[; ;Bluetooth.c: 322: {
 "322
-{
-[; ;Bluetooth.c: 324: SendRF_wait(Conf2_ChannelB_OFF,2,16,8);
+}
+[; ;Bluetooth.c: 321: }
+[; ;Bluetooth.c: 322: }
+[e $U 420  ]
+"323
+[e :U 412 ]
+[; ;Bluetooth.c: 323: else if(StringContainsCaseInsensitive(ReceivedString,(unsigned char *)"Conf2"))
+[e $ ! != -> ( _StringContainsCaseInsensitive (2 , &U _ReceivedString -> -> :s 21C `*uc `*Cuc `i -> -> -> 0 `i `uc `i 421  ]
+[; ;Bluetooth.c: 324: {
 "324
-[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelB_OFF -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
+{
+[; ;Bluetooth.c: 325: if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelB_ON_STR))
 "325
-}
-[; ;Bluetooth.c: 325: }
-[e $U 425  ]
+[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString -> &U _Conf2_ChannelB_ON_STR `*Cuc `i -> -> -> 0 `i `uc `i 422  ]
+[; ;Bluetooth.c: 326: {
 "326
-[e :U 424 ]
-[; ;Bluetooth.c: 326: else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelD_ON_STR))
-[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString &U _Conf2_ChannelD_ON_STR `i -> -> -> 0 `i `uc `i 426  ]
-[; ;Bluetooth.c: 327: {
-"327
 {
-[; ;Bluetooth.c: 329: SendRF_wait(Conf2_ChannelD_ON,2,16,8);
+[; ;Bluetooth.c: 328: SendRF_wait(Conf2_ChannelB_ON,2,16,8);
+"328
+[e ( _SendRF_wait (4 , , , -> &U _Conf2_ChannelB_ON `*Cuc -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
 "329
-[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelD_ON -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
+}
+[; ;Bluetooth.c: 329: }
+[e $U 423  ]
 "330
-}
-[; ;Bluetooth.c: 330: }
-[e $U 427  ]
+[e :U 422 ]
+[; ;Bluetooth.c: 330: else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelB_OFF_STR))
+[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString -> &U _Conf2_ChannelB_OFF_STR `*Cuc `i -> -> -> 0 `i `uc `i 424  ]
+[; ;Bluetooth.c: 331: {
 "331
-[e :U 426 ]
-[; ;Bluetooth.c: 331: else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelD_OFF_STR))
-[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString &U _Conf2_ChannelD_OFF_STR `i -> -> -> 0 `i `uc `i 428  ]
-[; ;Bluetooth.c: 332: {
-"332
 {
-[; ;Bluetooth.c: 334: SendRF_wait(Conf2_ChannelD_OFF,2,16,8);
+[; ;Bluetooth.c: 333: SendRF_wait(Conf2_ChannelB_OFF,2,16,8);
+"333
+[e ( _SendRF_wait (4 , , , -> &U _Conf2_ChannelB_OFF `*Cuc -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
 "334
-[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelD_OFF -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
+}
+[; ;Bluetooth.c: 334: }
+[e $U 425  ]
 "335
-}
-[; ;Bluetooth.c: 335: }
-[e $U 429  ]
+[e :U 424 ]
+[; ;Bluetooth.c: 335: else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelD_ON_STR))
+[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString -> &U _Conf2_ChannelD_ON_STR `*Cuc `i -> -> -> 0 `i `uc `i 426  ]
+[; ;Bluetooth.c: 336: {
 "336
-[e :U 428 ]
-[; ;Bluetooth.c: 336: else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelH_1_ON_STR))
-[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString &U _Conf2_ChannelH_1_ON_STR `i -> -> -> 0 `i `uc `i 430  ]
-[; ;Bluetooth.c: 337: {
-"337
 {
-[; ;Bluetooth.c: 339: SendRF_wait(Conf2_ChannelH_1_ON,2,16,8);
+[; ;Bluetooth.c: 338: SendRF_wait(Conf2_ChannelD_ON,2,16,8);
+"338
+[e ( _SendRF_wait (4 , , , -> &U _Conf2_ChannelD_ON `*Cuc -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
 "339
-[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_1_ON -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
+}
+[; ;Bluetooth.c: 339: }
+[e $U 427  ]
 "340
-}
-[; ;Bluetooth.c: 340: }
-[e $U 431  ]
+[e :U 426 ]
+[; ;Bluetooth.c: 340: else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelD_OFF_STR))
+[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString -> &U _Conf2_ChannelD_OFF_STR `*Cuc `i -> -> -> 0 `i `uc `i 428  ]
+[; ;Bluetooth.c: 341: {
 "341
-[e :U 430 ]
-[; ;Bluetooth.c: 341: else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelH_1_OFF_STR))
-[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString &U _Conf2_ChannelH_1_OFF_STR `i -> -> -> 0 `i `uc `i 432  ]
-[; ;Bluetooth.c: 342: {
-"342
 {
-[; ;Bluetooth.c: 344: SendRF_wait(Conf2_ChannelH_1_OFF,2,16,8);
+[; ;Bluetooth.c: 343: SendRF_wait(Conf2_ChannelD_OFF,2,16,8);
+"343
+[e ( _SendRF_wait (4 , , , -> &U _Conf2_ChannelD_OFF `*Cuc -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
 "344
-[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_1_OFF -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
+}
+[; ;Bluetooth.c: 344: }
+[e $U 429  ]
 "345
-}
-[; ;Bluetooth.c: 345: }
-[e $U 433  ]
+[e :U 428 ]
+[; ;Bluetooth.c: 345: else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelH_1_ON_STR))
+[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString -> &U _Conf2_ChannelH_1_ON_STR `*Cuc `i -> -> -> 0 `i `uc `i 430  ]
+[; ;Bluetooth.c: 346: {
 "346
-[e :U 432 ]
-[; ;Bluetooth.c: 346: else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelH_2_ON_STR))
-[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString &U _Conf2_ChannelH_2_ON_STR `i -> -> -> 0 `i `uc `i 434  ]
-[; ;Bluetooth.c: 347: {
-"347
 {
-[; ;Bluetooth.c: 349: SendRF_wait(Conf2_ChannelH_2_ON,2,16,8);
+[; ;Bluetooth.c: 348: SendRF_wait(Conf2_ChannelH_1_ON,2,16,8);
+"348
+[e ( _SendRF_wait (4 , , , -> &U _Conf2_ChannelH_1_ON `*Cuc -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
 "349
-[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_2_ON -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
+}
+[; ;Bluetooth.c: 349: }
+[e $U 431  ]
 "350
-}
-[; ;Bluetooth.c: 350: }
-[e $U 435  ]
+[e :U 430 ]
+[; ;Bluetooth.c: 350: else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelH_1_OFF_STR))
+[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString -> &U _Conf2_ChannelH_1_OFF_STR `*Cuc `i -> -> -> 0 `i `uc `i 432  ]
+[; ;Bluetooth.c: 351: {
 "351
-[e :U 434 ]
-[; ;Bluetooth.c: 351: else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelH_2_OFF_STR))
-[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString &U _Conf2_ChannelH_2_OFF_STR `i -> -> -> 0 `i `uc `i 436  ]
-[; ;Bluetooth.c: 352: {
-"352
 {
-[; ;Bluetooth.c: 354: SendRF_wait(Conf2_ChannelH_2_OFF,2,16,8);
+[; ;Bluetooth.c: 353: SendRF_wait(Conf2_ChannelH_1_OFF,2,16,8);
+"353
+[e ( _SendRF_wait (4 , , , -> &U _Conf2_ChannelH_1_OFF `*Cuc -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
 "354
-[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_2_OFF -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
+}
+[; ;Bluetooth.c: 354: }
+[e $U 433  ]
 "355
-}
-[; ;Bluetooth.c: 355: }
-[e $U 437  ]
+[e :U 432 ]
+[; ;Bluetooth.c: 355: else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelH_2_ON_STR))
+[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString -> &U _Conf2_ChannelH_2_ON_STR `*Cuc `i -> -> -> 0 `i `uc `i 434  ]
+[; ;Bluetooth.c: 356: {
 "356
-[e :U 436 ]
-[; ;Bluetooth.c: 356: else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelH_3_ON_STR))
-[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString &U _Conf2_ChannelH_3_ON_STR `i -> -> -> 0 `i `uc `i 438  ]
-[; ;Bluetooth.c: 357: {
-"357
 {
-[; ;Bluetooth.c: 359: SendRF_wait(Conf2_ChannelH_3_ON,2,16,8);
+[; ;Bluetooth.c: 358: SendRF_wait(Conf2_ChannelH_2_ON,2,16,8);
+"358
+[e ( _SendRF_wait (4 , , , -> &U _Conf2_ChannelH_2_ON `*Cuc -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
 "359
-[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_3_ON -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
+}
+[; ;Bluetooth.c: 359: }
+[e $U 435  ]
 "360
-}
-[; ;Bluetooth.c: 360: }
-[e $U 439  ]
+[e :U 434 ]
+[; ;Bluetooth.c: 360: else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelH_2_OFF_STR))
+[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString -> &U _Conf2_ChannelH_2_OFF_STR `*Cuc `i -> -> -> 0 `i `uc `i 436  ]
+[; ;Bluetooth.c: 361: {
 "361
-[e :U 438 ]
-[; ;Bluetooth.c: 361: else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelH_3_OFF_STR))
-[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString &U _Conf2_ChannelH_3_OFF_STR `i -> -> -> 0 `i `uc `i 440  ]
-[; ;Bluetooth.c: 362: {
-"362
 {
-[; ;Bluetooth.c: 364: SendRF_wait(Conf2_ChannelH_2_OFF,3,16,8);
+[; ;Bluetooth.c: 363: SendRF_wait(Conf2_ChannelH_2_OFF,2,16,8);
+"363
+[e ( _SendRF_wait (4 , , , -> &U _Conf2_ChannelH_2_OFF `*Cuc -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
 "364
-[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_2_OFF -> -> 3 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
-"365
 }
-[; ;Bluetooth.c: 365: }
-[e $U 441  ]
+[; ;Bluetooth.c: 364: }
+[e $U 437  ]
+"365
+[e :U 436 ]
+[; ;Bluetooth.c: 365: else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelH_3_ON_STR))
+[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString -> &U _Conf2_ChannelH_3_ON_STR `*Cuc `i -> -> -> 0 `i `uc `i 438  ]
+[; ;Bluetooth.c: 366: {
 "366
-[e :U 440 ]
-[; ;Bluetooth.c: 366: else
-[; ;Bluetooth.c: 367: {
-"367
 {
-[; ;Bluetooth.c: 369: ok = 0;
+[; ;Bluetooth.c: 368: SendRF_wait(Conf2_ChannelH_3_ON,2,16,8);
+"368
+[e ( _SendRF_wait (4 , , , -> &U _Conf2_ChannelH_3_ON `*Cuc -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
 "369
-[e = _ok -> -> 0 `i `uc ]
+}
+[; ;Bluetooth.c: 369: }
+[e $U 439  ]
 "370
+[e :U 438 ]
+[; ;Bluetooth.c: 370: else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelH_3_OFF_STR))
+[e $ ! != -> ( _StringMatchCaseInsensitive (2 , &U _ReceivedString -> &U _Conf2_ChannelH_3_OFF_STR `*Cuc `i -> -> -> 0 `i `uc `i 440  ]
+[; ;Bluetooth.c: 371: {
+"371
+{
+[; ;Bluetooth.c: 373: SendRF_wait(Conf2_ChannelH_2_OFF,3,16,8);
+"373
+[e ( _SendRF_wait (4 , , , -> &U _Conf2_ChannelH_2_OFF `*Cuc -> -> 3 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
+"374
+}
+[; ;Bluetooth.c: 374: }
+[e $U 441  ]
+"375
+[e :U 440 ]
+[; ;Bluetooth.c: 375: else
+[; ;Bluetooth.c: 376: {
+"376
+{
+[; ;Bluetooth.c: 378: UARTstring((unsigned char *)SYNTAX_ERR);
+"378
+[e ( _UARTstring (1 &U _SYNTAX_ERR ]
+[; ;Bluetooth.c: 379: UARTstring(CRLN);
+"379
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 380: return 0;
+"380
+[e ) -> -> 0 `i `uc ]
+[e $UE 411  ]
+"381
 }
 [e :U 441 ]
 [e :U 439 ]
@@ -5394,352 +5445,316 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 427 ]
 [e :U 425 ]
 [e :U 423 ]
-[; ;Bluetooth.c: 370: }
-[; ;Bluetooth.c: 371: if(ok)
-"371
-[e $ ! != -> _ok `i -> -> -> 0 `i `uc `i 442  ]
-[; ;Bluetooth.c: 372: {
-"372
-{
-[; ;Bluetooth.c: 373: UARTstringCRLN("Configuration 2 RF code sent");
-"373
-[e ( _UARTstringCRLN (1 -> :s 22C `*uc ]
-[; ;Bluetooth.c: 374: return 1;
-"374
-[e ) -> -> 1 `i `uc ]
-[e $UE 411  ]
-"375
-}
-[e :U 442 ]
-"376
-}
-[; ;Bluetooth.c: 375: }
-[; ;Bluetooth.c: 376: }
-[e $U 443  ]
-"377
-[e :U 421 ]
-[; ;Bluetooth.c: 377: else if(StringContainsCaseInsensitive(ReceivedString,"NEC"))
-[e $ ! != -> ( _StringContainsCaseInsensitive (2 , &U _ReceivedString :s 23C `i -> -> -> 0 `i `uc `i 444  ]
-[; ;Bluetooth.c: 378: {
-"378
-{
-[; ;Bluetooth.c: 379: if(!GetNumber(ReceivedString, 2, &temp))
-"379
-[e $ ! ! != -> ( _GetNumber (3 , , &U _ReceivedString -> -> 2 `i `uc &U _temp `i -> -> -> 0 `i `uc `i 445  ]
-[; ;Bluetooth.c: 380: {
-"380
-{
-[; ;Bluetooth.c: 381: NecCommand = (unsigned char)temp;
-"381
-[e = _NecCommand -> _temp `uc ]
-[; ;Bluetooth.c: 382: if(!GetNumber(ReceivedString, 1, &temp))
+[; ;Bluetooth.c: 381: }
+[; ;Bluetooth.c: 382: if(ok)
 "382
-[e $ ! ! != -> ( _GetNumber (3 , , &U _ReceivedString -> -> 1 `i `uc &U _temp `i -> -> -> 0 `i `uc `i 446  ]
+[e $ ! != -> _ok `i -> -> -> 0 `i `uc `i 442  ]
 [; ;Bluetooth.c: 383: {
 "383
 {
-[; ;Bluetooth.c: 384: NecAddress = (unsigned char) temp;
+[; ;Bluetooth.c: 384: UARTstringCRLN((unsigned char *)"Configuration 2 RF code sent");
 "384
-[e = _NecAddress -> _temp `uc ]
-[; ;Bluetooth.c: 385: sprintf(buf,"NEC address: %X ", NecAddress);
+[e ( _UARTstringCRLN (1 -> :s 22C `*uc ]
+[; ;Bluetooth.c: 385: return 1;
 "385
-[e ( _sprintf (1 , (. , &U _buf :s 24C -> _NecAddress `i ]
-[; ;Bluetooth.c: 386: UARTstringCRLN(buf);
-"386
-[e ( _UARTstringCRLN (1 &U _buf ]
-[; ;Bluetooth.c: 387: sprintf(buf,"NEC command: %X ", NecCommand);
-"387
-[e ( _sprintf (1 , (. , &U _buf :s 25C -> _NecCommand `i ]
-[; ;Bluetooth.c: 388: UARTstringCRLN(buf);
-"388
-[e ( _UARTstringCRLN (1 &U _buf ]
-[; ;Bluetooth.c: 389: EnteredNEC = EncodeNEC(NecAddress, NecCommand);
-"389
-[e = _EnteredNEC ( _EncodeNEC (2 , _NecAddress _NecCommand ]
-[; ;Bluetooth.c: 390: SendNEC_wait(EnteredNEC,0);
-"390
-[e ( _SendNEC_wait (2 , _EnteredNEC -> -> 0 `i `uc ]
-[; ;Bluetooth.c: 391: sprintf(buf,"Sent NEC code = 0x%lX ", EnteredNEC);
-"391
-[e ( _sprintf (1 , (. , &U _buf :s 26C _EnteredNEC ]
-[; ;Bluetooth.c: 392: UARTstringCRLN(buf);
-"392
-[e ( _UARTstringCRLN (1 &U _buf ]
-[; ;Bluetooth.c: 393: UARTstring(CRLN);
-"393
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
-"394
-}
-[; ;Bluetooth.c: 394: }
-[e $U 447  ]
-"395
-[e :U 446 ]
-[; ;Bluetooth.c: 395: else
-[; ;Bluetooth.c: 396: {
-"396
-{
-[; ;Bluetooth.c: 397: UARTstringCRLN("Error: could not decode Address");
-"397
-[e ( _UARTstringCRLN (1 -> :s 27C `*uc ]
-"398
-}
-[e :U 447 ]
-"399
-}
-[; ;Bluetooth.c: 398: }
-[; ;Bluetooth.c: 399: }
-[e $U 448  ]
-"400
-[e :U 445 ]
-[; ;Bluetooth.c: 400: else if(!GetNumber(ReceivedString, 1, &EnteredNEC))
-[e $ ! ! != -> ( _GetNumber (3 , , &U _ReceivedString -> -> 1 `i `uc &U _EnteredNEC `i -> -> -> 0 `i `uc `i 449  ]
-[; ;Bluetooth.c: 401: {
-"401
-{
-[; ;Bluetooth.c: 402: SendNEC_wait(EnteredNEC,0);
-"402
-[e ( _SendNEC_wait (2 , _EnteredNEC -> -> 0 `i `uc ]
-[; ;Bluetooth.c: 403: sprintf(buf,"sent NEC code %lX", EnteredNEC);
-"403
-[e ( _sprintf (1 , (. , &U _buf :s 28C _EnteredNEC ]
-[; ;Bluetooth.c: 404: UARTstringCRLN(buf);
-"404
-[e ( _UARTstringCRLN (1 &U _buf ]
-[; ;Bluetooth.c: 405: if(DecodeNEC(EnteredNEC, &NecAddress, &NecCommand))
-"405
-[e $ ! != -> ( _DecodeNEC (3 , , _EnteredNEC &U _NecAddress &U _NecCommand `i -> -> -> 0 `i `uc `i 450  ]
-[; ;Bluetooth.c: 406: {
-"406
-{
-[; ;Bluetooth.c: 407: sprintf(buf,"address: %X ", NecAddress);
-"407
-[e ( _sprintf (1 , (. , &U _buf :s 29C -> _NecAddress `i ]
-[; ;Bluetooth.c: 408: UARTstringCRLN(buf);
-"408
-[e ( _UARTstringCRLN (1 &U _buf ]
-[; ;Bluetooth.c: 409: sprintf(buf,"command: %X ", NecCommand);
-"409
-[e ( _sprintf (1 , (. , &U _buf :s 30C -> _NecCommand `i ]
-[; ;Bluetooth.c: 410: UARTstringCRLN(buf);
-"410
-[e ( _UARTstringCRLN (1 &U _buf ]
-"411
-}
-[; ;Bluetooth.c: 411: }
-[e $U 451  ]
-"412
-[e :U 450 ]
-[; ;Bluetooth.c: 412: else
-[; ;Bluetooth.c: 413: {
-"413
-{
-[; ;Bluetooth.c: 414: UARTstringCRLN("Error: could not decode NEC code");
-"414
-[e ( _UARTstringCRLN (1 -> :s 31C `*uc ]
-"415
-}
-[e :U 451 ]
-[; ;Bluetooth.c: 415: }
-[; ;Bluetooth.c: 416: UARTstring(CRLN);
-"416
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
-[; ;Bluetooth.c: 417: return 1;
-"417
 [e ) -> -> 1 `i `uc ]
 [e $UE 411  ]
-"418
+"386
 }
-[; ;Bluetooth.c: 418: }
-[e $U 452  ]
-"419
-[e :U 449 ]
-[; ;Bluetooth.c: 419: else
-[; ;Bluetooth.c: 420: {
-"420
+[e :U 442 ]
+"387
+}
+[; ;Bluetooth.c: 386: }
+[; ;Bluetooth.c: 387: }
+[e $U 443  ]
+"388
+[e :U 421 ]
+[; ;Bluetooth.c: 388: else if(StringContainsCaseInsensitive(ReceivedString,(unsigned char *)"NEC"))
+[e $ ! != -> ( _StringContainsCaseInsensitive (2 , &U _ReceivedString -> -> :s 23C `*uc `*Cuc `i -> -> -> 0 `i `uc `i 444  ]
+[; ;Bluetooth.c: 389: {
+"389
 {
-[; ;Bluetooth.c: 421: UARTstring(CRLN);
+[; ;Bluetooth.c: 390: if(!GetNumber(ReceivedString, 2, &temp))
+"390
+[e $ ! ! != -> ( _GetNumber (3 , , &U _ReceivedString -> -> 2 `i `uc &U _temp `i -> -> -> 0 `i `uc `i 445  ]
+[; ;Bluetooth.c: 391: {
+"391
+{
+[; ;Bluetooth.c: 392: NecCommand = (unsigned char)temp;
+"392
+[e = _NecCommand -> _temp `uc ]
+[; ;Bluetooth.c: 393: if(!GetNumber(ReceivedString, 1, &temp))
+"393
+[e $ ! ! != -> ( _GetNumber (3 , , &U _ReceivedString -> -> 1 `i `uc &U _temp `i -> -> -> 0 `i `uc `i 446  ]
+[; ;Bluetooth.c: 394: {
+"394
+{
+[; ;Bluetooth.c: 395: NecAddress = (unsigned char) temp;
+"395
+[e = _NecAddress -> _temp `uc ]
+[; ;Bluetooth.c: 396: sprintf(buf,(unsigned char *)"NEC address: 0x%X ", NecAddress);
+"396
+[e ( _sprintf (1 , (. , &U _buf -> -> :s 24C `*uc `*Cuc -> _NecAddress `i ]
+[; ;Bluetooth.c: 397: UARTstringCRLN(buf);
+"397
+[e ( _UARTstringCRLN (1 &U _buf ]
+[; ;Bluetooth.c: 398: sprintf(buf,(unsigned char *)"NEC command: 0x%X ", NecCommand);
+"398
+[e ( _sprintf (1 , (. , &U _buf -> -> :s 25C `*uc `*Cuc -> _NecCommand `i ]
+[; ;Bluetooth.c: 399: UARTstringCRLN(buf);
+"399
+[e ( _UARTstringCRLN (1 &U _buf ]
+[; ;Bluetooth.c: 400: EnteredNEC = EncodeNEC(NecAddress, NecCommand);
+"400
+[e = _EnteredNEC ( _EncodeNEC (2 , _NecAddress _NecCommand ]
+[; ;Bluetooth.c: 401: SendNEC_wait(EnteredNEC,0);
+"401
+[e ( _SendNEC_wait (2 , _EnteredNEC -> -> 0 `i `uc ]
+[; ;Bluetooth.c: 402: sprintf(buf,(unsigned char *)"Sent NEC code = 0x%lX ", EnteredNEC);
+"402
+[e ( _sprintf (1 , (. , &U _buf -> -> :s 26C `*uc `*Cuc _EnteredNEC ]
+[; ;Bluetooth.c: 403: UARTstringCRLN(buf);
+"403
+[e ( _UARTstringCRLN (1 &U _buf ]
+[; ;Bluetooth.c: 404: UARTstring(CRLN);
+"404
+[e ( _UARTstring (1 &U _CRLN ]
+"405
+}
+[; ;Bluetooth.c: 405: }
+[e $U 447  ]
+"406
+[e :U 446 ]
+[; ;Bluetooth.c: 406: else
+[; ;Bluetooth.c: 407: {
+"407
+{
+[; ;Bluetooth.c: 408: UARTstringCRLN((unsigned char *)"Error: could not decode Address");
+"408
+[e ( _UARTstringCRLN (1 -> :s 27C `*uc ]
+"409
+}
+[e :U 447 ]
+"410
+}
+[; ;Bluetooth.c: 409: }
+[; ;Bluetooth.c: 410: }
+[e $U 448  ]
+"411
+[e :U 445 ]
+[; ;Bluetooth.c: 411: else if(!GetNumber(ReceivedString, 1, &EnteredNEC))
+[e $ ! ! != -> ( _GetNumber (3 , , &U _ReceivedString -> -> 1 `i `uc &U _EnteredNEC `i -> -> -> 0 `i `uc `i 449  ]
+[; ;Bluetooth.c: 412: {
+"412
+{
+[; ;Bluetooth.c: 413: SendNEC_wait(EnteredNEC,0);
+"413
+[e ( _SendNEC_wait (2 , _EnteredNEC -> -> 0 `i `uc ]
+[; ;Bluetooth.c: 414: sprintf(buf,(unsigned char *)"sent NEC code 0x%lX", EnteredNEC);
+"414
+[e ( _sprintf (1 , (. , &U _buf -> -> :s 28C `*uc `*Cuc _EnteredNEC ]
+[; ;Bluetooth.c: 415: UARTstringCRLN(buf);
+"415
+[e ( _UARTstringCRLN (1 &U _buf ]
+[; ;Bluetooth.c: 416: if(DecodeNEC(EnteredNEC, &NecAddress, &NecCommand))
+"416
+[e $ ! != -> ( _DecodeNEC (3 , , _EnteredNEC &U _NecAddress &U _NecCommand `i -> -> -> 0 `i `uc `i 450  ]
+[; ;Bluetooth.c: 417: {
+"417
+{
+[; ;Bluetooth.c: 418: sprintf(buf,(unsigned char *)"address: 0x%X ", NecAddress);
+"418
+[e ( _sprintf (1 , (. , &U _buf -> -> :s 29C `*uc `*Cuc -> _NecAddress `i ]
+[; ;Bluetooth.c: 419: UARTstringCRLN(buf);
+"419
+[e ( _UARTstringCRLN (1 &U _buf ]
+[; ;Bluetooth.c: 420: sprintf(buf,(unsigned char *)"command: 0x%X ", NecCommand);
+"420
+[e ( _sprintf (1 , (. , &U _buf -> -> :s 30C `*uc `*Cuc -> _NecCommand `i ]
+[; ;Bluetooth.c: 421: UARTstringCRLN(buf);
 "421
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
-[; ;Bluetooth.c: 422: UARTstringCRLN("NEC code not entered correctly");
+[e ( _UARTstringCRLN (1 &U _buf ]
 "422
-[e ( _UARTstringCRLN (1 -> :s 32C `*uc ]
-[; ;Bluetooth.c: 423: UARTstring(CRLN);
+}
+[; ;Bluetooth.c: 422: }
+[e $U 451  ]
 "423
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
-[; ;Bluetooth.c: 424: UARTstringCRLN("Usage:");
+[e :U 450 ]
+[; ;Bluetooth.c: 423: else
+[; ;Bluetooth.c: 424: {
 "424
-[e ( _UARTstringCRLN (1 -> :s 33C `*uc ]
-[; ;Bluetooth.c: 425: UARTstringCRLN("NEC = (32 bit code) ");
+{
+[; ;Bluetooth.c: 425: UARTstringCRLN((unsigned char *)"Error: could not decode NEC code");
 "425
-[e ( _UARTstringCRLN (1 -> :s 34C `*uc ]
-[; ;Bluetooth.c: 426: UARTstringCRLN("        or");
+[e ( _UARTstringCRLN (1 -> :s 31C `*uc ]
 "426
-[e ( _UARTstringCRLN (1 -> :s 35C `*uc ]
-[; ;Bluetooth.c: 427: UARTstringCRLN("NEC = address,command ");
+}
+[e :U 451 ]
+[; ;Bluetooth.c: 426: }
+[; ;Bluetooth.c: 427: UARTstring(CRLN);
 "427
-[e ( _UARTstringCRLN (1 -> :s 36C `*uc ]
-[; ;Bluetooth.c: 428: UARTstring(CRLN);
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 428: return 1;
 "428
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
-[; ;Bluetooth.c: 429: UARTstringCRLN("Example:");
+[e ) -> -> 1 `i `uc ]
+[e $UE 411  ]
 "429
-[e ( _UARTstringCRLN (1 -> :s 37C `*uc ]
-[; ;Bluetooth.c: 430: UARTstringCRLN("NEC = 0x1CE350af ");
+}
+[; ;Bluetooth.c: 429: }
+[e $U 452  ]
 "430
-[e ( _UARTstringCRLN (1 -> :s 38C `*uc ]
-[; ;Bluetooth.c: 431: UARTstringCRLN("      or");
+[e :U 449 ]
+[; ;Bluetooth.c: 430: else
+[; ;Bluetooth.c: 431: {
 "431
-[e ( _UARTstringCRLN (1 -> :s 39C `*uc ]
-[; ;Bluetooth.c: 432: UARTstringCRLN("NEC = 0x38, 0xA ");
+{
+[; ;Bluetooth.c: 432: UARTstring(CRLN);
 "432
-[e ( _UARTstringCRLN (1 -> :s 40C `*uc ]
-[; ;Bluetooth.c: 433: UARTstring(CRLN);
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 433: UARTstringCRLN((unsigned char *)"NEC code not entered correctly");
 "433
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
-[; ;Bluetooth.c: 434: return 0;
+[e ( _UARTstringCRLN (1 -> :s 32C `*uc ]
+[; ;Bluetooth.c: 434: UARTstring(CRLN);
 "434
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 435: UARTstringCRLN((unsigned char *)"Usage:");
+"435
+[e ( _UARTstringCRLN (1 -> :s 33C `*uc ]
+[; ;Bluetooth.c: 436: UARTstringCRLN((unsigned char *)"NEC = (32 bit code)");
+"436
+[e ( _UARTstringCRLN (1 -> :s 34C `*uc ]
+[; ;Bluetooth.c: 437: UARTstringCRLN((unsigned char *)"        or");
+"437
+[e ( _UARTstringCRLN (1 -> :s 35C `*uc ]
+[; ;Bluetooth.c: 438: UARTstringCRLN((unsigned char *)"NEC = address,command");
+"438
+[e ( _UARTstringCRLN (1 -> :s 36C `*uc ]
+[; ;Bluetooth.c: 439: UARTstring(CRLN);
+"439
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 440: UARTstringCRLN((unsigned char *)"Example:");
+"440
+[e ( _UARTstringCRLN (1 -> :s 37C `*uc ]
+[; ;Bluetooth.c: 441: UARTstringCRLN((unsigned char *)"NEC = 0x1CE350af ");
+"441
+[e ( _UARTstringCRLN (1 -> :s 38C `*uc ]
+[; ;Bluetooth.c: 442: UARTstringCRLN((unsigned char *)"      or");
+"442
+[e ( _UARTstringCRLN (1 -> :s 39C `*uc ]
+[; ;Bluetooth.c: 443: UARTstringCRLN((unsigned char *)"NEC = 0x38, 0xA");
+"443
+[e ( _UARTstringCRLN (1 -> :s 40C `*uc ]
+[; ;Bluetooth.c: 444: UARTstring(CRLN);
+"444
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 445: return 0;
+"445
 [e ) -> -> 0 `i `uc ]
 [e $UE 411  ]
-"435
+"446
 }
 [e :U 452 ]
 [e :U 448 ]
-"436
-}
-[; ;Bluetooth.c: 435: }
-[; ;Bluetooth.c: 436: }
-[e $U 453  ]
-"437
-[e :U 444 ]
-[; ;Bluetooth.c: 437: else if(StringContainsCaseInsensitive(ReceivedString,"RemoteButton"))
-[e $ ! != -> ( _StringContainsCaseInsensitive (2 , &U _ReceivedString :s 41C `i -> -> -> 0 `i `uc `i 454  ]
-[; ;Bluetooth.c: 438: {
-"438
-{
-[; ;Bluetooth.c: 439: if(StringAddEqual(ReceivedString))
-"439
-[e $ ! != -> ( _StringAddEqual (1 &U _ReceivedString `i -> -> -> 0 `i `uc `i 455  ]
-[; ;Bluetooth.c: 440: {
-"440
-{
-[; ;Bluetooth.c: 441: if(!GetNumber(ReceivedString, 1, &temp))
-"441
-[e $ ! ! != -> ( _GetNumber (3 , , &U _ReceivedString -> -> 1 `i `uc &U _temp `i -> -> -> 0 `i `uc `i 456  ]
-[; ;Bluetooth.c: 442: {
-"442
-{
-[; ;Bluetooth.c: 443: UARTstring(CRLN);
-"443
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
-[; ;Bluetooth.c: 444: UARTstring("Hit Remote Control button");
-"444
-[e ( _UARTstring (1 -> :s 42C `*uc ]
-[; ;Bluetooth.c: 445: timeout = 0;
-"445
-[e = _timeout -> -> 0 `i `uc ]
-[; ;Bluetooth.c: 446: while(IR_New_Code != 1)
-"446
-[e $U 457  ]
-[e :U 458 ]
-[; ;Bluetooth.c: 447: {
 "447
-{
-[; ;Bluetooth.c: 448: UARTchar('.');
+}
+[; ;Bluetooth.c: 446: }
+[; ;Bluetooth.c: 447: }
+[e $U 453  ]
 "448
-[e ( _UARTchar (1 -> -> 46 `ui `uc ]
-[; ;Bluetooth.c: 449: timeout++;
+[e :U 444 ]
+[; ;Bluetooth.c: 448: else if(StringContainsCaseInsensitive(ReceivedString,(unsigned char *)"RemoteButton"))
+[e $ ! != -> ( _StringContainsCaseInsensitive (2 , &U _ReceivedString -> -> :s 41C `*uc `*Cuc `i -> -> -> 0 `i `uc `i 454  ]
+[; ;Bluetooth.c: 449: {
 "449
-[e ++ _timeout -> -> 1 `i `uc ]
-[; ;Bluetooth.c: 450: if(timeout > 20)
+{
+[; ;Bluetooth.c: 450: if(StringAddEqual(ReceivedString))
 "450
-[e $ ! > -> _timeout `i -> 20 `i 460  ]
+[e $ ! != -> ( _StringAddEqual (1 &U _ReceivedString `i -> -> -> 0 `i `uc `i 455  ]
 [; ;Bluetooth.c: 451: {
 "451
 {
-[; ;Bluetooth.c: 452: UARTstring(CRLN);
+[; ;Bluetooth.c: 452: ReceivedStringPos++;
 "452
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
-[; ;Bluetooth.c: 453: UARTstringCRLN("You took too long hit a button on the remote");
+[e ++ _ReceivedStringPos -> -> 1 `i `uc ]
+[; ;Bluetooth.c: 453: if(!GetNumber(ReceivedString, 1, &temp))
 "453
-[e ( _UARTstringCRLN (1 -> :s 43C `*uc ]
-[; ;Bluetooth.c: 454: return 0;
+[e $ ! ! != -> ( _GetNumber (3 , , &U _ReceivedString -> -> 1 `i `uc &U _temp `i -> -> -> 0 `i `uc `i 456  ]
+[; ;Bluetooth.c: 454: {
 "454
+{
+[; ;Bluetooth.c: 455: if(temp <= 20 && temp > 0)
+"455
+[e $ ! && <= _temp -> -> -> 20 `i `l `ul > _temp -> -> -> 0 `i `l `ul 457  ]
+[; ;Bluetooth.c: 456: {
+"456
+{
+[; ;Bluetooth.c: 457: if(!StringContainsCaseInsensitive(ReceivedString,(unsigned char *)"set"))
+"457
+[e $ ! ! != -> ( _StringContainsCaseInsensitive (2 , &U _ReceivedString -> -> :s 42C `*uc `*Cuc `i -> -> -> 0 `i `uc `i 458  ]
+[; ;Bluetooth.c: 458: {
+"458
+{
+[; ;Bluetooth.c: 459: tempNec = EncodeNEC(Global.RemoteButtonNEC[temp-1][0], Global.RemoteButtonNEC[temp-1][1]);
+"459
+[e = _tempNec ( _EncodeNEC (2 , *U + &U *U + &U . _Global 2 * -> - _temp -> -> -> 1 `i `l `ul `ux -> * -> # *U &U *U &U . _Global 2 `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U . _Global 2 * -> - _temp -> -> -> 1 `i `l `ul `ux -> * -> # *U &U *U &U . _Global 2 `ui -> -> 2 `i `ui `ux `ui `ux *U + &U *U + &U . _Global 2 * -> - _temp -> -> -> 1 `i `l `ul `ux -> * -> # *U &U *U &U . _Global 2 `ui -> -> 2 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U . _Global 2 * -> - _temp -> -> -> 1 `i `l `ul `ux -> * -> # *U &U *U &U . _Global 2 `ui -> -> 2 `i `ui `ux `ui `ux ]
+[; ;Bluetooth.c: 460: if(tempNec != 0x00FF00FF)
+"460
+[e $ ! != _tempNec -> -> 16711935 `l `ul 459  ]
+[; ;Bluetooth.c: 461: {
+"461
+{
+[; ;Bluetooth.c: 462: SendNEC_wait(tempNec,0);
+"462
+[e ( _SendNEC_wait (2 , _tempNec -> -> 0 `i `uc ]
+[; ;Bluetooth.c: 463: sprintf(buf,(unsigned char *)"Sent NEC code 0x%lX ", tempNec);
+"463
+[e ( _sprintf (1 , (. , &U _buf -> -> :s 43C `*uc `*Cuc _tempNec ]
+[; ;Bluetooth.c: 464: UARTstringCRLN(buf);
+"464
+[e ( _UARTstringCRLN (1 &U _buf ]
+[; ;Bluetooth.c: 465: sprintf(buf,(unsigned char *)"NEC Code address: 0x%02X , command: 0x%02X ",Global.RemoteButtonNEC[temp-1][0], Global.RemoteButtonNEC[temp-1][1]);
+"465
+[e ( _sprintf (1 , , (. , &U _buf -> -> :s 44C `*uc `*Cuc -> *U + &U *U + &U . _Global 2 * -> - _temp -> -> -> 1 `i `l `ul `ux -> * -> # *U &U *U &U . _Global 2 `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U . _Global 2 * -> - _temp -> -> -> 1 `i `l `ul `ux -> * -> # *U &U *U &U . _Global 2 `ui -> -> 2 `i `ui `ux `ui `ux `i -> *U + &U *U + &U . _Global 2 * -> - _temp -> -> -> 1 `i `l `ul `ux -> * -> # *U &U *U &U . _Global 2 `ui -> -> 2 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U . _Global 2 * -> - _temp -> -> -> 1 `i `l `ul `ux -> * -> # *U &U *U &U . _Global 2 `ui -> -> 2 `i `ui `ux `ui `ux `i ]
+[; ;Bluetooth.c: 466: UARTstringCRLN(buf);
+"466
+[e ( _UARTstringCRLN (1 &U _buf ]
+[; ;Bluetooth.c: 467: UARTstring(CRLN);
+"467
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 468: return 1;
+"468
+[e ) -> -> 1 `i `uc ]
+[e $UE 411  ]
+"469
+}
+[e :U 459 ]
+[; ;Bluetooth.c: 469: }
+[; ;Bluetooth.c: 470: UARTstring(CRLN);
+"470
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 471: UARTstringCRLN((unsigned char *)"Error: No NEC code saved for specified command");
+"471
+[e ( _UARTstringCRLN (1 -> :s 45C `*uc ]
+[; ;Bluetooth.c: 472: return 0;
+"472
 [e ) -> -> 0 `i `uc ]
 [e $UE 411  ]
-"455
-}
-[e :U 460 ]
-"456
-}
-[e :U 457 ]
-"446
-[e $ != -> _IR_New_Code `i -> 1 `i 458  ]
-[e :U 459 ]
-[; ;Bluetooth.c: 455: }
-[; ;Bluetooth.c: 456: }
-[; ;Bluetooth.c: 458: sprintf(buf,"RemoteButton%d = ox%lX ",temp, IR_NEC);
-"458
-[e ( _sprintf (1 , , (. , &U _buf :s 44C _temp _IR_NEC ]
-[; ;Bluetooth.c: 459: IR_New_Code = 0;
-"459
-[e = _IR_New_Code -> -> 0 `i `uc ]
-[; ;Bluetooth.c: 460: UARTstringCRLN(buf);
-"460
-[e ( _UARTstringCRLN (1 &U _buf ]
-"461
-}
-[e :U 456 ]
-"462
-}
-[e :U 455 ]
-[; ;Bluetooth.c: 461: }
-[; ;Bluetooth.c: 462: }
-[; ;Bluetooth.c: 463: UARTstring(CRLN);
-"463
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
-[; ;Bluetooth.c: 464: UARTstringCRLN("Error: Remote button not specified");
-"464
-[e ( _UARTstringCRLN (1 -> :s 45C `*uc ]
-[; ;Bluetooth.c: 465: UARTstring(CRLN);
-"465
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
-[; ;Bluetooth.c: 466: UARTstringCRLN("Usage:");
-"466
-[e ( _UARTstringCRLN (1 -> :s 46C `*uc ]
-[; ;Bluetooth.c: 467: UARTstringCRLN("RemoteButton'x'");
-"467
-[e ( _UARTstringCRLN (1 -> :s 47C `*uc ]
-[; ;Bluetooth.c: 468: UARTstring(CRLN);
-"468
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
-[; ;Bluetooth.c: 469: UARTstringCRLN("Example:");
-"469
-[e ( _UARTstringCRLN (1 -> :s 48C `*uc ]
-[; ;Bluetooth.c: 470: UARTstringCRLN("RemoteButton1");
-"470
-[e ( _UARTstringCRLN (1 -> :s 49C `*uc ]
-[; ;Bluetooth.c: 471: UARTstring(CRLN);
-"471
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
-"472
-}
-[; ;Bluetooth.c: 472: }
-[e $U 461  ]
 "473
-[e :U 454 ]
-[; ;Bluetooth.c: 473: else
-[; ;Bluetooth.c: 474: {
+}
+[; ;Bluetooth.c: 473: }
+[e $U 460  ]
 "474
-{
-[; ;Bluetooth.c: 475: UARTstringCRLN(SYNTAX_ERR);
+[e :U 458 ]
+[; ;Bluetooth.c: 474: else
+[; ;Bluetooth.c: 475: {
 "475
-[e ( _UARTstringCRLN (1 -> &U _SYNTAX_ERR `*uc ]
-[; ;Bluetooth.c: 476: UARTstringCRLN("Enter '?^ Command Menu");
+{
+[; ;Bluetooth.c: 476: if(!WaitForIRsignal())
 "476
-[e ( _UARTstringCRLN (1 -> :s 50C `*uc ]
-[; ;Bluetooth.c: 477: UARTstring(CRLN);
+[e $ ! ! != -> ( _WaitForIRsignal ..  `i -> -> -> 0 `i `uc `i 461  ]
+[; ;Bluetooth.c: 477: {
 "477
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
+{
 [; ;Bluetooth.c: 478: return 0;
 "478
 [e ) -> -> 0 `i `uc ]
@@ -5747,168 +5762,961 @@ Version 3.2 HI-TECH Software Intermediate Code
 "479
 }
 [e :U 461 ]
+[; ;Bluetooth.c: 479: }
+[; ;Bluetooth.c: 482: DecodeNEC(IR_NEC, &NecAddress, &NecCommand);
+"482
+[e ( _DecodeNEC (3 , , _IR_NEC &U _NecAddress &U _NecCommand ]
+[; ;Bluetooth.c: 483: Global.RemoteButtonNEC[temp - 1][0] = NecAddress;
+"483
+[e = *U + &U *U + &U . _Global 2 * -> - _temp -> -> -> 1 `i `l `ul `ux -> * -> # *U &U *U &U . _Global 2 `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U . _Global 2 * -> - _temp -> -> -> 1 `i `l `ul `ux -> * -> # *U &U *U &U . _Global 2 `ui -> -> 2 `i `ui `ux `ui `ux _NecAddress ]
+[; ;Bluetooth.c: 484: Global.RemoteButtonNEC[temp - 1][1] = NecCommand;
+"484
+[e = *U + &U *U + &U . _Global 2 * -> - _temp -> -> -> 1 `i `l `ul `ux -> * -> # *U &U *U &U . _Global 2 `ui -> -> 2 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U . _Global 2 * -> - _temp -> -> -> 1 `i `l `ul `ux -> * -> # *U &U *U &U . _Global 2 `ui -> -> 2 `i `ui `ux `ui `ux _NecCommand ]
+[; ;Bluetooth.c: 485: SyncGlobalToEEPROM();
+"485
+[e ( _SyncGlobalToEEPROM ..  ]
+[; ;Bluetooth.c: 486: UARTstring(CRLN);
+"486
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 487: sprintf(buf,(unsigned char *)"RemoteButton%ld now transmits NEC code 0x%lX ",temp, IR_NEC);
+"487
+[e ( _sprintf (1 , , (. , &U _buf -> -> :s 46C `*uc `*Cuc _temp _IR_NEC ]
+[; ;Bluetooth.c: 488: UARTstringCRLN(buf);
+"488
+[e ( _UARTstringCRLN (1 &U _buf ]
+[; ;Bluetooth.c: 489: sprintf(buf,(unsigned char *)"NEC Code address: 0x%02X , command: 0x%02X ",NecAddress, NecCommand);
+"489
+[e ( _sprintf (1 , , (. , &U _buf -> -> :s 47C `*uc `*Cuc -> _NecAddress `i -> _NecCommand `i ]
+[; ;Bluetooth.c: 490: UARTstringCRLN(buf);
+"490
+[e ( _UARTstringCRLN (1 &U _buf ]
+[; ;Bluetooth.c: 491: UARTstring(CRLN);
+"491
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 492: return 1;
+"492
+[e ) -> -> 1 `i `uc ]
+[e $UE 411  ]
+"493
+}
+[e :U 460 ]
+"494
+}
+[; ;Bluetooth.c: 493: }
+[; ;Bluetooth.c: 494: }
+[e $U 462  ]
+"495
+[e :U 457 ]
+[; ;Bluetooth.c: 495: else
+[; ;Bluetooth.c: 496: {
+"496
+{
+[; ;Bluetooth.c: 497: UARTstring(CRLN);
+"497
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 498: UARTstringCRLN((unsigned char *)"Error: Remote button number too high");
+"498
+[e ( _UARTstringCRLN (1 -> :s 48C `*uc ]
+[; ;Bluetooth.c: 499: UARTstring(CRLN);
+"499
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 500: return 0;
+"500
+[e ) -> -> 0 `i `uc ]
+[e $UE 411  ]
+"501
+}
+[e :U 462 ]
+"502
+}
+[e :U 456 ]
+"503
+}
+[e :U 455 ]
+[; ;Bluetooth.c: 501: }
+[; ;Bluetooth.c: 502: }
+[; ;Bluetooth.c: 503: }
+[; ;Bluetooth.c: 504: UARTstring(CRLN);
+"504
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 505: UARTstringCRLN((unsigned char *)"Error: Remote button not specified");
+"505
+[e ( _UARTstringCRLN (1 -> :s 49C `*uc ]
+[; ;Bluetooth.c: 506: UARTstring(CRLN);
+"506
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 507: UARTstringCRLN((unsigned char *)"Usage:");
+"507
+[e ( _UARTstringCRLN (1 -> :s 50C `*uc ]
+[; ;Bluetooth.c: 508: UARTstringCRLN((unsigned char *)"RemoteButton'x'");
+"508
+[e ( _UARTstringCRLN (1 -> :s 51C `*uc ]
+[; ;Bluetooth.c: 509: UARTstringCRLN((unsigned char *)"RemoteButton'x' set");
+"509
+[e ( _UARTstringCRLN (1 -> :s 52C `*uc ]
+[; ;Bluetooth.c: 510: UARTstring(CRLN);
+"510
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 511: UARTstringCRLN((unsigned char *)"Example:");
+"511
+[e ( _UARTstringCRLN (1 -> :s 53C `*uc ]
+[; ;Bluetooth.c: 512: UARTstringCRLN((unsigned char *)"RemoteButton1");
+"512
+[e ( _UARTstringCRLN (1 -> :s 54C `*uc ]
+[; ;Bluetooth.c: 513: UARTstringCRLN((unsigned char *)"RemoteButton1 set");
+"513
+[e ( _UARTstringCRLN (1 -> :s 55C `*uc ]
+[; ;Bluetooth.c: 514: UARTstring(CRLN);
+"514
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 515: return 0;
+"515
+[e ) -> -> 0 `i `uc ]
+[e $UE 411  ]
+"516
+}
+[; ;Bluetooth.c: 516: }
+[e $U 463  ]
+"517
+[e :U 454 ]
+[; ;Bluetooth.c: 517: else if(StringContainsCaseInsensitive(ReceivedString,(unsigned char *)"RF set"))
+[e $ ! != -> ( _StringContainsCaseInsensitive (2 , &U _ReceivedString -> -> :s 56C `*uc `*Cuc `i -> -> -> 0 `i `uc `i 464  ]
+[; ;Bluetooth.c: 518: {
+"518
+{
+[; ;Bluetooth.c: 519: if(!StringAddEqual(ReceivedString))
+"519
+[e $ ! ! != -> ( _StringAddEqual (1 &U _ReceivedString `i -> -> -> 0 `i `uc `i 465  ]
+[; ;Bluetooth.c: 520: {
+"520
+{
+[; ;Bluetooth.c: 521: UARTstringCRLN((unsigned char *)"Error: No RF configuration specified");
+"521
+[e ( _UARTstringCRLN (1 -> :s 57C `*uc ]
+[; ;Bluetooth.c: 522: UARTstring(CRLN);
+"522
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 523: return 0;
+"523
+[e ) -> -> 0 `i `uc ]
+[e $UE 411  ]
+"524
+}
+[e :U 465 ]
+[; ;Bluetooth.c: 524: }
+[; ;Bluetooth.c: 525: ReceivedStringPos++;
+"525
+[e ++ _ReceivedStringPos -> -> 1 `i `uc ]
+[; ;Bluetooth.c: 526: UARTstring(CRLN);
+"526
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 527: if(!GetNumber(ReceivedString, 1, &temp))
+"527
+[e $ ! ! != -> ( _GetNumber (3 , , &U _ReceivedString -> -> 1 `i `uc &U _temp `i -> -> -> 0 `i `uc `i 466  ]
+[; ;Bluetooth.c: 528: {
+"528
+{
+[; ;Bluetooth.c: 529: rfconf = (unsigned char) temp;
+"529
+[e = _rfconf -> _temp `uc ]
+"530
+}
+[; ;Bluetooth.c: 530: }
+[e $U 467  ]
+"531
+[e :U 466 ]
+[; ;Bluetooth.c: 531: else
+[; ;Bluetooth.c: 532: {
+"532
+{
+[; ;Bluetooth.c: 533: UARTstringCRLN((unsigned char *)"Error: No RF configuration specified");
+"533
+[e ( _UARTstringCRLN (1 -> :s 58C `*uc ]
+[; ;Bluetooth.c: 534: UARTstring(CRLN);
+"534
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 535: return 0;
+"535
+[e ) -> -> 0 `i `uc ]
+[e $UE 411  ]
+"536
+}
+[e :U 467 ]
+[; ;Bluetooth.c: 536: }
+[; ;Bluetooth.c: 537: if(rfconf <= 0 || rfconf > 2)
+"537
+[e $ ! || <= -> _rfconf `i -> 0 `i > -> _rfconf `i -> 2 `i 468  ]
+[; ;Bluetooth.c: 538: {
+"538
+{
+[; ;Bluetooth.c: 539: UARTstringCRLN((unsigned char *)"Error: RF configuration out of range");
+"539
+[e ( _UARTstringCRLN (1 -> :s 59C `*uc ]
+[; ;Bluetooth.c: 540: UARTstring(CRLN);
+"540
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 541: return 0;
+"541
+[e ) -> -> 0 `i `uc ]
+[e $UE 411  ]
+"542
+}
+[e :U 468 ]
+[; ;Bluetooth.c: 542: }
+[; ;Bluetooth.c: 543: if(GetStringAfterComma(ReceivedString, 1, rfchannelSTR))
+"543
+[e $ ! != -> ( _GetStringAfterComma (3 , , &U _ReceivedString -> -> 1 `i `uc &U _rfchannelSTR `i -> -> -> 0 `i `uc `i 469  ]
+[; ;Bluetooth.c: 544: {
+"544
+{
+[; ;Bluetooth.c: 545: UARTstringCRLN((unsigned char *)"Error: No RF channel specified");
+"545
+[e ( _UARTstringCRLN (1 -> :s 60C `*uc ]
+[; ;Bluetooth.c: 546: UARTstring(CRLN);
+"546
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 547: return 0;
+"547
+[e ) -> -> 0 `i `uc ]
+[e $UE 411  ]
+"548
+}
+[; ;Bluetooth.c: 548: }
+[e $U 470  ]
+"549
+[e :U 469 ]
+[; ;Bluetooth.c: 549: else
+[; ;Bluetooth.c: 550: {
+"550
+{
+[; ;Bluetooth.c: 551: lowercaseString(rfchannelSTR);
+"551
+[e ( _lowercaseString (1 &U _rfchannelSTR ]
+[; ;Bluetooth.c: 552: if(rfchannelSTR[1] == 0 || rfchannelSTR[1] == ' ')
+"552
+[e $ ! || == -> *U + &U _rfchannelSTR * -> -> -> 1 `i `ui `ux -> -> # *U &U _rfchannelSTR `ui `ux `i -> 0 `i == -> *U + &U _rfchannelSTR * -> -> -> 1 `i `ui `ux -> -> # *U &U _rfchannelSTR `ui `ux `ui -> 32 `ui 471  ]
+[; ;Bluetooth.c: 553: {
+"553
+{
+[; ;Bluetooth.c: 554: rfchannelSTR[1] = 0;
+"554
+[e = *U + &U _rfchannelSTR * -> -> -> 1 `i `ui `ux -> -> # *U &U _rfchannelSTR `ui `ux -> -> 0 `i `uc ]
+[; ;Bluetooth.c: 555: if(rfconf == 1)
+"555
+[e $ ! == -> _rfconf `i -> 1 `i 472  ]
+[; ;Bluetooth.c: 556: {
+"556
+{
+[; ;Bluetooth.c: 557: if(!StringContainsCaseInsensitive(Conf1_Channels, rfchannelSTR))
+"557
+[e $ ! ! != -> ( _StringContainsCaseInsensitive (2 , &U _Conf1_Channels -> &U _rfchannelSTR `*Cuc `i -> -> -> 0 `i `uc `i 473  ]
+[; ;Bluetooth.c: 558: {
+"558
+{
+[; ;Bluetooth.c: 559: ok = 0;
+"559
+[e = _ok -> -> 0 `i `uc ]
+"560
+}
+[e :U 473 ]
+"561
+}
+[; ;Bluetooth.c: 560: }
+[; ;Bluetooth.c: 561: }
+[e $U 474  ]
+"562
+[e :U 472 ]
+[; ;Bluetooth.c: 562: else if(rfconf == 2)
+[e $ ! == -> _rfconf `i -> 2 `i 475  ]
+[; ;Bluetooth.c: 563: {
+"563
+{
+[; ;Bluetooth.c: 564: if(!StringContainsCaseInsensitive(Conf2_Channels, rfchannelSTR))
+"564
+[e $ ! ! != -> ( _StringContainsCaseInsensitive (2 , &U _Conf2_Channels -> &U _rfchannelSTR `*Cuc `i -> -> -> 0 `i `uc `i 476  ]
+[; ;Bluetooth.c: 565: {
+"565
+{
+[; ;Bluetooth.c: 566: ok = 0;
+"566
+[e = _ok -> -> 0 `i `uc ]
+"567
+}
+[e :U 476 ]
+"568
+}
+[e :U 475 ]
+"569
+[e :U 474 ]
+[; ;Bluetooth.c: 567: }
+[; ;Bluetooth.c: 568: }
+[; ;Bluetooth.c: 569: if(!ok)
+[e $ ! ! != -> _ok `i -> -> -> 0 `i `uc `i 477  ]
+[; ;Bluetooth.c: 570: {
+"570
+{
+[; ;Bluetooth.c: 571: UARTstringCRLN((unsigned char *)"Error: RF channel out of range");
+"571
+[e ( _UARTstringCRLN (1 -> :s 61C `*uc ]
+[; ;Bluetooth.c: 572: UARTstring(CRLN);
+"572
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 573: return 0;
+"573
+[e ) -> -> 0 `i `uc ]
+[e $UE 411  ]
+"574
+}
+[e :U 477 ]
+[; ;Bluetooth.c: 574: }
+[; ;Bluetooth.c: 575: if(!WaitForIRsignal())
+"575
+[e $ ! ! != -> ( _WaitForIRsignal ..  `i -> -> -> 0 `i `uc `i 478  ]
+[; ;Bluetooth.c: 576: {
+"576
+{
+[; ;Bluetooth.c: 577: return 0;
+"577
+[e ) -> -> 0 `i `uc ]
+[e $UE 411  ]
+"578
+}
+[e :U 478 ]
+[; ;Bluetooth.c: 578: }
+[; ;Bluetooth.c: 580: if(rfconf == 1)
+"580
+[e $ ! == -> _rfconf `i -> 1 `i 479  ]
+[; ;Bluetooth.c: 581: {
+"581
+{
+[; ;Bluetooth.c: 582: if(rfchannelSTR[0] == 'd')
+"582
+[e $ ! == -> *U + &U _rfchannelSTR * -> -> -> 0 `i `ui `ux -> -> # *U &U _rfchannelSTR `ui `ux `ui -> 100 `ui 480  ]
+[; ;Bluetooth.c: 583: {
+"583
+{
+[; ;Bluetooth.c: 584: tempRFArray = 0;
+"584
+[e = _tempRFArray -> -> 0 `i `uc ]
+"585
+}
+[; ;Bluetooth.c: 585: }
+[e $U 481  ]
+"586
+[e :U 480 ]
+[; ;Bluetooth.c: 586: else if(rfchannelSTR[0] == 'e')
+[e $ ! == -> *U + &U _rfchannelSTR * -> -> -> 0 `i `ui `ux -> -> # *U &U _rfchannelSTR `ui `ux `ui -> 101 `ui 482  ]
+[; ;Bluetooth.c: 587: {
+"587
+{
+[; ;Bluetooth.c: 588: tempRFArray = 1;
+"588
+[e = _tempRFArray -> -> 1 `i `uc ]
+"589
+}
+[; ;Bluetooth.c: 589: }
+[e $U 483  ]
+"590
+[e :U 482 ]
+[; ;Bluetooth.c: 590: else if(rfchannelSTR[0] == 'f')
+[e $ ! == -> *U + &U _rfchannelSTR * -> -> -> 0 `i `ui `ux -> -> # *U &U _rfchannelSTR `ui `ux `ui -> 102 `ui 484  ]
+[; ;Bluetooth.c: 591: {
+"591
+{
+[; ;Bluetooth.c: 592: tempRFArray = 2;
+"592
+[e = _tempRFArray -> -> 2 `i `uc ]
+"593
+}
+[; ;Bluetooth.c: 593: }
+[e $U 485  ]
+"594
+[e :U 484 ]
+[; ;Bluetooth.c: 594: else
+[; ;Bluetooth.c: 595: {
+"595
+{
+[; ;Bluetooth.c: 597: return 0;
+"597
+[e ) -> -> 0 `i `uc ]
+[e $UE 411  ]
+"598
+}
+[e :U 485 ]
+[e :U 483 ]
+[e :U 481 ]
+"599
+}
+[; ;Bluetooth.c: 598: }
+[; ;Bluetooth.c: 599: }
+[e $U 486  ]
+"600
+[e :U 479 ]
+[; ;Bluetooth.c: 600: else if(rfconf ==2)
+[e $ ! == -> _rfconf `i -> 2 `i 487  ]
+[; ;Bluetooth.c: 601: {
+"601
+{
+[; ;Bluetooth.c: 602: if(rfchannelSTR[0] == 'b')
+"602
+[e $ ! == -> *U + &U _rfchannelSTR * -> -> -> 0 `i `ui `ux -> -> # *U &U _rfchannelSTR `ui `ux `ui -> 98 `ui 488  ]
+[; ;Bluetooth.c: 603: {
+"603
+{
+[; ;Bluetooth.c: 604: tempRFArray = 3;
+"604
+[e = _tempRFArray -> -> 3 `i `uc ]
+"605
+}
+[; ;Bluetooth.c: 605: }
+[e $U 489  ]
+"606
+[e :U 488 ]
+[; ;Bluetooth.c: 606: else if(rfchannelSTR[0] == 'd')
+[e $ ! == -> *U + &U _rfchannelSTR * -> -> -> 0 `i `ui `ux -> -> # *U &U _rfchannelSTR `ui `ux `ui -> 100 `ui 490  ]
+[; ;Bluetooth.c: 607: {
+"607
+{
+[; ;Bluetooth.c: 608: tempRFArray = 4;
+"608
+[e = _tempRFArray -> -> 4 `i `uc ]
+"609
+}
+[; ;Bluetooth.c: 609: }
+[e $U 491  ]
+"610
+[e :U 490 ]
+[; ;Bluetooth.c: 610: else if(rfchannelSTR[0] == 'h')
+[e $ ! == -> *U + &U _rfchannelSTR * -> -> -> 0 `i `ui `ux -> -> # *U &U _rfchannelSTR `ui `ux `ui -> 104 `ui 492  ]
+[; ;Bluetooth.c: 611: {
+"611
+{
+[; ;Bluetooth.c: 612: cleanBuffer(ReceivedString, ReceivedStringPos);
+"612
+[e ( _cleanBuffer (2 , &U _ReceivedString -> _ReceivedStringPos `i ]
+[; ;Bluetooth.c: 613: ReceivedStringPos = 0;
+"613
+[e = _ReceivedStringPos -> -> 0 `i `uc ]
+[; ;Bluetooth.c: 614: NewReceivedString = 0;
+"614
+[e = _NewReceivedString -> -> 0 `i `uc ]
+[; ;Bluetooth.c: 615: UARTstring(CRLN);
+"615
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 616: UARTstring((unsigned char *)"Which device?");
+"616
+[e ( _UARTstring (1 -> :s 62C `*uc ]
+[; ;Bluetooth.c: 617: UARTstring(CRLN);
+"617
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 618: UARTchar('>');
+"618
+[e ( _UARTchar (1 -> -> 62 `ui `uc ]
+[; ;Bluetooth.c: 619: timeout = 0;
+"619
+[e = _timeout -> -> 0 `i `uc ]
+[; ;Bluetooth.c: 620: while(!NewReceivedString)
+"620
+[e $U 493  ]
+[e :U 494 ]
+[; ;Bluetooth.c: 621: {
+"621
+{
+[; ;Bluetooth.c: 622: delayUS(300000);
+"622
+[e ( _delayUS (1 -> 300000 `l ]
+[; ;Bluetooth.c: 623: timeout++;
+"623
+[e ++ _timeout -> -> 1 `i `uc ]
+[; ;Bluetooth.c: 624: if(timeout > 25)
+"624
+[e $ ! > -> _timeout `i -> 25 `i 496  ]
+[; ;Bluetooth.c: 625: {
+"625
+{
+[; ;Bluetooth.c: 626: UARTstring(CRLN);
+"626
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 627: UARTstringCRLN((unsigned char *)"Error: No RF config 2, channel H device specified");
+"627
+[e ( _UARTstringCRLN (1 -> :s 63C `*uc ]
+[; ;Bluetooth.c: 628: return 0;
+"628
+[e ) -> -> 0 `i `uc ]
+[e $UE 411  ]
+"629
+}
+[e :U 496 ]
+"630
+}
+[e :U 493 ]
+"620
+[e $ ! != -> _NewReceivedString `i -> -> -> 0 `i `Vuc `i 494  ]
+[e :U 495 ]
+[; ;Bluetooth.c: 629: }
+[; ;Bluetooth.c: 630: }
+[; ;Bluetooth.c: 631: if(ReceivedString[0] < '1' || ReceivedString[0] > '3')
+"631
+[e $ ! || < -> *U + &U _ReceivedString * -> -> -> 0 `i `ui `ux -> -> # *U &U _ReceivedString `ui `ux `ui -> 49 `ui > -> *U + &U _ReceivedString * -> -> -> 0 `i `ui `ux -> -> # *U &U _ReceivedString `ui `ux `ui -> 51 `ui 497  ]
+[; ;Bluetooth.c: 632: {
+"632
+{
+[; ;Bluetooth.c: 633: UARTstringCRLN((unsigned char *)"Error: RF config 2, channel H device out of range");
+"633
+[e ( _UARTstringCRLN (1 -> :s 64C `*uc ]
+"634
+}
+[e :U 497 ]
+[; ;Bluetooth.c: 634: }
+[; ;Bluetooth.c: 635: device = ReceivedString[0] - '0';
+"635
+[e = _device -> - -> *U + &U _ReceivedString * -> -> -> 0 `i `ui `ux -> -> # *U &U _ReceivedString `ui `ux `ui -> 48 `ui `uc ]
+[; ;Bluetooth.c: 636: tempRFArray = device + 4;
+"636
+[e = _tempRFArray -> + -> _device `i -> 4 `i `uc ]
+"637
+}
+[; ;Bluetooth.c: 637: }
+[e $U 498  ]
+"638
+[e :U 492 ]
+[; ;Bluetooth.c: 638: else
+[; ;Bluetooth.c: 639: {
+"639
+{
+[; ;Bluetooth.c: 641: return 0;
+"641
+[e ) -> -> 0 `i `uc ]
+[e $UE 411  ]
+"642
+}
+[e :U 498 ]
+[e :U 491 ]
+[e :U 489 ]
+"643
+}
+[e :U 487 ]
+"644
+[e :U 486 ]
+[; ;Bluetooth.c: 642: }
+[; ;Bluetooth.c: 643: }
+[; ;Bluetooth.c: 644: DecodeNEC(IR_NEC, &NecAddress, &NecCommand);
+[e ( _DecodeNEC (3 , , _IR_NEC &U _NecAddress &U _NecCommand ]
+[; ;Bluetooth.c: 645: Global.RemoteButton1RF[tempRFArray][0] = NecAddress;
+"645
+[e = *U + &U *U + &U . _Global 4 * -> _tempRFArray `ux -> * -> # *U &U *U &U . _Global 4 `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U . _Global 4 * -> _tempRFArray `ux -> * -> # *U &U *U &U . _Global 4 `ui -> -> 2 `i `ui `ux `ui `ux _NecAddress ]
+[; ;Bluetooth.c: 646: Global.RemoteButton1RF[tempRFArray][1] = NecCommand;
+"646
+[e = *U + &U *U + &U . _Global 4 * -> _tempRFArray `ux -> * -> # *U &U *U &U . _Global 4 `ui -> -> 2 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U . _Global 4 * -> _tempRFArray `ux -> * -> # *U &U *U &U . _Global 4 `ui -> -> 2 `i `ui `ux `ui `ux _NecCommand ]
+[; ;Bluetooth.c: 647: SyncGlobalToEEPROM();
+"647
+[e ( _SyncGlobalToEEPROM ..  ]
+[; ;Bluetooth.c: 648: UARTstring(CRLN);
+"648
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 650: if(device)
+"650
+[e $ ! != -> _device `i -> -> -> 0 `i `uc `i 499  ]
+[; ;Bluetooth.c: 651: {
+"651
+{
+[; ;Bluetooth.c: 652: sprintf(buf,(unsigned char *)"NEC code 0x%lX now transmits RF config %d channel %c device %d",IR_NEC, rfconf, rfchannelSTR[0], device);
+"652
+[e ( _sprintf (1 , , , , (. , &U _buf -> -> :s 65C `*uc `*Cuc _IR_NEC -> _rfconf `i -> *U + &U _rfchannelSTR * -> -> -> 0 `i `ui `ux -> -> # *U &U _rfchannelSTR `ui `ux `i -> _device `i ]
+"653
+}
+[; ;Bluetooth.c: 653: }
+[e $U 500  ]
+"654
+[e :U 499 ]
+[; ;Bluetooth.c: 654: else
+[; ;Bluetooth.c: 655: {
+"655
+{
+[; ;Bluetooth.c: 656: sprintf(buf,(unsigned char *)"NEC code 0x%lX now transmits RF config %d channel %c ",IR_NEC, rfconf, rfchannelSTR[0]);
+"656
+[e ( _sprintf (1 , , , (. , &U _buf -> -> :s 66C `*uc `*Cuc _IR_NEC -> _rfconf `i -> *U + &U _rfchannelSTR * -> -> -> 0 `i `ui `ux -> -> # *U &U _rfchannelSTR `ui `ux `i ]
+"657
+}
+[e :U 500 ]
+[; ;Bluetooth.c: 657: }
+[; ;Bluetooth.c: 658: UARTstringCRLN(buf);
+"658
+[e ( _UARTstringCRLN (1 &U _buf ]
+[; ;Bluetooth.c: 659: UARTstring(CRLN);
+"659
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 660: return 1;
+"660
+[e ) -> -> 1 `i `uc ]
+[e $UE 411  ]
+"661
+}
+[; ;Bluetooth.c: 661: }
+[e $U 501  ]
+"662
+[e :U 471 ]
+[; ;Bluetooth.c: 662: else
+[; ;Bluetooth.c: 663: {
+"663
+{
+[; ;Bluetooth.c: 664: UARTstringCRLN((unsigned char *)"Error: RF channel needs to be one character");
+"664
+[e ( _UARTstringCRLN (1 -> :s 67C `*uc ]
+[; ;Bluetooth.c: 665: UARTstring(CRLN);
+"665
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 666: return 0;
+"666
+[e ) -> -> 0 `i `uc ]
+[e $UE 411  ]
+"667
+}
+[e :U 501 ]
+"668
+}
+[e :U 470 ]
+"669
+}
+[; ;Bluetooth.c: 667: }
+[; ;Bluetooth.c: 668: }
+[; ;Bluetooth.c: 669: }
+[e $U 502  ]
+"670
+[e :U 464 ]
+[; ;Bluetooth.c: 670: else
+[; ;Bluetooth.c: 671: {
+"671
+{
+[; ;Bluetooth.c: 672: UARTstringCRLN(SYNTAX_ERR);
+"672
+[e ( _UARTstringCRLN (1 &U _SYNTAX_ERR ]
+[; ;Bluetooth.c: 673: UARTstringCRLN((unsigned char *)"Enter ??? for Command Menu");
+"673
+[e ( _UARTstringCRLN (1 -> :s 68C `*uc ]
+[; ;Bluetooth.c: 674: UARTstring(CRLN);
+"674
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 675: return 0;
+"675
+[e ) -> -> 0 `i `uc ]
+[e $UE 411  ]
+"676
+}
+[e :U 502 ]
+[e :U 463 ]
 [e :U 453 ]
 [e :U 443 ]
 [e :U 420 ]
-[; ;Bluetooth.c: 479: }
-[; ;Bluetooth.c: 480: if(ok == 0)
-"480
-[e $ ! == -> _ok `i -> 0 `i 462  ]
-[; ;Bluetooth.c: 481: {
-"481
+[; ;Bluetooth.c: 676: }
+[; ;Bluetooth.c: 678: if(StringMatch(ReceivedString,(unsigned char *)"???"))
+"678
+[e $ ! != -> ( _StringMatch (2 , &U _ReceivedString -> -> :s 69C `*uc `*Cuc `i -> -> -> 0 `i `uc `i 503  ]
+[; ;Bluetooth.c: 679: {
+"679
 {
-[; ;Bluetooth.c: 483: UARTstring(SYNTAX_ERR);
-"483
-[e ( _UARTstring (1 -> &U _SYNTAX_ERR `*uc ]
-[; ;Bluetooth.c: 484: UARTstring(CRLN);
-"484
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
-"485
-}
-[e :U 462 ]
-[; ;Bluetooth.c: 485: }
-[; ;Bluetooth.c: 487: if(StringMatch(ReceivedString,"???") || ok == 0)
-"487
-[e $ ! || != -> ( _StringMatch (2 , &U _ReceivedString :s 51C `i -> -> -> 0 `i `uc `i == -> _ok `i -> 0 `i 463  ]
-[; ;Bluetooth.c: 488: {
-"488
+[; ;Bluetooth.c: 680: UARTstring(CRLN);
+"680
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 681: UARTstringCRLN((unsigned char *)"~~~~~~~~~~~~~~~~~~~~~~~~~Command Menu~~~~~~~~~~~~~~~~~~~~~~~~~~");
+"681
+[e ( _UARTstringCRLN (1 -> :s 70C `*uc ]
+[; ;Bluetooth.c: 682: UARTstring(CRLN);
+"682
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 683: UARTstringCRLN((unsigned char *)"System commands:");
+"683
+[e ( _UARTstringCRLN (1 -> :s 71C `*uc ]
+[; ;Bluetooth.c: 684: UARTcommandMenu((unsigned char *)"???", (unsigned char *)"Help Menu");
+"684
+[e ( _UARTcommandMenu (2 , -> :s 72C `*uc -> :s 73C `*uc ]
+[; ;Bluetooth.c: 685: UARTstring(CRLN);
+"685
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 686: UARTstringCRLN((unsigned char *)"IR commands:");
+"686
+[e ( _UARTstringCRLN (1 -> :s 74C `*uc ]
+[; ;Bluetooth.c: 687: for(i=1; i <= 20; i++)
+"687
 {
-[; ;Bluetooth.c: 489: UARTstring(CRLN);
-"489
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
-[; ;Bluetooth.c: 490: UARTstringCRLN("~~~~~~~~~~~~~~~~~~~~~~~~~Command Menu~~~~~~~~~~~~~~~~~~~~~~~~~~");
-"490
-[e ( _UARTstringCRLN (1 -> :s 52C `*uc ]
-[; ;Bluetooth.c: 491: UARTstring(CRLN);
-"491
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
-[; ;Bluetooth.c: 492: UARTstringCRLN("System commands:");
-"492
-[e ( _UARTstringCRLN (1 -> :s 53C `*uc ]
-[; ;Bluetooth.c: 493: UARTcommandMenu("???", "Help Menu");
-"493
-[e ( _UARTcommandMenu (2 , -> :s 54C `*uc -> :s 55C `*uc ]
-[; ;Bluetooth.c: 494: UARTstring(CRLN);
-"494
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
-[; ;Bluetooth.c: 495: UARTstringCRLN("RF commands:");
-"495
-[e ( _UARTstringCRLN (1 -> :s 56C `*uc ]
-[; ;Bluetooth.c: 496: UARTcommandMenu(Conf1_ChannelD_STR, "RFK100LC Channel D");
-"496
-[e ( _UARTcommandMenu (2 , -> &U _Conf1_ChannelD_STR `*uc -> :s 57C `*uc ]
-[; ;Bluetooth.c: 497: UARTcommandMenu(Conf1_ChannelE_STR, "RFK100LC Channel E");
-"497
-[e ( _UARTcommandMenu (2 , -> &U _Conf1_ChannelE_STR `*uc -> :s 58C `*uc ]
-[; ;Bluetooth.c: 498: UARTcommandMenu(Conf1_ChannelF_STR, "RFK100LC Channel F");
-"498
-[e ( _UARTcommandMenu (2 , -> &U _Conf1_ChannelF_STR `*uc -> :s 59C `*uc ]
-[; ;Bluetooth.c: 499: UARTcommandMenu(Conf2_ChannelB_ON_STR, "RFK306LC Channel B ON");
-"499
-[e ( _UARTcommandMenu (2 , -> &U _Conf2_ChannelB_ON_STR `*uc -> :s 60C `*uc ]
-[; ;Bluetooth.c: 500: UARTcommandMenu(Conf2_ChannelB_OFF_STR, "RFK306LC Channel B OFF");
-"500
-[e ( _UARTcommandMenu (2 , -> &U _Conf2_ChannelB_OFF_STR `*uc -> :s 61C `*uc ]
-[; ;Bluetooth.c: 501: UARTcommandMenu(Conf2_ChannelD_ON_STR, "TR009 Channel D ON");
-"501
-[e ( _UARTcommandMenu (2 , -> &U _Conf2_ChannelD_ON_STR `*uc -> :s 62C `*uc ]
-[; ;Bluetooth.c: 502: UARTcommandMenu(Conf2_ChannelD_OFF_STR, "TR009 Channel D OFF");
-"502
-[e ( _UARTcommandMenu (2 , -> &U _Conf2_ChannelD_OFF_STR `*uc -> :s 63C `*uc ]
-[; ;Bluetooth.c: 503: UARTcommandMenu(Conf2_ChannelH_1_ON_STR, "RC-015*3 Channel H device 1 ON");
-"503
-[e ( _UARTcommandMenu (2 , -> &U _Conf2_ChannelH_1_ON_STR `*uc -> :s 64C `*uc ]
-[; ;Bluetooth.c: 504: UARTcommandMenu(Conf2_ChannelH_1_OFF_STR, "RC-015*3 Channel H device 1 OFF");
-"504
-[e ( _UARTcommandMenu (2 , -> &U _Conf2_ChannelH_1_OFF_STR `*uc -> :s 65C `*uc ]
-[; ;Bluetooth.c: 505: UARTcommandMenu(Conf2_ChannelH_2_ON_STR, "RC-015*3 Channel H device 2 ON");
-"505
-[e ( _UARTcommandMenu (2 , -> &U _Conf2_ChannelH_2_ON_STR `*uc -> :s 66C `*uc ]
-[; ;Bluetooth.c: 506: UARTcommandMenu(Conf2_ChannelH_2_OFF_STR, "RC-015*3 Channel H device 2 OFF");
-"506
-[e ( _UARTcommandMenu (2 , -> &U _Conf2_ChannelH_2_OFF_STR `*uc -> :s 67C `*uc ]
-[; ;Bluetooth.c: 507: UARTcommandMenu(Conf2_ChannelH_3_ON_STR, "RC-015*3 Channel H device 3 ON");
-"507
-[e ( _UARTcommandMenu (2 , -> &U _Conf2_ChannelH_3_ON_STR `*uc -> :s 68C `*uc ]
-[; ;Bluetooth.c: 508: UARTcommandMenu(Conf2_ChannelH_3_OFF_STR, "RC-015*3 Channel H device 3 OFF");
-"508
-[e ( _UARTcommandMenu (2 , -> &U _Conf2_ChannelH_3_OFF_STR `*uc -> :s 69C `*uc ]
-[; ;Bluetooth.c: 509: UARTstring(CRLN);
-"509
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
-"510
+[e = _i -> -> 1 `i `uc ]
+[e $ <= -> _i `i -> 20 `i 504  ]
+[e $U 505  ]
+"688
+[e :U 504 ]
+[; ;Bluetooth.c: 688: {
+{
+[; ;Bluetooth.c: 689: cleanBuffer(buf,50);
+"689
+[e ( _cleanBuffer (2 , &U _buf -> 50 `i ]
+[; ;Bluetooth.c: 690: sprintf(buf,(unsigned char *)"RemoteButton%d",i);
+"690
+[e ( _sprintf (1 , (. , &U _buf -> -> :s 75C `*uc `*Cuc -> _i `i ]
+[; ;Bluetooth.c: 691: UARTcommandMenu((unsigned char *)"buf", (unsigned char *)"Transmits saved NEC code");
+"691
+[e ( _UARTcommandMenu (2 , -> :s 76C `*uc -> :s 77C `*uc ]
+"692
 }
-[e :U 463 ]
-[; ;Bluetooth.c: 510: }
-[; ;Bluetooth.c: 512: return 0;
-"512
+"687
+[e ++ _i -> -> 1 `i `uc ]
+[e $ <= -> _i `i -> 20 `i 504  ]
+[e :U 505 ]
+"692
+}
+[; ;Bluetooth.c: 692: }
+[; ;Bluetooth.c: 693: for(i=1; i <= 20; i++)
+"693
+{
+[e = _i -> -> 1 `i `uc ]
+[e $ <= -> _i `i -> 20 `i 507  ]
+[e $U 508  ]
+"694
+[e :U 507 ]
+[; ;Bluetooth.c: 694: {
+{
+[; ;Bluetooth.c: 695: cleanBuffer(buf,50);
+"695
+[e ( _cleanBuffer (2 , &U _buf -> 50 `i ]
+[; ;Bluetooth.c: 696: sprintf(buf,(unsigned char *)"RemoteButton%d set",i);
+"696
+[e ( _sprintf (1 , (. , &U _buf -> -> :s 78C `*uc `*Cuc -> _i `i ]
+[; ;Bluetooth.c: 697: UARTcommandMenu((unsigned char *)"buf",(unsigned char *) "Allows saving NEC codes");
+"697
+[e ( _UARTcommandMenu (2 , -> :s 79C `*uc -> :s 80C `*uc ]
+"698
+}
+"693
+[e ++ _i -> -> 1 `i `uc ]
+[e $ <= -> _i `i -> 20 `i 507  ]
+[e :U 508 ]
+"698
+}
+[; ;Bluetooth.c: 698: }
+[; ;Bluetooth.c: 699: UARTcommandMenu((unsigned char *)"NEC?", (unsigned char *)"Displays Description how send NEC signal");
+"699
+[e ( _UARTcommandMenu (2 , -> :s 81C `*uc -> :s 82C `*uc ]
+[; ;Bluetooth.c: 700: UARTstring(CRLN);
+"700
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 701: UARTstringCRLN((unsigned char *)"RF commands:");
+"701
+[e ( _UARTstringCRLN (1 -> :s 83C `*uc ]
+[; ;Bluetooth.c: 702: UARTcommandMenu(Conf1_ChannelD_STR, (unsigned char *)"RFK100LC Channel D");
+"702
+[e ( _UARTcommandMenu (2 , &U _Conf1_ChannelD_STR -> :s 84C `*uc ]
+[; ;Bluetooth.c: 703: UARTcommandMenu(Conf1_ChannelE_STR, (unsigned char *)"RFK100LC Channel E");
+"703
+[e ( _UARTcommandMenu (2 , &U _Conf1_ChannelE_STR -> :s 85C `*uc ]
+[; ;Bluetooth.c: 704: UARTcommandMenu(Conf1_ChannelF_STR, (unsigned char *)"RFK100LC Channel F");
+"704
+[e ( _UARTcommandMenu (2 , &U _Conf1_ChannelF_STR -> :s 86C `*uc ]
+[; ;Bluetooth.c: 705: UARTcommandMenu(Conf2_ChannelB_ON_STR, (unsigned char *)"RFK306LC Channel B ON");
+"705
+[e ( _UARTcommandMenu (2 , &U _Conf2_ChannelB_ON_STR -> :s 87C `*uc ]
+[; ;Bluetooth.c: 706: UARTcommandMenu(Conf2_ChannelB_OFF_STR, (unsigned char *)"RFK306LC Channel B OFF");
+"706
+[e ( _UARTcommandMenu (2 , &U _Conf2_ChannelB_OFF_STR -> :s 88C `*uc ]
+[; ;Bluetooth.c: 707: UARTcommandMenu(Conf2_ChannelD_ON_STR, (unsigned char *)"TR009 Channel D ON");
+"707
+[e ( _UARTcommandMenu (2 , &U _Conf2_ChannelD_ON_STR -> :s 89C `*uc ]
+[; ;Bluetooth.c: 708: UARTcommandMenu(Conf2_ChannelD_OFF_STR, (unsigned char *)"TR009 Channel D OFF");
+"708
+[e ( _UARTcommandMenu (2 , &U _Conf2_ChannelD_OFF_STR -> :s 90C `*uc ]
+[; ;Bluetooth.c: 709: UARTcommandMenu(Conf2_ChannelH_1_ON_STR, (unsigned char *)"RC-015*3 Channel H device 1 ON");
+"709
+[e ( _UARTcommandMenu (2 , &U _Conf2_ChannelH_1_ON_STR -> :s 91C `*uc ]
+[; ;Bluetooth.c: 710: UARTcommandMenu(Conf2_ChannelH_1_OFF_STR, (unsigned char *)"RC-015*3 Channel H device 1 OFF");
+"710
+[e ( _UARTcommandMenu (2 , &U _Conf2_ChannelH_1_OFF_STR -> :s 92C `*uc ]
+[; ;Bluetooth.c: 711: UARTcommandMenu(Conf2_ChannelH_2_ON_STR, (unsigned char *)"RC-015*3 Channel H device 2 ON");
+"711
+[e ( _UARTcommandMenu (2 , &U _Conf2_ChannelH_2_ON_STR -> :s 93C `*uc ]
+[; ;Bluetooth.c: 712: UARTcommandMenu(Conf2_ChannelH_2_OFF_STR, (unsigned char *)"RC-015*3 Channel H device 2 OFF");
+"712
+[e ( _UARTcommandMenu (2 , &U _Conf2_ChannelH_2_OFF_STR -> :s 94C `*uc ]
+[; ;Bluetooth.c: 713: UARTcommandMenu(Conf2_ChannelH_3_ON_STR, (unsigned char *)"RC-015*3 Channel H device 3 ON");
+"713
+[e ( _UARTcommandMenu (2 , &U _Conf2_ChannelH_3_ON_STR -> :s 95C `*uc ]
+[; ;Bluetooth.c: 714: UARTcommandMenu(Conf2_ChannelH_3_OFF_STR, (unsigned char *)"RC-015*3 Channel H device 3 OFF");
+"714
+[e ( _UARTcommandMenu (2 , &U _Conf2_ChannelH_3_OFF_STR -> :s 96C `*uc ]
+[; ;Bluetooth.c: 715: UARTstring(CRLN);
+"715
+[e ( _UARTstring (1 &U _CRLN ]
+"716
+}
+[e :U 503 ]
+[; ;Bluetooth.c: 716: }
+[; ;Bluetooth.c: 718: return 0;
+"718
 [e ) -> -> 0 `i `uc ]
 [e $UE 411  ]
-[; ;Bluetooth.c: 513: }
-"513
+[; ;Bluetooth.c: 719: }
+"719
 [e :UE 411 ]
 }
-[p f _sprintf 10485904 ]
-[a 52C 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 67 111 109 109 97 110 100 32 77 101 110 117 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 0 ]
+"726
+[v _WaitForIRsignal `(uc ~T0 @X0 1 ef ]
+"727
+{
+[; ;Bluetooth.c: 726: unsigned char WaitForIRsignal(void)
+[; ;Bluetooth.c: 727: {
+[e :U _WaitForIRsignal ]
+[f ]
+"728
+[v _timeout `uc ~T0 @X0 1 a ]
+[; ;Bluetooth.c: 728: unsigned char timeout = 0;
+[e = _timeout -> -> 0 `i `uc ]
+[; ;Bluetooth.c: 730: UARTstring(CRLN);
+"730
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 731: UARTstring((unsigned char *)"Press Remote Control button");
+"731
+[e ( _UARTstring (1 -> :s 97C `*uc ]
+[; ;Bluetooth.c: 732: timeout = 0;
+"732
+[e = _timeout -> -> 0 `i `uc ]
+[; ;Bluetooth.c: 733: while(IR_New_Code != 1)
+"733
+[e $U 511  ]
+[e :U 512 ]
+[; ;Bluetooth.c: 734: {
+"734
+{
+[; ;Bluetooth.c: 735: UARTchar('.');
+"735
+[e ( _UARTchar (1 -> -> 46 `ui `uc ]
+[; ;Bluetooth.c: 736: delayUS(300000);
+"736
+[e ( _delayUS (1 -> 300000 `l ]
+[; ;Bluetooth.c: 737: timeout++;
+"737
+[e ++ _timeout -> -> 1 `i `uc ]
+[; ;Bluetooth.c: 738: if(timeout > 25)
+"738
+[e $ ! > -> _timeout `i -> 25 `i 514  ]
+[; ;Bluetooth.c: 739: {
+"739
+{
+[; ;Bluetooth.c: 740: UARTstring(CRLN);
+"740
+[e ( _UARTstring (1 &U _CRLN ]
+[; ;Bluetooth.c: 741: UARTstringCRLN((unsigned char *)"Error: No remote button was pressed");
+"741
+[e ( _UARTstringCRLN (1 -> :s 98C `*uc ]
+[; ;Bluetooth.c: 742: return 0;
+"742
+[e ) -> -> 0 `i `uc ]
+[e $UE 510  ]
+"743
+}
+[e :U 514 ]
+"744
+}
+[e :U 511 ]
+"733
+[e $ != -> _IR_New_Code `i -> 1 `i 512  ]
+[e :U 513 ]
+[; ;Bluetooth.c: 743: }
+[; ;Bluetooth.c: 744: }
+[; ;Bluetooth.c: 745: return 1;
+"745
+[e ) -> -> 1 `i `uc ]
+[e $UE 510  ]
+[; ;Bluetooth.c: 746: }
+"746
+[e :UE 510 ]
+}
+[p f _sprintf 16484285 ]
+[a 70C 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 67 111 109 109 97 110 100 32 77 101 110 117 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 126 0 ]
 [a 32C 78 69 67 32 99 111 100 101 32 110 111 116 32 101 110 116 101 114 101 100 32 99 111 114 114 101 99 116 108 121 0 ]
-[a 55C 72 101 108 112 32 77 101 110 117 0 ]
-[a 50C 69 110 116 101 114 32 39 63 94 32 67 111 109 109 97 110 100 32 77 101 110 117 0 ]
+[a 73C 72 101 108 112 32 77 101 110 117 0 ]
+[a 68C 69 110 116 101 114 32 63 63 63 32 102 111 114 32 67 111 109 109 97 110 100 32 77 101 110 117 0 ]
 [a 22C 67 111 110 102 105 103 117 114 97 116 105 111 110 32 50 32 82 70 32 99 111 100 101 32 115 101 110 116 0 ]
 [a 20C 67 111 110 102 105 103 117 114 97 116 105 111 110 32 49 32 82 70 32 99 111 100 101 32 115 101 110 116 0 ]
+[a 78C 82 101 109 111 116 101 66 117 116 116 111 110 37 100 32 115 101 116 0 ]
+[a 56C 82 70 32 115 101 116 0 ]
+[a 55C 82 101 109 111 116 101 66 117 116 116 111 110 49 32 115 101 116 0 ]
+[a 52C 82 101 109 111 116 101 66 117 116 116 111 110 39 120 39 32 115 101 116 0 ]
+[a 42C 115 101 116 0 ]
 [a 27C 69 114 114 111 114 58 32 99 111 117 108 100 32 110 111 116 32 100 101 99 111 100 101 32 65 100 100 114 101 115 115 0 ]
+[a 80C 65 108 108 111 119 115 32 115 97 118 105 110 103 32 78 69 67 32 99 111 100 101 115 0 ]
 [a 35C 32 32 32 32 32 32 32 32 111 114 0 ]
 [a 39C 32 32 32 32 32 32 111 114 0 ]
-[a 42C 72 105 116 32 82 101 109 111 116 101 32 67 111 110 116 114 111 108 32 98 117 116 116 111 110 0 ]
+[a 67C 69 114 114 111 114 58 32 82 70 32 99 104 97 110 110 101 108 32 110 101 101 100 115 32 116 111 32 98 101 32 111 110 101 32 99 104 97 114 97 99 116 101 114 0 ]
+[a 97C 80 114 101 115 115 32 82 101 109 111 116 101 32 67 111 110 116 114 111 108 32 98 117 116 116 111 110 0 ]
 [a 41C 82 101 109 111 116 101 66 117 116 116 111 110 0 ]
-[a 43C 89 111 117 32 116 111 111 107 32 116 111 111 32 108 111 110 103 32 104 105 116 32 97 32 98 117 116 116 111 110 32 111 110 32 116 104 101 32 114 101 109 111 116 101 0 ]
+[a 82C 68 105 115 112 108 97 121 115 32 68 101 115 99 114 105 112 116 105 111 110 32 104 111 119 32 115 101 110 100 32 78 69 67 32 115 105 103 110 97 108 0 ]
+[a 48C 69 114 114 111 114 58 32 82 101 109 111 116 101 32 98 117 116 116 111 110 32 110 117 109 98 101 114 32 116 111 111 32 104 105 103 104 0 ]
+[a 76C 98 117 102 0 ]
+[a 79C 98 117 102 0 ]
+[a 59C 69 114 114 111 114 58 32 82 70 32 99 111 110 102 105 103 117 114 97 116 105 111 110 32 111 117 116 32 111 102 32 114 97 110 103 101 0 ]
+[a 61C 69 114 114 111 114 58 32 82 70 32 99 104 97 110 110 101 108 32 111 117 116 32 111 102 32 114 97 110 103 101 0 ]
+[a 64C 69 114 114 111 114 58 32 82 70 32 99 111 110 102 105 103 32 50 44 32 99 104 97 110 110 101 108 32 72 32 100 101 118 105 99 101 32 111 117 116 32 111 102 32 114 97 110 103 101 0 ]
 [a 31C 69 114 114 111 114 58 32 99 111 117 108 100 32 110 111 116 32 100 101 99 111 100 101 32 78 69 67 32 99 111 100 101 0 ]
-[a 45C 69 114 114 111 114 58 32 82 101 109 111 116 101 32 98 117 116 116 111 110 32 110 111 116 32 115 112 101 99 105 102 105 101 100 0 ]
-[a 28C 115 101 110 116 32 78 69 67 32 99 111 100 101 32 37 108 88 0 ]
-[a 62C 84 82 48 48 57 32 67 104 97 110 110 101 108 32 68 32 79 78 0 ]
-[a 60C 82 70 75 51 48 54 76 67 32 67 104 97 110 110 101 108 32 66 32 79 78 0 ]
-[a 68C 82 67 45 48 49 53 42 51 32 67 104 97 110 110 101 108 32 72 32 100 101 118 105 99 101 32 51 32 79 78 0 ]
-[a 66C 82 67 45 48 49 53 42 51 32 67 104 97 110 110 101 108 32 72 32 100 101 118 105 99 101 32 50 32 79 78 0 ]
-[a 64C 82 67 45 48 49 53 42 51 32 67 104 97 110 110 101 108 32 72 32 100 101 118 105 99 101 32 49 32 79 78 0 ]
+[a 77C 84 114 97 110 115 109 105 116 115 32 115 97 118 101 100 32 78 69 67 32 99 111 100 101 0 ]
+[a 36C 78 69 67 32 61 32 97 100 100 114 101 115 115 44 99 111 109 109 97 110 100 0 ]
+[a 45C 69 114 114 111 114 58 32 78 111 32 78 69 67 32 99 111 100 101 32 115 97 118 101 100 32 102 111 114 32 115 112 101 99 105 102 105 101 100 32 99 111 109 109 97 110 100 0 ]
+[a 98C 69 114 114 111 114 58 32 78 111 32 114 101 109 111 116 101 32 98 117 116 116 111 110 32 119 97 115 32 112 114 101 115 115 101 100 0 ]
+[a 49C 69 114 114 111 114 58 32 82 101 109 111 116 101 32 98 117 116 116 111 110 32 110 111 116 32 115 112 101 99 105 102 105 101 100 0 ]
+[a 57C 69 114 114 111 114 58 32 78 111 32 82 70 32 99 111 110 102 105 103 117 114 97 116 105 111 110 32 115 112 101 99 105 102 105 101 100 0 ]
+[a 58C 69 114 114 111 114 58 32 78 111 32 82 70 32 99 111 110 102 105 103 117 114 97 116 105 111 110 32 115 112 101 99 105 102 105 101 100 0 ]
+[a 60C 69 114 114 111 114 58 32 78 111 32 82 70 32 99 104 97 110 110 101 108 32 115 112 101 99 105 102 105 101 100 0 ]
+[a 63C 69 114 114 111 114 58 32 78 111 32 82 70 32 99 111 110 102 105 103 32 50 44 32 99 104 97 110 110 101 108 32 72 32 100 101 118 105 99 101 32 115 112 101 99 105 102 105 101 100 0 ]
+[a 75C 82 101 109 111 116 101 66 117 116 116 111 110 37 100 0 ]
+[a 65C 78 69 67 32 99 111 100 101 32 48 120 37 108 88 32 110 111 119 32 116 114 97 110 115 109 105 116 115 32 82 70 32 99 111 110 102 105 103 32 37 100 32 99 104 97 110 110 101 108 32 37 99 32 100 101 118 105 99 101 32 37 100 0 ]
+[a 28C 115 101 110 116 32 78 69 67 32 99 111 100 101 32 48 120 37 108 88 0 ]
+[a 89C 84 82 48 48 57 32 67 104 97 110 110 101 108 32 68 32 79 78 0 ]
+[a 87C 82 70 75 51 48 54 76 67 32 67 104 97 110 110 101 108 32 66 32 79 78 0 ]
+[a 95C 82 67 45 48 49 53 42 51 32 67 104 97 110 110 101 108 32 72 32 100 101 118 105 99 101 32 51 32 79 78 0 ]
+[a 93C 82 67 45 48 49 53 42 51 32 67 104 97 110 110 101 108 32 72 32 100 101 118 105 99 101 32 50 32 79 78 0 ]
+[a 91C 82 67 45 48 49 53 42 51 32 67 104 97 110 110 101 108 32 72 32 100 101 118 105 99 101 32 49 32 79 78 0 ]
 [a 4C 65 79 75 0 ]
 [a 6C 65 79 75 0 ]
 [a 8C 65 79 75 0 ]
 [a 10C 65 79 75 0 ]
 [a 12C 65 79 75 0 ]
 [a 14C 65 79 75 0 ]
-[a 63C 84 82 48 48 57 32 67 104 97 110 110 101 108 32 68 32 79 70 70 0 ]
-[a 61C 82 70 75 51 48 54 76 67 32 67 104 97 110 110 101 108 32 66 32 79 70 70 0 ]
-[a 69C 82 67 45 48 49 53 42 51 32 67 104 97 110 110 101 108 32 72 32 100 101 118 105 99 101 32 51 32 79 70 70 0 ]
-[a 67C 82 67 45 48 49 53 42 51 32 67 104 97 110 110 101 108 32 72 32 100 101 118 105 99 101 32 50 32 79 70 70 0 ]
-[a 65C 82 67 45 48 49 53 42 51 32 67 104 97 110 110 101 108 32 72 32 100 101 118 105 99 101 32 49 32 79 70 70 0 ]
-[a 59C 82 70 75 49 48 48 76 67 32 67 104 97 110 110 101 108 32 70 0 ]
-[a 58C 82 70 75 49 48 48 76 67 32 67 104 97 110 110 101 108 32 69 0 ]
+[a 90C 84 82 48 48 57 32 67 104 97 110 110 101 108 32 68 32 79 70 70 0 ]
+[a 88C 82 70 75 51 48 54 76 67 32 67 104 97 110 110 101 108 32 66 32 79 70 70 0 ]
+[a 96C 82 67 45 48 49 53 42 51 32 67 104 97 110 110 101 108 32 72 32 100 101 118 105 99 101 32 51 32 79 70 70 0 ]
+[a 94C 82 67 45 48 49 53 42 51 32 67 104 97 110 110 101 108 32 72 32 100 101 118 105 99 101 32 50 32 79 70 70 0 ]
+[a 92C 82 67 45 48 49 53 42 51 32 67 104 97 110 110 101 108 32 72 32 100 101 118 105 99 101 32 49 32 79 70 70 0 ]
+[a 86C 82 70 75 49 48 48 76 67 32 67 104 97 110 110 101 108 32 70 0 ]
+[a 85C 82 70 75 49 48 48 76 67 32 67 104 97 110 110 101 108 32 69 0 ]
 [a 18C 69 78 68 0 ]
 [a 2C 67 77 68 0 ]
-[a 57C 82 70 75 49 48 48 76 67 32 67 104 97 110 110 101 108 32 68 0 ]
+[a 84C 82 70 75 49 48 48 76 67 32 67 104 97 110 110 101 108 32 68 0 ]
 [a 23C 78 69 67 0 ]
-[a 51C 63 63 63 0 ]
-[a 54C 63 63 63 0 ]
-[a 53C 83 121 115 116 101 109 32 99 111 109 109 97 110 100 115 58 0 ]
-[a 56C 82 70 32 99 111 109 109 97 110 100 115 58 0 ]
+[a 40C 78 69 67 32 61 32 48 120 51 56 44 32 48 120 65 0 ]
+[a 62C 87 104 105 99 104 32 100 101 118 105 99 101 63 0 ]
+[a 81C 78 69 67 63 0 ]
+[a 69C 63 63 63 0 ]
+[a 72C 63 63 63 0 ]
+[a 71C 83 121 115 116 101 109 32 99 111 109 109 97 110 100 115 58 0 ]
+[a 74C 73 82 32 99 111 109 109 97 110 100 115 58 0 ]
+[a 83C 82 70 32 99 111 109 109 97 110 100 115 58 0 ]
 [a 37C 69 120 97 109 112 108 101 58 0 ]
-[a 48C 69 120 97 109 112 108 101 58 0 ]
+[a 53C 69 120 97 109 112 108 101 58 0 ]
 [a 33C 85 115 97 103 101 58 0 ]
-[a 46C 85 115 97 103 101 58 0 ]
+[a 50C 85 115 97 103 101 58 0 ]
 [a 21C 67 111 110 102 50 0 ]
-[a 49C 82 101 109 111 116 101 66 117 116 116 111 110 49 0 ]
+[a 54C 82 101 109 111 116 101 66 117 116 116 111 110 49 0 ]
 [a 19C 67 111 110 102 49 0 ]
-[a 47C 82 101 109 111 116 101 66 117 116 116 111 110 39 120 39 0 ]
+[a 34C 78 69 67 32 61 32 40 51 50 32 98 105 116 32 99 111 100 101 41 0 ]
+[a 51C 82 101 109 111 116 101 66 117 116 116 111 110 39 120 39 0 ]
 [a 1C 36 36 36 0 ]
 [a 38C 78 69 67 32 61 32 48 120 49 67 69 51 53 48 97 102 32 0 ]
-[a 36C 78 69 67 32 61 32 97 100 100 114 101 115 115 44 99 111 109 109 97 110 100 32 0 ]
-[a 44C 82 101 109 111 116 101 66 117 116 116 111 110 37 100 32 61 32 111 120 37 108 88 32 0 ]
+[a 66C 78 69 67 32 99 111 100 101 32 48 120 37 108 88 32 110 111 119 32 116 114 97 110 115 109 105 116 115 32 82 70 32 99 111 110 102 105 103 32 37 100 32 99 104 97 110 110 101 108 32 37 99 32 0 ]
+[a 43C 83 101 110 116 32 78 69 67 32 99 111 100 101 32 48 120 37 108 88 32 0 ]
+[a 46C 82 101 109 111 116 101 66 117 116 116 111 110 37 108 100 32 110 111 119 32 116 114 97 110 115 109 105 116 115 32 78 69 67 32 99 111 100 101 32 48 120 37 108 88 32 0 ]
 [a 26C 83 101 110 116 32 78 69 67 32 99 111 100 101 32 61 32 48 120 37 108 88 32 0 ]
-[a 24C 78 69 67 32 97 100 100 114 101 115 115 58 32 37 88 32 0 ]
-[a 29C 97 100 100 114 101 115 115 58 32 37 88 32 0 ]
-[a 25C 78 69 67 32 99 111 109 109 97 110 100 58 32 37 88 32 0 ]
-[a 30C 99 111 109 109 97 110 100 58 32 37 88 32 0 ]
-[a 40C 78 69 67 32 61 32 48 120 51 56 44 32 48 120 65 32 0 ]
-[a 34C 78 69 67 32 61 32 40 51 50 32 98 105 116 32 99 111 100 101 41 32 0 ]
+[a 44C 78 69 67 32 67 111 100 101 32 97 100 100 114 101 115 115 58 32 48 120 37 48 50 88 32 44 32 99 111 109 109 97 110 100 58 32 48 120 37 48 50 88 32 0 ]
+[a 47C 78 69 67 32 67 111 100 101 32 97 100 100 114 101 115 115 58 32 48 120 37 48 50 88 32 44 32 99 111 109 109 97 110 100 58 32 48 120 37 48 50 88 32 0 ]
+[a 24C 78 69 67 32 97 100 100 114 101 115 115 58 32 48 120 37 88 32 0 ]
+[a 29C 97 100 100 114 101 115 115 58 32 48 120 37 88 32 0 ]
+[a 25C 78 69 67 32 99 111 109 109 97 110 100 58 32 48 120 37 88 32 0 ]
+[a 30C 99 111 109 109 97 110 100 58 32 48 120 37 88 32 0 ]
 [a 7C 83 83 44 32 72 111 109 101 32 65 117 116 111 109 97 116 105 111 110 13 0 ]
 [a 16C 66 84 78 97 109 101 61 72 111 109 101 32 65 117 116 111 109 97 116 105 111 110 32 37 108 100 13 0 ]
 [a 3C 83 78 44 72 111 109 101 32 65 117 116 111 109 97 116 105 111 110 32 37 108 100 13 0 ]

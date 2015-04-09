@@ -4965,15 +4965,16 @@ unsigned int Reverse_2Byte(unsigned int This);
 unsigned long Reverse_4Byte(unsigned long This);
 unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
 unsigned char StringAddEqual(unsigned char* Input);
+unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
 
 # 113 "UART.h"
 extern unsigned char ReceivedString[255];
 extern unsigned char ReceivedStringPos;
 extern unsigned char CommandString[255];
 extern unsigned char CommandStringPos;
-extern unsigned char NewReceivedString;
-const unsigned char SYNTAX_ERR[] = "Syntax Error in command";
-const unsigned char CRLN[] = "\r\n";
+extern volatile unsigned char NewReceivedString;
+unsigned char SYNTAX_ERR[] = "Error: Syntax not understood";
+unsigned char CRLN[] = "\r\n";
 
 
 
@@ -5036,17 +5037,20 @@ unsigned char EnterCommandMode(void);
 unsigned char BluetoothInitialSetup(void);
 unsigned char BluetoothConfigured(void);
 unsigned char UseBluetooth(void);
+unsigned char WaitForIRsignal(void);
 
-# 50 "main.c"
+# 49 "main.c"
 const unsigned char Version[] = {"1.0_DW0a"};
 
-# 59
+# 58
 double BatteryVoltage = 0.0;
 
-# 65
+# 64
 void main(void)
 {
 unsigned char i=0;
+unsigned char IRtask = 0;
+unsigned char Bluetoothtask = 0;
 
 ConfigureOscillator();
 InitApp();
@@ -5076,18 +5080,33 @@ __nop();
 
 while(1)
 {
-if(IR_New_Code)
+IRtask = IR_New_Code;
+Bluetoothtask = NewReceivedString;
+if(IRtask)
 {
 UseIRCode(&IR_New_Code, IR_NEC);
 }
-if(NewReceivedString)
+if(Bluetoothtask == 1)
 {
+__nop();
 UseBluetooth();
+if(ReceivedStringPos || NewReceivedString)
+{
 cleanBuffer(ReceivedString, ReceivedStringPos);
 ReceivedStringPos = 0;
+NewReceivedString = 0;
 UARTstring(CRLN);
 UARTchar('>');
-NewReceivedString = 0;
+}
+if(IR_New_Code)
+{
+IR_New_Code = 0;
+}
+
+IRpinOLD = ReadIRpin();
+INTCONbits.RBIF = 0;
+(IOCBbits.IOCB4 = 1);
+INTCONbits.RBIE = 1;
 }
 }
 }

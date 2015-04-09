@@ -4942,45 +4942,50 @@ unsigned long SN = 1;
 void InitApp(void);
 void Init_System (void);
 
-# 62 "RF.h"
-const unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
-const unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
+# 60 "RF.h"
+unsigned char Conf1_Channels[] = "DEF";
 
 
-const unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
-const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
+unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
+unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
 
 
-const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
-const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
+unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
+unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
+
+
+unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
+unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
 
 # 86
-const unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
-const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
-const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
-const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
+unsigned char Conf2_Channels[] = "BDH";
+
+unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
+unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
+unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
+unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
 
 
-const unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
-const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
-const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
-const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
+unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
+unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
+unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
+unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
 
 
-const unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
-const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
-const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
-const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
-const unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
-const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
-const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
-const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
-const unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
-const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
-const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
-const unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
+unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
+unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
+unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
+unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
+unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
+unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
+unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
+unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
+unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
+unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
+unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
+unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
 
-# 172
+# 174
 extern unsigned char RFsendCode[20];
 extern volatile unsigned char RFsendFlag;
 extern unsigned char RFcodePlace;
@@ -4991,7 +4996,7 @@ volatile unsigned char Sent;
 extern volatile unsigned char RF_IR_Postscaler;
 extern unsigned char RF_IR;
 
-# 186
+# 188
 unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
 void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
 void SendRF_Channel(unsigned char channel);
@@ -5036,6 +5041,7 @@ unsigned int Reverse_2Byte(unsigned int This);
 unsigned long Reverse_4Byte(unsigned long This);
 unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
 unsigned char StringAddEqual(unsigned char* Input);
+unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
 
 # 185 "IR.h"
 extern unsigned char IRpinOLD;
@@ -5092,7 +5098,7 @@ if(Sent == 1)
 {
 
 RF_IR = 55;
-if(Config < 0 || Config > 2)
+if((Config <= 0) || (Config > 2))
 {
 return 0;
 }
@@ -5250,13 +5256,6 @@ SendRF_wait(Conf2_ChannelH_3_OFF,2,16,8);
 Conf2_ChannelH_3_Status = 1;
 }
 break;
-case 8:
-case 9:
-case 10:
-case 11:
-case 12:
-case 13:
-case 14:
 default:
 break;
 }

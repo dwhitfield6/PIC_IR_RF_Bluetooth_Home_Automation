@@ -31,69 +31,35 @@
 
 #include "user.h"          /* User funct/params, such as InitApp */
 
-/******************************************************************************/
-/* Structures                                                                 */
-/******************************************************************************/
-typedef struct EEdata
-{
-    unsigned char BlueToothFlag;
-    unsigned long SWNECcode;
-    unsigned char RemoteButton1NECaddr;
-    unsigned char RemoteButton1NECcom;
-    unsigned char RemoteButton2NECaddr;
-    unsigned char RemoteButton2NECcom;
-    unsigned char RemoteButton3NECaddr;
-    unsigned char RemoteButton3NECcom;
-    unsigned char RemoteButton4NECaddr;
-    unsigned char RemoteButton4NECcom;
-    unsigned char RemoteButton5NECaddr;
-    unsigned char RemoteButton5NECcom;
-    unsigned char RemoteButton6NECaddr;
-    unsigned char RemoteButton6NECcom;
-    unsigned char RemoteButton7NECaddr;
-    unsigned char RemoteButton7NECcom;
-    unsigned char RemoteButton8NECaddr;
-    unsigned char RemoteButton8NECcom;
-    unsigned char RemoteButton9NECaddr;
-    unsigned char RemoteButton9NECcom;
-    unsigned char RemoteButton10NECaddr;
-    unsigned char RemoteButton10NECcom;
-    unsigned char RemoteButton11NECaddr;
-    unsigned char RemoteButton11NECcom;
-    unsigned char RemoteButton12NECaddr;
-    unsigned char RemoteButton12NECcom;
-    unsigned char RemoteButton13NECaddr;
-    unsigned char RemoteButton13NECcom;
-    unsigned char RemoteButton14NECaddr;
-    unsigned char RemoteButton14NECcom;
-    unsigned char RemoteButton15NECaddr;
-    unsigned char RemoteButton15NECcom;
-    unsigned char RemoteButton16NECaddr;
-    unsigned char RemoteButton16NECcom;
-    unsigned char RemoteButton17NECaddr;
-    unsigned char RemoteButton17NECcom;
-    unsigned char RemoteButton18NECaddr;
-    unsigned char RemoteButton18NECcom;
-    unsigned char RemoteButton19NECaddr;
-    unsigned char RemoteButton19NECcom;
-    unsigned char RemoteButton20NECaddr;
-    unsigned char RemoteButton20NECcom;
-
-}GBLdata;
 
 /******************************************************************************/
-/* Global Variables                                                           */
+/* Defines                                                                    */
 /******************************************************************************/
+#define EEPROMinitilized 59
 
-GBLdata Global =0;
+/******************************************************************************/
+/* ButtonAmount                                                         
+ * 
+ * This parameter hold the amount of remote control buttons that are
+ * able to be saved.
+/******************************************************************************/
+#define ButtonAmount 20
+
+/******************************************************************************/
+/* RFcodesAmount
+ *
+ * This parameter hold the amount of remote control buttons that are
+ * able to be saved.
+/******************************************************************************/
+#define RFcodesAmount 20
 
 /******************************************************************************/
 /* EEPROM Data Addresses                                                      */
 /******************************************************************************/
-/* Unsigned char BlueToothFlag */
+/* unsigned char BlueToothFlag */
 #define EE_BlueToothFlag        0
 
-/* Unsigned long NECcode */
+/* unsigned long NECcode */
 #define EE_NECcodeBYTE1         1
 #define EE_NECcodeBYTE2         2
 #define EE_NECcodeBYTE3         3
@@ -102,129 +68,60 @@ GBLdata Global =0;
 /******************************/
 /* NEC button data
 /******************************/
-/* Remote Button 1 storage of NEC code */
-/* Unsigned char RemoteButton1NECaddr */
-#define EE_RemoteButton1NECaddr 5
-/* Unsigned char RemoteButton1NECcom */
-#define EE_RemoteButton1NECcom  6
+/* Remote Button storage of NEC codes */
+/* the amount of data needed is 2 * ButtonAmount */
+#define EE_RemoteButtonNEC 5
 
-/* Remote Button 2 storage of NEC code */
-/* Unsigned char RemoteButton2NECaddr */
-#define EE_RemoteButton2NECaddr 7
-/* Unsigned char RemoteButton2NECcom */
-#define EE_RemoteButton2NECcom  8
+/* unsigned char EEPROMinitFlag */
+#define EE_EEPROMinitFlag (2*ButtonAmount + 5)
 
-/* Remote Button 3 storage of NEC code */
-/* Unsigned char RemoteButton3NECaddr */
-#define EE_RemoteButton3NECaddr 9
-/* Unsigned char RemoteButton3NECcom */
-#define EE_RemoteButton3NECcom  10
-
-/* Remote Button 4 storage of NEC code */
-/* Unsigned char RemoteButton4NECaddr */
-#define EE_RemoteButton4NECaddr 11
-/* Unsigned char RemoteButton4NECcom */
-#define EE_RemoteButton4NECcom  12
-
-/* Remote Button 5 storage of NEC code */
-/* Unsigned char RemoteButton5NECaddr */
-#define EE_RemoteButton5NECaddr 13
-/* Unsigned char RemoteButton5NECcom */
-#define EE_RemoteButton5NECcom  14
-
-/* Remote Button 6 storage of NEC code */
-/* Unsigned char RemoteButton6NECaddr */
-#define EE_RemoteButton6NECaddr 15
-/* Unsigned char RemoteButton6NECcom */
-#define EE_RemoteButton6NECcom  16
-
-/* Remote Button 7 storage of NEC code */
-/* Unsigned char RemoteButton7NECaddr */
-#define EE_RemoteButton7NECaddr 17
-/* Unsigned char RemoteButton7NECcom */
-#define EE_RemoteButton7NECcom  18
-
-/* Remote Button 8 storage of NEC code */
-/* Unsigned char RemoteButton8NECaddr */
-#define EE_RemoteButton8NECaddr 19
-/* Unsigned char RemoteButton8NECcom */
-#define EE_RemoteButton8NECcom  20
-
-/* Remote Button 9 storage of NEC code */
-/* Unsigned char RemoteButton9NECaddr */
-#define EE_RemoteButton9NECaddr 21
-/* Unsigned char RemoteButton9NECcom */
-#define EE_RemoteButton9NECcom  22
-
-/* Remote Button 10 storage of NEC code */
-/* Unsigned char RemoteButton10NECaddr */
-#define EE_RemoteButton10NECaddr 23
-/* Unsigned char RemoteButton10NECcom */
-#define EE_RemoteButton10NECcom  24
-
-/* Remote Button 11 storage of NEC code */
-/* Unsigned char RemoteButton11NECaddr */
-#define EE_RemoteButton11NECaddr 25
-/* Unsigned char RemoteButton11NECcom */
-#define EE_RemoteButton11NECcom  26
-
-/* Remote Button 12 storage of NEC code */
-/* Unsigned char RemoteButton12NECaddr */
-#define EE_RemoteButton12NECaddr 27
-/* Unsigned char RemoteButton12NECcom */
-#define EE_RemoteButton12NECcom  28
-
-/* Remote Button 13 storage of NEC code */
-/* Unsigned char RemoteButton13NECaddr */
-#define EE_RemoteButton13NECaddr 29
-/* Unsigned char RemoteButton13NECcom */
-#define EE_RemoteButton13NECcom  30
-
-/* Remote Button 14 storage of NEC code */
-/* Unsigned char RemoteButton14NECaddr */
-#define EE_RemoteButton14NECaddr 31
-/* Unsigned char RemoteButton14NECcom */
-#define EE_RemoteButton14NECcom  32
-
-/* Remote Button 15 storage of NEC code */
-/* Unsigned char RemoteButton15NECaddr */
-#define EE_RemoteButton15NECaddr 33
-/* Unsigned char RemoteButton15NECcom */
-#define EE_RemoteButton15NECcom  34
-
-/* Remote Button 16 storage of NEC code */
-/* Unsigned char RemoteButton16NECaddr */
-#define EE_RemoteButton16NECaddr 35
-/* Unsigned char RemoteButton16NECcom */
-#define EE_RemoteButton16NECcom  36
-
-/* Remote Button 17 storage of NEC code */
-/* Unsigned char RemoteButton17NECaddr */
-#define EE_RemoteButton17NECaddr 37
-/* Unsigned char RemoteButton17NECcom */
-#define EE_RemoteButton17NECcom  38
-
-/* Remote Button 18 storage of NEC code */
-/* Unsigned char RemoteButton18NECaddr */
-#define EE_RemoteButton18NECaddr 39
-/* Unsigned char RemoteButton18NECcom */
-#define EE_RemoteButton18NECcom  40
-
-/* Remote Button 19 storage of NEC code */
-/* Unsigned char RemoteButton19NECaddr */
-#define EE_RemoteButton19NECaddr 41
-/* Unsigned char RemoteButton19NECcom */
-#define EE_RemoteButton19NECcom  42
-
-/* Remote Button 20 storage of NEC code */
-/* Unsigned char RemoteButton20NECaddr */
-#define EE_RemoteButton20NECaddr 43
-/* Unsigned char RemoteButton20NECcom */
-#define EE_RemoteButton20NECcom  44
+/******************************/
+/* RF associated with each NEC code
+/******************************/
+/* Stores the first button that will cause each RF code to get sent */
+/* the amount of data needed 1 * RFcodesAmount */
+#define EE_RemoteButton1RF (2*ButtonAmount + 7)
+/* Stores the second button that will cause each RF code to get sent */
+#define EE_RemoteButton2RF (2*ButtonAmount + 7 + RFcodesAmount*2)
+/* Stores the third button that will cause each RF code to get sent */
+#define EE_RemoteButton3RF (2*ButtonAmount + 7 + RFcodesAmount*4)
+/* Stores the forth button that will cause each RF code to get sent */
+#define EE_RemoteButton4RF (2*ButtonAmount + 7 + RFcodesAmount*6)
+/* Stores the fifth button that will cause each RF code to get sent */
+#define EE_RemoteButton5RF (2*ButtonAmount + 7 + RFcodesAmount*8)
 
 /******************************************************************************/
-/* Defines                                                                    */
+/* Structures                                                                 */
 /******************************************************************************/
+typedef struct EEdata
+{
+    unsigned char BlueToothFlag;
+    unsigned long SWNECcode;
+    unsigned char RemoteButtonNEC[ButtonAmount][2];
+    unsigned char EEPROMinitFlag;
+
+    /*
+     * RemoteButtonRF 0 is for config 1 channel D
+     * RemoteButtonRF 1 is for config 1 channel E
+     * RemoteButtonRF 2 is for config 1 channel F
+     * RemoteButtonRF 3 is for config 2 channel B
+     * RemoteButtonRF 4 is for config 2 channel D
+     * RemoteButtonRF 5 is for config 2 channel H device 1
+     * RemoteButtonRF 6 is for config 2 channel H device 2
+     * RemoteButtonRF 7 is for config 2 channel H device 3
+     */
+    unsigned char RemoteButton1RF[RFcodesAmount][2];
+    unsigned char RemoteButton2RF[RFcodesAmount][2];
+    unsigned char RemoteButton3RF[RFcodesAmount][2];
+    unsigned char RemoteButton4RF[RFcodesAmount][2];
+    unsigned char RemoteButton5RF[RFcodesAmount][2];
+
+}GBLdata;
+
+/******************************************************************************/
+/* Global Variables                                                           */
+/******************************************************************************/
+GBLdata Global =0;
 
 /******************************************************************************/
 /* Function prototypes                                                        */
@@ -243,6 +140,8 @@ unsigned long GetMemoryChar(unsigned char AddressFirst);
 unsigned char SetMemoryChar(unsigned char Data, unsigned char AddressFirst);
 unsigned char SyncGlobalToEEPROM(void);
 void SyncEEPROMToGlobal(void);
+void SetEEPROMdefault(void);
+unsigned char EEPROMinitialized(void);
 /*-----------------------------------------------------------------------------/
  End of File
 /-----------------------------------------------------------------------------*/

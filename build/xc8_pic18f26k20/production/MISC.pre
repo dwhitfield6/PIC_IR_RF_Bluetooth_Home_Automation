@@ -4955,6 +4955,7 @@ unsigned int Reverse_2Byte(unsigned int This);
 unsigned long Reverse_4Byte(unsigned long This);
 unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
 unsigned char StringAddEqual(unsigned char* Input);
+unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
 
 # 50 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
@@ -5350,7 +5351,7 @@ if(*This == ' ')
 This++;
 
 }
-else if (*This == '=')
+else if (*This == '=' || *This == ',')
 {
 return 2;
 }
@@ -5364,9 +5365,11 @@ else if(*This == 0)
 {
 return 3;
 }
+while(*This != 0 && *This != ' ')
+{
 if(!Hex)
 {
-while(*This >=48 && *This <= 57)
+if(*This >=48 && *This <= 57)
 {
 temp = temp * 10;
 temp += *This - 48;
@@ -5375,7 +5378,6 @@ if(i>32)
 {
 return 4;
 }
-This++;
 }
 }
 else
@@ -5386,7 +5388,7 @@ while(*This != 'x' && *This != 'X')
 This++;
 }
 This++;
-while((*This >=48 && *This <= 57) || (*This >=65 && *This <= 70) || (*This >= 97 && *This <= 102))
+if((*This >=48 && *This <= 57) || (*This >=65 && *This <= 70) || (*This >= 97 && *This <= 102))
 {
 temp <<= 4;
 tempThis = *This;
@@ -5404,8 +5406,9 @@ if(i>32)
 {
 return 4;
 }
-This++;
 }
+}
+This++;
 }
 if(negative)
 {
@@ -5415,7 +5418,7 @@ temp = (temp * -1);
 return 0;
 }
 
-# 579
+# 581
 unsigned char StringAddEqual(unsigned char* Input)
 {
 unsigned char i =0;
@@ -5425,14 +5428,14 @@ unsigned char temp[100];
 cleanBuffer(temp,100);
 while(Input[i] != 0)
 {
-if((Input[i] >= 48) && (Input[i] <= 57) || (Input[i] == '-'))
+if(((Input[i] >= 48) && (Input[i] <= 57)) || (Input[i] == '-'))
 {
 firstnumber = i;
 break;
 }
 i++;
 }
-if(firstnumber > 99)
+if(firstnumber == 200)
 {
 
 return 0;
@@ -5452,5 +5455,57 @@ break;
 }
 BufferCopy(temp,Input,100, 0);
 return 1;
+}
+
+# 624
+unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result)
+{
+unsigned char tempCommaNumber = 1;
+unsigned char count = 0;
+
+SCAN:while(*This != ',' && *This != 0)
+{
+
+This++;
+}
+if(*This == 0)
+{
+return 1;
+}
+else if(*This != ',')
+{
+if(tempCommaNumber < CommaNumber)
+{
+tempCommaNumber++;
+This++;
+goto SCAN;
+}
+}
+if(*This == 0)
+{
+return 1;
+}
+This++;
+if(*This == ' ')
+{
+This++;
+
+}
+else if (*This == ',')
+{
+return 2;
+}
+else if(*This == 0)
+{
+return 3;
+}
+while(*This != 0 && *This != ' ' && count < 10)
+{
+*result = *This;
+result++;
+This++;
+count++;
+}
+return 0;
 }
 

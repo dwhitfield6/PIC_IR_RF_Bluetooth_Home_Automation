@@ -3839,11 +3839,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;UART.h: 114: extern unsigned char ReceivedStringPos;
 [; ;UART.h: 115: extern unsigned char CommandString[255];
 [; ;UART.h: 116: extern unsigned char CommandStringPos;
-[; ;UART.h: 117: extern unsigned char NewReceivedString;
+[; ;UART.h: 117: extern volatile unsigned char NewReceivedString;
 "118 UART.h
-[v _SYNTAX_ERR `Cuc ~T0 @X0 -> 0 `x e ]
+[v _SYNTAX_ERR `uc ~T0 @X0 -> 0 `x e ]
 [i _SYNTAX_ERR
 :U ..
+-> 69 `c
+-> 114 `c
+-> 114 `c
+-> 111 `c
+-> 114 `c
+-> 58 `c
+-> 32 `c
 -> 83 `c
 -> 121 `c
 -> 110 `c
@@ -3851,28 +3858,26 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 97 `c
 -> 120 `c
 -> 32 `c
--> 69 `c
--> 114 `c
--> 114 `c
--> 111 `c
--> 114 `c
--> 32 `c
--> 105 `c
 -> 110 `c
--> 32 `c
--> 99 `c
 -> 111 `c
--> 109 `c
--> 109 `c
--> 97 `c
+-> 116 `c
+-> 32 `c
+-> 117 `c
 -> 110 `c
+-> 100 `c
+-> 101 `c
+-> 114 `c
+-> 115 `c
+-> 116 `c
+-> 111 `c
+-> 111 `c
 -> 100 `c
 -> 0 `c
 ..
 ]
-[; ;UART.h: 118: const unsigned char SYNTAX_ERR[] = "Syntax Error in command";
+[; ;UART.h: 118: unsigned char SYNTAX_ERR[] = "Error: Syntax not understood";
 "119
-[v _CRLN `Cuc ~T0 @X0 -> 0 `x e ]
+[v _CRLN `uc ~T0 @X0 -> 0 `x e ]
 [i _CRLN
 :U ..
 -> 13 `c
@@ -3880,7 +3885,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;UART.h: 119: const unsigned char CRLN[] = "\r\n";
+[; ;UART.h: 119: unsigned char CRLN[] = "\r\n";
 [; ;UART.h: 124: void Local_CloseUSART(void );
 [; ;UART.h: 125: void InitUART(unsigned long Baud);
 [; ;UART.h: 126: void OpenUSART( unsigned char config, unsigned int spbrg);
@@ -3910,6 +3915,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;MISC.h: 78: unsigned long Reverse_4Byte(unsigned long This);
 [; ;MISC.h: 79: unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
 [; ;MISC.h: 80: unsigned char StringAddEqual(unsigned char* Input);
+[; ;MISC.h: 81: unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
 "47 UART.c
 [v _ReceivedString `uc ~T0 @X0 -> 255 `i e ]
 [; ;UART.c: 47: unsigned char ReceivedString[255];
@@ -3929,11 +3935,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [; ;UART.c: 50: unsigned char CommandStringPos = 0;
 "51
-[v _NewReceivedString `uc ~T0 @X0 1 e ]
+[v _NewReceivedString `Vuc ~T0 @X0 1 e ]
 [i _NewReceivedString
 -> -> 0 `i `uc
 ]
-[; ;UART.c: 51: unsigned char NewReceivedString = 0;
+[; ;UART.c: 51: volatile unsigned char NewReceivedString = 0;
 "62
 [v _Local_CloseUSART `(v ~T0 @X0 1 ef ]
 "63
@@ -4385,7 +4391,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $ != -> *U _data `i -> 0 `i 411  ]
 [e :U 412 ]
 [; ;UART.c: 254: }
-[; ;UART.c: 255: UARTstring("\r\n");
+[; ;UART.c: 255: UARTstring((unsigned char*)"\r\n");
 "255
 [e ( _UARTstring (1 -> :s 1C `*uc ]
 [; ;UART.c: 256: }
@@ -4482,7 +4488,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $ && != -> *U _Desc `i -> 0 `i < -> _place `i -> 50 `i 422  ]
 [e :U 423 ]
 [; ;UART.c: 284: }
-[; ;UART.c: 285: UARTstring("\r\n");
+[; ;UART.c: 285: UARTstring((unsigned char*)"\r\n");
 "285
 [e ( _UARTstring (1 -> :s 2C `*uc ]
 [; ;UART.c: 286: }

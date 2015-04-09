@@ -53,5 +53,6 @@ unsigned char EnterCommandMode(void);
 unsigned char BluetoothInitialSetup(void);
 unsigned char BluetoothConfigured(void);
 unsigned char UseBluetooth(void);
+unsigned char WaitForIRsignal(void);
 
 #endif	/* Bluetooth_H */

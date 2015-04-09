@@ -117,9 +117,29 @@ void WriteEEPROM_1Byte(unsigned int address, unsigned char data)
 /******************************************************************************/
 GBLdata GetEEPROM(void)
 {
+    unsigned char i,j;
+    unsigned char Arrayspot=EE_RemoteButtonNEC;
+
     GBLdata Temp;
-    Temp.BlueToothFlag = GetMemoryChar(EE_BlueToothFlag);
-    Temp.SWNECcode = GetMemoryLong(EE_NECcodeBYTE1);
+    Temp.BlueToothFlag          = GetMemoryChar(EE_BlueToothFlag);
+    Temp.SWNECcode              = GetMemoryLong(EE_NECcodeBYTE1);
+    for(i=0; i< ButtonAmount; i++)
+    {
+        for(j=0; j < 2; j++)
+        {
+            Temp.RemoteButtonNEC[i][j] = GetMemoryChar(Arrayspot++);
+        }
+    }
+    Temp.EEPROMinitFlag         = GetMemoryChar(EE_EEPROMinitFlag);
+    Arrayspot=EE_RemoteButton1RF;
+    for(i=0; i< RFcodesAmount; i++)
+    {
+        for(j=0; j < 2; j++)
+        {
+            Temp.RemoteButton1RF[i][j] = GetMemoryChar(Arrayspot++);
+        }
+    }
+    
     return Temp;
 }
 
@@ -131,12 +151,15 @@ GBLdata GetEEPROM(void)
 unsigned long SetEEPROM(GBLdata Temp,unsigned long burn)
 {
     unsigned long fail = 0;
+    unsigned char i,j,temp;
+    unsigned char Arrayspot=EE_RemoteButtonNEC;
+
     if(burn & 0x00000001)
     {
         if(!SetMemoryChar(Temp.BlueToothFlag,EE_BlueToothFlag))
         {
             /* Failed to burn BlueToothFlag */
-            fail += 0x00000001;
+            fail |= 0x00000001;
         }
     }
     if(burn & 0x00000002)
@@ -144,7 +167,46 @@ unsigned long SetEEPROM(GBLdata Temp,unsigned long burn)
         if(!SetMemoryLong(Temp.SWNECcode,EE_NECcodeBYTE1))
         {
             /* Failed to burn NECcode */
-            fail += 0x00000002;
+            fail |= 0x00000002;
+        }
+    }
+    if(burn & 0x00000004)
+    {
+        for(i=0; i< ButtonAmount; i++)
+        {
+            for(j=0; j < 2; j++)
+            {
+                temp = Temp.RemoteButtonNEC[i][j];
+                if(!SetMemoryChar(temp,Arrayspot++))
+                {
+                    /* Failed to burn RemoteButtonNEC */
+                    fail |= 0x00000004;
+                }
+            }
+        }
+    }
+    if(burn & 0x00000008)
+    {
+        if(!SetMemoryChar(Temp.EEPROMinitFlag,EE_EEPROMinitFlag))
+        {
+            /* Failed to burnEEPROMinitFlag */
+            fail |= 0x00000008;
+        }
+    }
+    if(burn & 0x00000010)
+    {
+        Arrayspot=EE_RemoteButton1RF;
+        for(i=0; i< RFcodesAmount; i++)
+        {
+            for(j=0; j < 2; j++)
+            {
+                temp = Temp.RemoteButton1RF[i][j];
+                if(!SetMemoryChar(temp,Arrayspot++))
+                {
+                    /* Failed to burn RemoteButtonRF */
+                    fail |= 0x00000010;
+                }
+            }
         }
     }
     return fail;
@@ -157,11 +219,58 @@ unsigned long SetEEPROM(GBLdata Temp,unsigned long burn)
 /******************************************************************************/
 unsigned char SyncGlobalToEEPROM(void)
 {
-    if(!SetEEPROM(Global,0x00000003))
+    /* Burn all memory */
+    if(!SetEEPROM(Global,0xFFFFFFFF))
     {
         return PASS;
     }
     return FAIL;
+}
+
+/******************************************************************************/
+/* SetEEPROMdefault
+ *
+ * The function sets the EEPROM and global struct to the default values if the
+ *  EEPROm flag is not set.
+/******************************************************************************/
+void SetEEPROMdefault(void)
+{
+    unsigned char i,j;
+
+    Global.BlueToothFlag = 0;
+    Global.SWNECcode = 0x00FF00FF; // address is 0 and command is 0
+    Global.EEPROMinitFlag = 0;
+    for(i=0; i< ButtonAmount; i++)
+    {
+        for(j=0; j < 2; j++)
+        {
+            Global.RemoteButtonNEC[i][j] = 0x00;
+        }
+    }
+    for(i=0; i< RFcodesAmount; i++)
+    {
+        for(j=0; j < 2; j++)
+        {
+            Global.RemoteButton1RF[i][j] = 0x00;
+        }
+    }
+    SyncGlobalToEEPROM();
+}
+
+/******************************************************************************/
+/* EEPROMinitialized
+ *
+ * The function returns true if the EEPROM has been initialized before,
+ *  otherwise is returns false.
+/******************************************************************************/
+unsigned char EEPROMinitialized(void)
+{
+    SyncGlobalToEEPROM();
+    if(Global.EEPROMinitFlag == EEPROMinitilized)
+    {
+        return TRUE;
+    }
+    return FALSE;
 }
 
 /******************************************************************************/
@@ -171,54 +280,29 @@ unsigned char SyncGlobalToEEPROM(void)
 /******************************************************************************/
 void SyncEEPROMToGlobal(void)
 {
+    unsigned char i,j;
     GBLdata Temp;
 
     Temp = GetEEPROM();
 
     Global.BlueToothFlag            = Temp.BlueToothFlag;
     Global.SWNECcode                = Temp.SWNECcode;
-    Global.RemoteButton1NECaddr     = Temp.RemoteButton1NECaddr;
-    Global.RemoteButton1NECcom      = Temp.RemoteButton1NECcom;
-    Global.RemoteButton2NECaddr     = Temp.RemoteButton2NECaddr;
-    Global.RemoteButton2NECcom      = Temp.RemoteButton2NECcom;
-    Global.RemoteButton3NECaddr     = Temp.RemoteButton3NECaddr;
-    Global.RemoteButton3NECcom      = Temp.RemoteButton3NECcom;
-    Global.RemoteButton4NECaddr     = Temp.RemoteButton4NECaddr;
-    Global.RemoteButton4NECcom      = Temp.RemoteButton4NECcom;
-    Global.RemoteButton5NECaddr     = Temp.RemoteButton5NECaddr;
-    Global.RemoteButton5NECcom      = Temp.RemoteButton5NECcom;
-    Global.RemoteButton6NECaddr     = Temp.RemoteButton6NECaddr;
-    Global.RemoteButton6NECcom      = Temp.RemoteButton6NECcom;
-    Global.RemoteButton7NECaddr     = Temp.RemoteButton7NECaddr;
-    Global.RemoteButton7NECcom      = Temp.RemoteButton7NECcom;
-    Global.RemoteButton8NECaddr     = Temp.RemoteButton8NECaddr;
-    Global.RemoteButton8NECcom      = Temp.RemoteButton8NECcom;
-    Global.RemoteButton9NECaddr     = Temp.RemoteButton9NECaddr;
-    Global.RemoteButton9NECcom      = Temp.RemoteButton9NECcom;
-    Global.RemoteButton10NECaddr     = Temp.RemoteButton10NECaddr;
-    Global.RemoteButton10NECcom      = Temp.RemoteButton10NECcom;
-    Global.RemoteButton11NECaddr     = Temp.RemoteButton11NECaddr;
-    Global.RemoteButton11NECcom      = Temp.RemoteButton11NECcom;
-    Global.RemoteButton12NECaddr     = Temp.RemoteButton12NECaddr;
-    Global.RemoteButton12NECcom      = Temp.RemoteButton12NECcom;
-    Global.RemoteButton13NECaddr     = Temp.RemoteButton13NECaddr;
-    Global.RemoteButton13NECcom      = Temp.RemoteButton13NECcom;
-    Global.RemoteButton14NECaddr     = Temp.RemoteButton14NECaddr;
-    Global.RemoteButton14NECcom      = Temp.RemoteButton14NECcom;
-    Global.RemoteButton15NECaddr     = Temp.RemoteButton15NECaddr;
-    Global.RemoteButton15NECcom      = Temp.RemoteButton15NECcom;
-    Global.RemoteButton16NECaddr     = Temp.RemoteButton16NECaddr;
-    Global.RemoteButton16NECcom      = Temp.RemoteButton16NECcom;
-    Global.RemoteButton17NECaddr     = Temp.RemoteButton17NECaddr;
-    Global.RemoteButton17NECcom      = Temp.RemoteButton17NECcom;
-    Global.RemoteButton18NECaddr     = Temp.RemoteButton18NECaddr;
-    Global.RemoteButton18NECcom      = Temp.RemoteButton18NECcom;
-    Global.RemoteButton19NECaddr     = Temp.RemoteButton19NECaddr;
-    Global.RemoteButton19NECcom      = Temp.RemoteButton19NECcom;
-    Global.RemoteButton20NECaddr     = Temp.RemoteButton20NECaddr;
-    Global.RemoteButton20NECcom      = Temp.RemoteButton20NECcom;
-
-
+    Global.EEPROMinitFlag           = Temp.EEPROMinitFlag;
+    for(i=0; i< ButtonAmount; i++)
+    {
+        for(j=0; j < 2; j++)
+        {
+            Global.RemoteButtonNEC[i][j] = Temp.RemoteButtonNEC[i][j];
+        }
+    }
+    Global.EEPROMinitFlag           = Temp.EEPROMinitFlag;
+    for(i=0; i< RFcodesAmount; i++)
+    {
+        for(j=0; j < 2; j++)
+        {
+            Global.RemoteButton1RF[i][j] = Temp.RemoteButton1RF[i][j];
+        }
+    }
 }
 
 /******************************************************************************/

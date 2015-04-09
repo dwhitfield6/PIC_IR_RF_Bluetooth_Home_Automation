@@ -70,7 +70,7 @@ unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned c
     {
         /* Previous send finished */
         RF_IR = RF;
-        if(Config < 0 || Config > NumRfConfigs)
+        if((Config <= 0) || (Config > NumRfConfigs))
         {
             return FAIL;
         }
@@ -240,13 +240,6 @@ void SendRF_Channel(unsigned char channel)
                 Conf2_ChannelH_3_Status = ON;
             }
             break;
-        case 8:            
-        case 9:
-        case 10:
-        case 11:
-        case 12:
-        case 13:
-        case 14:
         default:
             break;
     }

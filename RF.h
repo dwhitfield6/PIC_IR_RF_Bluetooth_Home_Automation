@@ -57,18 +57,19 @@
  * This contains the RF codes that are sent from the system.
 /******************************************************************************/
 // RF bit Timing for PT2260a
+unsigned char Conf1_Channels[] = "DEF";
 
 /* channel D */
-const unsigned char Conf1_ChannelD[] = {f,f,f,f,f,f,0,0,1,0,0,0};//(A1 A0 x x x x x x)
-const unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
+unsigned char Conf1_ChannelD[] = {f,f,f,f,f,f,0,0,1,0,0,0};//(A1 A0 x x x x x x)
+unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
 
 /* channel E */
-const unsigned char Conf1_ChannelE[] = {0,f,f,f,f,f,0,0,1,0,0,0};//(A1 A0 x x x x x x)
-const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
+unsigned char Conf1_ChannelE[] = {0,f,f,f,f,f,0,0,1,0,0,0};//(A1 A0 x x x x x x)
+unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
 
 /* channel F */
-const unsigned char Conf1_ChannelF[] = {f,0,f,f,f,f,0,0,1,0,0,0};//(A1 A0 x x x x x x)
-const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
+unsigned char Conf1_ChannelF[] = {f,0,f,f,f,f,0,0,1,0,0,0};//(A1 A0 x x x x x x)
+unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
 
 /******************************************************************************/
 /* Rf Codes for RFConfig = 2
@@ -82,31 +83,32 @@ const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
 // one is 1.75mS high followed by 650uS low
 // sync is 650uS high followed by 11.89 mS low
 
+unsigned char Conf2_Channels[] = "BDH";
 /* channel B */
-const unsigned char Conf2_ChannelB_ON[] =  {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
-const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
-const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
-const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
+unsigned char Conf2_ChannelB_ON[] =  {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
+unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
+unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
+unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
 
 /* channel D */
-const unsigned char Conf2_ChannelD_ON[] =  {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
-const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
-const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
-const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
+unsigned char Conf2_ChannelD_ON[] =  {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
+unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
+unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
+unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
 
 /* channel H */
-const unsigned char Conf2_ChannelH_1_ON[] =  {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
-const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
-const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
-const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
-const unsigned char Conf2_ChannelH_2_ON[] =  {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
-const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
-const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
-const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
-const unsigned char Conf2_ChannelH_3_ON[] =  {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
-const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
-const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
-const unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
+unsigned char Conf2_ChannelH_1_ON[] =  {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
+unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
+unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
+unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
+unsigned char Conf2_ChannelH_2_ON[] =  {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
+unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
+unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
+unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
+unsigned char Conf2_ChannelH_3_ON[] =  {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
+unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
+unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
+unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
 
 /******************************************************************************/
 /* RF bit Timing for RFConfig = 1

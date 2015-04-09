@@ -124,7 +124,7 @@ void high_isr(void)
         /* We had a timeout on the IR receiver */
         DisableTimer0Int();
         Timer0OFF();
-        IR_New_Code = IRrawToNEC(&IRRawCode, &IR_NEC, TRUE);
+        IR_New_Code = IRrawToNEC(IRRawCode, &IR_NEC, TRUE);
         if(!IR_New_Code)
         {
             IRpinOLD = ReadIRpin();
@@ -637,10 +637,10 @@ void low_isr(void)
                 }
                 else
                 {
-                    cleanBuffer(&ReceivedString,RXbufsize);
+                    cleanBuffer(ReceivedString,RXbufsize);
                     ReceivedStringPos = 0;
                     UARTstring(CRLN);
-                    UARTstringCRLN("Buffer Overflow");
+                    UARTstringCRLN((unsigned char *)"Buffer Overflow");
 
                 }
             }

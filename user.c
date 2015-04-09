@@ -62,6 +62,8 @@ void InitApp(void)
     LATA = 0;
     LATB = 0;
     LATC = 0;
+    LATA |= BLUE_Reset;     // Do not hold bluetooth in reset on power-up
+
     InputVoltageTris        = INPUT;
     BLUE_ConnectedTris      = INPUT;
     BLUE_ResetTris          = OUTPUT;
@@ -116,6 +118,12 @@ void Init_System (void)
     INTCONbits.GIE  = ON; //Global interrupts
 
     SyncEEPROMToGlobal();
+    if(!EEPROMinitialized())
+    {
+        SetEEPROMdefault();
+        Global.EEPROMinitFlag = EEPROMinitilized;
+        SyncGlobalToEEPROM();
+    }
     InitADC();
     InitIR();
     InitUART(BAUD);

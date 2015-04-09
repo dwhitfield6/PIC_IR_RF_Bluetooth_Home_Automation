@@ -114,9 +114,9 @@ extern unsigned char ReceivedString[RXbufsize];
 extern unsigned char ReceivedStringPos;
 extern unsigned char CommandString[RXCommandsize];
 extern unsigned char CommandStringPos;
-extern unsigned char NewReceivedString;
-const unsigned char SYNTAX_ERR[] = "Syntax Error in command";
-const unsigned char CRLN[] = "\r\n";
+extern volatile unsigned char NewReceivedString;
+unsigned char SYNTAX_ERR[] = "Error: Syntax not understood";
+unsigned char CRLN[] = "\r\n";
 
 /******************************************************************************/
 /* Function prototypes                                                        */

@@ -4942,58 +4942,29 @@ unsigned long SN = 1;
 void InitApp(void);
 void Init_System (void);
 
-# 37 "EEPROM.h"
+# 96 "EEPROM.h"
 typedef struct EEdata
 {
 unsigned char BlueToothFlag;
 unsigned long SWNECcode;
-unsigned char RemoteButton1NECaddr;
-unsigned char RemoteButton1NECcom;
-unsigned char RemoteButton2NECaddr;
-unsigned char RemoteButton2NECcom;
-unsigned char RemoteButton3NECaddr;
-unsigned char RemoteButton3NECcom;
-unsigned char RemoteButton4NECaddr;
-unsigned char RemoteButton4NECcom;
-unsigned char RemoteButton5NECaddr;
-unsigned char RemoteButton5NECcom;
-unsigned char RemoteButton6NECaddr;
-unsigned char RemoteButton6NECcom;
-unsigned char RemoteButton7NECaddr;
-unsigned char RemoteButton7NECcom;
-unsigned char RemoteButton8NECaddr;
-unsigned char RemoteButton8NECcom;
-unsigned char RemoteButton9NECaddr;
-unsigned char RemoteButton9NECcom;
-unsigned char RemoteButton10NECaddr;
-unsigned char RemoteButton10NECcom;
-unsigned char RemoteButton11NECaddr;
-unsigned char RemoteButton11NECcom;
-unsigned char RemoteButton12NECaddr;
-unsigned char RemoteButton12NECcom;
-unsigned char RemoteButton13NECaddr;
-unsigned char RemoteButton13NECcom;
-unsigned char RemoteButton14NECaddr;
-unsigned char RemoteButton14NECcom;
-unsigned char RemoteButton15NECaddr;
-unsigned char RemoteButton15NECcom;
-unsigned char RemoteButton16NECaddr;
-unsigned char RemoteButton16NECcom;
-unsigned char RemoteButton17NECaddr;
-unsigned char RemoteButton17NECcom;
-unsigned char RemoteButton18NECaddr;
-unsigned char RemoteButton18NECcom;
-unsigned char RemoteButton19NECaddr;
-unsigned char RemoteButton19NECcom;
-unsigned char RemoteButton20NECaddr;
-unsigned char RemoteButton20NECcom;
+unsigned char RemoteButtonNEC[20][2];
+unsigned char EEPROMinitFlag;
+
+# 113
+unsigned char RemoteButton1RF[20][2];
+unsigned char RemoteButton2RF[20][2];
+unsigned char RemoteButton3RF[20][2];
+unsigned char RemoteButton4RF[20][2];
+unsigned char RemoteButton5RF[20][2];
 
 }GBLdata;
 
-# 88
+
+
+
 GBLdata Global =0;
 
-# 233
+# 130
 unsigned int ReadEEPROM_1Byte(unsigned int address);
 void EEPROM_UNLOCK(void);
 void WriteEEPROM_1Byte(unsigned int address, unsigned char data);
@@ -5007,6 +4978,8 @@ unsigned long GetMemoryChar(unsigned char AddressFirst);
 unsigned char SetMemoryChar(unsigned char Data, unsigned char AddressFirst);
 unsigned char SyncGlobalToEEPROM(void);
 void SyncEEPROMToGlobal(void);
+void SetEEPROMdefault(void);
+unsigned char EEPROMinitialized(void);
 
 # 55 "system.h"
 void ConfigureOscillator(void);
@@ -5016,9 +4989,9 @@ extern unsigned char ReceivedString[255];
 extern unsigned char ReceivedStringPos;
 extern unsigned char CommandString[255];
 extern unsigned char CommandStringPos;
-extern unsigned char NewReceivedString;
-const unsigned char SYNTAX_ERR[] = "Syntax Error in command";
-const unsigned char CRLN[] = "\r\n";
+extern volatile unsigned char NewReceivedString;
+unsigned char SYNTAX_ERR[] = "Error: Syntax not understood";
+unsigned char CRLN[] = "\r\n";
 
 
 
@@ -5089,22 +5062,45 @@ INTCONbits.GIE =1;
 # 118
 GBLdata GetEEPROM(void)
 {
+unsigned char i,j;
+unsigned char Arrayspot=5;
+
 GBLdata Temp;
 Temp.BlueToothFlag = GetMemoryChar(0);
 Temp.SWNECcode = GetMemoryLong(1);
+for(i=0; i< 20; i++)
+{
+for(j=0; j < 2; j++)
+{
+Temp.RemoteButtonNEC[i][j] = GetMemoryChar(Arrayspot++);
+}
+}
+Temp.EEPROMinitFlag = GetMemoryChar((2*20 + 5));
+Arrayspot=(2*20 + 7);
+for(i=0; i< 20; i++)
+{
+for(j=0; j < 2; j++)
+{
+Temp.RemoteButton1RF[i][j] = GetMemoryChar(Arrayspot++);
+}
+}
+
 return Temp;
 }
 
-# 131
+# 151
 unsigned long SetEEPROM(GBLdata Temp,unsigned long burn)
 {
 unsigned long fail = 0;
+unsigned char i,j,temp;
+unsigned char Arrayspot=5;
+
 if(burn & 0x00000001)
 {
 if(!SetMemoryChar(Temp.BlueToothFlag,0))
 {
 
-fail += 0x00000001;
+fail |= 0x00000001;
 }
 }
 if(burn & 0x00000002)
@@ -5112,76 +5108,127 @@ if(burn & 0x00000002)
 if(!SetMemoryLong(Temp.SWNECcode,1))
 {
 
-fail += 0x00000002;
+fail |= 0x00000002;
+}
+}
+if(burn & 0x00000004)
+{
+for(i=0; i< 20; i++)
+{
+for(j=0; j < 2; j++)
+{
+temp = Temp.RemoteButtonNEC[i][j];
+if(!SetMemoryChar(temp,Arrayspot++))
+{
+
+fail |= 0x00000004;
+}
+}
+}
+}
+if(burn & 0x00000008)
+{
+if(!SetMemoryChar(Temp.EEPROMinitFlag,(2*20 + 5)))
+{
+
+fail |= 0x00000008;
+}
+}
+if(burn & 0x00000010)
+{
+Arrayspot=(2*20 + 7);
+for(i=0; i< 20; i++)
+{
+for(j=0; j < 2; j++)
+{
+temp = Temp.RemoteButton1RF[i][j];
+if(!SetMemoryChar(temp,Arrayspot++))
+{
+
+fail |= 0x00000010;
+}
+}
 }
 }
 return fail;
 }
 
-# 158
+# 220
 unsigned char SyncGlobalToEEPROM(void)
 {
-if(!SetEEPROM(Global,0x00000003))
+
+if(!SetEEPROM(Global,0xFFFFFFFF))
 {
 return 1;
 }
 return 0;
 }
 
-# 172
+# 236
+void SetEEPROMdefault(void)
+{
+unsigned char i,j;
+
+Global.BlueToothFlag = 0;
+Global.SWNECcode = 0x00FF00FF;
+Global.EEPROMinitFlag = 0;
+for(i=0; i< 20; i++)
+{
+for(j=0; j < 2; j++)
+{
+Global.RemoteButtonNEC[i][j] = 0x00;
+}
+}
+for(i=0; i< 20; i++)
+{
+for(j=0; j < 2; j++)
+{
+Global.RemoteButton1RF[i][j] = 0x00;
+}
+}
+SyncGlobalToEEPROM();
+}
+
+# 266
+unsigned char EEPROMinitialized(void)
+{
+SyncGlobalToEEPROM();
+if(Global.EEPROMinitFlag == 59)
+{
+return 1;
+}
+return 0;
+}
+
+# 281
 void SyncEEPROMToGlobal(void)
 {
+unsigned char i,j;
 GBLdata Temp;
 
 Temp = GetEEPROM();
 
 Global.BlueToothFlag = Temp.BlueToothFlag;
 Global.SWNECcode = Temp.SWNECcode;
-Global.RemoteButton1NECaddr = Temp.RemoteButton1NECaddr;
-Global.RemoteButton1NECcom = Temp.RemoteButton1NECcom;
-Global.RemoteButton2NECaddr = Temp.RemoteButton2NECaddr;
-Global.RemoteButton2NECcom = Temp.RemoteButton2NECcom;
-Global.RemoteButton3NECaddr = Temp.RemoteButton3NECaddr;
-Global.RemoteButton3NECcom = Temp.RemoteButton3NECcom;
-Global.RemoteButton4NECaddr = Temp.RemoteButton4NECaddr;
-Global.RemoteButton4NECcom = Temp.RemoteButton4NECcom;
-Global.RemoteButton5NECaddr = Temp.RemoteButton5NECaddr;
-Global.RemoteButton5NECcom = Temp.RemoteButton5NECcom;
-Global.RemoteButton6NECaddr = Temp.RemoteButton6NECaddr;
-Global.RemoteButton6NECcom = Temp.RemoteButton6NECcom;
-Global.RemoteButton7NECaddr = Temp.RemoteButton7NECaddr;
-Global.RemoteButton7NECcom = Temp.RemoteButton7NECcom;
-Global.RemoteButton8NECaddr = Temp.RemoteButton8NECaddr;
-Global.RemoteButton8NECcom = Temp.RemoteButton8NECcom;
-Global.RemoteButton9NECaddr = Temp.RemoteButton9NECaddr;
-Global.RemoteButton9NECcom = Temp.RemoteButton9NECcom;
-Global.RemoteButton10NECaddr = Temp.RemoteButton10NECaddr;
-Global.RemoteButton10NECcom = Temp.RemoteButton10NECcom;
-Global.RemoteButton11NECaddr = Temp.RemoteButton11NECaddr;
-Global.RemoteButton11NECcom = Temp.RemoteButton11NECcom;
-Global.RemoteButton12NECaddr = Temp.RemoteButton12NECaddr;
-Global.RemoteButton12NECcom = Temp.RemoteButton12NECcom;
-Global.RemoteButton13NECaddr = Temp.RemoteButton13NECaddr;
-Global.RemoteButton13NECcom = Temp.RemoteButton13NECcom;
-Global.RemoteButton14NECaddr = Temp.RemoteButton14NECaddr;
-Global.RemoteButton14NECcom = Temp.RemoteButton14NECcom;
-Global.RemoteButton15NECaddr = Temp.RemoteButton15NECaddr;
-Global.RemoteButton15NECcom = Temp.RemoteButton15NECcom;
-Global.RemoteButton16NECaddr = Temp.RemoteButton16NECaddr;
-Global.RemoteButton16NECcom = Temp.RemoteButton16NECcom;
-Global.RemoteButton17NECaddr = Temp.RemoteButton17NECaddr;
-Global.RemoteButton17NECcom = Temp.RemoteButton17NECcom;
-Global.RemoteButton18NECaddr = Temp.RemoteButton18NECaddr;
-Global.RemoteButton18NECcom = Temp.RemoteButton18NECcom;
-Global.RemoteButton19NECaddr = Temp.RemoteButton19NECaddr;
-Global.RemoteButton19NECcom = Temp.RemoteButton19NECcom;
-Global.RemoteButton20NECaddr = Temp.RemoteButton20NECaddr;
-Global.RemoteButton20NECcom = Temp.RemoteButton20NECcom;
-
-
+Global.EEPROMinitFlag = Temp.EEPROMinitFlag;
+for(i=0; i< 20; i++)
+{
+for(j=0; j < 2; j++)
+{
+Global.RemoteButtonNEC[i][j] = Temp.RemoteButtonNEC[i][j];
+}
+}
+Global.EEPROMinitFlag = Temp.EEPROMinitFlag;
+for(i=0; i< 20; i++)
+{
+for(j=0; j < 2; j++)
+{
+Global.RemoteButton1RF[i][j] = Temp.RemoteButton1RF[i][j];
+}
+}
 }
 
-# 229
+# 313
 unsigned long GetMemoryLong(unsigned char AddressFirst)
 {
 unsigned char H;
@@ -5200,7 +5247,7 @@ temp = (((unsigned long) H << 24) + ((unsigned long)MH << 16)
 return temp;
 }
 
-# 252
+# 336
 unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst)
 {
 unsigned char H;
@@ -5230,7 +5277,7 @@ return 1;
 return 0;
 }
 
-# 286
+# 370
 unsigned long GetMemoryInt(unsigned char AddressFirst)
 {
 unsigned char H;
@@ -5244,7 +5291,7 @@ temp = (((unsigned int) H << 8) + (unsigned int)L);
 return temp;
 }
 
-# 304
+# 388
 unsigned char SetMemoryInt(unsigned int Data, unsigned char AddressFirst)
 {
 unsigned char H;
@@ -5268,7 +5315,7 @@ return 1;
 return 0;
 }
 
-# 332
+# 416
 unsigned long GetMemoryChar(unsigned char AddressFirst)
 {
 unsigned char H;
@@ -5278,7 +5325,7 @@ H = ReadEEPROM_1Byte(AddressFirst);
 return H;
 }
 
-# 346
+# 430
 unsigned char SetMemoryChar(unsigned char Data, unsigned char AddressFirst)
 {
 unsigned char Test;

@@ -506,7 +506,7 @@ unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned
       This++;
       //move past the space
     }
-    else if (*This == '=')
+    else if (*This == '=' || *This == ',')
     {
          return DOUBLECOMMA; //double equal
     }
@@ -520,48 +520,50 @@ unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned
     {
         return NOVALUE; // there is no value after the equal
     }
-    if(!Hex)
+    while(*This != 0 && *This != ' ')
     {
-        while(*This >=48 && *This <= 57)
+        if(!Hex)
         {
-            temp = temp * 10;
-            temp += *This - 48;
-            i++;
-            if(i>32)
+            if(*This >=48 && *This <= 57)
             {
-                return TOOBIG;//number too big
+                temp = temp * 10;
+                temp += *This - 48;
+                i++;
+                if(i>32)
+                {
+                    return TOOBIG;//number too big
+                }
+            }
+        }
+        else
+        {
+            negative = FALSE;
+            while(*This != 'x' && *This != 'X')
+            {
+                This++;
             }
             This++;
-        }
-    }
-    else
-    {
-        negative = FALSE;
-        while(*This != 'x' && *This != 'X')
-        {
-            This++;
+            if((*This >=48 && *This <= 57) || (*This >=65 && *This <= 70) || (*This >= 97 && *This <= 102))
+            {
+                temp <<= 4;
+                tempThis = *This;
+                if(IsLetter(tempThis))
+                {
+                    lowercaseChar(&tempThis);
+                    temp += (tempThis - 87);
+                }
+                else
+                {
+                    temp += (*This - 48);
+                }
+                i++;
+                if(i>32)
+                {
+                    return TOOBIG;//number too big
+                }
+            }
         }
         This++;
-        while((*This >=48 && *This <= 57) || (*This >=65 && *This <= 70) || (*This >= 97 && *This <= 102))
-        {
-            temp <<= 4;
-            tempThis = *This;
-            if(IsLetter(tempThis))
-            {
-                lowercaseChar(&tempThis);
-                temp += (tempThis - 87);
-            }
-            else
-            {
-                temp += (*This - 48);
-            }
-            i++;
-            if(i>32)
-            {
-                return TOOBIG;//number too big
-            }
-            This++;
-        }
     }
     if(negative)
     {
@@ -585,14 +587,14 @@ unsigned char StringAddEqual(unsigned char* Input)
     cleanBuffer(temp,100);
     while(Input[i] != 0)
     {
-            if((Input[i] >= 48) && (Input[i] <= 57) || (Input[i] == '-'))
+            if(((Input[i] >= 48) && (Input[i] <= 57)) || (Input[i] == '-'))
             {
                 firstnumber = i;
                 break;
             }
             i++;
     }
-    if(firstnumber > 99)
+    if(firstnumber == 200)
     {
         /* there is no number*/
         return FALSE;
@@ -612,6 +614,62 @@ unsigned char StringAddEqual(unsigned char* Input)
     }
     BufferCopy(temp,Input,100, 0);
     return TRUE;
+}
+
+/******************************************************************************/
+/* GetStringAfterComma
+ *
+ * This function resembles scanf. Use 0x...for hex number.
+/******************************************************************************/
+unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result)
+{
+    unsigned char tempCommaNumber = 1;
+    unsigned char count = 0;
+
+    SCAN:while(*This != ',' && *This != 0)
+    {
+        /* go all the way to the first comma */
+        This++;
+    }
+    if(*This == 0)
+    {
+        return NOCOMMA; // there is no equal
+    }
+    else if(*This != ',')
+    {
+        if(tempCommaNumber < CommaNumber)
+        {
+            tempCommaNumber++;
+            This++;
+            goto SCAN;
+        }
+    }
+    if(*This == 0)
+    {
+        return NOCOMMA; // there is no equal
+    }
+    This++;
+    if(*This == ' ')
+    {
+      This++;
+      //move past the space
+    }
+    else if (*This == ',')
+    {
+         return DOUBLECOMMA; //double equal
+    }
+    else if(*This == 0)
+    {
+        return NOVALUE; // there is no value after the equal
+    }
+    while(*This != 0 && *This != ' ' && count < 10)
+    {
+        *result = *This;
+        result++;
+        This++;
+        count++;
+    }
+    return NoError;
 }
 
 /*-----------------------------------------------------------------------------/

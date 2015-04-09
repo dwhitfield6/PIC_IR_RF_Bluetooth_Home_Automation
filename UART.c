@@ -48,7 +48,7 @@ unsigned char ReceivedString[RXbufsize];
 unsigned char ReceivedStringPos = 0;
 unsigned char CommandString[RXCommandsize];
 unsigned char CommandStringPos = 0;
-unsigned char NewReceivedString = FALSE;
+volatile unsigned char NewReceivedString = FALSE;
 
 /******************************************************************************/
 /* Functions
@@ -252,7 +252,7 @@ void UARTstringCRLN(unsigned char *data)
         UARTchar(*data); // Transmit a byte
         *data++;
     }
-    UARTstring("\r\n");
+    UARTstring((unsigned char*)"\r\n");
 }
 /******************************************************************************/
 /* UARTcommandMenu
@@ -282,7 +282,7 @@ void UARTcommandMenu(unsigned char *Command, unsigned char *Desc)
         *Desc++;
         place++;
     }
-    UARTstring("\r\n");
+    UARTstring((unsigned char*)"\r\n");
 }
 /******************************************************************************/
 /* EraseScreen

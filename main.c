@@ -38,7 +38,6 @@
 #include "user.h"
 #include "MISC.h"
 #include "UART.h"
-#include "FLASH.h"
 #include "ADC.h"
 #include "IR.h"
 #include "Bluetooth.h"
@@ -65,6 +64,8 @@ double BatteryVoltage = 0.0;
 void main(void)
 {
     unsigned char i=0;
+    unsigned char IRtask        = FALSE;
+    unsigned char Bluetoothtask = FALSE;
 
     ConfigureOscillator();
     InitApp();
@@ -94,18 +95,33 @@ void main(void)
 
     while(1)
     {
-        if(IR_New_Code)
+        IRtask          = IR_New_Code;
+        Bluetoothtask   = NewReceivedString;
+        if(IRtask)
         {
             UseIRCode(&IR_New_Code, IR_NEC);
         }
-        if(NewReceivedString)
+        if(Bluetoothtask == TRUE)
         {
+            NOP();
             UseBluetooth();
-            cleanBuffer(ReceivedString, ReceivedStringPos);
-            ReceivedStringPos = 0;
-            UARTstring(CRLN);
-            UARTchar('>');
-            NewReceivedString = FALSE;
+            if(ReceivedStringPos || NewReceivedString)
+            {
+                cleanBuffer(ReceivedString, ReceivedStringPos);
+                ReceivedStringPos = 0;
+                NewReceivedString = FALSE;
+                UARTstring(CRLN);
+                UARTchar('>');
+            }
+            if(IR_New_Code)
+            {
+                IR_New_Code = Old;
+            }
+            /* Make sure that the IR reveicer is active */
+            IRpinOLD = ReadIRpin();
+            INTCONbits.RBIF = FALSE;
+            IRreceiverIntOn();
+            INTCONbits.RBIE = TRUE;
         }
     }
 }
