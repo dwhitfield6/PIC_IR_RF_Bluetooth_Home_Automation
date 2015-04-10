@@ -170,7 +170,7 @@ unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char In
             break;
         }
     }
-    if(IR_SIZE - StartBit < MaxScanEdgeChange)
+    if((IR_SIZE - StartBit) < MinNECFlipsNew)
     {
         /* No start bit found  or found too late in buffer */
         return Error;
@@ -323,29 +323,27 @@ void UseIRCode(unsigned char* Code, unsigned long NEC)
                 SendRF_Channel(ReadCodeButtons());
                 found = TRUE;
             }
-            else
+#ifdef BLUETOOTH
+            for(j=0; j < MirrorButtonsAmount; j++)
             {
-                for(j=0; j < MirrorButtonsAmount; j++)
+                for(i=0; i < RFcodesAmount; i++)
                 {
-                    for(i=0; i < RFcodesAmount; i++)
-                    {
 
-                        if(IRaddress == Global.RemoteButtonRF[i][j][0])
+                    if(IRaddress == Global.RemoteButtonRF[i][j][0])
+                    {
+                        if(IRcommand == Global.RemoteButtonRF[i][j][1])
                         {
-                            if(IRcommand == Global.RemoteButtonRF[i][j][1])
+                            if(*Code == 2)
                             {
-                                if(*Code == 2)
-                                {
-                                    RedLEDON();
-                                }
-                                SendRF_Channel(i);
-                                found = TRUE;
+                                RedLEDON();
                             }
+                            SendRF_Channel(i);
+                            found = TRUE;
                         }
                     }
                 }
             }
-
+#endif
             if(found == FALSE)
             {
                 RedLEDON();                

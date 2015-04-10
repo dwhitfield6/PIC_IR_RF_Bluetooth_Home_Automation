@@ -87,6 +87,21 @@ void ResetTimer0(void)
 }
 
 /******************************************************************************/
+/* SetTimer0
+ *
+ * The function resets the counter on Timer 0.
+/******************************************************************************/
+void SetTimer0(unsigned int temp)
+{
+    /*
+     * Reset count to 2 because when the TMR0 register is written to,
+     * the increment is inhibited for the following two instruction cycles
+     */
+    TMR0H = (temp & 0xFF00)>> 8;;
+    TMR0L = temp & 0xFF;
+}
+
+/******************************************************************************/
 /* Timer1Init
  *
  * The function initializes timer 1.

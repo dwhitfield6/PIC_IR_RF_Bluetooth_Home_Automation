@@ -590,11 +590,23 @@ unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned
 /******************************************************************************/
 unsigned char StringAddEqual(unsigned char* Input)
 {
-    unsigned char i =0;
+    unsigned char i;
     unsigned char j =0;
-    unsigned char firstnumber = 200;
-    unsigned char temp[100];
-    cleanBuffer(temp,100);
+    unsigned char firstnumber = 255;
+    unsigned char temp[255];
+    unsigned char NullPosition;
+    for(i = 0; i<255; i++)
+    {
+        if(*Input == 0)
+        {
+            NullPosition = i;
+            break;
+        }
+        Input++;
+    }
+    Input-=NullPosition;
+    cleanBuffer(temp,NullPosition +1);
+    i = 0;
     while(Input[i] != 0)
     {
             if(((Input[i] >= 48) && (Input[i] <= 57)) || (Input[i] == '-'))
@@ -604,7 +616,7 @@ unsigned char StringAddEqual(unsigned char* Input)
             }
             i++;
     }
-    if(firstnumber == 200)
+    if(firstnumber == 255)
     {
         /* there is no number*/
         return FALSE;
@@ -614,15 +626,15 @@ unsigned char StringAddEqual(unsigned char* Input)
            temp[j] = Input[j];
     }
     temp[firstnumber] = '=';
-    for(j = (firstnumber);j<99;j++)
+    for(j = (firstnumber);j<255;j++)
     {
         temp[j+1] = Input[j];
-        if(Input[j] ==0)
+        if(Input[j] == 0)
         {
             break;
         }
     }
-    BufferCopy(temp,Input,100, 0);
+    BufferCopy(temp,Input,NullPosition +1,0);
     return TRUE;
 }
 

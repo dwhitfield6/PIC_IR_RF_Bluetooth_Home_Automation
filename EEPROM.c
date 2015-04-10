@@ -55,6 +55,9 @@
 unsigned int ReadEEPROM_1Byte(unsigned int address)
 {
     unsigned char GIEstatus = INTCONbits.GIE;//read GIE setting
+    unsigned char PEIEstatus = INTCONbits.PEIE;//read GIE setting
+    INTCONbits.GIE = 0;
+    INTCONbits.PEIE = 0;
     EECON1bits.EEPGD = 0; // EEPROM memory
     EECON1bits.CFGS = 0;  // EEPROM
     EEADRH = (unsigned char)((address & 0x300) >> 8);
@@ -67,6 +70,10 @@ unsigned int ReadEEPROM_1Byte(unsigned int address)
     if(GIEstatus)
     {
         INTCONbits.GIE =1;//enable global interrupts
+    }
+    if(PEIEstatus)
+    {
+        PEIEstatus = INTCONbits.PEIE;//read GIE setting
     }
     return (EEDATA);
 }
@@ -95,6 +102,9 @@ void EEPROM_UNLOCK(void)
 void WriteEEPROM_1Byte(unsigned int address, unsigned char data)
 {
     unsigned char GIEstatus = INTCONbits.GIE;//read GIE setting
+    unsigned char PEIEstatus = INTCONbits.PEIE;//read GIE setting
+    INTCONbits.GIE = 0;
+    INTCONbits.PEIE = 0;
     EEADRH = (unsigned char)((address & 0x300) >> 8);
     EEADR = (unsigned char)(address & 0xFF);
     EEDATA = data;
@@ -109,6 +119,10 @@ void WriteEEPROM_1Byte(unsigned int address, unsigned char data)
     if(GIEstatus)
     {
         INTCONbits.GIE =1;//enable global interrupts
+    }
+    if(PEIEstatus)
+    {
+        PEIEstatus = INTCONbits.PEIE;//read GIE setting
     }
 }
 

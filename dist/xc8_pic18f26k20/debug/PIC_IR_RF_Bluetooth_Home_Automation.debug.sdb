@@ -1,0 +1,2101 @@
+[p LITE_MODE AUTOSTATIC LFSROK EMI_WORD ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 18F26K20 ]
+[d frameptr 4065 ]
+"54 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Timer.c
+[e E3326 _BOOL `uc
+FALSE 0
+TRUE 1
+]
+"60 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\ADC.c
+[v _ReadVoltage ReadVoltage `(d  1 e 3 0 ]
+"84
+[v _InternalADC_Read InternalADC_Read `(uc  1 e 1 0 ]
+"123
+[v _ResetADC ResetADC `(v  1 e 0 0 ]
+"135
+[v _InitADC InitADC `(v  1 e 0 0 ]
+"148
+[v _VoltageDividerON VoltageDividerON `(v  1 e 0 0 ]
+"159
+[v _VoltageDividerOFF VoltageDividerOFF `(v  1 e 0 0 ]
+"66 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
+[v _InitBluetooth InitBluetooth `(v  1 e 0 0 ]
+"88
+[v _BlueConnected BlueConnected `(uc  1 e 1 0 ]
+[v i1_BlueConnected BlueConnected `(uc  1 e 1 0 ]
+"103
+[v _ResetBlue ResetBlue `(v  1 e 0 0 ]
+"116
+[v _EnterCommandMode EnterCommandMode `(uc  1 e 1 0 ]
+"149
+[v _BluetoothInitialSetup BluetoothInitialSetup `(uc  1 e 1 0 ]
+"264
+[v _BluetoothConfigured BluetoothConfigured `(uc  1 e 1 0 ]
+"280
+[v _UseBluetooth UseBluetooth `(uc  1 e 1 0 ]
+"946
+[v _WaitForIRsignal WaitForIRsignal `(uc  1 e 1 0 ]
+"52 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Button.c
+[v _ReadPushButton ReadPushButton `(uc  1 e 1 0 ]
+"67
+[v _ReadCodeButtons ReadCodeButtons `(uc  1 e 1 0 ]
+"42 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\altoft.c
+[v ___altoft __altoft `(f  1 e 3 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\awdiv.c
+[v ___awdiv __awdiv `(i  1 e 2 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\awmod.c
+[v ___awmod __awmod `(i  1 e 2 0 ]
+"409 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\doprnt.c
+[v _fround fround `(d  1 s 3 fround ]
+"425
+[v _scale scale `(d  1 s 3 scale ]
+"492
+[v _sprintf sprintf `(i  1 e 2 0 ]
+"63 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\double.c
+[v ___flpack __flpack `(d  1 e 3 0 ]
+"88 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\fladd.c
+[v ___fladd __fladd `(d  1 e 3 0 ]
+"54 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\fldiv.c
+[v ___fldiv __fldiv `(d  1 e 3 0 ]
+"60 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\fldivl.c
+[v __div_to_l_ _div_to_l_ `(ul  1 e 4 0 ]
+"62 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\flmul.c
+[v ___flmul __flmul `(d  1 e 3 0 ]
+"62 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\float.c
+[v ___ftpack __ftpack `(f  1 e 3 0 ]
+"20 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\flsub.c
+[v ___flsub __flsub `(d  1 e 3 0 ]
+"86 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\ftadd.c
+[v ___ftadd __ftadd `(f  1 e 3 0 ]
+"54 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\ftdiv.c
+[v ___ftdiv __ftdiv `(f  1 e 3 0 ]
+"60 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\ftdivl.c
+[v __tdiv_to_l_ _tdiv_to_l_ `(ul  1 e 4 0 ]
+"4 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\ftge.c
+[v ___ftge __ftge `(b  1 e 0 0 ]
+"62 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\ftmul.c
+[v ___ftmul __ftmul `(f  1 e 3 0 ]
+"15 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\ftneg.c
+[v ___ftneg __ftneg `(f  1 e 3 0 ]
+"20 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\ftsub.c
+[v ___ftsub __ftsub `(f  1 e 3 0 ]
+"44 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\fttol.c
+[v ___fttol __fttol `(l  1 e 4 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\isdigit.c
+[v _isdigit isdigit `(b  1 e 0 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\lldiv.c
+[v ___lldiv __lldiv `(ul  1 e 4 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\llmod.c
+[v ___llmod __llmod `(ul  1 e 4 0 ]
+"35 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\lltoft.c
+[v ___lltoft __lltoft `(f  1 e 3 0 ]
+"28 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\lwtoft.c
+[v ___lwtoft __lwtoft `(f  1 e 3 0 ]
+"15 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\Umul16.c
+[v ___wmul __wmul `(ui  1 e 2 0 ]
+"15 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+"55 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\EEPROM.c
+[v _ReadEEPROM_1Byte ReadEEPROM_1Byte `(ui  1 e 2 0 ]
+"87
+[v _EEPROM_UNLOCK EEPROM_UNLOCK `(v  1 e 0 0 ]
+"102
+[v _WriteEEPROM_1Byte WriteEEPROM_1Byte `(v  1 e 0 0 ]
+"134
+[v _GetEEPROM GetEEPROM `(v  1 e 0 0 ]
+"167
+[v _SetEEPROM SetEEPROM `(ul  1 e 4 0 ]
+"239
+[v _SyncGlobalToEEPROM SyncGlobalToEEPROM `(uc  1 e 1 0 ]
+"255
+[v _SetEEPROMdefault SetEEPROMdefault `(v  1 e 0 0 ]
+"288
+[v _EEPROMinitialized EEPROMinitialized `(uc  1 e 1 0 ]
+"302
+[v _SyncEEPROMToGlobal SyncEEPROMToGlobal `(v  1 e 0 0 ]
+"337
+[v _GetMemoryLong GetMemoryLong `(ul  1 e 4 0 ]
+"360
+[v _SetMemoryLong SetMemoryLong `(uc  1 e 1 0 ]
+"394
+[v _GetMemoryInt GetMemoryInt `(ul  1 e 4 0 ]
+"440
+[v _GetMemoryChar GetMemoryChar `(ul  1 e 4 0 ]
+"454
+[v _SetMemoryChar SetMemoryChar `(uc  1 e 1 0 ]
+"59 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\interrupts.c
+[v _high_isr high_isr `II(v  1 e 0 0 ]
+"608
+[v _low_isr low_isr `IIL(v  1 e 0 0 ]
+"80 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\IR.c
+[v _InitIR InitIR `(v  1 e 0 0 ]
+"107
+[v _ReadIRpin ReadIRpin `(uc  1 e 1 0 ]
+[v i2_ReadIRpin ReadIRpin `(uc  1 e 1 0 ]
+"125
+[v _IRrawToNEC IRrawToNEC `(uc  1 e 1 0 ]
+"279
+[v _UseIRCode UseIRCode `(v  1 e 0 0 ]
+"364
+[v _SendNEC_bytes SendNEC_bytes `(uc  1 e 1 0 ]
+"427
+[v _SendNEC_wait SendNEC_wait `(v  1 e 0 0 ]
+"516
+[v _CheckReceivingIR CheckReceivingIR `(uc  1 e 1 0 ]
+"530
+[v _EncodeNEC EncodeNEC `(ul  1 e 4 0 ]
+"556
+[v _DecodeNEC DecodeNEC `(uc  1 e 1 0 ]
+"70 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\main.c
+[v _main main `(v  1 e 0 0 ]
+"51 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
+[v _delayUS delayUS `(v  1 e 0 0 ]
+"99
+[v _IsLetter IsLetter `(uc  1 e 1 0 ]
+"113
+[v _IsCharacter IsCharacter `(uc  1 e 1 0 ]
+"127
+[v _cleanBuffer cleanBuffer `(v  1 e 0 0 ]
+[v i1_cleanBuffer cleanBuffer `(v  1 e 0 0 ]
+"141
+[v _cleanBuffer16bit cleanBuffer16bit `(v  1 e 0 0 ]
+[v i2_cleanBuffer16bit cleanBuffer16bit `(v  1 e 0 0 ]
+"155
+[v _Round Round `(d  1 e 3 0 ]
+"167
+[v _BufferCopy BufferCopy `(v  1 e 0 0 ]
+"190
+[v _StringMatch StringMatch `(uc  1 e 1 0 ]
+"217
+[v _StringMatchCaseInsensitive StringMatchCaseInsensitive `(uc  1 e 1 0 ]
+"252
+[v _StringContains StringContains `(uc  1 e 1 0 ]
+"289
+[v _StringContainsCaseInsensitive StringContainsCaseInsensitive `(uc  1 e 1 0 ]
+"332
+[v _lowercaseString lowercaseString `(v  1 e 0 0 ]
+"349
+[v _lowercaseChar lowercaseChar `(v  1 e 0 0 ]
+"362
+[v _Reverse_Byte Reverse_Byte `(uc  1 e 1 0 ]
+"412
+[v _Reverse_4Byte Reverse_4Byte `(ul  1 e 4 0 ]
+"457
+[v _GetNumber GetNumber `(uc  1 e 1 0 ]
+"591
+[v _StringAddEqual StringAddEqual `(uc  1 e 1 0 ]
+"646
+[v _GetStringAfterComma GetStringAfterComma `(uc  1 e 1 0 ]
+"68 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\RF.c
+[v _SendRF SendRF `(uc  1 e 1 0 ]
+"145
+[v _SendRF_wait SendRF_wait `(v  1 e 0 0 ]
+"165
+[v _SendRF_Channel SendRF_Channel `(v  1 e 0 0 ]
+"43 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\system.c
+[v _ConfigureOscillator ConfigureOscillator `(v  1 e 0 0 ]
+"51 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Timer.c
+[v _InitTimers InitTimers `(v  1 e 0 0 ]
+"66
+[v _InitTimer0 InitTimer0 `(v  1 e 0 0 ]
+"79
+[v _ResetTimer0 ResetTimer0 `(v  1 e 0 0 ]
+[v i2_ResetTimer0 ResetTimer0 `(v  1 e 0 0 ]
+"94
+[v _SetTimer0 SetTimer0 `(v  1 e 0 0 ]
+"109
+[v _InitTimer1 InitTimer1 `(v  1 e 0 0 ]
+"123
+[v _ResetTimer1 ResetTimer1 `(v  1 e 0 0 ]
+"138
+[v _InitTimer2 InitTimer2 `(v  1 e 0 0 ]
+"149
+[v _LEDTimerON LEDTimerON `(v  1 e 0 0 ]
+"163
+[v _InitTimer3 InitTimer3 `(v  1 e 0 0 ]
+"175
+[v _ResetTimer3 ResetTimer3 `(v  1 e 0 0 ]
+"64 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
+[v _Local_CloseUSART Local_CloseUSART `(v  1 e 0 0 ]
+"80
+[v _InitUART InitUART `(v  1 e 0 0 ]
+"115
+[v _OpenUSART OpenUSART `(v  1 e 0 0 ]
+"188
+[v _UARTchar UARTchar `(v  1 e 0 0 ]
+[v i1_UARTchar UARTchar `(v  1 e 0 0 ]
+"202
+[v _UARTstring UARTstring `(v  1 e 0 0 ]
+[v i1_UARTstring UARTstring `(v  1 e 0 0 ]
+"216
+[v _ClearUSART ClearUSART `(v  1 e 0 0 ]
+"227
+[v _ReadUSART ReadUSART `(uc  1 e 1 0 ]
+[v i1_ReadUSART ReadUSART `(uc  1 e 1 0 ]
+"262
+[v _UARTstringCRLN UARTstringCRLN `(v  1 e 0 0 ]
+[v i1_UARTstringCRLN UARTstringCRLN `(v  1 e 0 0 ]
+"277
+[v _UARTcommandMenu UARTcommandMenu `(v  1 e 0 0 ]
+"308
+[v _EraseScreen EraseScreen `(v  1 e 0 0 ]
+"62 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\user.c
+[v _InitApp InitApp `(v  1 e 0 0 ]
+"105
+[v _Init_System Init_System `(v  1 e 0 0 ]
+"317 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
+[v _WPUB WPUB `VEuc  1 e 1 @3964 ]
+[s S176 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 IOCB4 1 0 :1:4 
+`uc 1 IOCB5 1 0 :1:5 
+`uc 1 IOCB6 1 0 :1:6 
+`uc 1 IOCB7 1 0 :1:7 
+]
+"392
+[u S182 . 1 `S176 1 . 1 0 ]
+[v _IOCBbits IOCBbits `VES182  1 e 1 @3965 ]
+"416
+[v _ANSEL ANSEL `VEuc  1 e 1 @3966 ]
+"459
+[v _ANSELH ANSELH `VEuc  1 e 1 @3967 ]
+"502
+[v _PORTA PORTA `VEuc  1 e 1 @3968 ]
+"739
+[v _PORTB PORTB `VEuc  1 e 1 @3969 ]
+"968
+[v _PORTC PORTC `VEuc  1 e 1 @3970 ]
+"1427
+[v _LATA LATA `VEuc  1 e 1 @3977 ]
+"1559
+[v _LATB LATB `VEuc  1 e 1 @3978 ]
+"1691
+[v _LATC LATC `VEuc  1 e 1 @3979 ]
+[s S345 . 1 `uc 1 TRISA0 1 0 :1:0 
+`uc 1 TRISA1 1 0 :1:1 
+`uc 1 TRISA2 1 0 :1:2 
+`uc 1 TRISA3 1 0 :1:3 
+`uc 1 TRISA4 1 0 :1:4 
+`uc 1 TRISA5 1 0 :1:5 
+`uc 1 TRISA6 1 0 :1:6 
+`uc 1 TRISA7 1 0 :1:7 
+]
+"1855
+[s S354 . 1 `uc 1 RA0 1 0 :1:0 
+`uc 1 RA1 1 0 :1:1 
+`uc 1 RA2 1 0 :1:2 
+`uc 1 RA3 1 0 :1:3 
+`uc 1 RA4 1 0 :1:4 
+`uc 1 RA5 1 0 :1:5 
+`uc 1 RA6 1 0 :1:6 
+`uc 1 RA7 1 0 :1:7 
+]
+[u S363 . 1 `S345 1 . 1 0 `S354 1 . 1 0 ]
+[v _TRISAbits TRISAbits `VES363  1 e 1 @3986 ]
+[s S425 . 1 `uc 1 TRISB0 1 0 :1:0 
+`uc 1 TRISB1 1 0 :1:1 
+`uc 1 TRISB2 1 0 :1:2 
+`uc 1 TRISB3 1 0 :1:3 
+`uc 1 TRISB4 1 0 :1:4 
+`uc 1 TRISB5 1 0 :1:5 
+`uc 1 TRISB6 1 0 :1:6 
+`uc 1 TRISB7 1 0 :1:7 
+]
+"2076
+[s S434 . 1 `uc 1 RB0 1 0 :1:0 
+`uc 1 RB1 1 0 :1:1 
+`uc 1 RB2 1 0 :1:2 
+`uc 1 RB3 1 0 :1:3 
+`uc 1 RB4 1 0 :1:4 
+`uc 1 RB5 1 0 :1:5 
+`uc 1 RB6 1 0 :1:6 
+`uc 1 RB7 1 0 :1:7 
+]
+[u S443 . 1 `S425 1 . 1 0 `S434 1 . 1 0 ]
+[v _TRISBbits TRISBbits `VES443  1 e 1 @3987 ]
+[s S385 . 1 `uc 1 TRISC0 1 0 :1:0 
+`uc 1 TRISC1 1 0 :1:1 
+`uc 1 TRISC2 1 0 :1:2 
+`uc 1 TRISC3 1 0 :1:3 
+`uc 1 TRISC4 1 0 :1:4 
+`uc 1 TRISC5 1 0 :1:5 
+`uc 1 TRISC6 1 0 :1:6 
+`uc 1 TRISC7 1 0 :1:7 
+]
+"2297
+[s S394 . 1 `uc 1 RC0 1 0 :1:0 
+`uc 1 RC1 1 0 :1:1 
+`uc 1 RC2 1 0 :1:2 
+`uc 1 RC3 1 0 :1:3 
+`uc 1 RC4 1 0 :1:4 
+`uc 1 RC5 1 0 :1:5 
+`uc 1 RC6 1 0 :1:6 
+`uc 1 RC7 1 0 :1:7 
+]
+[u S403 . 1 `S385 1 . 1 0 `S394 1 . 1 0 ]
+[v _TRISCbits TRISCbits `VES403  1 e 1 @3988 ]
+[s S228 . 1 `uc 1 TMR1IE 1 0 :1:0 
+`uc 1 TMR2IE 1 0 :1:1 
+`uc 1 CCP1IE 1 0 :1:2 
+`uc 1 SSPIE 1 0 :1:3 
+`uc 1 TXIE 1 0 :1:4 
+`uc 1 RCIE 1 0 :1:5 
+`uc 1 ADIE 1 0 :1:6 
+]
+"2579
+[s S236 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 RC1IE 1 0 :1:5 
+]
+[s S239 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 TX1IE 1 0 :1:4 
+]
+[u S242 . 1 `S228 1 . 1 0 `S236 1 . 1 0 `S239 1 . 1 0 ]
+[v _PIE1bits PIE1bits `VES242  1 e 1 @3997 ]
+[s S195 . 1 `uc 1 TMR1IF 1 0 :1:0 
+`uc 1 TMR2IF 1 0 :1:1 
+`uc 1 CCP1IF 1 0 :1:2 
+`uc 1 SSPIF 1 0 :1:3 
+`uc 1 TXIF 1 0 :1:4 
+`uc 1 RCIF 1 0 :1:5 
+`uc 1 ADIF 1 0 :1:6 
+]
+"2652
+[s S203 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 RC1IF 1 0 :1:5 
+]
+[s S206 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 TX1IF 1 0 :1:4 
+]
+[u S209 . 1 `S195 1 . 1 0 `S203 1 . 1 0 `S206 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES209  1 e 1 @3998 ]
+[s S505 . 1 `uc 1 TMR1IP 1 0 :1:0 
+`uc 1 TMR2IP 1 0 :1:1 
+`uc 1 CCP1IP 1 0 :1:2 
+`uc 1 SSPIP 1 0 :1:3 
+`uc 1 TXIP 1 0 :1:4 
+`uc 1 RCIP 1 0 :1:5 
+`uc 1 ADIP 1 0 :1:6 
+]
+"2725
+[s S513 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 RC1IP 1 0 :1:5 
+]
+[s S516 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 TX1IP 1 0 :1:4 
+]
+[u S519 . 1 `S505 1 . 1 0 `S513 1 . 1 0 `S516 1 . 1 0 ]
+[v _IPR1bits IPR1bits `VES519  1 e 1 @3999 ]
+[s S1585 . 1 `uc 1 CCP2IE 1 0 :1:0 
+`uc 1 TMR3IE 1 0 :1:1 
+`uc 1 HLVDIE 1 0 :1:2 
+`uc 1 BCLIE 1 0 :1:3 
+`uc 1 EEIE 1 0 :1:4 
+`uc 1 C2IE 1 0 :1:5 
+`uc 1 C1IE 1 0 :1:6 
+`uc 1 OSCFIE 1 0 :1:7 
+]
+"2799
+[s S1594 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 LVDIE 1 0 :1:2 
+]
+[s S1597 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 CMIE 1 0 :1:6 
+]
+[u S1600 . 1 `S1585 1 . 1 0 `S1594 1 . 1 0 `S1597 1 . 1 0 ]
+[v _PIE2bits PIE2bits `VES1600  1 e 1 @4000 ]
+[s S2222 . 1 `uc 1 CCP2IF 1 0 :1:0 
+`uc 1 TMR3IF 1 0 :1:1 
+`uc 1 HLVDIF 1 0 :1:2 
+`uc 1 BCLIF 1 0 :1:3 
+`uc 1 EEIF 1 0 :1:4 
+`uc 1 C2IF 1 0 :1:5 
+`uc 1 C1IF 1 0 :1:6 
+`uc 1 OSCFIF 1 0 :1:7 
+]
+"2878
+[s S2231 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 LVDIF 1 0 :1:2 
+]
+[s S2234 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 CMIF 1 0 :1:6 
+]
+[u S2237 . 1 `S2222 1 . 1 0 `S2231 1 . 1 0 `S2234 1 . 1 0 ]
+[v _PIR2bits PIR2bits `VES2237  1 e 1 @4001 ]
+[s S538 . 1 `uc 1 CCP2IP 1 0 :1:0 
+`uc 1 TMR3IP 1 0 :1:1 
+`uc 1 HLVDIP 1 0 :1:2 
+`uc 1 BCLIP 1 0 :1:3 
+`uc 1 EEIP 1 0 :1:4 
+`uc 1 C2IP 1 0 :1:5 
+`uc 1 C1IP 1 0 :1:6 
+`uc 1 OSCFIP 1 0 :1:7 
+]
+"2957
+[s S547 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 LVDIP 1 0 :1:2 
+]
+[s S550 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 CMIP 1 0 :1:6 
+]
+[u S553 . 1 `S538 1 . 1 0 `S547 1 . 1 0 `S550 1 . 1 0 ]
+[v _IPR2bits IPR2bits `VES553  1 e 1 @4002 ]
+[s S1895 . 1 `uc 1 RD 1 0 :1:0 
+`uc 1 WR 1 0 :1:1 
+`uc 1 WREN 1 0 :1:2 
+`uc 1 WRERR 1 0 :1:3 
+`uc 1 FREE 1 0 :1:4 
+`uc 1 . 1 0 :1:5 
+`uc 1 CFGS 1 0 :1:6 
+`uc 1 EEPGD 1 0 :1:7 
+]
+"3032
+[s S1904 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 EEFS 1 0 :1:6 
+]
+[u S1907 . 1 `S1895 1 . 1 0 `S1904 1 . 1 0 ]
+[v _EECON1bits EECON1bits `VES1907  1 e 1 @4006 ]
+"3076
+[v _EECON2 EECON2 `VEuc  1 e 1 @4007 ]
+"3082
+[v _EEDATA EEDATA `VEuc  1 e 1 @4008 ]
+"3088
+[v _EEADR EEADR `VEuc  1 e 1 @4009 ]
+"3149
+[v _EEADRH EEADRH `VEuc  1 e 1 @4010 ]
+"3174
+[v _RCSTA RCSTA `VEuc  1 e 1 @4011 ]
+[s S994 . 1 `uc 1 RX9D 1 0 :1:0 
+`uc 1 OERR 1 0 :1:1 
+`uc 1 FERR 1 0 :1:2 
+`uc 1 ADDEN 1 0 :1:3 
+`uc 1 CREN 1 0 :1:4 
+`uc 1 SREN 1 0 :1:5 
+`uc 1 RX9 1 0 :1:6 
+`uc 1 SPEN 1 0 :1:7 
+]
+"3215
+[s S1003 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 ADEN 1 0 :1:3 
+]
+[s S1006 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 SRENA 1 0 :1:5 
+]
+[s S1009 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 RC8_9 1 0 :1:6 
+]
+[s S1012 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 RC9 1 0 :1:6 
+]
+[s S1015 . 1 `uc 1 RCD8 1 0 :1:0 
+]
+[u S1017 . 1 `S994 1 . 1 0 `S1003 1 . 1 0 `S1006 1 . 1 0 `S1009 1 . 1 0 `S1012 1 . 1 0 `S1015 1 . 1 0 ]
+[v _RCSTAbits RCSTAbits `VES1017  1 e 1 @4011 ]
+"3383
+[v _TXSTA TXSTA `VEuc  1 e 1 @4012 ]
+[s S1048 . 1 `uc 1 TX9D 1 0 :1:0 
+`uc 1 TRMT 1 0 :1:1 
+`uc 1 BRGH 1 0 :1:2 
+`uc 1 SENDB 1 0 :1:3 
+`uc 1 SYNC 1 0 :1:4 
+`uc 1 TXEN 1 0 :1:5 
+`uc 1 TX9 1 0 :1:6 
+`uc 1 CSRC 1 0 :1:7 
+]
+"3443
+[s S1057 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 BRGH1 1 0 :1:2 
+]
+[s S1060 . 1 `uc 1 . 1 0 :7:0 
+`uc 1 CSRC1 1 0 :1:7 
+]
+[s S1063 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 SENDB1 1 0 :1:3 
+]
+[s S1066 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 SYNC1 1 0 :1:4 
+]
+[s S1069 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 TRMT1 1 0 :1:1 
+]
+[s S1072 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 TX91 1 0 :1:6 
+]
+[s S1075 . 1 `uc 1 TX9D1 1 0 :1:0 
+]
+[s S1077 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 TXEN1 1 0 :1:5 
+]
+[s S1080 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 TX8_9 1 0 :1:6 
+]
+[s S1083 . 1 `uc 1 TXD8 1 0 :1:0 
+]
+[u S1085 . 1 `S1048 1 . 1 0 `S1057 1 . 1 0 `S1060 1 . 1 0 `S1063 1 . 1 0 `S1066 1 . 1 0 `S1069 1 . 1 0 `S1072 1 . 1 0 `S1075 1 . 1 0 `S1077 1 . 1 0 `S1080 1 . 1 0 `S1083 1 . 1 0 ]
+[v _TXSTAbits TXSTAbits `VES1085  1 e 1 @4012 ]
+"3680
+[v _TXREG TXREG `VEuc  1 e 1 @4013 ]
+"3691
+[v _RCREG RCREG `VEuc  1 e 1 @4014 ]
+"3702
+[v _SPBRG SPBRG `VEuc  1 e 1 @4015 ]
+"3713
+[v _SPBRGH SPBRGH `VEuc  1 e 1 @4016 ]
+[s S1731 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 NOT_T3SYNC 1 0 :1:2 
+]
+"3758
+[s S1734 . 1 `uc 1 TMR3ON 1 0 :1:0 
+`uc 1 TMR3CS 1 0 :1:1 
+`uc 1 nT3SYNC 1 0 :1:2 
+`uc 1 T3CCP1 1 0 :1:3 
+`uc 1 T3CKPS 1 0 :2:4 
+`uc 1 T3CCP2 1 0 :1:6 
+`uc 1 RD16 1 0 :1:7 
+]
+[s S1742 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 T3SYNC 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 T3CKPS0 1 0 :1:4 
+`uc 1 T3CKPS1 1 0 :1:5 
+]
+[s S1748 . 1 `uc 1 . 1 0 :7:0 
+`uc 1 RD163 1 0 :1:7 
+]
+[s S1751 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 SOSCEN3 1 0 :1:3 
+]
+[s S1754 . 1 `uc 1 . 1 0 :7:0 
+`uc 1 T3RD16 1 0 :1:7 
+]
+[u S1757 . 1 `S1731 1 . 1 0 `S1734 1 . 1 0 `S1742 1 . 1 0 `S1748 1 . 1 0 `S1751 1 . 1 0 `S1754 1 . 1 0 ]
+[v _T3CONbits T3CONbits `VES1757  1 e 1 @4017 ]
+"3838
+[v _TMR3L TMR3L `VEuc  1 e 1 @4018 ]
+"3844
+[v _TMR3H TMR3H `VEuc  1 e 1 @4019 ]
+[s S1136 . 1 `uc 1 ABDEN 1 0 :1:0 
+`uc 1 WUE 1 0 :1:1 
+`uc 1 . 1 0 :1:2 
+`uc 1 BRG16 1 0 :1:3 
+`uc 1 CKTXP 1 0 :1:4 
+`uc 1 DTRXP 1 0 :1:5 
+`uc 1 RCIDL 1 0 :1:6 
+`uc 1 ABDOVF 1 0 :1:7 
+]
+"4138
+[s S1145 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 SCKP 1 0 :1:4 
+]
+[s S1148 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 RXCKP 1 0 :1:5 
+]
+[s S1151 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 W4E 1 0 :1:1 
+]
+[u S1154 . 1 `S1136 1 . 1 0 `S1145 1 . 1 0 `S1148 1 . 1 0 `S1151 1 . 1 0 ]
+[v _BAUDCONbits BAUDCONbits `VES1154  1 e 1 @4024 ]
+"4492
+[v _ADCON2 ADCON2 `VEuc  1 e 1 @4032 ]
+[s S1474 . 1 `uc 1 ADCS 1 0 :3:0 
+`uc 1 ACQT 1 0 :3:3 
+`uc 1 . 1 0 :1:6 
+`uc 1 ADFM 1 0 :1:7 
+]
+"4513
+[s S1479 . 1 `uc 1 ADCS0 1 0 :1:0 
+`uc 1 ADCS1 1 0 :1:1 
+`uc 1 ADCS2 1 0 :1:2 
+`uc 1 ACQT0 1 0 :1:3 
+`uc 1 ACQT1 1 0 :1:4 
+`uc 1 ACQT2 1 0 :1:5 
+]
+[u S1486 . 1 `S1474 1 . 1 0 `S1479 1 . 1 0 ]
+[v _ADCON2bits ADCON2bits `VES1486  1 e 1 @4032 ]
+"4562
+[v _ADCON1 ADCON1 `VEuc  1 e 1 @4033 ]
+[s S1370 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 VCFG 1 0 :2:4 
+]
+"4586
+[s S1373 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 VCFG0 1 0 :1:4 
+`uc 1 VCFG1 1 0 :1:5 
+]
+[s S1377 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 VCFG01 1 0 :1:4 
+]
+[s S1380 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 VCFG11 1 0 :1:5 
+]
+[u S1383 . 1 `S1370 1 . 1 0 `S1373 1 . 1 0 `S1377 1 . 1 0 `S1380 1 . 1 0 ]
+[v _ADCON1bits ADCON1bits `VES1383  1 e 1 @4033 ]
+"4615
+[v _ADCON0 ADCON0 `VEuc  1 e 1 @4034 ]
+[s S1402 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 GO_NOT_DONE 1 0 :1:1 
+]
+"4659
+[s S1405 . 1 `uc 1 ADON 1 0 :1:0 
+`uc 1 GO_nDONE 1 0 :1:1 
+`uc 1 CHS 1 0 :4:2 
+]
+[s S1409 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 DONE 1 0 :1:1 
+`uc 1 CHS0 1 0 :1:2 
+`uc 1 CHS1 1 0 :1:3 
+`uc 1 CHS2 1 0 :1:4 
+`uc 1 CHS3 1 0 :1:5 
+]
+[s S1416 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 NOT_DONE 1 0 :1:1 
+]
+[s S1419 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 nDONE 1 0 :1:1 
+]
+[s S1422 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 GO_DONE 1 0 :1:1 
+]
+[s S1425 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 GO 1 0 :1:1 
+]
+[s S1428 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 GODONE 1 0 :1:1 
+]
+[u S1431 . 1 `S1402 1 . 1 0 `S1405 1 . 1 0 `S1409 1 . 1 0 `S1416 1 . 1 0 `S1419 1 . 1 0 `S1422 1 . 1 0 `S1425 1 . 1 0 `S1428 1 . 1 0 ]
+[v _ADCON0bits ADCON0bits `VES1431  1 e 1 @4034 ]
+"4739
+[v _ADRESL ADRESL `VEuc  1 e 1 @4035 ]
+"4745
+[v _ADRESH ADRESH `VEuc  1 e 1 @4036 ]
+[s S1703 . 1 `uc 1 T2CKPS 1 0 :2:0 
+`uc 1 TMR2ON 1 0 :1:2 
+`uc 1 T2OUTPS 1 0 :4:3 
+]
+"5142
+[s S1707 . 1 `uc 1 T2CKPS0 1 0 :1:0 
+`uc 1 T2CKPS1 1 0 :1:1 
+`uc 1 . 1 0 :1:2 
+`uc 1 T2OUTPS0 1 0 :1:3 
+`uc 1 T2OUTPS1 1 0 :1:4 
+`uc 1 T2OUTPS2 1 0 :1:5 
+`uc 1 T2OUTPS3 1 0 :1:6 
+]
+[u S1715 . 1 `S1703 1 . 1 0 `S1707 1 . 1 0 ]
+[v _T2CONbits T2CONbits `VES1715  1 e 1 @4042 ]
+"5191
+[v _PR2 PR2 `VEuc  1 e 1 @4043 ]
+"5300
+[v _TMR2 TMR2 `VEuc  1 e 1 @4044 ]
+[s S1648 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 NOT_T1SYNC 1 0 :1:2 
+]
+"5341
+[s S1651 . 1 `uc 1 TMR1ON 1 0 :1:0 
+`uc 1 TMR1CS 1 0 :1:1 
+`uc 1 nT1SYNC 1 0 :1:2 
+`uc 1 T1OSCEN 1 0 :1:3 
+`uc 1 T1CKPS 1 0 :2:4 
+`uc 1 T1RUN 1 0 :1:6 
+`uc 1 RD16 1 0 :1:7 
+]
+[s S1659 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 T1SYNC 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 T1CKPS0 1 0 :1:4 
+`uc 1 T1CKPS1 1 0 :1:5 
+]
+[s S1665 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 SOSCEN 1 0 :1:3 
+]
+[s S1668 . 1 `uc 1 . 1 0 :7:0 
+`uc 1 T1RD16 1 0 :1:7 
+]
+[u S1671 . 1 `S1648 1 . 1 0 `S1651 1 . 1 0 `S1659 1 . 1 0 `S1665 1 . 1 0 `S1668 1 . 1 0 ]
+[v _T1CONbits T1CONbits `VES1671  1 e 1 @4045 ]
+"5416
+[v _TMR1L TMR1L `VEuc  1 e 1 @4046 ]
+"5422
+[v _TMR1H TMR1H `VEuc  1 e 1 @4047 ]
+[s S573 . 1 `uc 1 NOT_BOR 1 0 :1:0 
+]
+"5471
+[s S575 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 NOT_POR 1 0 :1:1 
+]
+[s S578 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 NOT_PD 1 0 :1:2 
+]
+[s S581 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 NOT_TO 1 0 :1:3 
+]
+[s S584 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 NOT_RI 1 0 :1:4 
+]
+[s S587 . 1 `uc 1 nBOR 1 0 :1:0 
+`uc 1 nPOR 1 0 :1:1 
+`uc 1 nPD 1 0 :1:2 
+`uc 1 nTO 1 0 :1:3 
+`uc 1 nRI 1 0 :1:4 
+`uc 1 . 1 0 :1:5 
+`uc 1 SBOREN 1 0 :1:6 
+`uc 1 IPEN 1 0 :1:7 
+]
+[s S596 . 1 `uc 1 BOR 1 0 :1:0 
+`uc 1 POR 1 0 :1:1 
+`uc 1 PD 1 0 :1:2 
+`uc 1 TO 1 0 :1:3 
+`uc 1 RI 1 0 :1:4 
+]
+[u S602 . 1 `S573 1 . 1 0 `S575 1 . 1 0 `S578 1 . 1 0 `S581 1 . 1 0 `S584 1 . 1 0 `S587 1 . 1 0 `S596 1 . 1 0 ]
+[v _RCONbits RCONbits `VES602  1 e 1 @4048 ]
+[s S1620 . 1 `uc 1 T0PS 1 0 :3:0 
+`uc 1 PSA 1 0 :1:3 
+`uc 1 T0SE 1 0 :1:4 
+`uc 1 T0CS 1 0 :1:5 
+`uc 1 T08BIT 1 0 :1:6 
+`uc 1 TMR0ON 1 0 :1:7 
+]
+"5952
+[s S1627 . 1 `uc 1 T0PS0 1 0 :1:0 
+`uc 1 T0PS1 1 0 :1:1 
+`uc 1 T0PS2 1 0 :1:2 
+]
+[u S1631 . 1 `S1620 1 . 1 0 `S1627 1 . 1 0 ]
+[v _T0CONbits T0CONbits `VES1631  1 e 1 @4053 ]
+"6007
+[v _TMR0L TMR0L `VEuc  1 e 1 @4054 ]
+"6013
+[v _TMR0H TMR0H `VEuc  1 e 1 @4055 ]
+[s S467 . 1 `uc 1 . 1 0 :7:0 
+`uc 1 NOT_RBPU 1 0 :1:7 
+]
+"6374
+[s S470 . 1 `uc 1 RBIP 1 0 :1:0 
+`uc 1 . 1 0 :1:1 
+`uc 1 TMR0IP 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 INTEDG2 1 0 :1:4 
+`uc 1 INTEDG1 1 0 :1:5 
+`uc 1 INTEDG0 1 0 :1:6 
+`uc 1 nRBPU 1 0 :1:7 
+]
+[s S479 . 1 `uc 1 . 1 0 :7:0 
+`uc 1 RBPU 1 0 :1:7 
+]
+[u S482 . 1 `S467 1 . 1 0 `S470 1 . 1 0 `S479 1 . 1 0 ]
+[v _INTCON2bits INTCON2bits `VES482  1 e 1 @4081 ]
+[s S89 . 1 `uc 1 RBIF 1 0 :1:0 
+`uc 1 INT0IF 1 0 :1:1 
+`uc 1 TMR0IF 1 0 :1:2 
+`uc 1 RBIE 1 0 :1:3 
+`uc 1 INT0IE 1 0 :1:4 
+`uc 1 TMR0IE 1 0 :1:5 
+`uc 1 PEIE_GIEL 1 0 :1:6 
+`uc 1 GIE_GIEH 1 0 :1:7 
+]
+"6470
+[s S98 . 1 `uc 1 RBIF 1 0 :1:0 
+`uc 1 INT0IF 1 0 :1:1 
+`uc 1 TMR0IF 1 0 :1:2 
+`uc 1 RBIE 1 0 :1:3 
+`uc 1 INT0IE 1 0 :1:4 
+`uc 1 TMR0IE 1 0 :1:5 
+`uc 1 PEIE 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+[s S107 . 1 `uc 1 RBIF 1 0 :1:0 
+`uc 1 INT0IF 1 0 :1:1 
+`uc 1 TMR0IF 1 0 :1:2 
+`uc 1 RBIE 1 0 :1:3 
+`uc 1 INT0IE 1 0 :1:4 
+`uc 1 TMR0IE 1 0 :1:5 
+`uc 1 GIEL 1 0 :1:6 
+`uc 1 GIEH 1 0 :1:7 
+]
+[s S116 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 INT0F 1 0 :1:1 
+`uc 1 T0IF 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 INT0E 1 0 :1:4 
+`uc 1 T0IE 1 0 :1:5 
+`uc 1 PEIE 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+[s S125 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 GIEL 1 0 :1:6 
+`uc 1 GIEH 1 0 :1:7 
+]
+[u S129 . 1 `S89 1 . 1 0 `S98 1 . 1 0 `S107 1 . 1 0 `S116 1 . 1 0 `S125 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES129  1 e 1 @4082 ]
+"354 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\doprnt.c
+[v _dpowers dpowers `C[10]ul  1 s 40 dpowers ]
+"362
+[v _hexpowers hexpowers `C[8]ul  1 s 32 hexpowers ]
+"7 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\powers.c
+[v __powers_ _powers_ `C[13]d  1 e 39 0 ]
+"39
+[v __npowers_ _npowers_ `C[13]d  1 e 39 0 ]
+[s S336 EEdata 136 `uc 1 BlueToothFlag 1 0 `ul 1 SWNECcode 4 1 `[20][2]uc 1 RemoteButtonNEC 40 5 `uc 1 EEPROMinitFlag 1 45 `[15][3][2]uc 1 RemoteButtonRF 90 46 ]
+"127 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\EEPROM.h
+[v _Global Global `S336  1 e 136 0 ]
+"52 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\IR.c
+[v _IRpinOLD IRpinOLD `uc  1 e 1 0 ]
+"53
+[v _IRRawCode IRRawCode `[100]ui  1 e 200 0 ]
+"54
+[v _IR_NEC IR_NEC `ul  1 e 4 0 ]
+"55
+[v _IRrawCodeNum IRrawCodeNum `uc  1 e 1 0 ]
+"56
+[v _IR_New_Code IR_New_Code `uc  1 e 1 0 ]
+"57
+[v _IRsendFlag IRsendFlag `uc  1 e 1 0 ]
+"58
+[v _IRcodeBit IRcodeBit `uc  1 e 1 0 ]
+"59
+[v _IRcodePlace IRcodePlace `uc  1 e 1 0 ]
+"60
+[v _IRsendCode IRsendCode `ul  1 e 4 0 ]
+"61
+[v _IRbit IRbit `uc  1 e 1 0 ]
+"62
+[v _IRrepeatflag IRrepeatflag `uc  1 e 1 0 ]
+"63
+[v _IRrepeatAmount IRrepeatAmount `uc  1 e 1 0 ]
+"64
+[v _IRmod IRmod `VEuc  1 e 1 0 ]
+"65
+[v _ReceivingIR ReceivingIR `VEuc  1 e 1 0 ]
+"66
+[v _IRbitPosition IRbitPosition `VEuc  1 e 1 0 ]
+"67
+[v _IRaddress IRaddress `uc  1 e 1 0 ]
+"68
+[v _IRcommand IRcommand `uc  1 e 1 0 ]
+"69
+[v _IRtimeout IRtimeout `ul  1 e 4 0 ]
+"54 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\main.c
+[v _FirmVersion FirmVersion `C[9]uc  1 e 9 0 ]
+"55
+[v _PCBVersion PCBVersion `C[5]uc  1 e 5 0 ]
+"64
+[v _BatteryVoltage BatteryVoltage `d  1 e 3 0 ]
+"43 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\RF.c
+[v _RFsendCode RFsendCode `[20]uc  1 e 20 0 ]
+"44
+[v _RFsendFlag RFsendFlag `VEuc  1 e 1 0 ]
+"45
+[v _RFcodePlace RFcodePlace `uc  1 e 1 0 ]
+"46
+[v _RFcodeBit RFcodeBit `uc  1 e 1 0 ]
+"47
+[v _Sendcount Sendcount `VEuc  1 e 1 0 ]
+"49
+[v _RFConfig RFConfig `uc  1 e 1 0 ]
+"50
+[v _RF_IR_Postscaler RF_IR_Postscaler `VEuc  1 e 1 0 ]
+"51
+[v _Conf2_ChannelB_Status Conf2_ChannelB_Status `uc  1 e 1 0 ]
+"52
+[v _Conf2_ChannelD_Status Conf2_ChannelD_Status `uc  1 e 1 0 ]
+"53
+[v _Conf2_ChannelH_1_Status Conf2_ChannelH_1_Status `uc  1 e 1 0 ]
+"54
+[v _Conf2_ChannelH_2_Status Conf2_ChannelH_2_Status `uc  1 e 1 0 ]
+"55
+[v _Conf2_ChannelH_3_Status Conf2_ChannelH_3_Status `uc  1 e 1 0 ]
+"56
+[v _RF_IR RF_IR `uc  1 e 1 0 ]
+"128 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\RF.h
+[v _Conf1_Channels Conf1_Channels `C[4]uc  1 e 4 0 ]
+"131
+[v _Conf1_ChannelD Conf1_ChannelD `C[12]uc  1 e 12 0 ]
+"132
+[v _Conf1_ChannelD_STR Conf1_ChannelD_STR `C[15]uc  1 e 15 0 ]
+"135
+[v _Conf1_ChannelE Conf1_ChannelE `C[12]uc  1 e 12 0 ]
+"136
+[v _Conf1_ChannelE_STR Conf1_ChannelE_STR `C[15]uc  1 e 15 0 ]
+"139
+[v _Conf1_ChannelF Conf1_ChannelF `C[12]uc  1 e 12 0 ]
+"140
+[v _Conf1_ChannelF_STR Conf1_ChannelF_STR `C[15]uc  1 e 15 0 ]
+"154
+[v _Conf2_Channels Conf2_Channels `C[4]uc  1 e 4 0 ]
+"156
+[v _Conf2_ChannelB_ON Conf2_ChannelB_ON `C[16]uc  1 e 16 0 ]
+"157
+[v _Conf2_ChannelB_ON_STR Conf2_ChannelB_ON_STR `C[18]uc  1 e 18 0 ]
+"158
+[v _Conf2_ChannelB_OFF Conf2_ChannelB_OFF `C[16]uc  1 e 16 0 ]
+"159
+[v _Conf2_ChannelB_OFF_STR Conf2_ChannelB_OFF_STR `C[19]uc  1 e 19 0 ]
+"162
+[v _Conf2_ChannelD_ON Conf2_ChannelD_ON `C[16]uc  1 e 16 0 ]
+"163
+[v _Conf2_ChannelD_ON_STR Conf2_ChannelD_ON_STR `C[18]uc  1 e 18 0 ]
+"164
+[v _Conf2_ChannelD_OFF Conf2_ChannelD_OFF `C[16]uc  1 e 16 0 ]
+"165
+[v _Conf2_ChannelD_OFF_STR Conf2_ChannelD_OFF_STR `C[19]uc  1 e 19 0 ]
+"168
+[v _Conf2_ChannelH_1_ON Conf2_ChannelH_1_ON `C[16]uc  1 e 16 0 ]
+"169
+[v _Conf2_ChannelH_1_ON_STR Conf2_ChannelH_1_ON_STR `C[20]uc  1 e 20 0 ]
+"170
+[v _Conf2_ChannelH_1_OFF Conf2_ChannelH_1_OFF `C[16]uc  1 e 16 0 ]
+"171
+[v _Conf2_ChannelH_1_OFF_STR Conf2_ChannelH_1_OFF_STR `C[21]uc  1 e 21 0 ]
+"172
+[v _Conf2_ChannelH_2_ON Conf2_ChannelH_2_ON `C[16]uc  1 e 16 0 ]
+"173
+[v _Conf2_ChannelH_2_ON_STR Conf2_ChannelH_2_ON_STR `C[20]uc  1 e 20 0 ]
+"174
+[v _Conf2_ChannelH_2_OFF Conf2_ChannelH_2_OFF `C[16]uc  1 e 16 0 ]
+"175
+[v _Conf2_ChannelH_2_OFF_STR Conf2_ChannelH_2_OFF_STR `C[21]uc  1 e 21 0 ]
+"176
+[v _Conf2_ChannelH_3_ON Conf2_ChannelH_3_ON `C[16]uc  1 e 16 0 ]
+"177
+[v _Conf2_ChannelH_3_ON_STR Conf2_ChannelH_3_ON_STR `C[20]uc  1 e 20 0 ]
+"178
+[v _Conf2_ChannelH_3_OFF Conf2_ChannelH_3_OFF `C[16]uc  1 e 16 0 ]
+"179
+[v _Conf2_ChannelH_3_OFF_STR Conf2_ChannelH_3_OFF_STR `C[21]uc  1 e 21 0 ]
+"190
+[v _Sent Sent `VEuc  1 e 1 0 ]
+"37 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Timer.c
+[v _Timer1_Postscaler Timer1_Postscaler `uc  1 e 1 0 ]
+"38
+[v _Timer2_Postscaler Timer2_Postscaler `uc  1 e 1 0 ]
+"39
+[v _Timer3_Postscaler Timer3_Postscaler `uc  1 e 1 0 ]
+"49 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
+[v _ReceivedString ReceivedString `[255]uc  1 e 255 0 ]
+"50
+[v _ReceivedStringPos ReceivedStringPos `uc  1 e 1 0 ]
+"51
+[v _CommandString CommandString `[255]uc  1 e 255 0 ]
+"52
+[v _CommandStringPos CommandStringPos `uc  1 e 1 0 ]
+"53
+[v _NewReceivedString NewReceivedString `VEuc  1 e 1 0 ]
+"121 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.h
+[v _SYNTAX_ERR SYNTAX_ERR `C[14]uc  1 e 14 0 ]
+"122
+[v _CRLN CRLN `C[3]uc  1 e 3 0 ]
+"60 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\user.h
+[v _SN SN `ul  1 e 4 0 ]
+"70 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\main.c
+[v _main main `(v  1 e 0 0 ]
+{
+"76
+[v main@BluetoothString BluetoothString `[255]uc  1 a 255 0 ]
+"72
+[v main@i i `uc  1 a 1 151 ]
+"75
+[v main@VoltageStatus VoltageStatus `uc  1 a 1 150 ]
+"77
+[v main@BluetoothStringPos BluetoothStringPos `uc  1 a 1 149 ]
+"74
+[v main@Bluetoothtask Bluetoothtask `uc  1 a 1 148 ]
+"73
+[v main@IRtask IRtask `uc  1 a 1 147 ]
+"195
+} 0
+"279 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\IR.c
+[v _UseIRCode UseIRCode `(v  1 e 0 0 ]
+{
+"281
+[v UseIRCode@i i `uc  1 a 1 101 ]
+[v UseIRCode@j j `uc  1 a 1 100 ]
+"282
+[v UseIRCode@found found `uc  1 a 1 99 ]
+"279
+[v UseIRCode@Code Code `*.39uc  1 p 2 90 ]
+[v UseIRCode@NEC NEC `ul  1 p 4 92 ]
+"358
+} 0
+"165 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\RF.c
+[v _SendRF_Channel SendRF_Channel `(v  1 e 0 0 ]
+{
+[v SendRF_Channel@channel channel `uc  1 a 1 wreg ]
+[v SendRF_Channel@channel channel `uc  1 a 1 wreg ]
+[v SendRF_Channel@channel channel `uc  1 a 1 38 ]
+"249
+} 0
+"52 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Button.c
+[v _ReadPushButton ReadPushButton `(uc  1 e 1 0 ]
+{
+"60
+} 0
+"67
+[v _ReadCodeButtons ReadCodeButtons `(uc  1 e 1 0 ]
+{
+"69
+[v ReadCodeButtons@temp temp `uc  1 a 1 34 ]
+"93
+} 0
+"280 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
+[v _UseBluetooth UseBluetooth `(uc  1 e 1 0 ]
+{
+"289
+[v UseBluetooth@buf buf `[100]uc  1 a 100 15 ]
+"291
+[v UseBluetooth@rfchannelSTR rfchannelSTR `[10]uc  1 a 10 115 ]
+"287
+[v UseBluetooth@temp temp `ul  1 a 4 142 ]
+"284
+[v UseBluetooth@EnteredNEC EnteredNEC `ul  1 a 4 133 ]
+"288
+[v UseBluetooth@tempNec tempNec `ul  1 a 4 126 ]
+"292
+[v UseBluetooth@i i `uc  1 a 1 146 ]
+"286
+[v UseBluetooth@NecCommand NecCommand `uc  1 a 1 141 ]
+"285
+[v UseBluetooth@NecAddress NecAddress `uc  1 a 1 140 ]
+"292
+[v UseBluetooth@rfconf rfconf `uc  1 a 1 139 ]
+[v UseBluetooth@tempRFArray tempRFArray `uc  1 a 1 138 ]
+"282
+[v UseBluetooth@ok ok `uc  1 a 1 137 ]
+"293
+[v UseBluetooth@device device `uc  1 a 1 132 ]
+"294
+[v UseBluetooth@EmptyPlace EmptyPlace `uc  1 a 1 131 ]
+"290
+[v UseBluetooth@timeout timeout `uc  1 a 1 130 ]
+"295
+[v UseBluetooth@set set `uc  1 a 1 125 ]
+"280
+[v UseBluetooth@String String `*.39uc  1 p 2 0 ]
+[v UseBluetooth@StringPos StringPos `uc  1 p 1 2 ]
+"939
+} 0
+"332 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
+[v _lowercaseString lowercaseString `(v  1 e 0 0 ]
+{
+[v lowercaseString@Input Input `*.39uc  1 p 2 25 ]
+"342
+} 0
+"946 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
+[v _WaitForIRsignal WaitForIRsignal `(uc  1 e 1 0 ]
+{
+"948
+[v WaitForIRsignal@timeout timeout `uc  1 a 1 34 ]
+"968
+} 0
+"262 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
+[v _UARTstringCRLN UARTstringCRLN `(v  1 e 0 0 ]
+{
+[v UARTstringCRLN@data data `*.34uc  1 p 2 28 ]
+"270
+} 0
+"277
+[v _UARTcommandMenu UARTcommandMenu `(v  1 e 0 0 ]
+{
+"279
+[v UARTcommandMenu@place place `uc  1 a 1 38 ]
+"280
+[v UARTcommandMenu@i i `uc  1 a 1 37 ]
+"277
+[v UARTcommandMenu@Command Command `*.34uc  1 p 2 28 ]
+[v UARTcommandMenu@Desc Desc `*.32uc  1 p 2 30 ]
+"300
+} 0
+"217 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
+[v _StringMatchCaseInsensitive StringMatchCaseInsensitive `(uc  1 e 1 0 ]
+{
+"220
+[v StringMatchCaseInsensitive@tempThat tempThat `uc  1 a 1 33 ]
+"219
+[v StringMatchCaseInsensitive@tempThis tempThis `uc  1 a 1 32 ]
+"217
+[v StringMatchCaseInsensitive@This This `*.39uc  1 p 2 28 ]
+[v StringMatchCaseInsensitive@That That `*.32Cuc  1 p 2 30 ]
+"244
+} 0
+"190
+[v _StringMatch StringMatch `(uc  1 e 1 0 ]
+{
+[v StringMatch@This This `*.39uc  1 p 2 25 ]
+[v StringMatch@That That `*.32Cuc  1 p 2 27 ]
+"209
+} 0
+"289
+[v _StringContainsCaseInsensitive StringContainsCaseInsensitive `(uc  1 e 1 0 ]
+{
+"292
+[v StringContainsCaseInsensitive@tempThat tempThat `uc  1 a 1 34 ]
+"291
+[v StringContainsCaseInsensitive@tempThis tempThis `uc  1 a 1 33 ]
+"293
+[v StringContainsCaseInsensitive@begin begin `uc  1 a 1 32 ]
+"289
+[v StringContainsCaseInsensitive@This This `*.34uc  1 p 2 28 ]
+[v StringContainsCaseInsensitive@That That `*.34Cuc  1 p 2 30 ]
+"325
+} 0
+"591
+[v _StringAddEqual StringAddEqual `(uc  1 e 1 0 ]
+{
+"596
+[v StringAddEqual@temp temp `[255]uc  1 a 255 0 ]
+"594
+[v StringAddEqual@j j `uc  1 a 1 47 ]
+"593
+[v StringAddEqual@i i `uc  1 a 1 46 ]
+"595
+[v StringAddEqual@firstnumber firstnumber `uc  1 a 1 45 ]
+"597
+[v StringAddEqual@NullPosition NullPosition `uc  1 a 1 44 ]
+"591
+[v StringAddEqual@Input Input `*.39uc  1 p 2 40 ]
+"639
+} 0
+"167
+[v _BufferCopy BufferCopy `(v  1 e 0 0 ]
+{
+"169
+[v BufferCopy@i i `uc  1 a 1 39 ]
+"167
+[v BufferCopy@from from `*.39uc  1 p 2 33 ]
+[v BufferCopy@to to `*.39uc  1 p 2 35 ]
+[v BufferCopy@count count `uc  1 p 1 37 ]
+[v BufferCopy@shift shift `uc  1 p 1 38 ]
+"183
+} 0
+"145 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\RF.c
+[v _SendRF_wait SendRF_wait `(v  1 e 0 0 ]
+{
+[v SendRF_wait@Code Code `*.32Cuc  1 p 2 33 ]
+[v SendRF_wait@Config Config `uc  1 p 1 35 ]
+[v SendRF_wait@size size `uc  1 p 1 36 ]
+[v SendRF_wait@amount amount `uc  1 p 1 37 ]
+"159
+} 0
+"68
+[v _SendRF SendRF `(uc  1 e 1 0 ]
+{
+"70
+[v SendRF@i i `uc  1 a 1 32 ]
+"68
+[v SendRF@Code Code `*.32Cuc  1 p 2 25 ]
+[v SendRF@Config Config `uc  1 p 1 27 ]
+[v SendRF@size size `uc  1 p 1 28 ]
+[v SendRF@RepeatAmount RepeatAmount `uc  1 p 1 29 ]
+"123
+} 0
+"149 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Timer.c
+[v _LEDTimerON LEDTimerON `(v  1 e 0 0 ]
+{
+"156
+} 0
+"123
+[v _ResetTimer1 ResetTimer1 `(v  1 e 0 0 ]
+{
+"131
+} 0
+"427 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\IR.c
+[v _SendNEC_wait SendNEC_wait `(v  1 e 0 0 ]
+{
+"429
+[v SendNEC_wait@toggle toggle `uc  1 a 1 51 ]
+"427
+[v SendNEC_wait@code code `ul  1 p 4 46 ]
+[v SendNEC_wait@RepeatAmount RepeatAmount `uc  1 p 1 50 ]
+"475
+} 0
+"364
+[v _SendNEC_bytes SendNEC_bytes `(uc  1 e 1 0 ]
+{
+[v SendNEC_bytes@code code `ul  1 p 4 41 ]
+[v SendNEC_bytes@RepeatAmount RepeatAmount `uc  1 p 1 45 ]
+"419
+} 0
+"412 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
+[v _Reverse_4Byte Reverse_4Byte `(ul  1 e 4 0 ]
+{
+"414
+[v Reverse_4Byte@temp temp `ul  1 a 4 37 ]
+"412
+[v Reverse_4Byte@This This `ul  1 p 4 25 ]
+"450
+} 0
+"516 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\IR.c
+[v _CheckReceivingIR CheckReceivingIR `(uc  1 e 1 0 ]
+{
+"523
+} 0
+"60 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\ADC.c
+[v _ReadVoltage ReadVoltage `(d  1 e 3 0 ]
+{
+"63
+[v ReadVoltage@voltage voltage `d  1 a 3 69 ]
+"62
+[v ReadVoltage@temp temp `ui  1 a 2 72 ]
+"77
+} 0
+"28 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\lwtoft.c
+[v ___lwtoft __lwtoft `(f  1 e 3 0 ]
+{
+[v ___lwtoft@c c `ui  1 p 2 33 ]
+"31
+} 0
+"54 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\ftdiv.c
+[v ___ftdiv __ftdiv `(f  1 e 3 0 ]
+{
+"60
+[v ___ftdiv@f3 f3 `f  1 a 3 46 ]
+"59
+[v ___ftdiv@sign sign `uc  1 a 1 50 ]
+[v ___ftdiv@exp exp `uc  1 a 1 49 ]
+[v ___ftdiv@cntr cntr `uc  1 a 1 45 ]
+"54
+[v ___ftdiv@f1 f1 `f  1 p 3 36 ]
+[v ___ftdiv@f2 f2 `f  1 p 3 39 ]
+"86
+} 0
+"148 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\ADC.c
+[v _VoltageDividerON VoltageDividerON `(v  1 e 0 0 ]
+{
+"152
+} 0
+"159
+[v _VoltageDividerOFF VoltageDividerOFF `(v  1 e 0 0 ]
+{
+"162
+} 0
+"84
+[v _InternalADC_Read InternalADC_Read `(uc  1 e 1 0 ]
+{
+[v InternalADC_Read@channel channel `uc  1 a 1 wreg ]
+"86
+[v InternalADC_Read@AnaChanSel AnaChanSel `uc  1 a 1 38 ]
+"84
+[v InternalADC_Read@channel channel `uc  1 a 1 wreg ]
+[v InternalADC_Read@ADCcounts ADCcounts `*.39ui  1 p 2 34 ]
+"86
+[v InternalADC_Read@channel channel `uc  1 a 1 39 ]
+"115
+} 0
+"646 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
+[v _GetStringAfterComma GetStringAfterComma `(uc  1 e 1 0 ]
+{
+"649
+[v GetStringAfterComma@count count `uc  1 a 1 32 ]
+"648
+[v GetStringAfterComma@tempCommaNumber tempCommaNumber `uc  1 a 1 31 ]
+"646
+[v GetStringAfterComma@This This `*.39uc  1 p 2 25 ]
+[v GetStringAfterComma@CommaNumber CommaNumber `uc  1 p 1 27 ]
+[v GetStringAfterComma@result result `*.39uc  1 p 2 28 ]
+"695
+} 0
+"457
+[v _GetNumber GetNumber `(uc  1 e 1 0 ]
+{
+"460
+[v GetNumber@temp temp `l  1 a 4 53 ]
+"465
+[v GetNumber@tempThis tempThis `uc  1 a 1 52 ]
+"459
+[v GetNumber@i i `uc  1 a 1 51 ]
+"464
+[v GetNumber@Hex Hex `uc  1 a 1 50 ]
+"463
+[v GetNumber@count count `uc  1 a 1 49 ]
+"461
+[v GetNumber@negative negative `uc  1 a 1 48 ]
+"462
+[v GetNumber@tempCommaNumber tempCommaNumber `uc  1 a 1 47 ]
+"457
+[v GetNumber@This This `*.39uc  1 p 2 37 ]
+[v GetNumber@CommaNumber CommaNumber `uc  1 p 1 39 ]
+[v GetNumber@result result `*.39ul  1 p 2 40 ]
+"584
+} 0
+"349
+[v _lowercaseChar lowercaseChar `(v  1 e 0 0 ]
+{
+[v lowercaseChar@Input Input `*.39uc  1 p 2 25 ]
+"355
+} 0
+"15 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+{
+"17
+[v ___lmul@product product `ul  1 a 4 33 ]
+"15
+[v ___lmul@multiplier multiplier `ul  1 p 4 25 ]
+[v ___lmul@multiplicand multiplicand `ul  1 p 4 29 ]
+"129
+} 0
+"99 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
+[v _IsLetter IsLetter `(uc  1 e 1 0 ]
+{
+[v IsLetter@data data `uc  1 a 1 wreg ]
+[v IsLetter@data data `uc  1 a 1 wreg ]
+"101
+[v IsLetter@data data `uc  1 a 1 25 ]
+"106
+} 0
+"530 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\IR.c
+[v _EncodeNEC EncodeNEC `(ul  1 e 4 0 ]
+{
+[v EncodeNEC@address address `uc  1 a 1 wreg ]
+"535
+[v EncodeNEC@temp4 temp4 `ul  1 a 4 65 ]
+"534
+[v EncodeNEC@temp3 temp3 `ul  1 a 4 61 ]
+"533
+[v EncodeNEC@temp2 temp2 `ul  1 a 4 57 ]
+"532
+[v EncodeNEC@temp1 temp1 `ul  1 a 4 53 ]
+"530
+[v EncodeNEC@address address `uc  1 a 1 wreg ]
+[v EncodeNEC@command command `uc  1 p 1 29 ]
+"543
+[v EncodeNEC@address address `uc  1 a 1 69 ]
+"549
+} 0
+"556
+[v _DecodeNEC DecodeNEC `(uc  1 e 1 0 ]
+{
+"558
+[v DecodeNEC@temp1 temp1 `uc  1 a 1 43 ]
+"560
+[v DecodeNEC@temp3 temp3 `uc  1 a 1 42 ]
+"559
+[v DecodeNEC@temp2 temp2 `uc  1 a 1 41 ]
+"556
+[v DecodeNEC@Nec Nec `ul  1 p 4 29 ]
+[v DecodeNEC@address address `*.39uc  1 p 2 33 ]
+[v DecodeNEC@command command `*.39uc  1 p 2 35 ]
+"579
+} 0
+"362 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
+[v _Reverse_Byte Reverse_Byte `(uc  1 e 1 0 ]
+{
+[v Reverse_Byte@This This `uc  1 a 1 wreg ]
+"364
+[v Reverse_Byte@temp temp `uc  1 a 1 27 ]
+"362
+[v Reverse_Byte@This This `uc  1 a 1 wreg ]
+"364
+[v Reverse_Byte@This This `uc  1 a 1 28 ]
+"376
+} 0
+"105 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\user.c
+[v _Init_System Init_System `(v  1 e 0 0 ]
+{
+"138
+} 0
+"302 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\EEPROM.c
+[v _SyncEEPROMToGlobal SyncEEPROMToGlobal `(v  1 e 0 0 ]
+{
+[s S336 EEdata 136 `uc 1 BlueToothFlag 1 0 `ul 1 SWNECcode 4 1 `[20][2]uc 1 RemoteButtonNEC 40 5 `uc 1 EEPROMinitFlag 1 45 `[15][3][2]uc 1 RemoteButtonRF 90 46 ]
+"305
+[v SyncEEPROMToGlobal@Temp Temp `S336  1 a 136 3 ]
+"304
+[v SyncEEPROMToGlobal@j j `uc  1 a 1 2 ]
+[v SyncEEPROMToGlobal@i i `uc  1 a 1 1 ]
+[v SyncEEPROMToGlobal@k k `uc  1 a 1 0 ]
+"330
+} 0
+"134
+[v _GetEEPROM GetEEPROM `(v  1 e 0 0 ]
+{
+"136
+[v GetEEPROM@j j `uc  1 a 1 69 ]
+[v GetEEPROM@i i `uc  1 a 1 68 ]
+[v GetEEPROM@k k `uc  1 a 1 67 ]
+"137
+[v GetEEPROM@Arrayspot Arrayspot `uc  1 a 1 66 ]
+[s S336 EEdata 136 `uc 1 BlueToothFlag 1 0 `ul 1 SWNECcode 4 1 `[20][2]uc 1 RemoteButtonNEC 40 5 `uc 1 EEPROMinitFlag 1 45 `[15][3][2]uc 1 RemoteButtonRF 90 46 ]
+"134
+[v GetEEPROM@Temp Temp `*.39S336  1 p 2 62 ]
+"160
+} 0
+"255
+[v _SetEEPROMdefault SetEEPROMdefault `(v  1 e 0 0 ]
+{
+"257
+[v SetEEPROMdefault@j j `uc  1 a 1 94 ]
+[v SetEEPROMdefault@i i `uc  1 a 1 93 ]
+[v SetEEPROMdefault@k k `uc  1 a 1 92 ]
+"280
+} 0
+"80 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
+[v _InitUART InitUART `(v  1 e 0 0 ]
+{
+"82
+[v InitUART@temp temp `ul  1 a 4 6 ]
+"84
+[v InitUART@spbrg spbrg `ui  1 a 2 3 ]
+"83
+[v InitUART@config config `uc  1 a 1 5 ]
+"80
+[v InitUART@Baud Baud `ul  1 p 4 110 ]
+"108
+} 0
+"155 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
+[v _Round Round `(d  1 e 3 0 ]
+{
+"157
+[v Round@temp temp `l  1 a 4 106 ]
+"155
+[v Round@input input `d  1 p 3 103 ]
+"160
+} 0
+"42 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\altoft.c
+[v ___altoft __altoft `(f  1 e 3 0 ]
+{
+"44
+[v ___altoft@sign sign `uc  1 a 1 42 ]
+[v ___altoft@exp exp `uc  1 a 1 41 ]
+"42
+[v ___altoft@c c `l  1 p 4 33 ]
+"57
+} 0
+"115 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
+[v _OpenUSART OpenUSART `(v  1 e 0 0 ]
+{
+[v OpenUSART@config config `uc  1 a 1 wreg ]
+[v OpenUSART@config config `uc  1 a 1 wreg ]
+[v OpenUSART@spbrg spbrg `ui  1 p 2 25 ]
+"117
+[v OpenUSART@config config `uc  1 a 1 27 ]
+"181
+} 0
+"64
+[v _Local_CloseUSART Local_CloseUSART `(v  1 e 0 0 ]
+{
+"72
+} 0
+"216
+[v _ClearUSART ClearUSART `(v  1 e 0 0 ]
+{
+"221
+} 0
+"227
+[v _ReadUSART ReadUSART `(uc  1 e 1 0 ]
+{
+"229
+[v ReadUSART@data data `uc  1 a 1 25 ]
+"241
+} 0
+"51 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Timer.c
+[v _InitTimers InitTimers `(v  1 e 0 0 ]
+{
+"59
+} 0
+"163
+[v _InitTimer3 InitTimer3 `(v  1 e 0 0 ]
+{
+"168
+} 0
+"138
+[v _InitTimer2 InitTimer2 `(v  1 e 0 0 ]
+{
+"142
+} 0
+"109
+[v _InitTimer1 InitTimer1 `(v  1 e 0 0 ]
+{
+"116
+} 0
+"80 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\IR.c
+[v _InitIR InitIR `(v  1 e 0 0 ]
+{
+"100
+} 0
+"141 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
+[v _cleanBuffer16bit cleanBuffer16bit `(v  1 e 0 0 ]
+{
+"143
+[v cleanBuffer16bit@i i `uc  1 a 1 32 ]
+"141
+[v cleanBuffer16bit@data data `*.39ui  1 p 2 25 ]
+[v cleanBuffer16bit@count count `i  1 p 2 27 ]
+"148
+} 0
+"79 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Timer.c
+[v _ResetTimer0 ResetTimer0 `(v  1 e 0 0 ]
+{
+"87
+} 0
+"107 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\IR.c
+[v _ReadIRpin ReadIRpin `(uc  1 e 1 0 ]
+{
+"118
+} 0
+"66 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Timer.c
+[v _InitTimer0 InitTimer0 `(v  1 e 0 0 ]
+{
+"72
+} 0
+"66 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
+[v _InitBluetooth InitBluetooth `(v  1 e 0 0 ]
+{
+"81
+} 0
+"149
+[v _BluetoothInitialSetup BluetoothInitialSetup `(uc  1 e 1 0 ]
+{
+"151
+[v BluetoothInitialSetup@buf buf `[50]uc  1 a 50 40 ]
+"153
+[v BluetoothInitialSetup@RFchannel RFchannel `[10]uc  1 a 10 30 ]
+"152
+[v BluetoothInitialSetup@ok ok `uc  1 a 1 90 ]
+"257
+} 0
+"492 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\doprnt.c
+[v _sprintf sprintf `(i  1 e 2 0 ]
+{
+"1500
+[v sprintf@idx idx `uc  1 a 1 3 ]
+"528
+[v sprintf@val val `ul  1 a 4 18 ]
+[u S3180 . 4 `ul 1 vd 4 0 `d 1 integ 3 0 ]
+"526
+[v sprintf@tmpval tmpval `S3180  1 a 4 12 ]
+"516
+[v sprintf@fval fval `d  1 a 3 22 ]
+"508
+[v sprintf@flag flag `us  1 a 2 27 ]
+"501
+[v sprintf@width width `i  1 a 2 25 ]
+"516
+[v sprintf@exp exp `i  1 a 2 16 ]
+"504
+[v sprintf@prec prec `i  1 a 2 10 ]
+"494
+[v sprintf@ap ap `[1]*.39v  1 a 2 8 ]
+"529
+[v sprintf@len len `ui  1 a 2 6 ]
+"530
+[v sprintf@cp cp `*.34Cuc  1 a 2 4 ]
+"499
+[v sprintf@c c `c  1 a 1 29 ]
+"492
+[v sprintf@sp sp `*.39uc  1 p 2 103 ]
+[v sprintf@f f `*.32Cuc  1 p 2 105 ]
+"1541
+} 0
+"425
+[v _scale scale `(d  1 s 3 scale ]
+{
+[v scale@scl scl `c  1 a 1 wreg ]
+[v scale@scl scl `c  1 a 1 wreg ]
+"428
+[v scale@scl scl `c  1 a 1 72 ]
+"441
+} 0
+"8 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\isdigit.c
+[v _isdigit isdigit `(b  1 e 0 0 ]
+{
+[v isdigit@c c `uc  1 a 1 wreg ]
+[v isdigit@c c `uc  1 a 1 wreg ]
+"14
+[v isdigit@c c `uc  1 a 1 27 ]
+"15
+} 0
+"409 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\doprnt.c
+[v _fround fround `(d  1 s 3 fround ]
+{
+[v fround@prec prec `uc  1 a 1 wreg ]
+[v fround@prec prec `uc  1 a 1 wreg ]
+"413
+[v fround@prec prec `uc  1 a 1 75 ]
+"418
+} 0
+"15 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\Umul16.c
+[v ___wmul __wmul `(ui  1 e 2 0 ]
+{
+"17
+[v ___wmul@product product `ui  1 a 2 43 ]
+"15
+[v ___wmul@multiplier multiplier `ui  1 p 2 39 ]
+[v ___wmul@multiplicand multiplicand `ui  1 p 2 41 ]
+"53
+} 0
+"62 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\ftmul.c
+[v ___ftmul __ftmul `(f  1 e 3 0 ]
+{
+"65
+[v ___ftmul@f3_as_product f3_as_product `um  1 a 3 61 ]
+"64
+[v ___ftmul@sign sign `uc  1 a 1 65 ]
+[v ___ftmul@cntr cntr `uc  1 a 1 64 ]
+[v ___ftmul@exp exp `uc  1 a 1 60 ]
+"62
+[v ___ftmul@f1 f1 `f  1 p 3 51 ]
+[v ___ftmul@f2 f2 `f  1 p 3 54 ]
+"157
+} 0
+"8 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\awmod.c
+[v ___awmod __awmod `(i  1 e 2 0 ]
+{
+"11
+[v ___awmod@sign sign `uc  1 a 1 30 ]
+[v ___awmod@counter counter `uc  1 a 1 29 ]
+"8
+[v ___awmod@dividend dividend `i  1 p 2 25 ]
+[v ___awmod@divisor divisor `i  1 p 2 27 ]
+"35
+} 0
+"8 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\awdiv.c
+[v ___awdiv __awdiv `(i  1 e 2 0 ]
+{
+"11
+[v ___awdiv@quotient quotient `i  1 a 2 37 ]
+"12
+[v ___awdiv@sign sign `uc  1 a 1 36 ]
+[v ___awdiv@counter counter `uc  1 a 1 35 ]
+"8
+[v ___awdiv@dividend dividend `i  1 p 2 31 ]
+[v ___awdiv@divisor divisor `i  1 p 2 33 ]
+"42
+} 0
+"60 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\ftdivl.c
+[v __tdiv_to_l_ _tdiv_to_l_ `(ul  1 e 4 0 ]
+{
+"63
+[v __tdiv_to_l_@quot quot `ul  1 a 4 34 ]
+"62
+[v __tdiv_to_l_@exp1 exp1 `uc  1 a 1 39 ]
+[v __tdiv_to_l_@cntr cntr `uc  1 a 1 38 ]
+"60
+[v __tdiv_to_l_@f1 f1 `f  1 p 3 25 ]
+[v __tdiv_to_l_@f2 f2 `f  1 p 3 28 ]
+"101
+} 0
+"60 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\fldivl.c
+[v __div_to_l_ _div_to_l_ `(ul  1 e 4 0 ]
+{
+"63
+[v __div_to_l_@quot quot `ul  1 a 4 31 ]
+"62
+[v __div_to_l_@exp1 exp1 `uc  1 a 1 36 ]
+[v __div_to_l_@cntr cntr `uc  1 a 1 35 ]
+"60
+[v __div_to_l_@f1 f1 `d  1 p 3 25 ]
+[v __div_to_l_@f2 f2 `d  1 p 3 28 ]
+"101
+} 0
+"35 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\lltoft.c
+[v ___lltoft __lltoft `(f  1 e 3 0 ]
+{
+"37
+[v ___lltoft@exp exp `uc  1 a 1 41 ]
+"35
+[v ___lltoft@c c `ul  1 p 4 33 ]
+"46
+} 0
+"8 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\llmod.c
+[v ___llmod __llmod `(ul  1 e 4 0 ]
+{
+"11
+[v ___llmod@counter counter `uc  1 a 1 46 ]
+"8
+[v ___llmod@dividend dividend `ul  1 p 4 38 ]
+[v ___llmod@divisor divisor `ul  1 p 4 42 ]
+"26
+} 0
+"8 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\lldiv.c
+[v ___lldiv __lldiv `(ul  1 e 4 0 ]
+{
+"11
+[v ___lldiv@quotient quotient `ul  1 a 4 33 ]
+"12
+[v ___lldiv@counter counter `uc  1 a 1 37 ]
+"8
+[v ___lldiv@dividend dividend `ul  1 p 4 25 ]
+[v ___lldiv@divisor divisor `ul  1 p 4 29 ]
+"31
+} 0
+"44 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\fttol.c
+[v ___fttol __fttol `(l  1 e 4 0 ]
+{
+"47
+[v ___fttol@lval lval `ul  1 a 4 98 ]
+"46
+[v ___fttol@exp1 exp1 `uc  1 a 1 102 ]
+[v ___fttol@sign1 sign1 `uc  1 a 1 97 ]
+"44
+[v ___fttol@f1 f1 `f  1 p 3 88 ]
+"73
+} 0
+"20 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\ftsub.c
+[v ___ftsub __ftsub `(f  1 e 3 0 ]
+{
+[v ___ftsub@f1 f1 `f  1 p 3 88 ]
+[v ___ftsub@f2 f2 `f  1 p 3 91 ]
+"27
+} 0
+"86 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\ftadd.c
+[v ___ftadd __ftadd `(f  1 e 3 0 ]
+{
+"88
+[v ___ftadd@exp1 exp1 `uc  1 a 1 87 ]
+[v ___ftadd@exp2 exp2 `uc  1 a 1 86 ]
+[v ___ftadd@sign sign `uc  1 a 1 85 ]
+"86
+[v ___ftadd@f1 f1 `f  1 p 3 76 ]
+[v ___ftadd@f2 f2 `f  1 p 3 79 ]
+"148
+} 0
+"62 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\float.c
+[v ___ftpack __ftpack `(f  1 e 3 0 ]
+{
+[v ___ftpack@arg arg `um  1 p 3 25 ]
+[v ___ftpack@exp exp `uc  1 p 1 28 ]
+[v ___ftpack@sign sign `uc  1 p 1 29 ]
+"86
+} 0
+"15 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\ftneg.c
+[v ___ftneg __ftneg `(f  1 e 3 0 ]
+{
+[v ___ftneg@f1 f1 `f  1 p 3 25 ]
+"20
+} 0
+"4 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\ftge.c
+[v ___ftge __ftge `(b  1 e 0 0 ]
+{
+[v ___ftge@ff1 ff1 `f  1 p 3 25 ]
+[v ___ftge@ff2 ff2 `f  1 p 3 28 ]
+"13
+} 0
+"116 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
+[v _EnterCommandMode EnterCommandMode `(uc  1 e 1 0 ]
+{
+"118
+[v EnterCommandMode@count count `uc  1 a 1 34 ]
+"142
+} 0
+"127 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
+[v _cleanBuffer cleanBuffer `(v  1 e 0 0 ]
+{
+"129
+[v cleanBuffer@i i `uc  1 a 1 32 ]
+"127
+[v cleanBuffer@data data `*.39uc  1 p 2 25 ]
+[v cleanBuffer@count count `i  1 p 2 27 ]
+"134
+} 0
+"202 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
+[v _UARTstring UARTstring `(v  1 e 0 0 ]
+{
+[v UARTstring@data data `*.34uc  1 p 2 26 ]
+"209
+} 0
+"188
+[v _UARTchar UARTchar `(v  1 e 0 0 ]
+{
+[v UARTchar@data data `uc  1 a 1 wreg ]
+[v UARTchar@data data `uc  1 a 1 wreg ]
+"190
+[v UARTchar@data data `uc  1 a 1 25 ]
+"195
+} 0
+"252 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
+[v _StringContains StringContains `(uc  1 e 1 0 ]
+{
+"254
+[v StringContains@begin begin `uc  1 a 1 30 ]
+"252
+[v StringContains@This This `*.39uc  1 p 2 25 ]
+[v StringContains@That That `*.34Cuc  1 p 2 27 ]
+"281
+} 0
+"103 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
+[v _ResetBlue ResetBlue `(v  1 e 0 0 ]
+{
+"109
+} 0
+"51 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
+[v _delayUS delayUS `(v  1 e 0 0 ]
+{
+"53
+[v delayUS@i i `l  1 a 4 30 ]
+"51
+[v delayUS@US US `l  1 p 4 25 ]
+"58
+} 0
+"88 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
+[v _BlueConnected BlueConnected `(uc  1 e 1 0 ]
+{
+"96
+} 0
+"264
+[v _BluetoothConfigured BluetoothConfigured `(uc  1 e 1 0 ]
+{
+"273
+} 0
+"239 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\EEPROM.c
+[v _SyncGlobalToEEPROM SyncGlobalToEEPROM `(uc  1 e 1 0 ]
+{
+"247
+} 0
+"167
+[v _SetEEPROM SetEEPROM `(ul  1 e 4 0 ]
+{
+"169
+[v SetEEPROM@fail fail `ul  1 a 4 81 ]
+"170
+[v SetEEPROM@j j `uc  1 a 1 89 ]
+[v SetEEPROM@i i `uc  1 a 1 88 ]
+[v SetEEPROM@k k `uc  1 a 1 87 ]
+"171
+[v SetEEPROM@Arrayspot Arrayspot `uc  1 a 1 86 ]
+"170
+[v SetEEPROM@temp temp `uc  1 a 1 85 ]
+[s S336 EEdata 136 `uc 1 BlueToothFlag 1 0 `ul 1 SWNECcode 4 1 `[20][2]uc 1 RemoteButtonNEC 40 5 `uc 1 EEPROMinitFlag 1 45 `[15][3][2]uc 1 RemoteButtonRF 90 46 ]
+"167
+[v SetEEPROM@Temp Temp `S336  1 p 136 0 ]
+[v SetEEPROM@burn burn `ul  1 p 4 136 ]
+"232
+} 0
+"360
+[v _SetMemoryLong SetMemoryLong `(uc  1 e 1 0 ]
+{
+"366
+[v SetMemoryLong@Test Test `ul  1 a 4 71 ]
+"365
+[v SetMemoryLong@L L `uc  1 a 1 78 ]
+"364
+[v SetMemoryLong@ML ML `uc  1 a 1 77 ]
+"363
+[v SetMemoryLong@MH MH `uc  1 a 1 76 ]
+"362
+[v SetMemoryLong@H H `uc  1 a 1 75 ]
+"360
+[v SetMemoryLong@Data Data `ul  1 p 4 62 ]
+[v SetMemoryLong@AddressFirst AddressFirst `uc  1 p 1 66 ]
+"387
+} 0
+"337
+[v _GetMemoryLong GetMemoryLong `(ul  1 e 4 0 ]
+{
+[v GetMemoryLong@AddressFirst AddressFirst `uc  1 a 1 wreg ]
+"343
+[v GetMemoryLong@temp temp `ul  1 a 4 53 ]
+"342
+[v GetMemoryLong@L L `uc  1 a 1 60 ]
+"341
+[v GetMemoryLong@ML ML `uc  1 a 1 59 ]
+"340
+[v GetMemoryLong@MH MH `uc  1 a 1 58 ]
+"339
+[v GetMemoryLong@H H `uc  1 a 1 57 ]
+"337
+[v GetMemoryLong@AddressFirst AddressFirst `uc  1 a 1 wreg ]
+"343
+[v GetMemoryLong@AddressFirst AddressFirst `uc  1 a 1 61 ]
+"353
+} 0
+"454
+[v _SetMemoryChar SetMemoryChar `(uc  1 e 1 0 ]
+{
+[v SetMemoryChar@Data Data `uc  1 a 1 wreg ]
+"456
+[v SetMemoryChar@Test Test `uc  1 a 1 36 ]
+"454
+[v SetMemoryChar@Data Data `uc  1 a 1 wreg ]
+[v SetMemoryChar@AddressFirst AddressFirst `uc  1 p 1 35 ]
+"458
+[v SetMemoryChar@Data Data `uc  1 a 1 37 ]
+"468
+} 0
+"102
+[v _WriteEEPROM_1Byte WriteEEPROM_1Byte `(v  1 e 0 0 ]
+{
+"105
+[v WriteEEPROM_1Byte@PEIEstatus PEIEstatus `uc  1 a 1 29 ]
+"104
+[v WriteEEPROM_1Byte@GIEstatus GIEstatus `uc  1 a 1 28 ]
+"102
+[v WriteEEPROM_1Byte@address address `ui  1 p 2 25 ]
+[v WriteEEPROM_1Byte@data data `uc  1 p 1 27 ]
+"127
+} 0
+"87
+[v _EEPROM_UNLOCK EEPROM_UNLOCK `(v  1 e 0 0 ]
+{
+"95
+} 0
+"440
+[v _GetMemoryChar GetMemoryChar `(ul  1 e 4 0 ]
+{
+[v GetMemoryChar@AddressFirst AddressFirst `uc  1 a 1 wreg ]
+"442
+[v GetMemoryChar@H H `uc  1 a 1 34 ]
+"440
+[v GetMemoryChar@AddressFirst AddressFirst `uc  1 a 1 wreg ]
+"444
+[v GetMemoryChar@AddressFirst AddressFirst `uc  1 a 1 33 ]
+"447
+} 0
+"55
+[v _ReadEEPROM_1Byte ReadEEPROM_1Byte `(ui  1 e 2 0 ]
+{
+"58
+[v ReadEEPROM_1Byte@PEIEstatus PEIEstatus `uc  1 a 1 28 ]
+"57
+[v ReadEEPROM_1Byte@GIEstatus GIEstatus `uc  1 a 1 27 ]
+"55
+[v ReadEEPROM_1Byte@address address `ui  1 p 2 25 ]
+"79
+} 0
+"135 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\ADC.c
+[v _InitADC InitADC `(v  1 e 0 0 ]
+{
+"141
+} 0
+"123
+[v _ResetADC ResetADC `(v  1 e 0 0 ]
+{
+"128
+} 0
+"288 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\EEPROM.c
+[v _EEPROMinitialized EEPROMinitialized `(uc  1 e 1 0 ]
+{
+"295
+} 0
+"62 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\user.c
+[v _InitApp InitApp `(v  1 e 0 0 ]
+{
+"98
+} 0
+"43 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\system.c
+[v _ConfigureOscillator ConfigureOscillator `(v  1 e 0 0 ]
+{
+"46
+} 0
+"608 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\interrupts.c
+[v _low_isr low_isr `IIL(v  1 e 0 0 ]
+{
+"617
+[v low_isr@data data `uc  1 a 1 25 ]
+"694
+} 0
+"127 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
+[v i1_cleanBuffer cleanBuffer `(v  1 e 0 0 ]
+{
+[v i1cleanBuffer@i cleanBuffer `uc  1 a 1 7 ]
+[v i1cleanBuffer@data data `*.39uc  1 p 2 0 ]
+[v i1cleanBuffer@count count `i  1 p 2 2 ]
+"134
+} 0
+"262 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
+[v i1_UARTstringCRLN UARTstringCRLN `(v  1 e 0 0 ]
+{
+[v i1UARTstringCRLN@data data `*.34uc  1 p 2 3 ]
+"270
+} 0
+"202
+[v i1_UARTstring UARTstring `(v  1 e 0 0 ]
+{
+[v i1UARTstring@data data `*.34uc  1 p 2 1 ]
+"209
+} 0
+"227
+[v i1_ReadUSART ReadUSART `(uc  1 e 1 0 ]
+{
+[v i1ReadUSART@data ReadUSART `uc  1 a 1 0 ]
+"241
+} 0
+"88 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
+[v i1_BlueConnected BlueConnected `(uc  1 e 1 0 ]
+{
+"96
+} 0
+"113 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
+[v _IsCharacter IsCharacter `(uc  1 e 1 0 ]
+{
+[v IsCharacter@data data `uc  1 a 1 wreg ]
+[v IsCharacter@data data `uc  1 a 1 wreg ]
+"115
+[v IsCharacter@data data `uc  1 a 1 0 ]
+"120
+} 0
+"308 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
+[v _EraseScreen EraseScreen `(v  1 e 0 0 ]
+{
+[v EraseScreen@characters characters `uc  1 a 1 wreg ]
+"310
+[v EraseScreen@i i `uc  1 a 1 2 ]
+"308
+[v EraseScreen@characters characters `uc  1 a 1 wreg ]
+"312
+[v EraseScreen@characters characters `uc  1 a 1 1 ]
+"318
+} 0
+"188
+[v i1_UARTchar UARTchar `(v  1 e 0 0 ]
+{
+[v i1UARTchar@data data `uc  1 a 1 wreg ]
+[v i1UARTchar@data data `uc  1 a 1 wreg ]
+"190
+[v i1UARTchar@data data `uc  1 a 1 0 ]
+"195
+} 0
+"59 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\interrupts.c
+[v _high_isr high_isr `II(v  1 e 0 0 ]
+{
+"69
+[v high_isr@Time0 Time0 `ui  1 a 2 35 ]
+"68
+[v high_isr@IRpin IRpin `uc  1 a 1 34 ]
+"602
+} 0
+"141 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
+[v i2_cleanBuffer16bit cleanBuffer16bit `(v  1 e 0 0 ]
+{
+[v i2cleanBuffer16bit@i cleanBuffer16bit `uc  1 a 1 33 ]
+[v i2cleanBuffer16bit@data data `*.39ui  1 p 2 26 ]
+[v i2cleanBuffer16bit@count count `i  1 p 2 28 ]
+"148
+} 0
+"79 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Timer.c
+[v i2_ResetTimer0 ResetTimer0 `(v  1 e 0 0 ]
+{
+"87
+} 0
+"107 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\IR.c
+[v i2_ReadIRpin ReadIRpin `(uc  1 e 1 0 ]
+{
+"118
+} 0
+"94 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Timer.c
+[v _SetTimer0 SetTimer0 `(v  1 e 0 0 ]
+{
+[v SetTimer0@temp temp `ui  1 p 2 26 ]
+"102
+} 0
+"175
+[v _ResetTimer3 ResetTimer3 `(v  1 e 0 0 ]
+{
+"183
+} 0
+"125 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\IR.c
+[v _IRrawToNEC IRrawToNEC `(uc  1 e 1 0 ]
+{
+"156
+[v IRrawToNEC@NECtemp NECtemp `ul  1 a 4 0 ]
+"155
+[v IRrawToNEC@StartBit StartBit `uc  1 a 1 6 ]
+"153
+[v IRrawToNEC@i i `uc  1 a 1 5 ]
+"154
+[v IRrawToNEC@first first `uc  1 a 1 4 ]
+"125
+[v IRrawToNEC@Raw Raw `*.39ui  1 p 2 26 ]
+[v IRrawToNEC@NEC NEC `*.39ul  1 p 2 28 ]
+[v IRrawToNEC@Invert Invert `uc  1 p 1 30 ]
+"271
+} 0

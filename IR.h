@@ -36,7 +36,7 @@
 /******************************************************************************/
 
 #define IR_LED_TIMEOUT 2500
-#define IR_SIZE MaxScanEdgeChange
+#define IR_SIZE 100
 
 #define Old   0
 #define Error   0
@@ -68,12 +68,20 @@
 #define IRtimeoutLoops 5000
 
 /******************************************************************************/
-/* MaxScanEdgeChange
+/* MinNECFlipsRepeat
  *
- * Max number to bit flip flops.
+ * Min number of bit flip flops for NEC Repeat code.
 /******************************************************************************/
 /* this is equal to (number of bits + header) *2*/
-#define MaxScanEdgeChange 72
+#define MinNECFlipsRepeat 4
+
+/******************************************************************************/
+/* MinNECFlipsNew
+ *
+ * Min number of bit flip flops for a NEC non-Repeat code.
+/******************************************************************************/
+/* this is equal to (number of bits + header) *2*/
+#define MinNECFlipsNew 50
 
 /******************************************************************************/
 /* IRmodCalOn and IRmodCalOff

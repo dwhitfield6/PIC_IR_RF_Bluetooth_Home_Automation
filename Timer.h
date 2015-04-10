@@ -175,6 +175,7 @@ extern unsigned char Timer3_Postscaler;
 /******************************************************************************/
 void InitTimer0(void);
 void ResetTimer0(void);
+void SetTimer0(unsigned int temp);
 void InitTimer1(void);
 void ResetTimer1(void);
 void InitTimer2(void);

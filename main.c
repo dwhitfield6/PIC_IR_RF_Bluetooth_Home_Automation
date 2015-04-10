@@ -51,7 +51,8 @@
 /* Version number                                                             */
 /******************************************************************************/
 
-const unsigned char Version[] = {"1.0_DW0b"};
+const unsigned char FirmVersion[] = {"1.0_DW0b"};
+const unsigned char PCBVersion[] = {"RevA"};
 
 /******************************************************************************/
 /* Defines                                                                    */
@@ -156,7 +157,10 @@ void main(void)
             cleanBuffer(ReceivedString, ReceivedStringPos);
             ReceivedStringPos = 0;
             NewReceivedString = FALSE;
-            UseBluetooth(&BluetoothString, BluetoothStringPos);
+            if(BluetoothString[0] != 0)
+            {
+                UseBluetooth(&BluetoothString, BluetoothStringPos);
+            }
             UARTstring(CRLN);
             UARTchar('>');
             if(IR_New_Code)

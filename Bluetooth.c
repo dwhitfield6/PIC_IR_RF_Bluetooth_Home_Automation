@@ -52,7 +52,8 @@
 /******************************************************************************/
 /* User Global Variable Declaration                                           */
 /******************************************************************************/
-extern const unsigned char Version[];
+extern const unsigned char FirmVersion[];
+extern const unsigned char PCBVersion[];
 /******************************************************************************/
 /* Functions                                                                  */
 /******************************************************************************/
@@ -447,8 +448,11 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
         }
         else
         {
+            if(!StringContains(String,(unsigned char *)"?"))
+            {
             UARTstring(CRLN);
             UARTstringCRLN((unsigned char *)"NEC code not entered correctly");
+            }
             UARTstring(CRLN);
             UARTstringCRLN((unsigned char *)"Usage:");
             UARTstringCRLN((unsigned char *)"NEC = (32 bit code)");
@@ -456,7 +460,7 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
             UARTstringCRLN((unsigned char *)"NEC = address,command");
             UARTstring(CRLN);
             UARTstringCRLN((unsigned char *)"Example:");
-            UARTstringCRLN((unsigned char *)"NEC = 0x1CE350af ");
+            UARTstringCRLN((unsigned char *)"NEC = 0x1CE350AF ");
             UARTstringCRLN((unsigned char *)"      or");
             UARTstringCRLN((unsigned char *)"NEC = 0x38, 0x0A");
             UARTstring(CRLN);
@@ -845,7 +849,16 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
     else if(StringMatchCaseInsensitive(String,(unsigned char *)"Version"))
     {
         UARTstring(CRLN);
-        sprintf(buf,"Firmware Version: %s", Version);
+        sprintf(buf,"Firmware Version: %s", FirmVersion);
+        UARTstringCRLN(buf);
+        UARTstring(CRLN);
+        sprintf(buf,"PCB Version: %s", PCBVersion);
+        UARTstringCRLN(buf);
+#ifdef BLUETOOTH
+        sprintf(buf,"PCB has Bluetooth capability");
+#else
+        sprintf(buf,"PCB does not have Bluetooth capability");
+#endif
         UARTstringCRLN(buf);
         UARTstring(CRLN);
     }

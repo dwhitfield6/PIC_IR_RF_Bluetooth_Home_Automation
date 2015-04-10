@@ -86,17 +86,24 @@ void high_isr(void)
             Time0 += (TMR0H << 8);
             if(IRrawCodeNum < IR_SIZE)
             {
-                if(IRrawCodeNum > 0)
+                if((IRrawCodeNum > 0) && (IRrawCodeNum <= IR_SIZE))
                 {
                     IRRawCode[IRrawCodeNum - 1] = Time0;
-                    if((Time0 <= PauseBurstupper && Time0 >= PauseBurstlower) ||
-                            (Time0 <= Repeatupper && Time0 >= Repeatlower))
+                    if((Time0 <= PauseBurstupper && Time0 >= PauseBurstlower))
                     {
                         /* wait for the timer to timeout and then process the raw code */
                         IRreceiverIntOff();
                         INTCONbits.RBIE = FALSE;
                         /* force timeout */
                         INTCONbits.TMR0IF = ON;
+                    }
+                    else if(Time0 <= Repeatupper && Time0 >= Repeatlower)
+                    {
+                        /* wait for the timer to timeout and then process the raw code */
+                        IRreceiverIntOff();
+                        INTCONbits.RBIE = FALSE;
+                        /* Create a pause for the timeout */
+                        SetTimer0(0x8FFF);
                     }
                     else
                     {
@@ -107,7 +114,10 @@ void high_isr(void)
                 {
                     ResetTimer0();
                 }
-                IRrawCodeNum++;
+                if(IRrawCodeNum <= IR_SIZE)
+                {
+                    IRrawCodeNum++;
+                }
             }
             else
             {
@@ -122,6 +132,7 @@ void high_isr(void)
             NOP();
         }
         /* We had a change on the RB pin */
+        ReadIRpin();
         INTCONbits.RBIF = FALSE;
     }
     else if(INTCONbits.TMR0IF)
@@ -129,15 +140,20 @@ void high_isr(void)
         /* We had a timeout on the IR receiver */
         DisableTimer0Int();
         Timer0OFF();
-        IR_New_Code = IRrawToNEC(IRRawCode, &IR_NEC, TRUE);
+        if(IRrawCodeNum >=  (MinNECFlipsRepeat))
+        {
+            IR_New_Code = IRrawToNEC(IRRawCode, &IR_NEC, TRUE);
+        }
+        cleanBuffer16bit(IRRawCode,IR_SIZE);
+        IRrawCodeNum = 0;
         if(!IR_New_Code)
         {
+            ReadIRpin();
             IRpinOLD = ReadIRpin();
             INTCONbits.RBIF = FALSE;
             IRreceiverIntOn();
             INTCONbits.RBIE = TRUE;
         }
-        IRrawCodeNum = 0;
         ReceivingIR = Finished;
         INTCONbits.TMR0IF = FALSE;
     }

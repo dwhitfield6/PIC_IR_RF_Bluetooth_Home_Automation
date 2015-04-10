@@ -42,7 +42,7 @@
  *
  * This contains the number times to repeat an RF code.
 /******************************************************************************/
-#define RFrepeatAmount 3
+#define RFrepeatAmount 4
 
 /******************************************************************************/
 /* NumRfConfigs
@@ -91,7 +91,7 @@
 
 /* Sync bit/pause */
 /* 11.89mS*/
-#define Conf2_Sync 187 //11220 + 660 = 11880uS
+#define Conf2_Sync 149 //11220 + 660 = 11880uS
 
 /******************************************************************************/
 /* RFmaxSize
