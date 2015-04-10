@@ -4995,27 +4995,89 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 
-# 55 "system.h"
+# 57 "system.h"
 void ConfigureOscillator(void);
 
-# 50 "user.h"
+# 52 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
 
-# 58
+# 60
 unsigned long SN = 1;
 
-# 286
+# 288
 void InitApp(void);
 void Init_System (void);
 
-# 113 "UART.h"
+# 128 "RF.h"
+const unsigned char Conf1_Channels[] = "DEF";
+
+
+const unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
+const unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
+
+
+const unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
+const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
+
+
+const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
+const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
+
+# 154
+const unsigned char Conf2_Channels[] = "BDH";
+
+const unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
+const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
+const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
+const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
+
+
+const unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
+const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
+const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
+const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
+
+
+const unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
+const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
+const unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
+const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
+const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
+const unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
+const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
+
+
+
+
+extern unsigned char RFsendCode[20];
+extern volatile unsigned char RFsendFlag;
+extern unsigned char RFcodePlace;
+extern unsigned char RFcodeBit;
+extern volatile unsigned char Sendcount;
+extern unsigned char RFConfig;
+volatile unsigned char Sent;
+extern volatile unsigned char RF_IR_Postscaler;
+extern unsigned char RF_IR;
+
+# 198
+unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
+void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
+void SendRF_Channel(unsigned char channel);
+unsigned char GetRFstatus(void);
+
+# 116 "UART.h"
 extern unsigned char ReceivedString[255];
 extern unsigned char ReceivedStringPos;
 extern unsigned char CommandString[255];
 extern unsigned char CommandStringPos;
 extern volatile unsigned char NewReceivedString;
-unsigned char SYNTAX_ERR[] = "Error: Syntax not understood";
-unsigned char CRLN[] = "\r\n";
+const unsigned char SYNTAX_ERR[] = "Error: Syntax";
+const unsigned char CRLN[] = "\r\n";
 
 
 
@@ -5030,8 +5092,9 @@ void UART_send_break(void);
 void UARTstringCRLN(unsigned char *data);
 void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
 void EraseScreen(unsigned char characters);
+void ClearUSART(void);
 
-# 62 "MISC.h"
+# 64 "MISC.h"
 void delayUS(long US);
 unsigned char IsCharacter(unsigned char data);
 void cleanBuffer(unsigned char* data, int count);
@@ -5053,14 +5116,14 @@ unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned
 unsigned char StringAddEqual(unsigned char* Input);
 unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
 
-# 47 "UART.c"
+# 49 "UART.c"
 unsigned char ReceivedString[255];
 unsigned char ReceivedStringPos = 0;
 unsigned char CommandString[255];
 unsigned char CommandStringPos = 0;
 volatile unsigned char NewReceivedString = 0;
 
-# 62
+# 64
 void Local_CloseUSART(void )
 {
 PIE1bits.RCIE = 0;
@@ -5071,7 +5134,7 @@ RCSTAbits.FERR = 0;
 TXSTAbits.TXEN = 0;
 }
 
-# 78
+# 80
 void InitUART(unsigned long Baud)
 {
 unsigned long temp;
@@ -5094,6 +5157,7 @@ spbrg = (unsigned int) Round(temp);
 
 BAUDCONbits.BRG16 = 1;
 
+ClearUSART();
 OpenUSART(config, spbrg);
 
 PIR1bits.RCIF = 0;
@@ -5101,7 +5165,7 @@ PIE1bits.RCIE = 1;
 INTCONbits.PEIE = 1;
 }
 
-# 112
+# 115
 void OpenUSART( unsigned char config, unsigned int spbrg)
 {
 TXSTA = 0;
@@ -5170,7 +5234,7 @@ TXSTAbits.TXEN = 1;
 RCSTAbits.SPEN = 1;
 }
 
-# 185
+# 188
 void UARTchar(unsigned char data)
 {
 if(data != 0)
@@ -5180,7 +5244,7 @@ while(!TXSTAbits.TRMT);
 }
 }
 
-# 199
+# 202
 void UARTstring(unsigned char *data)
 {
 while(*data != 0)
@@ -5190,7 +5254,15 @@ UARTchar(*data);
 }
 }
 
-# 213
+# 216
+void ClearUSART(void)
+{
+ReadUSART();
+ReadUSART();
+ReadUSART();
+}
+
+# 227
 unsigned char ReadUSART(void)
 {
 unsigned char data;
@@ -5207,7 +5279,7 @@ data = RCREG;
 return (data);
 }
 
-# 235
+# 249
 void UART_send_break(void)
 {
 TXSTAbits.SENDB = 1;
@@ -5215,7 +5287,7 @@ TXREG = 'd';
 while(TXSTAbits.SENDB);
 }
 
-# 248
+# 262
 void UARTstringCRLN(unsigned char *data)
 {
 while(*data != 0)
@@ -5223,10 +5295,10 @@ while(*data != 0)
 UARTchar(*data);
 *data++;
 }
-UARTstring((unsigned char*)"\r\n");
+UARTstring(CRLN);
 }
 
-# 263
+# 277
 void UARTcommandMenu(unsigned char *Command, unsigned char *Desc)
 {
 unsigned char place = 0;
@@ -5243,16 +5315,16 @@ for(i =0; i < ((30 - place) + 1); i++)
 UARTchar('-');
 }
 place = 0;
-while((*Desc != 0) && (place < 50))
+while((*Desc != 0) && (place < (50 - 1)))
 {
 UARTchar(*Desc);
 *Desc++;
 place++;
 }
-UARTstring((unsigned char*)"\r\n");
+UARTstring(CRLN);
 }
 
-# 294
+# 308
 void EraseScreen(unsigned char characters)
 {
 unsigned char i;

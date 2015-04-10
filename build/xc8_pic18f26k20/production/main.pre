@@ -4932,20 +4932,20 @@ typedef uint16_t uintptr_t;
 # 12 "C:\Program Files (x86)\Microchip\xc8\v1.34\include\stdbool.h"
 typedef unsigned char bool;
 
-# 55 "system.h"
+# 57 "system.h"
 void ConfigureOscillator(void);
 
-# 50 "user.h"
+# 52 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
 
-# 58
+# 60
 unsigned long SN = 1;
 
-# 286
+# 288
 void InitApp(void);
 void Init_System (void);
 
-# 62 "MISC.h"
+# 64 "MISC.h"
 void delayUS(long US);
 unsigned char IsCharacter(unsigned char data);
 void cleanBuffer(unsigned char* data, int count);
@@ -4967,14 +4967,76 @@ unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned
 unsigned char StringAddEqual(unsigned char* Input);
 unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
 
-# 113 "UART.h"
+# 128 "RF.h"
+const unsigned char Conf1_Channels[] = "DEF";
+
+
+const unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
+const unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
+
+
+const unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
+const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
+
+
+const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
+const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
+
+# 154
+const unsigned char Conf2_Channels[] = "BDH";
+
+const unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
+const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
+const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
+const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
+
+
+const unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
+const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
+const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
+const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
+
+
+const unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
+const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
+const unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
+const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
+const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
+const unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
+const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
+
+
+
+
+extern unsigned char RFsendCode[20];
+extern volatile unsigned char RFsendFlag;
+extern unsigned char RFcodePlace;
+extern unsigned char RFcodeBit;
+extern volatile unsigned char Sendcount;
+extern unsigned char RFConfig;
+volatile unsigned char Sent;
+extern volatile unsigned char RF_IR_Postscaler;
+extern unsigned char RF_IR;
+
+# 198
+unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
+void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
+void SendRF_Channel(unsigned char channel);
+unsigned char GetRFstatus(void);
+
+# 116 "UART.h"
 extern unsigned char ReceivedString[255];
 extern unsigned char ReceivedStringPos;
 extern unsigned char CommandString[255];
 extern unsigned char CommandStringPos;
 extern volatile unsigned char NewReceivedString;
-unsigned char SYNTAX_ERR[] = "Error: Syntax not understood";
-unsigned char CRLN[] = "\r\n";
+const unsigned char SYNTAX_ERR[] = "Error: Syntax";
+const unsigned char CRLN[] = "\r\n";
 
 
 
@@ -4989,8 +5051,9 @@ void UART_send_break(void);
 void UARTstringCRLN(unsigned char *data);
 void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
 void EraseScreen(unsigned char characters);
+void ClearUSART(void);
 
-# 78 "ADC.h"
+# 82 "ADC.h"
 double ReadVoltage(void);
 unsigned char InternalADC_Read(unsigned char channel, unsigned int *ADCcounts);
 void ResetADC(void);
@@ -4998,7 +5061,7 @@ void InitADC(void);
 void VoltageDividerON(void);
 void VoltageDividerOFF(void);
 
-# 185 "IR.h"
+# 194 "IR.h"
 extern unsigned char IRpinOLD;
 extern unsigned int IRRawCode[72];
 extern unsigned long IR_NEC;
@@ -5014,6 +5077,7 @@ extern unsigned char IRrepeatAmount;
 extern volatile unsigned char IRmod;
 extern volatile unsigned char ReceivingIR;
 extern volatile unsigned char IRbitPosition;
+extern unsigned long IRtimeout;
 
 
 
@@ -5029,33 +5093,48 @@ unsigned char CheckReceivingIR(void);
 unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
 unsigned long EncodeNEC(unsigned char address, unsigned char command);
 
-# 49 "Bluetooth.h"
+# 51 "Bluetooth.h"
 void InitBluetooth(void);
 unsigned char BlueConnected(void);
 void ResetBlue(void);
 unsigned char EnterCommandMode(void);
 unsigned char BluetoothInitialSetup(void);
 unsigned char BluetoothConfigured(void);
-unsigned char UseBluetooth(void);
+unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos);
 unsigned char WaitForIRsignal(void);
 
-# 49 "main.c"
-const unsigned char Version[] = {"1.0_DW0a"};
+# 54 "main.c"
+const unsigned char Version[] = {"1.0_DW0b"};
 
-# 58
+# 63
 double BatteryVoltage = 0.0;
 
-# 64
+# 69
 void main(void)
 {
 unsigned char i=0;
 unsigned char IRtask = 0;
 unsigned char Bluetoothtask = 0;
+unsigned char VoltageStatus = 1;
+unsigned char BluetoothString[255];
+unsigned char BluetoothStringPos = 0;
+
 
 ConfigureOscillator();
 InitApp();
 Init_System();
 
+BatteryVoltage = ReadVoltage();
+if(BatteryVoltage < 3.7 )
+{
+VoltageStatus = 34;
+}
+else if (BatteryVoltage > 30.0)
+{
+VoltageStatus = 98;
+}
+if(VoltageStatus == 1)
+{
 
 for(i =0;i<10;i++)
 {
@@ -5067,42 +5146,86 @@ delayUS(50000);
 delayUS(50000);
 }
 (LATC &= ~0x04);
-
-BatteryVoltage = ReadVoltage();
-if(BatteryVoltage < 3.7 )
-{
-__nop();
 }
-else if (BatteryVoltage > 30.0)
+else
 {
-__nop();
+for(i =0;i<10;i++)
+{
+(LATC |= 0x02);
+delayUS(100000);
+(LATC &= ~0x02);
+delayUS(100000);
+}
 }
 
 while(1)
 {
 IRtask = IR_New_Code;
 Bluetoothtask = NewReceivedString;
-if(IRtask)
+BatteryVoltage = ReadVoltage();
+if(VoltageStatus == 34)
+{
+
+BatteryVoltage -= 0.5;
+}
+else if(VoltageStatus == 98)
+{
+
+BatteryVoltage += 0.5;
+}
+
+if(BatteryVoltage < 3.7 )
+{
+VoltageStatus = 34;
+}
+else if(BatteryVoltage > 30.0)
+{
+VoltageStatus = 98;
+}
+else
+{
+VoltageStatus = 1;
+}
+
+if(IRtask && IR_NEC)
 {
 UseIRCode(&IR_New_Code, IR_NEC);
 }
-if(Bluetoothtask == 1)
+
+if(Bluetoothtask >= 1)
 {
-__nop();
-UseBluetooth();
-if(ReceivedStringPos || NewReceivedString)
-{
+cleanBuffer(BluetoothString, 255);
+BufferCopy(ReceivedString,BluetoothString, ReceivedStringPos, 0);
+BluetoothStringPos = ReceivedStringPos;
 cleanBuffer(ReceivedString, ReceivedStringPos);
 ReceivedStringPos = 0;
 NewReceivedString = 0;
+UseBluetooth(&BluetoothString, BluetoothStringPos);
 UARTstring(CRLN);
 UARTchar('>');
-}
 if(IR_New_Code)
 {
 IR_New_Code = 0;
 }
 
+IRpinOLD = ReadIRpin();
+INTCONbits.RBIF = 0;
+(IOCBbits.IOCB4 = 1);
+INTCONbits.RBIE = 1;
+ClearUSART();
+PIR1bits.RCIF = 0;
+PIE1bits.RCIE = 1;
+}
+
+if(IRtimeout < 5000)
+{
+IRtimeout++;
+}
+else if(IRtimeout == 5000)
+{
+IRtimeout++;
+IR_NEC = 0;
+IR_New_Code = 0;
 IRpinOLD = ReadIRpin();
 INTCONbits.RBIF = 0;
 (IOCBbits.IOCB4 = 1);

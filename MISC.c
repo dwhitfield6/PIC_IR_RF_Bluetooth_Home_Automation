@@ -8,6 +8,8 @@
  * --------     ---------   ----------------------------------------------------
  * 04/02/15     1.0_DW0a    Initial project make.
  *                          Derived from project 'PIC_PS2_to_UART'.
+ * 04/09/15     1.0_DW0b    Fixed bugs.
+ *                          Added features.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -470,7 +472,11 @@ unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned
             This++;
             if(*This == 'x' || *This == 'X')
             {
-                Hex = TRUE;
+                This++;
+                if(*This >='0' && *This <='9')
+                {
+                    Hex = TRUE;
+                }
             }
         }
         count++;
@@ -520,7 +526,17 @@ unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned
     {
         return NOVALUE; // there is no value after the equal
     }
-    while(*This != 0 && *This != ' ')
+    if(Hex)
+    {
+        negative = FALSE;
+        while(*This != 'x' && *This != 'X')
+        {
+            /* go to first number after the x */
+            This++;
+        }
+        This++;
+    }
+    while(*This != 0 && *This != ' ' && *This != ',' && *This != '=')
     {
         if(!Hex)
         {
@@ -537,12 +553,6 @@ unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned
         }
         else
         {
-            negative = FALSE;
-            while(*This != 'x' && *This != 'X')
-            {
-                This++;
-            }
-            This++;
             if((*This >=48 && *This <= 57) || (*This >=65 && *This <= 70) || (*This >= 97 && *This <= 102))
             {
                 temp <<= 4;

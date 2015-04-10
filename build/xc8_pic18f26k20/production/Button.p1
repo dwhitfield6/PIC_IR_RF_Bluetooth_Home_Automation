@@ -3,7 +3,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _PORTC `Vuc ~T0 @X0 0 e@3970 ]
 "1691
 [v _LATC `Vuc ~T0 @X0 0 e@3979 ]
-"62 MISC.h
+"64 MISC.h
 [v _delayUS `(v ~T0 @X0 0 ef1`l ]
 "739 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [v _PORTB `Vuc ~T0 @X0 0 e@3969 ]
@@ -3669,7 +3669,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdio.h: 202: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
 [; ;stdio.h: 206: extern int sprintf(char *, const char *, ...);
 [; ;stdio.h: 207: extern int printf(const char *, ...);
-"50 user.h
+"52 user.h
 [v _ProductName `uc ~T0 @X0 -> 50 `i e ]
 [i _ProductName
 :U ..
@@ -3691,144 +3691,144 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;user.h: 50: unsigned char ProductName[50] = {"Home Automation"};
-"58
+[; ;user.h: 52: unsigned char ProductName[50] = {"Home Automation"};
+"60
 [v _SN `ul ~T0 @X0 1 e ]
 [i _SN
 -> -> -> 1 `i `l `ul
 ]
-[; ;user.h: 58: unsigned long SN = 1;
-[; ;user.h: 286: void InitApp(void);
-[; ;user.h: 287: void Init_System (void);
-[; ;system.h: 55: void ConfigureOscillator(void);
-[; ;MISC.h: 62: void delayUS(long US);
-[; ;MISC.h: 63: unsigned char IsCharacter(unsigned char data);
-[; ;MISC.h: 64: void cleanBuffer(unsigned char* data, int count);
-[; ;MISC.h: 65: void cleanBuffer16bit(unsigned int* data, int count);
-[; ;MISC.h: 66: double Round(double input);
-[; ;MISC.h: 67: void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
-[; ;MISC.h: 68: unsigned char StringMatch(unsigned char* This,const unsigned char* That);
-[; ;MISC.h: 69: unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
-[; ;MISC.h: 70: unsigned char StringContains(unsigned char* This, const unsigned char* That);
-[; ;MISC.h: 71: unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
-[; ;MISC.h: 72: void CalibrateDelay(void);
-[; ;MISC.h: 73: void lowercaseChar(unsigned char* Input);
-[; ;MISC.h: 74: void lowercaseString(unsigned char* Input);
-[; ;MISC.h: 75: void delayNOP(unsigned char NOPs);
-[; ;MISC.h: 76: unsigned char Reverse_Byte(unsigned char This);
-[; ;MISC.h: 77: unsigned int Reverse_2Byte(unsigned int This);
-[; ;MISC.h: 78: unsigned long Reverse_4Byte(unsigned long This);
-[; ;MISC.h: 79: unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
-[; ;MISC.h: 80: unsigned char StringAddEqual(unsigned char* Input);
-[; ;MISC.h: 81: unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
-"50 Button.c
+[; ;user.h: 60: unsigned long SN = 1;
+[; ;user.h: 288: void InitApp(void);
+[; ;user.h: 289: void Init_System (void);
+[; ;system.h: 57: void ConfigureOscillator(void);
+[; ;MISC.h: 64: void delayUS(long US);
+[; ;MISC.h: 65: unsigned char IsCharacter(unsigned char data);
+[; ;MISC.h: 66: void cleanBuffer(unsigned char* data, int count);
+[; ;MISC.h: 67: void cleanBuffer16bit(unsigned int* data, int count);
+[; ;MISC.h: 68: double Round(double input);
+[; ;MISC.h: 69: void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
+[; ;MISC.h: 70: unsigned char StringMatch(unsigned char* This,const unsigned char* That);
+[; ;MISC.h: 71: unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
+[; ;MISC.h: 72: unsigned char StringContains(unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 73: unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 74: void CalibrateDelay(void);
+[; ;MISC.h: 75: void lowercaseChar(unsigned char* Input);
+[; ;MISC.h: 76: void lowercaseString(unsigned char* Input);
+[; ;MISC.h: 77: void delayNOP(unsigned char NOPs);
+[; ;MISC.h: 78: unsigned char Reverse_Byte(unsigned char This);
+[; ;MISC.h: 79: unsigned int Reverse_2Byte(unsigned int This);
+[; ;MISC.h: 80: unsigned long Reverse_4Byte(unsigned long This);
+[; ;MISC.h: 81: unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
+[; ;MISC.h: 82: unsigned char StringAddEqual(unsigned char* Input);
+[; ;MISC.h: 83: unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
+"52 Button.c
 [v _ReadPushButton `(uc ~T0 @X0 1 ef ]
-"51
+"53
 {
-[; ;Button.c: 50: unsigned char ReadPushButton(void)
-[; ;Button.c: 51: {
+[; ;Button.c: 52: unsigned char ReadPushButton(void)
+[; ;Button.c: 53: {
 [e :U _ReadPushButton ]
 [f ]
-[; ;Button.c: 53: if((PORTC & 0x01) != 0x01)
-"53
-[e $ ! != & -> _PORTC `i -> 1 `i -> 1 `i 381  ]
-[; ;Button.c: 54: {
-"54
-{
-[; ;Button.c: 55: return 1;
+[; ;Button.c: 55: if((PORTC & 0x01) != 0x01)
 "55
+[e $ ! != & -> _PORTC `i -> 1 `i -> 1 `i 381  ]
+[; ;Button.c: 56: {
+"56
+{
+[; ;Button.c: 57: return 1;
+"57
 [e ) -> -> 1 `i `uc ]
 [e $UE 380  ]
-"56
+"58
 }
 [e :U 381 ]
-[; ;Button.c: 56: }
-[; ;Button.c: 57: return 0;
-"57
+[; ;Button.c: 58: }
+[; ;Button.c: 59: return 0;
+"59
 [e ) -> -> 0 `i `uc ]
 [e $UE 380  ]
-[; ;Button.c: 58: }
-"58
+[; ;Button.c: 60: }
+"60
 [e :UE 380 ]
 }
-"65
+"67
 [v _ReadCodeButtons `(uc ~T0 @X0 1 ef ]
-"66
+"68
 {
-[; ;Button.c: 65: unsigned char ReadCodeButtons(void)
-[; ;Button.c: 66: {
+[; ;Button.c: 67: unsigned char ReadCodeButtons(void)
+[; ;Button.c: 68: {
 [e :U _ReadCodeButtons ]
 [f ]
-"67
-[v _temp `uc ~T0 @X0 1 a ]
-[; ;Button.c: 67: unsigned char temp = 0;
-[e = _temp -> -> 0 `i `uc ]
-[; ;Button.c: 69: (LATC &= ~0x10);
 "69
+[v _temp `uc ~T0 @X0 1 a ]
+[; ;Button.c: 69: unsigned char temp = 0;
+[e = _temp -> -> 0 `i `uc ]
+[; ;Button.c: 71: (LATC &= ~0x10);
+"71
 [e =& _LATC -> ~ -> 16 `i `uc ]
-[; ;Button.c: 70: delayUS(5);
-"70
+[; ;Button.c: 72: delayUS(5);
+"72
 [e ( _delayUS (1 -> -> 5 `i `l ]
-[; ;Button.c: 73: if((PORTB & 0x01) != 0x01)
-"73
-[e $ ! != & -> _PORTB `i -> 1 `i -> 1 `i 383  ]
-[; ;Button.c: 74: {
-"74
-{
-[; ;Button.c: 75: temp +=8;
+[; ;Button.c: 75: if((PORTB & 0x01) != 0x01)
 "75
-[e =+ _temp -> -> 8 `i `uc ]
+[e $ ! != & -> _PORTB `i -> 1 `i -> 1 `i 383  ]
+[; ;Button.c: 76: {
 "76
+{
+[; ;Button.c: 77: temp +=8;
+"77
+[e =+ _temp -> -> 8 `i `uc ]
+"78
 }
 [e :U 383 ]
-[; ;Button.c: 76: }
-[; ;Button.c: 77: if((PORTB & 0x02) != 0x02)
-"77
-[e $ ! != & -> _PORTB `i -> 2 `i -> 2 `i 384  ]
-[; ;Button.c: 78: {
-"78
-{
-[; ;Button.c: 79: temp +=4;
+[; ;Button.c: 78: }
+[; ;Button.c: 79: if((PORTB & 0x02) != 0x02)
 "79
-[e =+ _temp -> -> 4 `i `uc ]
+[e $ ! != & -> _PORTB `i -> 2 `i -> 2 `i 384  ]
+[; ;Button.c: 80: {
 "80
+{
+[; ;Button.c: 81: temp +=4;
+"81
+[e =+ _temp -> -> 4 `i `uc ]
+"82
 }
 [e :U 384 ]
-[; ;Button.c: 80: }
-[; ;Button.c: 81: if((PORTB & 0x04) != 0x04)
-"81
-[e $ ! != & -> _PORTB `i -> 4 `i -> 4 `i 385  ]
-[; ;Button.c: 82: {
-"82
-{
-[; ;Button.c: 83: temp +=2;
+[; ;Button.c: 82: }
+[; ;Button.c: 83: if((PORTB & 0x04) != 0x04)
 "83
-[e =+ _temp -> -> 2 `i `uc ]
+[e $ ! != & -> _PORTB `i -> 4 `i -> 4 `i 385  ]
+[; ;Button.c: 84: {
 "84
+{
+[; ;Button.c: 85: temp +=2;
+"85
+[e =+ _temp -> -> 2 `i `uc ]
+"86
 }
 [e :U 385 ]
-[; ;Button.c: 84: }
-[; ;Button.c: 85: if((PORTB & 0x08) != 0x08)
-"85
-[e $ ! != & -> _PORTB `i -> 8 `i -> 8 `i 386  ]
-[; ;Button.c: 86: {
-"86
-{
-[; ;Button.c: 87: temp +=1;
+[; ;Button.c: 86: }
+[; ;Button.c: 87: if((PORTB & 0x08) != 0x08)
 "87
-[e =+ _temp -> -> 1 `i `uc ]
+[e $ ! != & -> _PORTB `i -> 8 `i -> 8 `i 386  ]
+[; ;Button.c: 88: {
 "88
+{
+[; ;Button.c: 89: temp +=1;
+"89
+[e =+ _temp -> -> 1 `i `uc ]
+"90
 }
 [e :U 386 ]
-[; ;Button.c: 88: }
-[; ;Button.c: 89: (LATC |= 0x10);
-"89
+[; ;Button.c: 90: }
+[; ;Button.c: 91: (LATC |= 0x10);
+"91
 [e =| _LATC -> -> 16 `i `uc ]
-[; ;Button.c: 90: return temp;
-"90
+[; ;Button.c: 92: return temp;
+"92
 [e ) _temp ]
 [e $UE 382  ]
-[; ;Button.c: 91: }
-"91
+[; ;Button.c: 93: }
+"93
 [e :UE 382 ]
 }

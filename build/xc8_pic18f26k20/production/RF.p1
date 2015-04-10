@@ -42,9 +42,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S334 . . . . . . ]
 "6470
 [v _INTCONbits `VS334 ~T0 @X0 0 e@4082 ]
-"185 IR.h
+"181 Timer.h
+[v _LEDTimerON `(v ~T0 @X0 0 ef ]
+"1691 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
+[v _LATC `Vuc ~T0 @X0 0 e@3979 ]
+"194 IR.h
 [v _IRpinOLD `uc ~T0 @X0 0 e ]
-"205
+"215
 [v _ReadIRpin `(uc ~T0 @X0 0 ef ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -3678,7 +3682,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 210: typedef int16_t intptr_t;
 [; ;stdint.h: 215: typedef uint16_t uintptr_t;
 [; ;stdbool.h: 12: typedef unsigned char bool;
-"50 user.h
+"52 user.h
 [v _ProductName `uc ~T0 @X0 -> 50 `i e ]
 [i _ProductName
 :U ..
@@ -3700,17 +3704,65 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;user.h: 50: unsigned char ProductName[50] = {"Home Automation"};
-"58
+[; ;user.h: 52: unsigned char ProductName[50] = {"Home Automation"};
+"60
 [v _SN `ul ~T0 @X0 1 e ]
 [i _SN
 -> -> -> 1 `i `l `ul
 ]
-[; ;user.h: 58: unsigned long SN = 1;
-[; ;user.h: 286: void InitApp(void);
-[; ;user.h: 287: void Init_System (void);
-"60 RF.h
-[v _Conf1_Channels `uc ~T0 @X0 -> 0 `x e ]
+[; ;user.h: 60: unsigned long SN = 1;
+[; ;user.h: 288: void InitApp(void);
+[; ;user.h: 289: void Init_System (void);
+[; ;system.h: 57: void ConfigureOscillator(void);
+[; ;UART.h: 116: extern unsigned char ReceivedString[255];
+[; ;UART.h: 117: extern unsigned char ReceivedStringPos;
+[; ;UART.h: 118: extern unsigned char CommandString[255];
+[; ;UART.h: 119: extern unsigned char CommandStringPos;
+[; ;UART.h: 120: extern volatile unsigned char NewReceivedString;
+"121 UART.h
+[v _SYNTAX_ERR `Cuc ~T0 @X0 -> 0 `x e ]
+[i _SYNTAX_ERR
+:U ..
+-> 69 `c
+-> 114 `c
+-> 114 `c
+-> 111 `c
+-> 114 `c
+-> 58 `c
+-> 32 `c
+-> 83 `c
+-> 121 `c
+-> 110 `c
+-> 116 `c
+-> 97 `c
+-> 120 `c
+-> 0 `c
+..
+]
+[; ;UART.h: 121: const unsigned char SYNTAX_ERR[] = "Error: Syntax";
+"122
+[v _CRLN `Cuc ~T0 @X0 -> 0 `x e ]
+[i _CRLN
+:U ..
+-> 13 `c
+-> 10 `c
+-> 0 `c
+..
+]
+[; ;UART.h: 122: const unsigned char CRLN[] = "\r\n";
+[; ;UART.h: 127: void Local_CloseUSART(void );
+[; ;UART.h: 128: void InitUART(unsigned long Baud);
+[; ;UART.h: 129: void OpenUSART( unsigned char config, unsigned int spbrg);
+[; ;UART.h: 130: void UARTchar(unsigned char data);
+[; ;UART.h: 131: void UARTstring(unsigned char *data);
+[; ;UART.h: 132: unsigned char ReadUSART(void);
+[; ;UART.h: 133: void UART_send_break(void);
+[; ;UART.h: 134: void UARTstringCRLN(unsigned char *data);
+[; ;UART.h: 135: void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
+[; ;UART.h: 136: void EraseScreen(unsigned char characters);
+[; ;UART.h: 137: void ClearUSART(void);
+"128 RF.h
+[v _Conf1_Channels `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_Channels
 :U ..
 -> 68 `c
@@ -3719,9 +3771,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 60: unsigned char Conf1_Channels[] = "DEF";
-"63
-[v _Conf1_ChannelD `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 128: const unsigned char Conf1_Channels[] = "DEF";
+"131
+[v _Conf1_ChannelD `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelD
 :U ..
 -> -> 3 `i `uc
@@ -3738,9 +3790,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 63: unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
-"64
-[v _Conf1_ChannelD_STR `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 131: const unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
+"132
+[v _Conf1_ChannelD_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelD_STR
 :U ..
 -> 67 `c
@@ -3760,9 +3812,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 64: unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
-"67
-[v _Conf1_ChannelE `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 132: const unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
+"135
+[v _Conf1_ChannelE `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelE
 :U ..
 -> -> 0 `i `uc
@@ -3779,9 +3831,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 67: unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
-"68
-[v _Conf1_ChannelE_STR `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 135: const unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
+"136
+[v _Conf1_ChannelE_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelE_STR
 :U ..
 -> 67 `c
@@ -3801,9 +3853,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 68: unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
-"71
-[v _Conf1_ChannelF `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 136: const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
+"139
+[v _Conf1_ChannelF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelF
 :U ..
 -> -> 3 `i `uc
@@ -3820,9 +3872,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 71: unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
-"72
-[v _Conf1_ChannelF_STR `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 139: const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
+"140
+[v _Conf1_ChannelF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelF_STR
 :U ..
 -> 67 `c
@@ -3842,9 +3894,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 72: unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
-"86
-[v _Conf2_Channels `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 140: const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
+"154
+[v _Conf2_Channels `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_Channels
 :U ..
 -> 66 `c
@@ -3853,9 +3905,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 86: unsigned char Conf2_Channels[] = "BDH";
-"88
-[v _Conf2_ChannelB_ON `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 154: const unsigned char Conf2_Channels[] = "BDH";
+"156
+[v _Conf2_ChannelB_ON `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_ON
 :U ..
 -> -> 0 `i `uc
@@ -3876,9 +3928,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 88: unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
-"89
-[v _Conf2_ChannelB_ON_STR `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 156: const unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
+"157
+[v _Conf2_ChannelB_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_ON_STR
 :U ..
 -> 67 `c
@@ -3901,9 +3953,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 89: unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
-"90
-[v _Conf2_ChannelB_OFF `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 157: const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
+"158
+[v _Conf2_ChannelB_OFF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_OFF
 :U ..
 -> -> 0 `i `uc
@@ -3924,9 +3976,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 90: unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
-"91
-[v _Conf2_ChannelB_OFF_STR `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 158: const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
+"159
+[v _Conf2_ChannelB_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_OFF_STR
 :U ..
 -> 67 `c
@@ -3950,9 +4002,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 91: unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
-"94
-[v _Conf2_ChannelD_ON `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 159: const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
+"162
+[v _Conf2_ChannelD_ON `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_ON
 :U ..
 -> -> 0 `i `uc
@@ -3973,9 +4025,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 1 `i `uc
 ..
 ]
-[; ;RF.h: 94: unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
-"95
-[v _Conf2_ChannelD_ON_STR `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 162: const unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
+"163
+[v _Conf2_ChannelD_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_ON_STR
 :U ..
 -> 67 `c
@@ -3998,9 +4050,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 95: unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
-"96
-[v _Conf2_ChannelD_OFF `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 163: const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
+"164
+[v _Conf2_ChannelD_OFF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_OFF
 :U ..
 -> -> 0 `i `uc
@@ -4021,9 +4073,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 1 `i `uc
 ..
 ]
-[; ;RF.h: 96: unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
-"97
-[v _Conf2_ChannelD_OFF_STR `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 164: const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
+"165
+[v _Conf2_ChannelD_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_OFF_STR
 :U ..
 -> 67 `c
@@ -4047,9 +4099,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 97: unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
-"100
-[v _Conf2_ChannelH_1_ON `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 165: const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
+"168
+[v _Conf2_ChannelH_1_ON `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_ON
 :U ..
 -> -> 0 `i `uc
@@ -4070,9 +4122,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 100: unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
-"101
-[v _Conf2_ChannelH_1_ON_STR `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 168: const unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
+"169
+[v _Conf2_ChannelH_1_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_ON_STR
 :U ..
 -> 67 `c
@@ -4097,9 +4149,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 101: unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
-"102
-[v _Conf2_ChannelH_1_OFF `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 169: const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
+"170
+[v _Conf2_ChannelH_1_OFF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_OFF
 :U ..
 -> -> 0 `i `uc
@@ -4120,9 +4172,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 102: unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
-"103
-[v _Conf2_ChannelH_1_OFF_STR `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 170: const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
+"171
+[v _Conf2_ChannelH_1_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_OFF_STR
 :U ..
 -> 67 `c
@@ -4148,9 +4200,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 103: unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
-"104
-[v _Conf2_ChannelH_2_ON `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 171: const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
+"172
+[v _Conf2_ChannelH_2_ON `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_ON
 :U ..
 -> -> 0 `i `uc
@@ -4171,9 +4223,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 104: unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
-"105
-[v _Conf2_ChannelH_2_ON_STR `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 172: const unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
+"173
+[v _Conf2_ChannelH_2_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_ON_STR
 :U ..
 -> 67 `c
@@ -4198,9 +4250,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 105: unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
-"106
-[v _Conf2_ChannelH_2_OFF `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 173: const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
+"174
+[v _Conf2_ChannelH_2_OFF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_OFF
 :U ..
 -> -> 0 `i `uc
@@ -4221,9 +4273,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 106: unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
-"107
-[v _Conf2_ChannelH_2_OFF_STR `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 174: const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
+"175
+[v _Conf2_ChannelH_2_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_OFF_STR
 :U ..
 -> 67 `c
@@ -4249,9 +4301,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 107: unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
-"108
-[v _Conf2_ChannelH_3_ON `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 175: const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
+"176
+[v _Conf2_ChannelH_3_ON `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_ON
 :U ..
 -> -> 0 `i `uc
@@ -4272,9 +4324,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 108: unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
-"109
-[v _Conf2_ChannelH_3_ON_STR `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 176: const unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
+"177
+[v _Conf2_ChannelH_3_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_ON_STR
 :U ..
 -> 67 `c
@@ -4299,9 +4351,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 109: unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
-"110
-[v _Conf2_ChannelH_3_OFF `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 177: const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
+"178
+[v _Conf2_ChannelH_3_OFF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_OFF
 :U ..
 -> -> 0 `i `uc
@@ -4322,9 +4374,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 110: unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
-"111
-[v _Conf2_ChannelH_3_OFF_STR `uc ~T0 @X0 -> 0 `x e ]
+[; ;RF.h: 178: const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
+"179
+[v _Conf2_ChannelH_3_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_OFF_STR
 :U ..
 -> 67 `c
@@ -4350,675 +4402,681 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 111: unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
-[; ;RF.h: 174: extern unsigned char RFsendCode[20];
-[; ;RF.h: 175: extern volatile unsigned char RFsendFlag;
-[; ;RF.h: 176: extern unsigned char RFcodePlace;
-[; ;RF.h: 177: extern unsigned char RFcodeBit;
-[; ;RF.h: 178: extern volatile unsigned char Sendcount;
-[; ;RF.h: 179: extern unsigned char RFConfig;
-"180
+[; ;RF.h: 179: const unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
+[; ;RF.h: 184: extern unsigned char RFsendCode[20];
+[; ;RF.h: 185: extern volatile unsigned char RFsendFlag;
+[; ;RF.h: 186: extern unsigned char RFcodePlace;
+[; ;RF.h: 187: extern unsigned char RFcodeBit;
+[; ;RF.h: 188: extern volatile unsigned char Sendcount;
+[; ;RF.h: 189: extern unsigned char RFConfig;
+"190
 [v _Sent `Vuc ~T0 @X0 1 e ]
-[; ;RF.h: 180: volatile unsigned char Sent;
-[; ;RF.h: 181: extern volatile unsigned char RF_IR_Postscaler;
-[; ;RF.h: 182: extern unsigned char RF_IR;
-[; ;RF.h: 188: unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
-[; ;RF.h: 189: void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
-[; ;RF.h: 190: void SendRF_Channel(unsigned char channel);
-[; ;RF.h: 191: unsigned char GetRFstatus(void);
-[; ;Timer.h: 37: extern unsigned char Timer1_Postscaler;
-[; ;Timer.h: 38: extern unsigned char Timer2_Postscaler;
-[; ;Timer.h: 39: extern unsigned char Timer3_Postscaler;
-[; ;Timer.h: 174: void InitTimer0(void);
-[; ;Timer.h: 175: void ResetTimer0(void);
-[; ;Timer.h: 176: void InitTimer1(void);
-[; ;Timer.h: 177: void ResetTimer1(void);
-[; ;Timer.h: 178: void InitTimer2(void);
-[; ;Timer.h: 179: void LEDTimerON(void);
-[; ;Timer.h: 180: void InitTimer3(void);
-[; ;Timer.h: 181: void ResetTimer3(void);
-[; ;Timer.h: 182: void InitTimers(void);
-[; ;system.h: 55: void ConfigureOscillator(void);
-[; ;MISC.h: 62: void delayUS(long US);
-[; ;MISC.h: 63: unsigned char IsCharacter(unsigned char data);
-[; ;MISC.h: 64: void cleanBuffer(unsigned char* data, int count);
-[; ;MISC.h: 65: void cleanBuffer16bit(unsigned int* data, int count);
-[; ;MISC.h: 66: double Round(double input);
-[; ;MISC.h: 67: void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
-[; ;MISC.h: 68: unsigned char StringMatch(unsigned char* This,const unsigned char* That);
-[; ;MISC.h: 69: unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
-[; ;MISC.h: 70: unsigned char StringContains(unsigned char* This, const unsigned char* That);
-[; ;MISC.h: 71: unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
-[; ;MISC.h: 72: void CalibrateDelay(void);
-[; ;MISC.h: 73: void lowercaseChar(unsigned char* Input);
-[; ;MISC.h: 74: void lowercaseString(unsigned char* Input);
-[; ;MISC.h: 75: void delayNOP(unsigned char NOPs);
-[; ;MISC.h: 76: unsigned char Reverse_Byte(unsigned char This);
-[; ;MISC.h: 77: unsigned int Reverse_2Byte(unsigned int This);
-[; ;MISC.h: 78: unsigned long Reverse_4Byte(unsigned long This);
-[; ;MISC.h: 79: unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
-[; ;MISC.h: 80: unsigned char StringAddEqual(unsigned char* Input);
-[; ;MISC.h: 81: unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
-[; ;IR.h: 185: extern unsigned char IRpinOLD;
-[; ;IR.h: 186: extern unsigned int IRRawCode[72];
-[; ;IR.h: 187: extern unsigned long IR_NEC;
-[; ;IR.h: 188: extern unsigned char IRrawCodeNum;
-[; ;IR.h: 189: extern unsigned char IR_New_Code;
-[; ;IR.h: 190: extern unsigned char IRbit;
-[; ;IR.h: 191: extern unsigned char IRrepeatflag;
-[; ;IR.h: 192: extern unsigned char IRsendFlag;
-[; ;IR.h: 193: extern unsigned char IRcodeBit;
-[; ;IR.h: 194: extern unsigned char IRcodePlace;
-[; ;IR.h: 195: extern unsigned long IRsendCode;
-[; ;IR.h: 196: extern unsigned char IRrepeatAmount;
-[; ;IR.h: 197: extern volatile unsigned char IRmod;
-[; ;IR.h: 198: extern volatile unsigned char ReceivingIR;
-[; ;IR.h: 199: extern volatile unsigned char IRbitPosition;
-[; ;IR.h: 204: void InitIR(void);
-[; ;IR.h: 205: unsigned char ReadIRpin(void);
-[; ;IR.h: 206: unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char Invert);
-[; ;IR.h: 207: void UseIRCode(unsigned char* Code, unsigned long NEC);
-[; ;IR.h: 208: unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount);
-[; ;IR.h: 209: void SendNEC_wait(unsigned long code, unsigned char RepeatAmount);
-[; ;IR.h: 210: void CalibrateIR(void);
-[; ;IR.h: 211: unsigned char CheckReceivingIR(void);
-[; ;IR.h: 212: unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
-[; ;IR.h: 213: unsigned long EncodeNEC(unsigned char address, unsigned char command);
-"41 RF.c
+[; ;RF.h: 190: volatile unsigned char Sent;
+[; ;RF.h: 191: extern volatile unsigned char RF_IR_Postscaler;
+[; ;RF.h: 192: extern unsigned char RF_IR;
+[; ;RF.h: 198: unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
+[; ;RF.h: 199: void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
+[; ;RF.h: 200: void SendRF_Channel(unsigned char channel);
+[; ;RF.h: 201: unsigned char GetRFstatus(void);
+[; ;Timer.h: 39: extern unsigned char Timer1_Postscaler;
+[; ;Timer.h: 40: extern unsigned char Timer2_Postscaler;
+[; ;Timer.h: 41: extern unsigned char Timer3_Postscaler;
+[; ;Timer.h: 176: void InitTimer0(void);
+[; ;Timer.h: 177: void ResetTimer0(void);
+[; ;Timer.h: 178: void InitTimer1(void);
+[; ;Timer.h: 179: void ResetTimer1(void);
+[; ;Timer.h: 180: void InitTimer2(void);
+[; ;Timer.h: 181: void LEDTimerON(void);
+[; ;Timer.h: 182: void InitTimer3(void);
+[; ;Timer.h: 183: void ResetTimer3(void);
+[; ;Timer.h: 184: void InitTimers(void);
+[; ;MISC.h: 64: void delayUS(long US);
+[; ;MISC.h: 65: unsigned char IsCharacter(unsigned char data);
+[; ;MISC.h: 66: void cleanBuffer(unsigned char* data, int count);
+[; ;MISC.h: 67: void cleanBuffer16bit(unsigned int* data, int count);
+[; ;MISC.h: 68: double Round(double input);
+[; ;MISC.h: 69: void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
+[; ;MISC.h: 70: unsigned char StringMatch(unsigned char* This,const unsigned char* That);
+[; ;MISC.h: 71: unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
+[; ;MISC.h: 72: unsigned char StringContains(unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 73: unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 74: void CalibrateDelay(void);
+[; ;MISC.h: 75: void lowercaseChar(unsigned char* Input);
+[; ;MISC.h: 76: void lowercaseString(unsigned char* Input);
+[; ;MISC.h: 77: void delayNOP(unsigned char NOPs);
+[; ;MISC.h: 78: unsigned char Reverse_Byte(unsigned char This);
+[; ;MISC.h: 79: unsigned int Reverse_2Byte(unsigned int This);
+[; ;MISC.h: 80: unsigned long Reverse_4Byte(unsigned long This);
+[; ;MISC.h: 81: unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
+[; ;MISC.h: 82: unsigned char StringAddEqual(unsigned char* Input);
+[; ;MISC.h: 83: unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
+[; ;IR.h: 194: extern unsigned char IRpinOLD;
+[; ;IR.h: 195: extern unsigned int IRRawCode[72];
+[; ;IR.h: 196: extern unsigned long IR_NEC;
+[; ;IR.h: 197: extern unsigned char IRrawCodeNum;
+[; ;IR.h: 198: extern unsigned char IR_New_Code;
+[; ;IR.h: 199: extern unsigned char IRbit;
+[; ;IR.h: 200: extern unsigned char IRrepeatflag;
+[; ;IR.h: 201: extern unsigned char IRsendFlag;
+[; ;IR.h: 202: extern unsigned char IRcodeBit;
+[; ;IR.h: 203: extern unsigned char IRcodePlace;
+[; ;IR.h: 204: extern unsigned long IRsendCode;
+[; ;IR.h: 205: extern unsigned char IRrepeatAmount;
+[; ;IR.h: 206: extern volatile unsigned char IRmod;
+[; ;IR.h: 207: extern volatile unsigned char ReceivingIR;
+[; ;IR.h: 208: extern volatile unsigned char IRbitPosition;
+[; ;IR.h: 209: extern unsigned long IRtimeout;
+[; ;IR.h: 214: void InitIR(void);
+[; ;IR.h: 215: unsigned char ReadIRpin(void);
+[; ;IR.h: 216: unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char Invert);
+[; ;IR.h: 217: void UseIRCode(unsigned char* Code, unsigned long NEC);
+[; ;IR.h: 218: unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount);
+[; ;IR.h: 219: void SendNEC_wait(unsigned long code, unsigned char RepeatAmount);
+[; ;IR.h: 220: void CalibrateIR(void);
+[; ;IR.h: 221: unsigned char CheckReceivingIR(void);
+[; ;IR.h: 222: unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
+[; ;IR.h: 223: unsigned long EncodeNEC(unsigned char address, unsigned char command);
+"43 RF.c
 [v _RFsendCode `uc ~T0 @X0 -> 20 `i e ]
-[; ;RF.c: 41: unsigned char RFsendCode[20];
-"42
+[; ;RF.c: 43: unsigned char RFsendCode[20];
+"44
 [v _RFsendFlag `Vuc ~T0 @X0 1 e ]
 [i _RFsendFlag
 -> -> 0 `i `uc
 ]
-[; ;RF.c: 42: volatile unsigned char RFsendFlag = 0;
-"43
+[; ;RF.c: 44: volatile unsigned char RFsendFlag = 0;
+"45
 [v _RFcodePlace `uc ~T0 @X0 1 e ]
 [i _RFcodePlace
 -> -> 0 `i `uc
 ]
-[; ;RF.c: 43: unsigned char RFcodePlace = 0;
-"44
+[; ;RF.c: 45: unsigned char RFcodePlace = 0;
+"46
 [v _RFcodeBit `uc ~T0 @X0 1 e ]
 [i _RFcodeBit
 -> -> 0 `i `uc
 ]
-[; ;RF.c: 44: unsigned char RFcodeBit = 0;
-"45
+[; ;RF.c: 46: unsigned char RFcodeBit = 0;
+"47
 [v _Sendcount `Vuc ~T0 @X0 1 e ]
 [i _Sendcount
 -> -> 0 `i `uc
 ]
-[; ;RF.c: 45: volatile unsigned char Sendcount =0;
-"180 RF.h
+[; ;RF.c: 47: volatile unsigned char Sendcount =0;
+"190 RF.h
 [i _Sent
-"46 RF.c
+"48 RF.c
 -> -> 1 `i `uc
 ]
-[; ;RF.c: 46: volatile unsigned char Sent = 1;
-"47
+[; ;RF.c: 48: volatile unsigned char Sent = 1;
+"49
 [v _RFConfig `uc ~T0 @X0 1 e ]
 [i _RFConfig
 -> -> 0 `i `uc
 ]
-[; ;RF.c: 47: unsigned char RFConfig = 0;
-"48
+[; ;RF.c: 49: unsigned char RFConfig = 0;
+"50
 [v _RF_IR_Postscaler `Vuc ~T0 @X0 1 e ]
 [i _RF_IR_Postscaler
 -> -> 2 `i `uc
 ]
-[; ;RF.c: 48: volatile unsigned char RF_IR_Postscaler = 2;
-"49
+[; ;RF.c: 50: volatile unsigned char RF_IR_Postscaler = 2;
+"51
 [v _Conf2_ChannelB_Status `uc ~T0 @X0 1 e ]
 [i _Conf2_ChannelB_Status
 -> -> 0 `i `uc
 ]
-[; ;RF.c: 49: unsigned char Conf2_ChannelB_Status = 0;
-"50
+[; ;RF.c: 51: unsigned char Conf2_ChannelB_Status = 0;
+"52
 [v _Conf2_ChannelD_Status `uc ~T0 @X0 1 e ]
 [i _Conf2_ChannelD_Status
 -> -> 0 `i `uc
 ]
-[; ;RF.c: 50: unsigned char Conf2_ChannelD_Status = 0;
-"51
+[; ;RF.c: 52: unsigned char Conf2_ChannelD_Status = 0;
+"53
 [v _Conf2_ChannelH_1_Status `uc ~T0 @X0 1 e ]
 [i _Conf2_ChannelH_1_Status
 -> -> 0 `i `uc
 ]
-[; ;RF.c: 51: unsigned char Conf2_ChannelH_1_Status = 0;
-"52
+[; ;RF.c: 53: unsigned char Conf2_ChannelH_1_Status = 0;
+"54
 [v _Conf2_ChannelH_2_Status `uc ~T0 @X0 1 e ]
 [i _Conf2_ChannelH_2_Status
 -> -> 0 `i `uc
 ]
-[; ;RF.c: 52: unsigned char Conf2_ChannelH_2_Status = 0;
-"53
+[; ;RF.c: 54: unsigned char Conf2_ChannelH_2_Status = 0;
+"55
 [v _Conf2_ChannelH_3_Status `uc ~T0 @X0 1 e ]
 [i _Conf2_ChannelH_3_Status
 -> -> 0 `i `uc
 ]
-[; ;RF.c: 53: unsigned char Conf2_ChannelH_3_Status = 0;
-"54
+[; ;RF.c: 55: unsigned char Conf2_ChannelH_3_Status = 0;
+"56
 [v _RF_IR `uc ~T0 @X0 1 e ]
 [i _RF_IR
 -> -> 55 `i `uc
 ]
-[; ;RF.c: 54: unsigned char RF_IR = 55;
-"66
+[; ;RF.c: 56: unsigned char RF_IR = 55;
+"68
 [v _SendRF `(uc ~T0 @X0 1 ef4`*Cuc`uc`uc`uc ]
-"67
+"69
 {
-[; ;RF.c: 66: unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount)
-[; ;RF.c: 67: {
+[; ;RF.c: 68: unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount)
+[; ;RF.c: 69: {
 [e :U _SendRF ]
-"66
+"68
 [v _Code `*Cuc ~T0 @X0 1 r1 ]
 [v _Config `uc ~T0 @X0 1 r2 ]
 [v _size `uc ~T0 @X0 1 r3 ]
 [v _RepeatAmount `uc ~T0 @X0 1 r4 ]
-"67
-[f ]
-"68
-[v _i `uc ~T0 @X0 1 a ]
-[; ;RF.c: 68: unsigned char i;
-[; ;RF.c: 69: if(Sent == 1)
 "69
-[e $ ! == -> _Sent `i -> 1 `i 380  ]
-[; ;RF.c: 70: {
+[f ]
 "70
-{
-[; ;RF.c: 72: RF_IR = 55;
+[v _i `uc ~T0 @X0 1 a ]
+[; ;RF.c: 70: unsigned char i;
+[; ;RF.c: 71: if(Sent)
+"71
+[e $ ! != -> _Sent `i -> -> -> 0 `i `Vuc `i 380  ]
+[; ;RF.c: 72: {
 "72
-[e = _RF_IR -> -> 55 `i `uc ]
-[; ;RF.c: 73: if((Config <= 0) || (Config > 2))
-"73
-[e $ ! || <= -> _Config `i -> 0 `i > -> _Config `i -> 2 `i 381  ]
-[; ;RF.c: 74: {
-"74
 {
-[; ;RF.c: 75: return 0;
+[; ;RF.c: 74: RF_IR = 55;
+"74
+[e = _RF_IR -> -> 55 `i `uc ]
+[; ;RF.c: 75: if((Config <= 0) || (Config > 2))
 "75
+[e $ ! || <= -> _Config `i -> 0 `i > -> _Config `i -> 2 `i 381  ]
+[; ;RF.c: 76: {
+"76
+{
+[; ;RF.c: 77: return 0;
+"77
 [e ) -> -> 0 `i `uc ]
 [e $UE 379  ]
-"76
+"78
 }
 [e :U 381 ]
-[; ;RF.c: 76: }
-[; ;RF.c: 77: RFConfig = Config;
-"77
-[e = _RFConfig _Config ]
-[; ;RF.c: 78: if(Config == 1)
-"78
-[e $ ! == -> _Config `i -> 1 `i 382  ]
-[; ;RF.c: 79: {
+[; ;RF.c: 78: }
+[; ;RF.c: 79: RFConfig = Config;
 "79
-{
-[; ;RF.c: 80: RF_IR_Postscaler = 2;
+[e = _RFConfig _Config ]
+[; ;RF.c: 80: if(Config == 1)
 "80
-[e = _RF_IR_Postscaler -> -> 2 `i `uc ]
+[e $ ! == -> _Config `i -> 1 `i 382  ]
+[; ;RF.c: 81: {
 "81
-}
-[; ;RF.c: 81: }
-[e $U 383  ]
+{
+[; ;RF.c: 82: RF_IR_Postscaler = 2;
 "82
-[e :U 382 ]
-[; ;RF.c: 82: else if(Config == 2)
-[e $ ! == -> _Config `i -> 2 `i 384  ]
-[; ;RF.c: 83: {
+[e = _RF_IR_Postscaler -> -> 2 `i `uc ]
 "83
-{
-[; ;RF.c: 84: RF_IR_Postscaler = 4;
-"84
-[e = _RF_IR_Postscaler -> -> 4 `i `uc ]
-"85
 }
-[; ;RF.c: 85: }
-[e $U 385  ]
-"86
-[e :U 384 ]
-[; ;RF.c: 86: else
-[; ;RF.c: 87: {
-"87
+[; ;RF.c: 83: }
+[e $U 383  ]
+"84
+[e :U 382 ]
+[; ;RF.c: 84: else if(Config == 2)
+[e $ ! == -> _Config `i -> 2 `i 384  ]
+[; ;RF.c: 85: {
+"85
 {
-[; ;RF.c: 88: return 0;
+[; ;RF.c: 86: RF_IR_Postscaler = 4;
+"86
+[e = _RF_IR_Postscaler -> -> 4 `i `uc ]
+"87
+}
+[; ;RF.c: 87: }
+[e $U 385  ]
 "88
+[e :U 384 ]
+[; ;RF.c: 88: else
+[; ;RF.c: 89: {
+"89
+{
+[; ;RF.c: 90: return 0;
+"90
 [e ) -> -> 0 `i `uc ]
 [e $UE 379  ]
-"89
+"91
 }
 [e :U 385 ]
 [e :U 383 ]
-[; ;RF.c: 89: }
-[; ;RF.c: 91: Sent = 0;
-"91
-[e = _Sent -> -> 0 `i `uc ]
-[; ;RF.c: 92: Sendcount = RepeatAmount;
-"92
-[e = _Sendcount _RepeatAmount ]
-[; ;RF.c: 93: RFsendFlag = 1;
+[; ;RF.c: 91: }
+[; ;RF.c: 93: Sent = 0;
 "93
-[e = _RFsendFlag -> -> 1 `i `uc ]
-[; ;RF.c: 94: RFcodeBit = 0;
+[e = _Sent -> -> 0 `i `uc ]
+[; ;RF.c: 94: Sendcount = RepeatAmount;
 "94
-[e = _RFcodeBit -> -> 0 `i `uc ]
-[; ;RF.c: 95: RFcodePlace = 1;
+[e = _Sendcount _RepeatAmount ]
+[; ;RF.c: 95: RFsendFlag = 1;
 "95
+[e = _RFsendFlag -> -> 1 `i `uc ]
+[; ;RF.c: 96: RFcodeBit = 0;
+"96
+[e = _RFcodeBit -> -> 0 `i `uc ]
+[; ;RF.c: 97: RFcodePlace = 1;
+"97
 [e = _RFcodePlace -> -> 1 `i `uc ]
-[; ;RF.c: 98: if(size >= 20)
-"98
-[e $ ! >= -> _size `i -> 20 `i 386  ]
-[; ;RF.c: 99: {
-"99
-{
-[; ;RF.c: 100: return 0;
+[; ;RF.c: 100: if(size >= 20)
 "100
+[e $ ! >= -> _size `i -> 20 `i 386  ]
+[; ;RF.c: 101: {
+"101
+{
+[; ;RF.c: 102: return 0;
+"102
 [e ) -> -> 0 `i `uc ]
 [e $UE 379  ]
-"101
+"103
 }
 [e :U 386 ]
-[; ;RF.c: 101: }
-[; ;RF.c: 102: for(i=0;i<size;i++)
-"102
+[; ;RF.c: 103: }
+[; ;RF.c: 104: for(i=0;i<size;i++)
+"104
 {
 [e = _i -> -> 0 `i `uc ]
 [e $U 390  ]
-"103
-[e :U 387 ]
-[; ;RF.c: 103: {
-{
-[; ;RF.c: 104: RFsendCode[i] = Code[i];
-"104
-[e = *U + &U _RFsendCode * -> _i `ux -> -> # *U &U _RFsendCode `ui `ux *U + _Code * -> _i `ux -> -> # *U _Code `ui `ux ]
 "105
+[e :U 387 ]
+[; ;RF.c: 105: {
+{
+[; ;RF.c: 106: RFsendCode[i] = Code[i];
+"106
+[e = *U + &U _RFsendCode * -> _i `ux -> -> # *U &U _RFsendCode `ui `ux *U + _Code * -> _i `ux -> -> # *U _Code `ui `ux ]
+"107
 }
-"102
+"104
 [e ++ _i -> -> 1 `i `uc ]
 [e :U 390 ]
 [e $ < -> _i `i -> _size `i 387  ]
 [e :U 388 ]
-"105
+"107
 }
-[; ;RF.c: 105: }
-[; ;RF.c: 106: RFsendCode[i] = 99;
-"106
-[e = *U + &U _RFsendCode * -> _i `ux -> -> # *U &U _RFsendCode `ui `ux -> -> 99 `i `uc ]
-[; ;RF.c: 108: (TMR2 = 0);
+[; ;RF.c: 107: }
+[; ;RF.c: 108: RFsendCode[i] = 99;
 "108
-[e = _TMR2 -> -> 0 `i `uc ]
-[; ;RF.c: 109: if(Config == 1)
-"109
-[e $ ! == -> _Config `i -> 1 `i 391  ]
-[; ;RF.c: 110: {
+[e = *U + &U _RFsendCode * -> _i `ux -> -> # *U &U _RFsendCode `ui `ux -> -> 99 `i `uc ]
+[; ;RF.c: 110: (TMR2 = 0);
 "110
-{
-[; ;RF.c: 111: (PR2 = 250);
+[e = _TMR2 -> -> 0 `i `uc ]
+[; ;RF.c: 111: if(Config == 1)
 "111
-[e = _PR2 -> -> 250 `i `uc ]
+[e $ ! == -> _Config `i -> 1 `i 391  ]
+[; ;RF.c: 112: {
 "112
-}
-[; ;RF.c: 112: }
-[e $U 392  ]
-"113
-[e :U 391 ]
-[; ;RF.c: 113: else
-[; ;RF.c: 114: {
-"114
 {
-[; ;RF.c: 115: (PR2 = 187);
+[; ;RF.c: 113: (PR2 = 250);
+"113
+[e = _PR2 -> -> 250 `i `uc ]
+"114
+}
+[; ;RF.c: 114: }
+[e $U 392  ]
 "115
-[e = _PR2 -> -> 187 `i `uc ]
+[e :U 391 ]
+[; ;RF.c: 115: else
+[; ;RF.c: 116: {
 "116
+{
+[; ;RF.c: 117: (PR2 = 187);
+"117
+[e = _PR2 -> -> 187 `i `uc ]
+"118
 }
 [e :U 392 ]
-[; ;RF.c: 116: }
-[; ;RF.c: 117: (T2CONbits.TMR2ON = 1);
-"117
+[; ;RF.c: 118: }
+[; ;RF.c: 119: (T2CONbits.TMR2ON = 1);
+"119
 [e = . . _T2CONbits 0 1 -> -> 1 `i `uc ]
-[; ;RF.c: 118: return 1;
-"118
+[; ;RF.c: 120: return 1;
+"120
 [e ) -> -> 1 `i `uc ]
 [e $UE 379  ]
-"119
+"121
 }
 [e :U 380 ]
-[; ;RF.c: 119: }
-[; ;RF.c: 120: return 2;
-"120
+[; ;RF.c: 121: }
+[; ;RF.c: 122: return 2;
+"122
 [e ) -> -> 2 `i `uc ]
 [e $UE 379  ]
-[; ;RF.c: 121: }
-"121
+[; ;RF.c: 123: }
+"123
 [e :UE 379 ]
 }
-"128
-[v _GetRFstatus `(uc ~T0 @X0 1 ef ]
-"129
-{
-[; ;RF.c: 128: unsigned char GetRFstatus(void)
-[; ;RF.c: 129: {
-[e :U _GetRFstatus ]
-[f ]
-[; ;RF.c: 130: if(!RFsendFlag)
 "130
-[e $ ! ! != -> _RFsendFlag `i -> -> -> 0 `i `Vuc `i 394  ]
-[; ;RF.c: 131: {
+[v _GetRFstatus `(uc ~T0 @X0 1 ef ]
 "131
 {
-[; ;RF.c: 132: return 1;
+[; ;RF.c: 130: unsigned char GetRFstatus(void)
+[; ;RF.c: 131: {
+[e :U _GetRFstatus ]
+[f ]
+[; ;RF.c: 132: if(!RFsendFlag)
 "132
+[e $ ! ! != -> _RFsendFlag `i -> -> -> 0 `i `Vuc `i 394  ]
+[; ;RF.c: 133: {
+"133
+{
+[; ;RF.c: 134: return 1;
+"134
 [e ) -> -> 1 `i `uc ]
 [e $UE 393  ]
-"133
+"135
 }
 [e :U 394 ]
-[; ;RF.c: 133: }
-[; ;RF.c: 134: return 2;
-"134
+[; ;RF.c: 135: }
+[; ;RF.c: 136: return 2;
+"136
 [e ) -> -> 2 `i `uc ]
 [e $UE 393  ]
-[; ;RF.c: 135: }
-"135
+[; ;RF.c: 137: }
+"137
 [e :UE 393 ]
 }
-"143
+"145
 [v _SendRF_wait `(v ~T0 @X0 1 ef4`*Cuc`uc`uc`uc ]
-"144
+"146
 {
-[; ;RF.c: 143: void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount)
-[; ;RF.c: 144: {
+[; ;RF.c: 145: void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount)
+[; ;RF.c: 146: {
 [e :U _SendRF_wait ]
-"143
+"145
 [v _Code `*Cuc ~T0 @X0 1 r1 ]
 [v _Config `uc ~T0 @X0 1 r2 ]
 [v _size `uc ~T0 @X0 1 r3 ]
 [v _amount `uc ~T0 @X0 1 r4 ]
-"144
-[f ]
-[; ;RF.c: 145: (IOCBbits.IOCB4 = 0);
-"145
-[e = . . _IOCBbits 0 1 -> -> 0 `i `uc ]
-[; ;RF.c: 146: INTCONbits.RBIE = 0;
 "146
-[e = . . _INTCONbits 0 3 -> -> 0 `i `uc ]
-[; ;RF.c: 147: INTCONbits.PEIE = 0;
+[f ]
+[; ;RF.c: 147: (IOCBbits.IOCB4 = 0);
 "147
-[e = . . _INTCONbits 1 6 -> -> 0 `i `uc ]
-[; ;RF.c: 149: SendRF(Code, Config, size, amount);
+[e = . . _IOCBbits 0 1 -> -> 0 `i `uc ]
+[; ;RF.c: 148: INTCONbits.RBIE = 0;
+"148
+[e = . . _INTCONbits 0 3 -> -> 0 `i `uc ]
+[; ;RF.c: 149: INTCONbits.PEIE = 0;
 "149
-[e ( _SendRF (4 , , , _Code _Config _size _amount ]
-[; ;RF.c: 150: while(!Sent);
+[e = . . _INTCONbits 1 6 -> -> 0 `i `uc ]
+[; ;RF.c: 150: LEDTimerON();
 "150
+[e ( _LEDTimerON ..  ]
+[; ;RF.c: 151: (LATC |= 0x04);
+"151
+[e =| _LATC -> -> 4 `i `uc ]
+[; ;RF.c: 152: SendRF(Code, Config, size, amount);
+"152
+[e ( _SendRF (4 , , , _Code _Config _size _amount ]
+[; ;RF.c: 153: while(!Sent);
+"153
 [e $U 396  ]
 [e :U 397 ]
 [e :U 396 ]
 [e $ ! != -> _Sent `i -> -> -> 0 `i `Vuc `i 397  ]
 [e :U 398 ]
-[; ;RF.c: 151: INTCONbits.PEIE = 1;
-"151
-[e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
-[; ;RF.c: 152: IRpinOLD = ReadIRpin();
-"152
-[e = _IRpinOLD ( _ReadIRpin ..  ]
-[; ;RF.c: 153: INTCONbits.RBIF = 0;
-"153
-[e = . . _INTCONbits 0 0 -> -> 0 `i `uc ]
-[; ;RF.c: 154: (IOCBbits.IOCB4 = 1);
+[; ;RF.c: 154: INTCONbits.PEIE = 1;
 "154
-[e = . . _IOCBbits 0 1 -> -> 1 `i `uc ]
-[; ;RF.c: 155: INTCONbits.RBIE = 1;
+[e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
+[; ;RF.c: 155: IRpinOLD = ReadIRpin();
 "155
-[e = . . _INTCONbits 0 3 -> -> 1 `i `uc ]
-[; ;RF.c: 156: }
+[e = _IRpinOLD ( _ReadIRpin ..  ]
+[; ;RF.c: 156: INTCONbits.RBIF = 0;
 "156
+[e = . . _INTCONbits 0 0 -> -> 0 `i `uc ]
+[; ;RF.c: 157: (IOCBbits.IOCB4 = 1);
+"157
+[e = . . _IOCBbits 0 1 -> -> 1 `i `uc ]
+[; ;RF.c: 158: INTCONbits.RBIE = 1;
+"158
+[e = . . _INTCONbits 0 3 -> -> 1 `i `uc ]
+[; ;RF.c: 159: }
+"159
 [e :UE 395 ]
 }
-"162
-[v _SendRF_Channel `(v ~T0 @X0 1 ef1`uc ]
-"163
-{
-[; ;RF.c: 162: void SendRF_Channel(unsigned char channel)
-[; ;RF.c: 163: {
-[e :U _SendRF_Channel ]
-"162
-[v _channel `uc ~T0 @X0 1 r1 ]
-"163
-[f ]
-[; ;RF.c: 164: switch (channel)
-"164
-[e $U 401  ]
-[; ;RF.c: 165: {
 "165
-{
-[; ;RF.c: 166: case 0:
+[v _SendRF_Channel `(v ~T0 @X0 1 ef1`uc ]
 "166
-[e :U 402 ]
-[; ;RF.c: 168: SendRF_wait(Conf1_ChannelD,1,12,8);
+{
+[; ;RF.c: 165: void SendRF_Channel(unsigned char channel)
+[; ;RF.c: 166: {
+[e :U _SendRF_Channel ]
+"165
+[v _channel `uc ~T0 @X0 1 r1 ]
+"166
+[f ]
+[; ;RF.c: 167: switch (channel)
+"167
+[e $U 401  ]
+[; ;RF.c: 168: {
 "168
-[e ( _SendRF_wait (4 , , , -> &U _Conf1_ChannelD `*Cuc -> -> 1 `i `uc -> -> 12 `i `uc -> -> 8 `i `uc ]
-[; ;RF.c: 169: break;
+{
+[; ;RF.c: 169: case 0:
 "169
-[e $U 400  ]
-[; ;RF.c: 170: case 1:
-"170
-[e :U 403 ]
-[; ;RF.c: 172: SendRF_wait(Conf1_ChannelE,1,12,8);
+[e :U 402 ]
+[; ;RF.c: 171: SendRF_wait(Conf1_ChannelD,1,12,3);
+"171
+[e ( _SendRF_wait (4 , , , &U _Conf1_ChannelD -> -> 1 `i `uc -> -> 12 `i `uc -> -> 3 `i `uc ]
+[; ;RF.c: 172: break;
 "172
-[e ( _SendRF_wait (4 , , , -> &U _Conf1_ChannelE `*Cuc -> -> 1 `i `uc -> -> 12 `i `uc -> -> 8 `i `uc ]
-[; ;RF.c: 173: break;
+[e $U 400  ]
+[; ;RF.c: 173: case 1:
 "173
-[e $U 400  ]
-[; ;RF.c: 174: case 2:
-"174
-[e :U 404 ]
-[; ;RF.c: 176: SendRF_wait(Conf1_ChannelF,1,12,8);
+[e :U 403 ]
+[; ;RF.c: 175: SendRF_wait(Conf1_ChannelE,1,12,3);
+"175
+[e ( _SendRF_wait (4 , , , &U _Conf1_ChannelE -> -> 1 `i `uc -> -> 12 `i `uc -> -> 3 `i `uc ]
+[; ;RF.c: 176: break;
 "176
-[e ( _SendRF_wait (4 , , , -> &U _Conf1_ChannelF `*Cuc -> -> 1 `i `uc -> -> 12 `i `uc -> -> 8 `i `uc ]
-[; ;RF.c: 177: break;
-"177
 [e $U 400  ]
-[; ;RF.c: 178: case 3:
-"178
-[e :U 405 ]
-[; ;RF.c: 180: if(Conf2_ChannelB_Status)
+[; ;RF.c: 177: case 2:
+"177
+[e :U 404 ]
+[; ;RF.c: 179: SendRF_wait(Conf1_ChannelF,1,12,3);
+"179
+[e ( _SendRF_wait (4 , , , &U _Conf1_ChannelF -> -> 1 `i `uc -> -> 12 `i `uc -> -> 3 `i `uc ]
+[; ;RF.c: 180: break;
 "180
-[e $ ! != -> _Conf2_ChannelB_Status `i -> -> -> 0 `i `uc `i 406  ]
-[; ;RF.c: 181: {
+[e $U 400  ]
+[; ;RF.c: 181: case 3:
 "181
-{
-[; ;RF.c: 182: SendRF_wait(Conf2_ChannelB_OFF,2,16,8);
-"182
-[e ( _SendRF_wait (4 , , , -> &U _Conf2_ChannelB_OFF `*Cuc -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
-[; ;RF.c: 183: Conf2_ChannelB_Status = 0;
+[e :U 405 ]
+[; ;RF.c: 183: if(Conf2_ChannelB_Status)
 "183
-[e = _Conf2_ChannelB_Status -> -> 0 `i `uc ]
+[e $ ! != -> _Conf2_ChannelB_Status `i -> -> -> 0 `i `uc `i 406  ]
+[; ;RF.c: 184: {
 "184
-}
-[; ;RF.c: 184: }
-[e $U 407  ]
-"185
-[e :U 406 ]
-[; ;RF.c: 185: else
-[; ;RF.c: 186: {
-"186
 {
-[; ;RF.c: 187: SendRF_wait(Conf2_ChannelB_ON,2,16,8);
+[; ;RF.c: 185: SendRF_wait(Conf2_ChannelB_OFF,2,16,3);
+"185
+[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelB_OFF -> -> 2 `i `uc -> -> 16 `i `uc -> -> 3 `i `uc ]
+[; ;RF.c: 186: Conf2_ChannelB_Status = 0;
+"186
+[e = _Conf2_ChannelB_Status -> -> 0 `i `uc ]
 "187
-[e ( _SendRF_wait (4 , , , -> &U _Conf2_ChannelB_ON `*Cuc -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
-[; ;RF.c: 188: Conf2_ChannelB_Status = 1;
+}
+[; ;RF.c: 187: }
+[e $U 407  ]
 "188
-[e = _Conf2_ChannelB_Status -> -> 1 `i `uc ]
+[e :U 406 ]
+[; ;RF.c: 188: else
+[; ;RF.c: 189: {
 "189
+{
+[; ;RF.c: 190: SendRF_wait(Conf2_ChannelB_ON,2,16,3);
+"190
+[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelB_ON -> -> 2 `i `uc -> -> 16 `i `uc -> -> 3 `i `uc ]
+[; ;RF.c: 191: Conf2_ChannelB_Status = 1;
+"191
+[e = _Conf2_ChannelB_Status -> -> 1 `i `uc ]
+"192
 }
 [e :U 407 ]
-[; ;RF.c: 189: }
-[; ;RF.c: 190: break;
-"190
-[e $U 400  ]
-[; ;RF.c: 191: case 4:
-"191
-[e :U 408 ]
-[; ;RF.c: 193: if(Conf2_ChannelD_Status)
+[; ;RF.c: 192: }
+[; ;RF.c: 193: break;
 "193
-[e $ ! != -> _Conf2_ChannelD_Status `i -> -> -> 0 `i `uc `i 409  ]
-[; ;RF.c: 194: {
+[e $U 400  ]
+[; ;RF.c: 194: case 4:
 "194
-{
-[; ;RF.c: 195: SendRF_wait(Conf2_ChannelD_OFF,2,16,8);
-"195
-[e ( _SendRF_wait (4 , , , -> &U _Conf2_ChannelD_OFF `*Cuc -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
-[; ;RF.c: 196: Conf2_ChannelD_Status = 0;
+[e :U 408 ]
+[; ;RF.c: 196: if(Conf2_ChannelD_Status)
 "196
-[e = _Conf2_ChannelD_Status -> -> 0 `i `uc ]
+[e $ ! != -> _Conf2_ChannelD_Status `i -> -> -> 0 `i `uc `i 409  ]
+[; ;RF.c: 197: {
 "197
-}
-[; ;RF.c: 197: }
-[e $U 410  ]
-"198
-[e :U 409 ]
-[; ;RF.c: 198: else
-[; ;RF.c: 199: {
-"199
 {
-[; ;RF.c: 200: SendRF_wait(Conf2_ChannelD_ON,2,16,8);
+[; ;RF.c: 198: SendRF_wait(Conf2_ChannelD_OFF,2,16,3);
+"198
+[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelD_OFF -> -> 2 `i `uc -> -> 16 `i `uc -> -> 3 `i `uc ]
+[; ;RF.c: 199: Conf2_ChannelD_Status = 0;
+"199
+[e = _Conf2_ChannelD_Status -> -> 0 `i `uc ]
 "200
-[e ( _SendRF_wait (4 , , , -> &U _Conf2_ChannelD_ON `*Cuc -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
-[; ;RF.c: 201: Conf2_ChannelD_Status = 1;
+}
+[; ;RF.c: 200: }
+[e $U 410  ]
 "201
-[e = _Conf2_ChannelD_Status -> -> 1 `i `uc ]
+[e :U 409 ]
+[; ;RF.c: 201: else
+[; ;RF.c: 202: {
 "202
+{
+[; ;RF.c: 203: SendRF_wait(Conf2_ChannelD_ON,2,16,3);
+"203
+[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelD_ON -> -> 2 `i `uc -> -> 16 `i `uc -> -> 3 `i `uc ]
+[; ;RF.c: 204: Conf2_ChannelD_Status = 1;
+"204
+[e = _Conf2_ChannelD_Status -> -> 1 `i `uc ]
+"205
 }
 [e :U 410 ]
-[; ;RF.c: 202: }
-[; ;RF.c: 203: break;
-"203
-[e $U 400  ]
-[; ;RF.c: 204: case 5:
-"204
-[e :U 411 ]
-[; ;RF.c: 206: if(Conf2_ChannelH_1_Status)
+[; ;RF.c: 205: }
+[; ;RF.c: 206: break;
 "206
-[e $ ! != -> _Conf2_ChannelH_1_Status `i -> -> -> 0 `i `uc `i 412  ]
-[; ;RF.c: 207: {
+[e $U 400  ]
+[; ;RF.c: 207: case 5:
 "207
-{
-[; ;RF.c: 208: SendRF_wait(Conf2_ChannelH_1_ON,2,16,8);
-"208
-[e ( _SendRF_wait (4 , , , -> &U _Conf2_ChannelH_1_ON `*Cuc -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
-[; ;RF.c: 209: Conf2_ChannelH_1_Status = 0;
+[e :U 411 ]
+[; ;RF.c: 209: if(Conf2_ChannelH_1_Status)
 "209
-[e = _Conf2_ChannelH_1_Status -> -> 0 `i `uc ]
+[e $ ! != -> _Conf2_ChannelH_1_Status `i -> -> -> 0 `i `uc `i 412  ]
+[; ;RF.c: 210: {
 "210
-}
-[; ;RF.c: 210: }
-[e $U 413  ]
-"211
-[e :U 412 ]
-[; ;RF.c: 211: else
-[; ;RF.c: 212: {
-"212
 {
-[; ;RF.c: 213: SendRF_wait(Conf2_ChannelH_1_OFF,2,16,8);
+[; ;RF.c: 211: SendRF_wait(Conf2_ChannelH_1_OFF,2,16,3);
+"211
+[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_1_OFF -> -> 2 `i `uc -> -> 16 `i `uc -> -> 3 `i `uc ]
+[; ;RF.c: 212: Conf2_ChannelH_1_Status = 0;
+"212
+[e = _Conf2_ChannelH_1_Status -> -> 0 `i `uc ]
 "213
-[e ( _SendRF_wait (4 , , , -> &U _Conf2_ChannelH_1_OFF `*Cuc -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
-[; ;RF.c: 214: Conf2_ChannelH_1_Status = 1;
+}
+[; ;RF.c: 213: }
+[e $U 413  ]
 "214
-[e = _Conf2_ChannelH_1_Status -> -> 1 `i `uc ]
+[e :U 412 ]
+[; ;RF.c: 214: else
+[; ;RF.c: 215: {
 "215
+{
+[; ;RF.c: 216: SendRF_wait(Conf2_ChannelH_1_ON,2,16,3);
+"216
+[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_1_ON -> -> 2 `i `uc -> -> 16 `i `uc -> -> 3 `i `uc ]
+[; ;RF.c: 217: Conf2_ChannelH_1_Status = 1;
+"217
+[e = _Conf2_ChannelH_1_Status -> -> 1 `i `uc ]
+"218
 }
 [e :U 413 ]
-[; ;RF.c: 215: }
-[; ;RF.c: 216: break;
-"216
-[e $U 400  ]
-[; ;RF.c: 217: case 6:
-"217
-[e :U 414 ]
-[; ;RF.c: 219: if(Conf2_ChannelH_2_Status)
+[; ;RF.c: 218: }
+[; ;RF.c: 219: break;
 "219
-[e $ ! != -> _Conf2_ChannelH_2_Status `i -> -> -> 0 `i `uc `i 415  ]
-[; ;RF.c: 220: {
+[e $U 400  ]
+[; ;RF.c: 220: case 6:
 "220
-{
-[; ;RF.c: 221: SendRF_wait(Conf2_ChannelH_2_ON,2,16,8);
-"221
-[e ( _SendRF_wait (4 , , , -> &U _Conf2_ChannelH_2_ON `*Cuc -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
-[; ;RF.c: 222: Conf2_ChannelH_2_Status = 0;
+[e :U 414 ]
+[; ;RF.c: 222: if(Conf2_ChannelH_2_Status)
 "222
-[e = _Conf2_ChannelH_2_Status -> -> 0 `i `uc ]
+[e $ ! != -> _Conf2_ChannelH_2_Status `i -> -> -> 0 `i `uc `i 415  ]
+[; ;RF.c: 223: {
 "223
-}
-[; ;RF.c: 223: }
-[e $U 416  ]
-"224
-[e :U 415 ]
-[; ;RF.c: 224: else
-[; ;RF.c: 225: {
-"225
 {
-[; ;RF.c: 226: SendRF_wait(Conf2_ChannelH_2_OFF,2,16,8);
+[; ;RF.c: 224: SendRF_wait(Conf2_ChannelH_2_OFF,2,16,3);
+"224
+[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_2_OFF -> -> 2 `i `uc -> -> 16 `i `uc -> -> 3 `i `uc ]
+[; ;RF.c: 225: Conf2_ChannelH_2_Status = 0;
+"225
+[e = _Conf2_ChannelH_2_Status -> -> 0 `i `uc ]
 "226
-[e ( _SendRF_wait (4 , , , -> &U _Conf2_ChannelH_2_OFF `*Cuc -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
-[; ;RF.c: 227: Conf2_ChannelH_2_Status = 1;
+}
+[; ;RF.c: 226: }
+[e $U 416  ]
 "227
-[e = _Conf2_ChannelH_2_Status -> -> 1 `i `uc ]
+[e :U 415 ]
+[; ;RF.c: 227: else
+[; ;RF.c: 228: {
 "228
+{
+[; ;RF.c: 229: SendRF_wait(Conf2_ChannelH_2_ON,2,16,3);
+"229
+[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_2_ON -> -> 2 `i `uc -> -> 16 `i `uc -> -> 3 `i `uc ]
+[; ;RF.c: 230: Conf2_ChannelH_2_Status = 1;
+"230
+[e = _Conf2_ChannelH_2_Status -> -> 1 `i `uc ]
+"231
 }
 [e :U 416 ]
-[; ;RF.c: 228: }
-[; ;RF.c: 229: break;
-"229
-[e $U 400  ]
-[; ;RF.c: 230: case 7:
-"230
-[e :U 417 ]
-[; ;RF.c: 232: if(Conf2_ChannelH_3_Status)
+[; ;RF.c: 231: }
+[; ;RF.c: 232: break;
 "232
-[e $ ! != -> _Conf2_ChannelH_3_Status `i -> -> -> 0 `i `uc `i 418  ]
-[; ;RF.c: 233: {
+[e $U 400  ]
+[; ;RF.c: 233: case 7:
 "233
-{
-[; ;RF.c: 234: SendRF_wait(Conf2_ChannelH_3_ON,2,16,8);
-"234
-[e ( _SendRF_wait (4 , , , -> &U _Conf2_ChannelH_3_ON `*Cuc -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
-[; ;RF.c: 235: Conf2_ChannelH_3_Status = 0;
+[e :U 417 ]
+[; ;RF.c: 235: if(Conf2_ChannelH_3_Status)
 "235
-[e = _Conf2_ChannelH_3_Status -> -> 0 `i `uc ]
+[e $ ! != -> _Conf2_ChannelH_3_Status `i -> -> -> 0 `i `uc `i 418  ]
+[; ;RF.c: 236: {
 "236
-}
-[; ;RF.c: 236: }
-[e $U 419  ]
-"237
-[e :U 418 ]
-[; ;RF.c: 237: else
-[; ;RF.c: 238: {
-"238
 {
-[; ;RF.c: 239: SendRF_wait(Conf2_ChannelH_3_OFF,2,16,8);
+[; ;RF.c: 237: SendRF_wait(Conf2_ChannelH_3_OFF,2,16,3);
+"237
+[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_3_OFF -> -> 2 `i `uc -> -> 16 `i `uc -> -> 3 `i `uc ]
+[; ;RF.c: 238: Conf2_ChannelH_3_Status = 0;
+"238
+[e = _Conf2_ChannelH_3_Status -> -> 0 `i `uc ]
 "239
-[e ( _SendRF_wait (4 , , , -> &U _Conf2_ChannelH_3_OFF `*Cuc -> -> 2 `i `uc -> -> 16 `i `uc -> -> 8 `i `uc ]
-[; ;RF.c: 240: Conf2_ChannelH_3_Status = 1;
+}
+[; ;RF.c: 239: }
+[e $U 419  ]
 "240
-[e = _Conf2_ChannelH_3_Status -> -> 1 `i `uc ]
+[e :U 418 ]
+[; ;RF.c: 240: else
+[; ;RF.c: 241: {
 "241
+{
+[; ;RF.c: 242: SendRF_wait(Conf2_ChannelH_3_ON,2,16,3);
+"242
+[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_3_ON -> -> 2 `i `uc -> -> 16 `i `uc -> -> 3 `i `uc ]
+[; ;RF.c: 243: Conf2_ChannelH_3_Status = 1;
+"243
+[e = _Conf2_ChannelH_3_Status -> -> 1 `i `uc ]
+"244
 }
 [e :U 419 ]
-[; ;RF.c: 241: }
-[; ;RF.c: 242: break;
-"242
-[e $U 400  ]
-[; ;RF.c: 243: default:
-"243
-[e :U 420 ]
-[; ;RF.c: 244: break;
-"244
-[e $U 400  ]
+[; ;RF.c: 244: }
+[; ;RF.c: 245: break;
 "245
-}
-[; ;RF.c: 245: }
 [e $U 400  ]
-"164
+[; ;RF.c: 246: default:
+"246
+[e :U 420 ]
+[; ;RF.c: 247: break;
+"247
+[e $U 400  ]
+"248
+}
+[; ;RF.c: 248: }
+[e $U 400  ]
+"167
 [e :U 401 ]
 [e [\ _channel , $ -> -> 0 `i `uc 402
  , $ -> -> 1 `i `uc 403
@@ -5029,9 +5087,9 @@ Version 3.2 HI-TECH Software Intermediate Code
  , $ -> -> 6 `i `uc 414
  , $ -> -> 7 `i `uc 417
  420 ]
-"245
+"248
 [e :U 400 ]
-[; ;RF.c: 246: }
-"246
+[; ;RF.c: 249: }
+"249
 [e :UE 399 ]
 }

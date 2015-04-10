@@ -8,6 +8,8 @@
  * --------     ---------   ----------------------------------------------------
  * 04/02/15     1.0_DW0a    Initial project make.
  *                          Derived from project 'PIC_PS2_to_UART'.
+ * 04/09/15     1.0_DW0b    Fixed bugs.
+ *                          Added features.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -33,6 +35,7 @@
 
 #include "system.h"        /* System funct/params, like osc/peripheral config */
 #include "user.h"          /* User funct/params, such as InitApp */
+#include "RF.h"          /* User funct/params, such as InitApp */
 
 /******************************************************************************/
 /* MaxCommandLen
@@ -115,8 +118,8 @@ extern unsigned char ReceivedStringPos;
 extern unsigned char CommandString[RXCommandsize];
 extern unsigned char CommandStringPos;
 extern volatile unsigned char NewReceivedString;
-unsigned char SYNTAX_ERR[] = "Error: Syntax not understood";
-unsigned char CRLN[] = "\r\n";
+const unsigned char SYNTAX_ERR[] = "Error: Syntax";
+const unsigned char CRLN[] = "\r\n";
 
 /******************************************************************************/
 /* Function prototypes                                                        */
@@ -131,5 +134,6 @@ void UART_send_break(void);
 void UARTstringCRLN(unsigned char *data);
 void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
 void EraseScreen(unsigned char characters);
+void ClearUSART(void);
 
 #endif	/* UART_H */

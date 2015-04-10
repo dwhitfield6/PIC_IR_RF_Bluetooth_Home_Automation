@@ -1,13 +1,10 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F4100 `uc ~T0 @X0 -> 2 `i t ]
-[v F4103 `uc ~T0 @X0 -> 2 `i t ]
-[v F4105 `uc ~T0 @X0 -> 2 `i t ]
-[v F4107 `uc ~T0 @X0 -> 2 `i t ]
-[v F4109 `uc ~T0 @X0 -> 2 `i t ]
-[v F4111 `uc ~T0 @X0 -> 2 `i t ]
-"96 EEPROM.h
-[s S380 `uc 1 `ul 1 `F4100 -> 20 `i `uc 1 `F4103 -> 20 `i `F4105 -> 20 `i `F4107 -> 20 `i `F4109 -> 20 `i `F4111 -> 20 `i ]
-[n S380 EEdata BlueToothFlag SWNECcode RemoteButtonNEC EEPROMinitFlag RemoteButton1RF RemoteButton2RF RemoteButton3RF RemoteButton4RF RemoteButton5RF ]
+[v F4153 `uc ~T0 @X0 -> 2 `i t ]
+[v F4157 `uc ~T0 @X0 -> 2 `i t ]
+[v F4156 `F4157 ~T0 @X0 -> 3 `i t ]
+"101 EEPROM.h
+[s S380 `uc 1 `ul 1 `F4153 -> 20 `i `uc 1 `F4156 -> 15 `i ]
+[n S380 EEdata BlueToothFlag SWNECcode RemoteButtonNEC EEPROMinitFlag RemoteButtonRF ]
 "1427 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [v _LATA `Vuc ~T0 @X0 0 e@3977 ]
 "1559
@@ -67,9 +64,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _INTCON2bits `VS330 ~T0 @X0 0 e@4081 ]
 "317
 [v _WPUB `Vuc ~T0 @X0 0 e@3964 ]
-"64 MISC.h
+"66 MISC.h
 [v _cleanBuffer `(v ~T0 @X0 0 ef2`*uc`i ]
-"113 UART.h
+"116 UART.h
 [v _ReceivedString `uc ~T0 @X0 -> 0 `x e ]
 "2707 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [s S138 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -145,27 +142,27 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S334 . . . . . . ]
 "6470
 [v _INTCONbits `VS334 ~T0 @X0 0 e@4082 ]
-"142 EEPROM.h
+"145 EEPROM.h
 [v _SyncEEPROMToGlobal `(v ~T0 @X0 0 ef ]
-"144
+"147
 [v _EEPROMinitialized `(uc ~T0 @X0 0 ef ]
-"143
+"146
 [v _SetEEPROMdefault `(v ~T0 @X0 0 ef ]
-"141
+"144
 [v _SyncGlobalToEEPROM `(uc ~T0 @X0 0 ef ]
-"81 ADC.h
+"85 ADC.h
 [v _InitADC `(v ~T0 @X0 0 ef ]
-"204 IR.h
+"214 IR.h
 [v _InitIR `(v ~T0 @X0 0 ef ]
-"125 UART.h
+"128 UART.h
 [v _InitUART `(v ~T0 @X0 0 ef1`ul ]
-"128
-[v _UARTstring `(v ~T0 @X0 0 ef1`*uc ]
-"127
-[v _UARTchar `(v ~T0 @X0 0 ef1`uc ]
-"49 Bluetooth.h
+"51 Bluetooth.h
 [v _InitBluetooth `(v ~T0 @X0 0 ef ]
-"182 Timer.h
+"131 UART.h
+[v _UARTstring `(v ~T0 @X0 0 ef1`*uc ]
+"130
+[v _UARTchar `(v ~T0 @X0 0 ef1`uc ]
+"184 Timer.h
 [v _InitTimers `(v ~T0 @X0 0 ef ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -3829,7 +3826,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdio.h: 202: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
 [; ;stdio.h: 206: extern int sprintf(char *, const char *, ...);
 [; ;stdio.h: 207: extern int printf(const char *, ...);
-"50 user.h
+"52 user.h
 [v _ProductName `uc ~T0 @X0 -> 50 `i e ]
 [i _ProductName
 :U ..
@@ -3851,23 +3848,680 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;user.h: 50: unsigned char ProductName[50] = {"Home Automation"};
-"58
+[; ;user.h: 52: unsigned char ProductName[50] = {"Home Automation"};
+"60
 [v _SN `ul ~T0 @X0 1 e ]
 [i _SN
 -> -> -> 1 `i `l `ul
 ]
-[; ;user.h: 58: unsigned long SN = 1;
-[; ;user.h: 286: void InitApp(void);
-[; ;user.h: 287: void Init_System (void);
-[; ;system.h: 55: void ConfigureOscillator(void);
-[; ;UART.h: 113: extern unsigned char ReceivedString[255];
-[; ;UART.h: 114: extern unsigned char ReceivedStringPos;
-[; ;UART.h: 115: extern unsigned char CommandString[255];
-[; ;UART.h: 116: extern unsigned char CommandStringPos;
-[; ;UART.h: 117: extern volatile unsigned char NewReceivedString;
-"118 UART.h
-[v _SYNTAX_ERR `uc ~T0 @X0 -> 0 `x e ]
+[; ;user.h: 60: unsigned long SN = 1;
+[; ;user.h: 288: void InitApp(void);
+[; ;user.h: 289: void Init_System (void);
+[; ;system.h: 57: void ConfigureOscillator(void);
+"128 RF.h
+[v _Conf1_Channels `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf1_Channels
+:U ..
+-> 68 `c
+-> 69 `c
+-> 70 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 128: const unsigned char Conf1_Channels[] = "DEF";
+"131
+[v _Conf1_ChannelD `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf1_ChannelD
+:U ..
+-> -> 3 `i `uc
+-> -> 3 `i `uc
+-> -> 3 `i `uc
+-> -> 3 `i `uc
+-> -> 3 `i `uc
+-> -> 3 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+]
+[; ;RF.h: 131: const unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
+"132
+[v _Conf1_ChannelD_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf1_ChannelD_STR
+:U ..
+-> 67 `c
+-> 111 `c
+-> 110 `c
+-> 102 `c
+-> 49 `c
+-> 95 `c
+-> 67 `c
+-> 104 `c
+-> 97 `c
+-> 110 `c
+-> 110 `c
+-> 101 `c
+-> 108 `c
+-> 68 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 132: const unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
+"135
+[v _Conf1_ChannelE `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf1_ChannelE
+:U ..
+-> -> 0 `i `uc
+-> -> 3 `i `uc
+-> -> 3 `i `uc
+-> -> 3 `i `uc
+-> -> 3 `i `uc
+-> -> 3 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+]
+[; ;RF.h: 135: const unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
+"136
+[v _Conf1_ChannelE_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf1_ChannelE_STR
+:U ..
+-> 67 `c
+-> 111 `c
+-> 110 `c
+-> 102 `c
+-> 49 `c
+-> 95 `c
+-> 67 `c
+-> 104 `c
+-> 97 `c
+-> 110 `c
+-> 110 `c
+-> 101 `c
+-> 108 `c
+-> 69 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 136: const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
+"139
+[v _Conf1_ChannelF `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf1_ChannelF
+:U ..
+-> -> 3 `i `uc
+-> -> 0 `i `uc
+-> -> 3 `i `uc
+-> -> 3 `i `uc
+-> -> 3 `i `uc
+-> -> 3 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+]
+[; ;RF.h: 139: const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
+"140
+[v _Conf1_ChannelF_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf1_ChannelF_STR
+:U ..
+-> 67 `c
+-> 111 `c
+-> 110 `c
+-> 102 `c
+-> 49 `c
+-> 95 `c
+-> 67 `c
+-> 104 `c
+-> 97 `c
+-> 110 `c
+-> 110 `c
+-> 101 `c
+-> 108 `c
+-> 70 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 140: const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
+"154
+[v _Conf2_Channels `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_Channels
+:U ..
+-> 66 `c
+-> 68 `c
+-> 72 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 154: const unsigned char Conf2_Channels[] = "BDH";
+"156
+[v _Conf2_ChannelB_ON `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelB_ON
+:U ..
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+]
+[; ;RF.h: 156: const unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
+"157
+[v _Conf2_ChannelB_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelB_ON_STR
+:U ..
+-> 67 `c
+-> 111 `c
+-> 110 `c
+-> 102 `c
+-> 50 `c
+-> 95 `c
+-> 67 `c
+-> 104 `c
+-> 97 `c
+-> 110 `c
+-> 110 `c
+-> 101 `c
+-> 108 `c
+-> 66 `c
+-> 95 `c
+-> 79 `c
+-> 78 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 157: const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
+"158
+[v _Conf2_ChannelB_OFF `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelB_OFF
+:U ..
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+]
+[; ;RF.h: 158: const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
+"159
+[v _Conf2_ChannelB_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelB_OFF_STR
+:U ..
+-> 67 `c
+-> 111 `c
+-> 110 `c
+-> 102 `c
+-> 50 `c
+-> 95 `c
+-> 67 `c
+-> 104 `c
+-> 97 `c
+-> 110 `c
+-> 110 `c
+-> 101 `c
+-> 108 `c
+-> 66 `c
+-> 95 `c
+-> 79 `c
+-> 70 `c
+-> 70 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 159: const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
+"162
+[v _Conf2_ChannelD_ON `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelD_ON
+:U ..
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+..
+]
+[; ;RF.h: 162: const unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
+"163
+[v _Conf2_ChannelD_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelD_ON_STR
+:U ..
+-> 67 `c
+-> 111 `c
+-> 110 `c
+-> 102 `c
+-> 50 `c
+-> 95 `c
+-> 67 `c
+-> 104 `c
+-> 97 `c
+-> 110 `c
+-> 110 `c
+-> 101 `c
+-> 108 `c
+-> 68 `c
+-> 95 `c
+-> 79 `c
+-> 78 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 163: const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
+"164
+[v _Conf2_ChannelD_OFF `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelD_OFF
+:U ..
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+..
+]
+[; ;RF.h: 164: const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
+"165
+[v _Conf2_ChannelD_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelD_OFF_STR
+:U ..
+-> 67 `c
+-> 111 `c
+-> 110 `c
+-> 102 `c
+-> 50 `c
+-> 95 `c
+-> 67 `c
+-> 104 `c
+-> 97 `c
+-> 110 `c
+-> 110 `c
+-> 101 `c
+-> 108 `c
+-> 68 `c
+-> 95 `c
+-> 79 `c
+-> 70 `c
+-> 70 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 165: const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
+"168
+[v _Conf2_ChannelH_1_ON `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelH_1_ON
+:U ..
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+]
+[; ;RF.h: 168: const unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
+"169
+[v _Conf2_ChannelH_1_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelH_1_ON_STR
+:U ..
+-> 67 `c
+-> 111 `c
+-> 110 `c
+-> 102 `c
+-> 50 `c
+-> 95 `c
+-> 67 `c
+-> 104 `c
+-> 97 `c
+-> 110 `c
+-> 110 `c
+-> 101 `c
+-> 108 `c
+-> 72 `c
+-> 95 `c
+-> 49 `c
+-> 95 `c
+-> 79 `c
+-> 78 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 169: const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
+"170
+[v _Conf2_ChannelH_1_OFF `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelH_1_OFF
+:U ..
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+]
+[; ;RF.h: 170: const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
+"171
+[v _Conf2_ChannelH_1_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelH_1_OFF_STR
+:U ..
+-> 67 `c
+-> 111 `c
+-> 110 `c
+-> 102 `c
+-> 50 `c
+-> 95 `c
+-> 67 `c
+-> 104 `c
+-> 97 `c
+-> 110 `c
+-> 110 `c
+-> 101 `c
+-> 108 `c
+-> 72 `c
+-> 95 `c
+-> 49 `c
+-> 95 `c
+-> 79 `c
+-> 70 `c
+-> 70 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 171: const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
+"172
+[v _Conf2_ChannelH_2_ON `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelH_2_ON
+:U ..
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+]
+[; ;RF.h: 172: const unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
+"173
+[v _Conf2_ChannelH_2_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelH_2_ON_STR
+:U ..
+-> 67 `c
+-> 111 `c
+-> 110 `c
+-> 102 `c
+-> 50 `c
+-> 95 `c
+-> 67 `c
+-> 104 `c
+-> 97 `c
+-> 110 `c
+-> 110 `c
+-> 101 `c
+-> 108 `c
+-> 72 `c
+-> 95 `c
+-> 50 `c
+-> 95 `c
+-> 79 `c
+-> 78 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 173: const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
+"174
+[v _Conf2_ChannelH_2_OFF `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelH_2_OFF
+:U ..
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+]
+[; ;RF.h: 174: const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
+"175
+[v _Conf2_ChannelH_2_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelH_2_OFF_STR
+:U ..
+-> 67 `c
+-> 111 `c
+-> 110 `c
+-> 102 `c
+-> 50 `c
+-> 95 `c
+-> 67 `c
+-> 104 `c
+-> 97 `c
+-> 110 `c
+-> 110 `c
+-> 101 `c
+-> 108 `c
+-> 72 `c
+-> 95 `c
+-> 50 `c
+-> 95 `c
+-> 79 `c
+-> 70 `c
+-> 70 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 175: const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
+"176
+[v _Conf2_ChannelH_3_ON `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelH_3_ON
+:U ..
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+]
+[; ;RF.h: 176: const unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
+"177
+[v _Conf2_ChannelH_3_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelH_3_ON_STR
+:U ..
+-> 67 `c
+-> 111 `c
+-> 110 `c
+-> 102 `c
+-> 50 `c
+-> 95 `c
+-> 67 `c
+-> 104 `c
+-> 97 `c
+-> 110 `c
+-> 110 `c
+-> 101 `c
+-> 108 `c
+-> 72 `c
+-> 95 `c
+-> 51 `c
+-> 95 `c
+-> 79 `c
+-> 78 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 177: const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
+"178
+[v _Conf2_ChannelH_3_OFF `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelH_3_OFF
+:U ..
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+]
+[; ;RF.h: 178: const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
+"179
+[v _Conf2_ChannelH_3_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelH_3_OFF_STR
+:U ..
+-> 67 `c
+-> 111 `c
+-> 110 `c
+-> 102 `c
+-> 50 `c
+-> 95 `c
+-> 67 `c
+-> 104 `c
+-> 97 `c
+-> 110 `c
+-> 110 `c
+-> 101 `c
+-> 108 `c
+-> 72 `c
+-> 95 `c
+-> 51 `c
+-> 95 `c
+-> 79 `c
+-> 70 `c
+-> 70 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 179: const unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
+[; ;RF.h: 184: extern unsigned char RFsendCode[20];
+[; ;RF.h: 185: extern volatile unsigned char RFsendFlag;
+[; ;RF.h: 186: extern unsigned char RFcodePlace;
+[; ;RF.h: 187: extern unsigned char RFcodeBit;
+[; ;RF.h: 188: extern volatile unsigned char Sendcount;
+[; ;RF.h: 189: extern unsigned char RFConfig;
+"190
+[v _Sent `Vuc ~T0 @X0 1 e ]
+[; ;RF.h: 190: volatile unsigned char Sent;
+[; ;RF.h: 191: extern volatile unsigned char RF_IR_Postscaler;
+[; ;RF.h: 192: extern unsigned char RF_IR;
+[; ;RF.h: 198: unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
+[; ;RF.h: 199: void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
+[; ;RF.h: 200: void SendRF_Channel(unsigned char channel);
+[; ;RF.h: 201: unsigned char GetRFstatus(void);
+[; ;UART.h: 116: extern unsigned char ReceivedString[255];
+[; ;UART.h: 117: extern unsigned char ReceivedStringPos;
+[; ;UART.h: 118: extern unsigned char CommandString[255];
+[; ;UART.h: 119: extern unsigned char CommandStringPos;
+[; ;UART.h: 120: extern volatile unsigned char NewReceivedString;
+"121 UART.h
+[v _SYNTAX_ERR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _SYNTAX_ERR
 :U ..
 -> 69 `c
@@ -3883,27 +4537,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 116 `c
 -> 97 `c
 -> 120 `c
--> 32 `c
--> 110 `c
--> 111 `c
--> 116 `c
--> 32 `c
--> 117 `c
--> 110 `c
--> 100 `c
--> 101 `c
--> 114 `c
--> 115 `c
--> 116 `c
--> 111 `c
--> 111 `c
--> 100 `c
 -> 0 `c
 ..
 ]
-[; ;UART.h: 118: unsigned char SYNTAX_ERR[] = "Error: Syntax not understood";
-"119
-[v _CRLN `uc ~T0 @X0 -> 0 `x e ]
+[; ;UART.h: 121: const unsigned char SYNTAX_ERR[] = "Error: Syntax";
+"122
+[v _CRLN `Cuc ~T0 @X0 -> 0 `x e ]
 [i _CRLN
 :U ..
 -> 13 `c
@@ -3911,30 +4550,27 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;UART.h: 119: unsigned char CRLN[] = "\r\n";
-[; ;UART.h: 124: void Local_CloseUSART(void );
-[; ;UART.h: 125: void InitUART(unsigned long Baud);
-[; ;UART.h: 126: void OpenUSART( unsigned char config, unsigned int spbrg);
-[; ;UART.h: 127: void UARTchar(unsigned char data);
-[; ;UART.h: 128: void UARTstring(unsigned char *data);
-[; ;UART.h: 129: unsigned char ReadUSART(void);
-[; ;UART.h: 130: void UART_send_break(void);
-[; ;UART.h: 131: void UARTstringCRLN(unsigned char *data);
-[; ;UART.h: 132: void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
-[; ;UART.h: 133: void EraseScreen(unsigned char characters);
-[; ;EEPROM.h: 96: typedef struct EEdata
-[; ;EEPROM.h: 97: {
-[; ;EEPROM.h: 98: unsigned char BlueToothFlag;
-[; ;EEPROM.h: 99: unsigned long SWNECcode;
-[; ;EEPROM.h: 100: unsigned char RemoteButtonNEC[20][2];
-[; ;EEPROM.h: 101: unsigned char EEPROMinitFlag;
-[; ;EEPROM.h: 113: unsigned char RemoteButton1RF[20][2];
-[; ;EEPROM.h: 114: unsigned char RemoteButton2RF[20][2];
-[; ;EEPROM.h: 115: unsigned char RemoteButton3RF[20][2];
-[; ;EEPROM.h: 116: unsigned char RemoteButton4RF[20][2];
-[; ;EEPROM.h: 117: unsigned char RemoteButton5RF[20][2];
-[; ;EEPROM.h: 119: }GBLdata;
-"124 EEPROM.h
+[; ;UART.h: 122: const unsigned char CRLN[] = "\r\n";
+[; ;UART.h: 127: void Local_CloseUSART(void );
+[; ;UART.h: 128: void InitUART(unsigned long Baud);
+[; ;UART.h: 129: void OpenUSART( unsigned char config, unsigned int spbrg);
+[; ;UART.h: 130: void UARTchar(unsigned char data);
+[; ;UART.h: 131: void UARTstring(unsigned char *data);
+[; ;UART.h: 132: unsigned char ReadUSART(void);
+[; ;UART.h: 133: void UART_send_break(void);
+[; ;UART.h: 134: void UARTstringCRLN(unsigned char *data);
+[; ;UART.h: 135: void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
+[; ;UART.h: 136: void EraseScreen(unsigned char characters);
+[; ;UART.h: 137: void ClearUSART(void);
+[; ;EEPROM.h: 101: typedef struct EEdata
+[; ;EEPROM.h: 102: {
+[; ;EEPROM.h: 103: unsigned char BlueToothFlag;
+[; ;EEPROM.h: 104: unsigned long SWNECcode;
+[; ;EEPROM.h: 105: unsigned char RemoteButtonNEC[20][2];
+[; ;EEPROM.h: 106: unsigned char EEPROMinitFlag;
+[; ;EEPROM.h: 120: unsigned char RemoteButtonRF[15][3][2];
+[; ;EEPROM.h: 122: }GBLdata;
+"127 EEPROM.h
 [v _Global `S380 ~T0 @X0 1 e ]
 [i _Global
 :U ..
@@ -3943,272 +4579,273 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ..
 ]
-[; ;EEPROM.h: 124: GBLdata Global =0;
-[; ;EEPROM.h: 130: unsigned int ReadEEPROM_1Byte(unsigned int address);
-[; ;EEPROM.h: 131: void EEPROM_UNLOCK(void);
-[; ;EEPROM.h: 132: void WriteEEPROM_1Byte(unsigned int address, unsigned char data);
-[; ;EEPROM.h: 133: GBLdata GetEEPROM(void);
-[; ;EEPROM.h: 134: unsigned long SetEEPROM(GBLdata Temp,unsigned long burn);
-[; ;EEPROM.h: 135: unsigned long GetMemoryLong(unsigned char AddressFirst);
-[; ;EEPROM.h: 136: unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst);
-[; ;EEPROM.h: 137: unsigned long GetMemoryInt(unsigned char AddressFirst);
-[; ;EEPROM.h: 138: unsigned char SetMemoryInt(unsigned int Data, unsigned char AddressFirst);
-[; ;EEPROM.h: 139: unsigned long GetMemoryChar(unsigned char AddressFirst);
-[; ;EEPROM.h: 140: unsigned char SetMemoryChar(unsigned char Data, unsigned char AddressFirst);
-[; ;EEPROM.h: 141: unsigned char SyncGlobalToEEPROM(void);
-[; ;EEPROM.h: 142: void SyncEEPROMToGlobal(void);
-[; ;EEPROM.h: 143: void SetEEPROMdefault(void);
-[; ;EEPROM.h: 144: unsigned char EEPROMinitialized(void);
-[; ;MISC.h: 62: void delayUS(long US);
-[; ;MISC.h: 63: unsigned char IsCharacter(unsigned char data);
-[; ;MISC.h: 64: void cleanBuffer(unsigned char* data, int count);
-[; ;MISC.h: 65: void cleanBuffer16bit(unsigned int* data, int count);
-[; ;MISC.h: 66: double Round(double input);
-[; ;MISC.h: 67: void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
-[; ;MISC.h: 68: unsigned char StringMatch(unsigned char* This,const unsigned char* That);
-[; ;MISC.h: 69: unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
-[; ;MISC.h: 70: unsigned char StringContains(unsigned char* This, const unsigned char* That);
-[; ;MISC.h: 71: unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
-[; ;MISC.h: 72: void CalibrateDelay(void);
-[; ;MISC.h: 73: void lowercaseChar(unsigned char* Input);
-[; ;MISC.h: 74: void lowercaseString(unsigned char* Input);
-[; ;MISC.h: 75: void delayNOP(unsigned char NOPs);
-[; ;MISC.h: 76: unsigned char Reverse_Byte(unsigned char This);
-[; ;MISC.h: 77: unsigned int Reverse_2Byte(unsigned int This);
-[; ;MISC.h: 78: unsigned long Reverse_4Byte(unsigned long This);
-[; ;MISC.h: 79: unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
-[; ;MISC.h: 80: unsigned char StringAddEqual(unsigned char* Input);
-[; ;MISC.h: 81: unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
-[; ;Timer.h: 37: extern unsigned char Timer1_Postscaler;
-[; ;Timer.h: 38: extern unsigned char Timer2_Postscaler;
-[; ;Timer.h: 39: extern unsigned char Timer3_Postscaler;
-[; ;Timer.h: 174: void InitTimer0(void);
-[; ;Timer.h: 175: void ResetTimer0(void);
-[; ;Timer.h: 176: void InitTimer1(void);
-[; ;Timer.h: 177: void ResetTimer1(void);
-[; ;Timer.h: 178: void InitTimer2(void);
-[; ;Timer.h: 179: void LEDTimerON(void);
-[; ;Timer.h: 180: void InitTimer3(void);
-[; ;Timer.h: 181: void ResetTimer3(void);
-[; ;Timer.h: 182: void InitTimers(void);
-[; ;ADC.h: 78: double ReadVoltage(void);
-[; ;ADC.h: 79: unsigned char InternalADC_Read(unsigned char channel, unsigned int *ADCcounts);
-[; ;ADC.h: 80: void ResetADC(void);
-[; ;ADC.h: 81: void InitADC(void);
-[; ;ADC.h: 82: void VoltageDividerON(void);
-[; ;ADC.h: 83: void VoltageDividerOFF(void);
-[; ;Bluetooth.h: 49: void InitBluetooth(void);
-[; ;Bluetooth.h: 50: unsigned char BlueConnected(void);
-[; ;Bluetooth.h: 51: void ResetBlue(void);
-[; ;Bluetooth.h: 52: unsigned char EnterCommandMode(void);
-[; ;Bluetooth.h: 53: unsigned char BluetoothInitialSetup(void);
-[; ;Bluetooth.h: 54: unsigned char BluetoothConfigured(void);
-[; ;Bluetooth.h: 55: unsigned char UseBluetooth(void);
-[; ;Bluetooth.h: 56: unsigned char WaitForIRsignal(void);
-[; ;IR.h: 185: extern unsigned char IRpinOLD;
-[; ;IR.h: 186: extern unsigned int IRRawCode[72];
-[; ;IR.h: 187: extern unsigned long IR_NEC;
-[; ;IR.h: 188: extern unsigned char IRrawCodeNum;
-[; ;IR.h: 189: extern unsigned char IR_New_Code;
-[; ;IR.h: 190: extern unsigned char IRbit;
-[; ;IR.h: 191: extern unsigned char IRrepeatflag;
-[; ;IR.h: 192: extern unsigned char IRsendFlag;
-[; ;IR.h: 193: extern unsigned char IRcodeBit;
-[; ;IR.h: 194: extern unsigned char IRcodePlace;
-[; ;IR.h: 195: extern unsigned long IRsendCode;
-[; ;IR.h: 196: extern unsigned char IRrepeatAmount;
-[; ;IR.h: 197: extern volatile unsigned char IRmod;
-[; ;IR.h: 198: extern volatile unsigned char ReceivingIR;
-[; ;IR.h: 199: extern volatile unsigned char IRbitPosition;
-[; ;IR.h: 204: void InitIR(void);
-[; ;IR.h: 205: unsigned char ReadIRpin(void);
-[; ;IR.h: 206: unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char Invert);
-[; ;IR.h: 207: void UseIRCode(unsigned char* Code, unsigned long NEC);
-[; ;IR.h: 208: unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount);
-[; ;IR.h: 209: void SendNEC_wait(unsigned long code, unsigned char RepeatAmount);
-[; ;IR.h: 210: void CalibrateIR(void);
-[; ;IR.h: 211: unsigned char CheckReceivingIR(void);
-[; ;IR.h: 212: unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
-[; ;IR.h: 213: unsigned long EncodeNEC(unsigned char address, unsigned char command);
-[; ;user.c: 49: extern const unsigned char Version[];
-"60 user.c
+[; ;EEPROM.h: 127: GBLdata Global = 0;
+[; ;EEPROM.h: 133: unsigned int ReadEEPROM_1Byte(unsigned int address);
+[; ;EEPROM.h: 134: void EEPROM_UNLOCK(void);
+[; ;EEPROM.h: 135: void WriteEEPROM_1Byte(unsigned int address, unsigned char data);
+[; ;EEPROM.h: 136: void GetEEPROM(GBLdata *Temp);
+[; ;EEPROM.h: 137: unsigned long SetEEPROM(GBLdata Temp,unsigned long burn);
+[; ;EEPROM.h: 138: unsigned long GetMemoryLong(unsigned char AddressFirst);
+[; ;EEPROM.h: 139: unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst);
+[; ;EEPROM.h: 140: unsigned long GetMemoryInt(unsigned char AddressFirst);
+[; ;EEPROM.h: 141: unsigned char SetMemoryInt(unsigned int Data, unsigned char AddressFirst);
+[; ;EEPROM.h: 142: unsigned long GetMemoryChar(unsigned char AddressFirst);
+[; ;EEPROM.h: 143: unsigned char SetMemoryChar(unsigned char Data, unsigned char AddressFirst);
+[; ;EEPROM.h: 144: unsigned char SyncGlobalToEEPROM(void);
+[; ;EEPROM.h: 145: void SyncEEPROMToGlobal(void);
+[; ;EEPROM.h: 146: void SetEEPROMdefault(void);
+[; ;EEPROM.h: 147: unsigned char EEPROMinitialized(void);
+[; ;MISC.h: 64: void delayUS(long US);
+[; ;MISC.h: 65: unsigned char IsCharacter(unsigned char data);
+[; ;MISC.h: 66: void cleanBuffer(unsigned char* data, int count);
+[; ;MISC.h: 67: void cleanBuffer16bit(unsigned int* data, int count);
+[; ;MISC.h: 68: double Round(double input);
+[; ;MISC.h: 69: void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
+[; ;MISC.h: 70: unsigned char StringMatch(unsigned char* This,const unsigned char* That);
+[; ;MISC.h: 71: unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
+[; ;MISC.h: 72: unsigned char StringContains(unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 73: unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 74: void CalibrateDelay(void);
+[; ;MISC.h: 75: void lowercaseChar(unsigned char* Input);
+[; ;MISC.h: 76: void lowercaseString(unsigned char* Input);
+[; ;MISC.h: 77: void delayNOP(unsigned char NOPs);
+[; ;MISC.h: 78: unsigned char Reverse_Byte(unsigned char This);
+[; ;MISC.h: 79: unsigned int Reverse_2Byte(unsigned int This);
+[; ;MISC.h: 80: unsigned long Reverse_4Byte(unsigned long This);
+[; ;MISC.h: 81: unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
+[; ;MISC.h: 82: unsigned char StringAddEqual(unsigned char* Input);
+[; ;MISC.h: 83: unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
+[; ;Timer.h: 39: extern unsigned char Timer1_Postscaler;
+[; ;Timer.h: 40: extern unsigned char Timer2_Postscaler;
+[; ;Timer.h: 41: extern unsigned char Timer3_Postscaler;
+[; ;Timer.h: 176: void InitTimer0(void);
+[; ;Timer.h: 177: void ResetTimer0(void);
+[; ;Timer.h: 178: void InitTimer1(void);
+[; ;Timer.h: 179: void ResetTimer1(void);
+[; ;Timer.h: 180: void InitTimer2(void);
+[; ;Timer.h: 181: void LEDTimerON(void);
+[; ;Timer.h: 182: void InitTimer3(void);
+[; ;Timer.h: 183: void ResetTimer3(void);
+[; ;Timer.h: 184: void InitTimers(void);
+[; ;ADC.h: 82: double ReadVoltage(void);
+[; ;ADC.h: 83: unsigned char InternalADC_Read(unsigned char channel, unsigned int *ADCcounts);
+[; ;ADC.h: 84: void ResetADC(void);
+[; ;ADC.h: 85: void InitADC(void);
+[; ;ADC.h: 86: void VoltageDividerON(void);
+[; ;ADC.h: 87: void VoltageDividerOFF(void);
+[; ;Bluetooth.h: 51: void InitBluetooth(void);
+[; ;Bluetooth.h: 52: unsigned char BlueConnected(void);
+[; ;Bluetooth.h: 53: void ResetBlue(void);
+[; ;Bluetooth.h: 54: unsigned char EnterCommandMode(void);
+[; ;Bluetooth.h: 55: unsigned char BluetoothInitialSetup(void);
+[; ;Bluetooth.h: 56: unsigned char BluetoothConfigured(void);
+[; ;Bluetooth.h: 57: unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos);
+[; ;Bluetooth.h: 58: unsigned char WaitForIRsignal(void);
+[; ;IR.h: 194: extern unsigned char IRpinOLD;
+[; ;IR.h: 195: extern unsigned int IRRawCode[72];
+[; ;IR.h: 196: extern unsigned long IR_NEC;
+[; ;IR.h: 197: extern unsigned char IRrawCodeNum;
+[; ;IR.h: 198: extern unsigned char IR_New_Code;
+[; ;IR.h: 199: extern unsigned char IRbit;
+[; ;IR.h: 200: extern unsigned char IRrepeatflag;
+[; ;IR.h: 201: extern unsigned char IRsendFlag;
+[; ;IR.h: 202: extern unsigned char IRcodeBit;
+[; ;IR.h: 203: extern unsigned char IRcodePlace;
+[; ;IR.h: 204: extern unsigned long IRsendCode;
+[; ;IR.h: 205: extern unsigned char IRrepeatAmount;
+[; ;IR.h: 206: extern volatile unsigned char IRmod;
+[; ;IR.h: 207: extern volatile unsigned char ReceivingIR;
+[; ;IR.h: 208: extern volatile unsigned char IRbitPosition;
+[; ;IR.h: 209: extern unsigned long IRtimeout;
+[; ;IR.h: 214: void InitIR(void);
+[; ;IR.h: 215: unsigned char ReadIRpin(void);
+[; ;IR.h: 216: unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char Invert);
+[; ;IR.h: 217: void UseIRCode(unsigned char* Code, unsigned long NEC);
+[; ;IR.h: 218: unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount);
+[; ;IR.h: 219: void SendNEC_wait(unsigned long code, unsigned char RepeatAmount);
+[; ;IR.h: 220: void CalibrateIR(void);
+[; ;IR.h: 221: unsigned char CheckReceivingIR(void);
+[; ;IR.h: 222: unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
+[; ;IR.h: 223: unsigned long EncodeNEC(unsigned char address, unsigned char command);
+[; ;user.c: 51: extern const unsigned char Version[];
+"62 user.c
 [v _InitApp `(v ~T0 @X0 1 ef ]
-"61
+"63
 {
-[; ;user.c: 60: void InitApp(void)
-[; ;user.c: 61: {
+[; ;user.c: 62: void InitApp(void)
+[; ;user.c: 63: {
 [e :U _InitApp ]
 [f ]
-[; ;user.c: 62: LATA = 0;
-"62
-[e = _LATA -> -> 0 `i `uc ]
-[; ;user.c: 63: LATB = 0;
-"63
-[e = _LATB -> -> 0 `i `uc ]
-[; ;user.c: 64: LATC = 0;
+[; ;user.c: 64: LATA = 0;
 "64
-[e = _LATC -> -> 0 `i `uc ]
-[; ;user.c: 65: LATA |= 0x04;
+[e = _LATA -> -> 0 `i `uc ]
+[; ;user.c: 65: LATB = 0;
 "65
-[e =| _LATA -> -> 4 `i `uc ]
-[; ;user.c: 67: TRISAbits.TRISA0 = 1;
+[e = _LATB -> -> 0 `i `uc ]
+[; ;user.c: 66: LATC = 0;
+"66
+[e = _LATC -> -> 0 `i `uc ]
+[; ;user.c: 67: LATA |= 0x04;
 "67
-[e = . . _TRISAbits 0 0 -> -> 1 `i `uc ]
-[; ;user.c: 68: TRISAbits.TRISA1 = 1;
-"68
-[e = . . _TRISAbits 0 1 -> -> 1 `i `uc ]
-[; ;user.c: 69: TRISAbits.TRISA2 = 0;
+[e =| _LATA -> -> 4 `i `uc ]
+[; ;user.c: 69: TRISAbits.TRISA0 = 1;
 "69
-[e = . . _TRISAbits 0 2 -> -> 0 `i `uc ]
-[; ;user.c: 70: TRISAbits.TRISA3 = 0;
+[e = . . _TRISAbits 0 0 -> -> 1 `i `uc ]
+[; ;user.c: 70: TRISAbits.TRISA1 = 1;
 "70
-[e = . . _TRISAbits 0 3 -> -> 0 `i `uc ]
-[; ;user.c: 71: TRISAbits.TRISA4 = 0;
+[e = . . _TRISAbits 0 1 -> -> 1 `i `uc ]
+[; ;user.c: 71: TRISAbits.TRISA2 = 0;
 "71
-[e = . . _TRISAbits 0 4 -> -> 0 `i `uc ]
-[; ;user.c: 72: TRISAbits.TRISA5 = 0;
+[e = . . _TRISAbits 0 2 -> -> 0 `i `uc ]
+[; ;user.c: 72: TRISAbits.TRISA3 = 0;
 "72
-[e = . . _TRISAbits 0 5 -> -> 0 `i `uc ]
-[; ;user.c: 73: TRISCbits.TRISC0 = 1;
+[e = . . _TRISAbits 0 3 -> -> 0 `i `uc ]
+[; ;user.c: 73: TRISAbits.TRISA4 = 0;
 "73
-[e = . . _TRISCbits 0 0 -> -> 1 `i `uc ]
-[; ;user.c: 74: TRISCbits.TRISC1 = 0;
+[e = . . _TRISAbits 0 4 -> -> 0 `i `uc ]
+[; ;user.c: 74: TRISAbits.TRISA5 = 0;
 "74
-[e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
-[; ;user.c: 75: TRISCbits.TRISC2 = 0;
+[e = . . _TRISAbits 0 5 -> -> 0 `i `uc ]
+[; ;user.c: 75: TRISCbits.TRISC0 = 1;
 "75
-[e = . . _TRISCbits 0 2 -> -> 0 `i `uc ]
-[; ;user.c: 76: TRISCbits.TRISC3 = 0;
+[e = . . _TRISCbits 0 0 -> -> 1 `i `uc ]
+[; ;user.c: 76: TRISCbits.TRISC1 = 0;
 "76
-[e = . . _TRISCbits 0 3 -> -> 0 `i `uc ]
-[; ;user.c: 77: TRISCbits.TRISC4 = 0;
+[e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
+[; ;user.c: 77: TRISCbits.TRISC2 = 0;
 "77
-[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
-[; ;user.c: 78: TRISCbits.TRISC5 = 0;
+[e = . . _TRISCbits 0 2 -> -> 0 `i `uc ]
+[; ;user.c: 78: TRISCbits.TRISC3 = 0;
 "78
-[e = . . _TRISCbits 0 5 -> -> 0 `i `uc ]
-[; ;user.c: 79: TRISCbits.TRISC6 = 0;
+[e = . . _TRISCbits 0 3 -> -> 0 `i `uc ]
+[; ;user.c: 79: TRISCbits.TRISC4 = 0;
 "79
-[e = . . _TRISCbits 0 6 -> -> 0 `i `uc ]
-[; ;user.c: 80: TRISCbits.TRISC7 = 1;
+[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
+[; ;user.c: 80: TRISCbits.TRISC5 = 0;
 "80
-[e = . . _TRISCbits 0 7 -> -> 1 `i `uc ]
-[; ;user.c: 81: TRISBbits.TRISB0 = 1;
+[e = . . _TRISCbits 0 5 -> -> 0 `i `uc ]
+[; ;user.c: 81: TRISCbits.TRISC6 = 0;
 "81
-[e = . . _TRISBbits 0 0 -> -> 1 `i `uc ]
-[; ;user.c: 82: TRISBbits.TRISB1 = 1;
+[e = . . _TRISCbits 0 6 -> -> 0 `i `uc ]
+[; ;user.c: 82: TRISCbits.TRISC7 = 1;
 "82
-[e = . . _TRISBbits 0 1 -> -> 1 `i `uc ]
-[; ;user.c: 83: TRISBbits.TRISB2 = 1;
+[e = . . _TRISCbits 0 7 -> -> 1 `i `uc ]
+[; ;user.c: 83: TRISBbits.TRISB0 = 1;
 "83
-[e = . . _TRISBbits 0 2 -> -> 1 `i `uc ]
-[; ;user.c: 84: TRISBbits.TRISB3 = 1;
+[e = . . _TRISBbits 0 0 -> -> 1 `i `uc ]
+[; ;user.c: 84: TRISBbits.TRISB1 = 1;
 "84
-[e = . . _TRISBbits 0 3 -> -> 1 `i `uc ]
-[; ;user.c: 85: TRISBbits.TRISB4 = 1;
+[e = . . _TRISBbits 0 1 -> -> 1 `i `uc ]
+[; ;user.c: 85: TRISBbits.TRISB2 = 1;
 "85
-[e = . . _TRISBbits 0 4 -> -> 1 `i `uc ]
-[; ;user.c: 86: TRISBbits.TRISB5 = 1;
+[e = . . _TRISBbits 0 2 -> -> 1 `i `uc ]
+[; ;user.c: 86: TRISBbits.TRISB3 = 1;
 "86
+[e = . . _TRISBbits 0 3 -> -> 1 `i `uc ]
+[; ;user.c: 87: TRISBbits.TRISB4 = 1;
+"87
+[e = . . _TRISBbits 0 4 -> -> 1 `i `uc ]
+[; ;user.c: 88: TRISBbits.TRISB5 = 1;
+"88
 [e = . . _TRISBbits 0 5 -> -> 1 `i `uc ]
-[; ;user.c: 89: ANSEL = 0x01;
-"89
+[; ;user.c: 91: ANSEL = 0x01;
+"91
 [e = _ANSEL -> -> 1 `i `uc ]
-[; ;user.c: 90: ANSELH = 0x00;
-"90
+[; ;user.c: 92: ANSELH = 0x00;
+"92
 [e = _ANSELH -> -> 0 `i `uc ]
-[; ;user.c: 93: INTCON2bits.RBPU = 0;
-"93
-[e = . . _INTCON2bits 2 1 -> -> 0 `i `uc ]
-[; ;user.c: 95: WPUB = 0x0F;
+[; ;user.c: 95: INTCON2bits.RBPU = 0;
 "95
+[e = . . _INTCON2bits 2 1 -> -> 0 `i `uc ]
+[; ;user.c: 97: WPUB = 0x0F;
+"97
 [e = _WPUB -> -> 15 `i `uc ]
-[; ;user.c: 96: }
-"96
+[; ;user.c: 98: }
+"98
 [e :UE 381 ]
 }
-"103
+"105
 [v _Init_System `(v ~T0 @X0 1 ef ]
-"104
+"106
 {
-[; ;user.c: 103: void Init_System (void)
-[; ;user.c: 104: {
+[; ;user.c: 105: void Init_System (void)
+[; ;user.c: 106: {
 [e :U _Init_System ]
 [f ]
-[; ;user.c: 105: cleanBuffer(&ReceivedString, 255);
-"105
+[; ;user.c: 107: cleanBuffer(&ReceivedString, 255);
+"107
 [e ( _cleanBuffer (2 , &U _ReceivedString -> 255 `i ]
-[; ;user.c: 108: IPR1bits.RCIP = 0;
-"108
-[e = . . _IPR1bits 0 5 -> -> 0 `i `uc ]
-[; ;user.c: 109: INTCON2bits.RBIP = 1;
-"109
-[e = . . _INTCON2bits 1 0 -> -> 1 `i `uc ]
-[; ;user.c: 110: INTCON2bits.TMR0IP = 1;
+[; ;user.c: 110: IPR1bits.RCIP = 0;
 "110
-[e = . . _INTCON2bits 1 2 -> -> 1 `i `uc ]
-[; ;user.c: 111: IPR1bits.TMR2IP = 1;
+[e = . . _IPR1bits 0 5 -> -> 0 `i `uc ]
+[; ;user.c: 111: INTCON2bits.RBIP = 1;
 "111
-[e = . . _IPR1bits 0 1 -> -> 1 `i `uc ]
-[; ;user.c: 112: IPR1bits.TMR1IP = 0;
+[e = . . _INTCON2bits 1 0 -> -> 1 `i `uc ]
+[; ;user.c: 112: INTCON2bits.TMR0IP = 1;
 "112
-[e = . . _IPR1bits 0 0 -> -> 0 `i `uc ]
-[; ;user.c: 113: IPR2bits.TMR3IP = 1;
+[e = . . _INTCON2bits 1 2 -> -> 1 `i `uc ]
+[; ;user.c: 113: IPR1bits.TMR2IP = 1;
 "113
+[e = . . _IPR1bits 0 1 -> -> 1 `i `uc ]
+[; ;user.c: 114: IPR1bits.TMR1IP = 0;
+"114
+[e = . . _IPR1bits 0 0 -> -> 0 `i `uc ]
+[; ;user.c: 115: IPR2bits.TMR3IP = 1;
+"115
 [e = . . _IPR2bits 0 1 -> -> 1 `i `uc ]
-[; ;user.c: 116: RCONbits.IPEN = 1;
-"116
-[e = . . _RCONbits 5 7 -> -> 1 `i `uc ]
-[; ;user.c: 117: INTCONbits.PEIE = 1;
-"117
-[e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
-[; ;user.c: 118: INTCONbits.GIE = 1;
+[; ;user.c: 118: RCONbits.IPEN = 1;
 "118
-[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
-[; ;user.c: 120: SyncEEPROMToGlobal();
+[e = . . _RCONbits 5 7 -> -> 1 `i `uc ]
+[; ;user.c: 119: INTCONbits.PEIE = 1;
+"119
+[e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
+[; ;user.c: 120: INTCONbits.GIE = 1;
 "120
-[e ( _SyncEEPROMToGlobal ..  ]
-[; ;user.c: 121: if(!EEPROMinitialized())
-"121
-[e $ ! ! != -> ( _EEPROMinitialized ..  `i -> -> -> 0 `i `uc `i 383  ]
-[; ;user.c: 122: {
+[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
+[; ;user.c: 122: SyncEEPROMToGlobal();
 "122
-{
-[; ;user.c: 123: SetEEPROMdefault();
+[e ( _SyncEEPROMToGlobal ..  ]
+[; ;user.c: 123: if(!EEPROMinitialized())
 "123
-[e ( _SetEEPROMdefault ..  ]
-[; ;user.c: 124: Global.EEPROMinitFlag = 59;
+[e $ ! ! != -> ( _EEPROMinitialized ..  `i -> -> -> 0 `i `uc `i 383  ]
+[; ;user.c: 124: {
 "124
-[e = . _Global 3 -> -> 59 `i `uc ]
-[; ;user.c: 125: SyncGlobalToEEPROM();
+{
+[; ;user.c: 125: SetEEPROMdefault();
 "125
-[e ( _SyncGlobalToEEPROM ..  ]
+[e ( _SetEEPROMdefault ..  ]
+[; ;user.c: 126: Global.EEPROMinitFlag = 59;
 "126
+[e = . _Global 3 -> -> 59 `i `uc ]
+[; ;user.c: 127: SyncGlobalToEEPROM();
+"127
+[e ( _SyncGlobalToEEPROM ..  ]
+"128
 }
 [e :U 383 ]
-[; ;user.c: 126: }
-[; ;user.c: 127: InitADC();
-"127
-[e ( _InitADC ..  ]
-[; ;user.c: 128: InitIR();
-"128
-[e ( _InitIR ..  ]
-[; ;user.c: 129: InitUART(115200);
+[; ;user.c: 128: }
+[; ;user.c: 129: InitADC();
 "129
-[e ( _InitUART (1 -> -> 115200 `l `ul ]
-[; ;user.c: 130: UARTstring(CRLN);
+[e ( _InitADC ..  ]
+[; ;user.c: 130: InitIR();
 "130
-[e ( _UARTstring (1 &U _CRLN ]
-[; ;user.c: 131: UARTchar('>');
-"131
-[e ( _UARTchar (1 -> -> 62 `ui `uc ]
-[; ;user.c: 132: InitBluetooth();
+[e ( _InitIR ..  ]
+[; ;user.c: 132: InitUART(115200);
 "132
-[e ( _InitBluetooth ..  ]
-[; ;user.c: 133: InitTimers();
+[e ( _InitUART (1 -> -> 115200 `l `ul ]
+[; ;user.c: 133: InitBluetooth();
 "133
-[e ( _InitTimers ..  ]
-[; ;user.c: 134: }
+[e ( _InitBluetooth ..  ]
+[; ;user.c: 134: UARTstring(CRLN);
 "134
+[e ( _UARTstring (1 -> &U _CRLN `*uc ]
+[; ;user.c: 135: UARTchar('>');
+"135
+[e ( _UARTchar (1 -> -> 62 `ui `uc ]
+[; ;user.c: 137: InitTimers();
+"137
+[e ( _InitTimers ..  ]
+[; ;user.c: 138: }
+"138
 [e :UE 382 ]
 }

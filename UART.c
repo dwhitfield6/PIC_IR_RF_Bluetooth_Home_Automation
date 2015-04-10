@@ -8,6 +8,8 @@
  * --------     ---------   ----------------------------------------------------
  * 04/02/15     1.0_DW0a    Initial project make.
  *                          Derived from project 'PIC_PS2_to_UART'.
+ * 04/09/15     1.0_DW0b    Fixed bugs.
+ *                          Added features.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -39,7 +41,7 @@
 #include "user.h"          /* User funct/params, such as InitApp */
 #include "UART.h"          /* User funct/params, such as InitApp */
 #include "MISC.h"          /* User funct/params, such as InitApp */
-#include "FLASH.h"          /* User funct/params, such as InitApp */
+#include "RF.h"          /* User funct/params, such as InitApp */
 
 /******************************************************************************/
 /* User Global Variable Declaration                                           */
@@ -96,7 +98,8 @@ void InitUART(unsigned long Baud)
     spbrg = (unsigned int) Round(temp);
 
     BAUDCONbits.BRG16 = 1; // 16 bit baud
-    
+
+    ClearUSART();
     OpenUSART(config, spbrg);
 
     PIR1bits.RCIF   = 0;   // reset RX pin flag
@@ -206,6 +209,17 @@ void UARTstring(unsigned char *data)
 }
 
 /******************************************************************************/
+/* ClearUSART
+ *
+ * The function clears the UART and returns the data read.
+/******************************************************************************/
+void ClearUSART(void)
+{
+    ReadUSART();
+    ReadUSART();
+    ReadUSART();
+}
+/******************************************************************************/
 /* ReadUSART
  *
  * The function reads the UART and returns the data read.
@@ -252,7 +266,7 @@ void UARTstringCRLN(unsigned char *data)
         UARTchar(*data); // Transmit a byte
         *data++;
     }
-    UARTstring((unsigned char*)"\r\n");
+    UARTstring(CRLN);
 }
 /******************************************************************************/
 /* UARTcommandMenu
@@ -276,13 +290,13 @@ void UARTcommandMenu(unsigned char *Command, unsigned char *Desc)
         UARTchar('-');
     }
     place = 0;
-    while((*Desc != 0) && (place < MaxDescLen))
+    while((*Desc != 0) && (place < (MaxDescLen - 1)))
     {
         UARTchar(*Desc); // Transmit a byte
         *Desc++;
         place++;
     }
-    UARTstring((unsigned char*)"\r\n");
+    UARTstring(CRLN);
 }
 /******************************************************************************/
 /* EraseScreen

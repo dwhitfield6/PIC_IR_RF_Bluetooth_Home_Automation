@@ -4995,27 +4995,89 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 
-# 50 "user.h"
+# 52 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
 
-# 58
+# 60
 unsigned long SN = 1;
 
-# 286
+# 288
 void InitApp(void);
 void Init_System (void);
 
-# 55 "system.h"
+# 57 "system.h"
 void ConfigureOscillator(void);
 
-# 113 "UART.h"
+# 128 "RF.h"
+const unsigned char Conf1_Channels[] = "DEF";
+
+
+const unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
+const unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
+
+
+const unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
+const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
+
+
+const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
+const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
+
+# 154
+const unsigned char Conf2_Channels[] = "BDH";
+
+const unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
+const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
+const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
+const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
+
+
+const unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
+const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
+const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
+const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
+
+
+const unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
+const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
+const unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
+const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
+const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
+const unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
+const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
+
+
+
+
+extern unsigned char RFsendCode[20];
+extern volatile unsigned char RFsendFlag;
+extern unsigned char RFcodePlace;
+extern unsigned char RFcodeBit;
+extern volatile unsigned char Sendcount;
+extern unsigned char RFConfig;
+volatile unsigned char Sent;
+extern volatile unsigned char RF_IR_Postscaler;
+extern unsigned char RF_IR;
+
+# 198
+unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
+void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
+void SendRF_Channel(unsigned char channel);
+unsigned char GetRFstatus(void);
+
+# 116 "UART.h"
 extern unsigned char ReceivedString[255];
 extern unsigned char ReceivedStringPos;
 extern unsigned char CommandString[255];
 extern unsigned char CommandStringPos;
 extern volatile unsigned char NewReceivedString;
-unsigned char SYNTAX_ERR[] = "Error: Syntax not understood";
-unsigned char CRLN[] = "\r\n";
+const unsigned char SYNTAX_ERR[] = "Error: Syntax";
+const unsigned char CRLN[] = "\r\n";
 
 
 
@@ -5030,8 +5092,9 @@ void UART_send_break(void);
 void UARTstringCRLN(unsigned char *data);
 void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
 void EraseScreen(unsigned char characters);
+void ClearUSART(void);
 
-# 96 "EEPROM.h"
+# 101 "EEPROM.h"
 typedef struct EEdata
 {
 unsigned char BlueToothFlag;
@@ -5039,25 +5102,21 @@ unsigned long SWNECcode;
 unsigned char RemoteButtonNEC[20][2];
 unsigned char EEPROMinitFlag;
 
-# 113
-unsigned char RemoteButton1RF[20][2];
-unsigned char RemoteButton2RF[20][2];
-unsigned char RemoteButton3RF[20][2];
-unsigned char RemoteButton4RF[20][2];
-unsigned char RemoteButton5RF[20][2];
+# 120
+unsigned char RemoteButtonRF[15][3][2];
 
 }GBLdata;
 
 
 
 
-GBLdata Global =0;
+GBLdata Global = 0;
 
-# 130
+# 133
 unsigned int ReadEEPROM_1Byte(unsigned int address);
 void EEPROM_UNLOCK(void);
 void WriteEEPROM_1Byte(unsigned int address, unsigned char data);
-GBLdata GetEEPROM(void);
+void GetEEPROM(GBLdata *Temp);
 unsigned long SetEEPROM(GBLdata Temp,unsigned long burn);
 unsigned long GetMemoryLong(unsigned char AddressFirst);
 unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst);
@@ -5070,7 +5129,7 @@ void SyncEEPROMToGlobal(void);
 void SetEEPROMdefault(void);
 unsigned char EEPROMinitialized(void);
 
-# 62 "MISC.h"
+# 64 "MISC.h"
 void delayUS(long US);
 unsigned char IsCharacter(unsigned char data);
 void cleanBuffer(unsigned char* data, int count);
@@ -5092,12 +5151,12 @@ unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned
 unsigned char StringAddEqual(unsigned char* Input);
 unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
 
-# 37 "Timer.h"
+# 39 "Timer.h"
 extern unsigned char Timer1_Postscaler;
 extern unsigned char Timer2_Postscaler;
 extern unsigned char Timer3_Postscaler;
 
-# 174
+# 176
 void InitTimer0(void);
 void ResetTimer0(void);
 void InitTimer1(void);
@@ -5108,7 +5167,7 @@ void InitTimer3(void);
 void ResetTimer3(void);
 void InitTimers(void);
 
-# 78 "ADC.h"
+# 82 "ADC.h"
 double ReadVoltage(void);
 unsigned char InternalADC_Read(unsigned char channel, unsigned int *ADCcounts);
 void ResetADC(void);
@@ -5116,17 +5175,17 @@ void InitADC(void);
 void VoltageDividerON(void);
 void VoltageDividerOFF(void);
 
-# 49 "Bluetooth.h"
+# 51 "Bluetooth.h"
 void InitBluetooth(void);
 unsigned char BlueConnected(void);
 void ResetBlue(void);
 unsigned char EnterCommandMode(void);
 unsigned char BluetoothInitialSetup(void);
 unsigned char BluetoothConfigured(void);
-unsigned char UseBluetooth(void);
+unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos);
 unsigned char WaitForIRsignal(void);
 
-# 185 "IR.h"
+# 194 "IR.h"
 extern unsigned char IRpinOLD;
 extern unsigned int IRRawCode[72];
 extern unsigned long IR_NEC;
@@ -5142,6 +5201,7 @@ extern unsigned char IRrepeatAmount;
 extern volatile unsigned char IRmod;
 extern volatile unsigned char ReceivingIR;
 extern volatile unsigned char IRbitPosition;
+extern unsigned long IRtimeout;
 
 
 
@@ -5157,10 +5217,10 @@ unsigned char CheckReceivingIR(void);
 unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
 unsigned long EncodeNEC(unsigned char address, unsigned char command);
 
-# 49 "user.c"
+# 51 "user.c"
 extern const unsigned char Version[];
 
-# 60
+# 62
 void InitApp(void)
 {
 LATA = 0;
@@ -5199,7 +5259,7 @@ INTCON2bits.RBPU = 0;
 WPUB = 0x0F;
 }
 
-# 103
+# 105
 void Init_System (void)
 {
 cleanBuffer(&ReceivedString, 255);
@@ -5226,10 +5286,12 @@ SyncGlobalToEEPROM();
 }
 InitADC();
 InitIR();
+
 InitUART(115200);
+InitBluetooth();
 UARTstring(CRLN);
 UARTchar('>');
-InitBluetooth();
+
 InitTimers();
 }
 

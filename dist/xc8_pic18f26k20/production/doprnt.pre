@@ -294,14 +294,47 @@ const static unsigned long hexpowers[] = {1, 0x10, 0x100, 0x1000,
 
 };
 
+# 388
+extern const double _powers_[], _npowers_[];
 
-const static unsigned long octpowers[] = {1, 010, 0100, 01000, 010000, 0100000,
 
-01000000,
-010000000, 0100000000, 01000000000, 010000000000,
-0100000000000
 
-};
+extern unsigned long _div_to_l_(double, double);
+
+extern unsigned long _tdiv_to_l_(float, float);
+
+# 408
+static double
+fround(unsigned char prec)
+{
+
+
+if(prec>=110)
+return 0.5 * _npowers_[prec/100+18] * _npowers_[(prec%100)/10+9] * _npowers_[prec%10];
+else if(prec > 10)
+return 0.5 * _npowers_[prec/10+9] * _npowers_[prec%10];
+return 0.5 * _npowers_[prec];
+}
+
+# 424
+static double
+scale(signed char scl)
+{
+
+if(scl < 0) {
+scl = -scl;
+if(scl>=110)
+return _npowers_[scl/100+18] * _npowers_[(scl%100)/10+9] * _npowers_[scl%10];
+else if(scl > 10)
+return _npowers_[scl/10+9] * _npowers_[scl%10];
+return _npowers_[scl];
+}
+if(scl>=110)
+return _powers_[scl/100+18] * _powers_[(scl%100)/10+9] * _powers_[scl%10];
+else if(scl > 10)
+return _powers_[scl/10+9] * _powers_[scl%10];
+return _powers_[scl];
+}
 
 # 455
 int
@@ -323,6 +356,11 @@ int prec;
 
 # 508
 unsigned short flag;
+
+# 515
+char d;
+double fval;
+int exp;
 
 # 523
 union {
@@ -355,25 +393,7 @@ flag = 0;
 for(;;) {
 switch(*f) {
 
-case '-':
-flag |= 0x08;
-f++;
-continue;
-
-
-
-case ' ':
-flag |= 0x01;
-f++;
-continue;
-
-# 573
-case '#':
-flag |= 0x800;
-f++;
-continue;
-
-
+# 579
 case '0':
 flag |= 0x04;
 f++;
@@ -383,11 +403,7 @@ continue;
 break;
 }
 
-# 593
-if(flag & 0x08)
-flag &= ~0x04;
-
-
+# 597
 if(isdigit((unsigned)*f)) {
 width = 0;
 do {
@@ -395,34 +411,10 @@ width *= 10;
 width += *f++ - '0';
 } while(isdigit((unsigned)*f));
 
-} else if(*f == '*') {
-width = (*(int *)__va_arg((*(int **)ap), (int)0));
-f++;
-
+# 608
 }
 
-
-if(*f == '.') {
-flag |= 0x4000;
-f++;
-
-if(*f == '*') {
-prec = (*(int *)__va_arg((*(int **)ap), (int)0));
-f++;
-} else
-
-{
-prec = 0;
-while(isdigit((unsigned)*f))
-prec = prec*10 + *f++ - '0';
-}
-} else {
-prec = 0;
-
-# 630
-}
-
-
+# 633
 loop:
 
 switch(c = *f++) {
@@ -436,15 +428,12 @@ case 'l':
 flag |= 0x10;
 goto loop;
 
-# 689
-case 'o':
-
-flag |= 0x40;
-
+# 662
+case 'f':
+flag |= 0x400;
 break;
 
-
-
+# 697
 case 'd':
 case 'i':
 break;
@@ -452,10 +441,7 @@ break;
 # 712
 case 'X':
 
-flag |= 0x20;
-
-
-
+# 718
 case 'x':
 
 
@@ -463,31 +449,41 @@ flag |= 0x80;
 
 break;
 
-# 750
+
+
+
+case 's':
+
+# 734
+cp = (*(const char * *)__va_arg((*(const char * **)ap), (const char *)0));
+
+# 740
+if(!cp)
+cp = "(null)";
+
+
+
+len = 0;
+while(cp[len])
+len++;
+
+
 dostring:
 
-
-if(prec && prec < len)
-len = prec;
-
-
+# 757
 if(width > len)
 width -= len;
 else
 width = 0;
 
-if(!(flag & 0x08))
-
+# 764
 while(width--)
 ((*sp++ = (' ')));
 
 while(len--)
 ((*sp++ = (*cp++)));
 
-if(flag & 0x08)
-while(width--)
-((*sp++ = (' ')));
-
+# 774
 continue;
 
 # 784
@@ -504,16 +500,161 @@ cp = (char *)&c;
 len = 1;
 goto dostring;
 
-# 817
-case 'u':
-flag |= 0xC0;
+# 822
+}
+
+
+if(flag & (0x700)) {
+
+# 829
+prec = 6;
+fval = (*(double *)__va_arg((*(double **)ap), (double)0));
+if(fval < 0.0) {
+fval = -fval;
+flag |= 0x03;
+}
+exp = 0;
+if( fval!=0) {
+(void)(*(&exp) = ((*(unsigned long *)&fval >> 15) & 255) - 126);
+exp--;
+exp *= 3;
+exp /= 10;
+if(exp < 0)
+exp--;
+
+
+
+tmpval.integ = scale(-exp);
+tmpval.integ *= fval;
+if(tmpval.integ < 1.0)
+exp--;
+else if(tmpval.integ >= 10.0)
+exp++;
+}
+
+# 1112
+if(prec <= 12)
+fval += fround(prec);
+
+
+if((exp > 9)||(fval != 0 && (unsigned long)fval == 0 && exp > 1)) {
+
+
+
+if(tmpval.integ < 4.294967296){
+exp -= (sizeof dpowers/sizeof dpowers[0])-1;
+}else{
+exp -= (sizeof dpowers/sizeof dpowers[0])-2;
+}
+tmpval.integ = scale(exp);
+val = ((sizeof(double)== 3) ? _tdiv_to_l_(fval,tmpval.integ) : _div_to_l_(fval,tmpval.integ));
+
+
+fval = 0.0;
+} else {
+val = (unsigned long)fval;
+fval -= (double)val;
+exp = 0;
+}
+
+for(c = 1 ; c != (sizeof dpowers/sizeof dpowers[0]) ; c++)
+if(val < dpowers[c])
 break;
 
 
+
+width -= prec + c + exp;
+if(
+
+# 1147
+prec)
+width--;
+if(flag & 0x03)
+width--;
+
+
+if(flag & 0x04) {
+
+
+
+if(flag & 0x03)
+
+((*sp++ = ('-')));
+
+# 1168
+while(width > 0) {
+((*sp++ = ('0')));
+width--;
 }
 
-# 1251
-if((flag & (0xC0)) == 0x00)
+} else
+
+{
+
+# 1180
+while(width > 0) {
+((*sp++ = (' ')));
+width--;
+}
+
+
+
+
+if(flag & 0x03)
+
+((*sp++ = ('-')));
+
+# 1195
+}
+while(c--) {
+
+
+
+{
+tmpval.vd = val/dpowers[c];
+tmpval.vd %= 10;
+((*sp++ = ('0' + tmpval.vd)));
+}
+
+}
+while(exp > 0) {
+((*sp++ = ('0')));
+exp--;
+}
+if(prec > (int)((sizeof dpowers/sizeof dpowers[0])-2))
+c = (sizeof dpowers/sizeof dpowers[0])-2;
+else
+c = prec;
+prec -= c;
+
+
+
+if(c)
+
+((*sp++ = ('.')));
+
+# 1227
+val = (long)(fval * scale(c));
+while(c--) {
+tmpval.vd = val/dpowers[c];
+tmpval.vd %= 10;
+((*sp++ = ('0' + tmpval.vd)));
+val %= dpowers[c];
+}
+
+while(prec) {
+((*sp++ = ('0')));
+prec--;
+}
+
+# 1245
+continue;
+}
+
+
+
+
+if((flag & 0x80) == 0x00)
 
 {
 
@@ -546,22 +687,15 @@ else
 val = (*(unsigned *)__va_arg((*(unsigned **)ap), (unsigned)0));
 }
 
-
-if(prec == 0 && val == 0)
-prec++;
-
-
-switch((unsigned char)(flag & (0xC0))) {
+# 1294
+switch((unsigned char)(flag & 0x80)) {
 
 
 
 
 case 0x00:
 
-
-case 0xC0:
-
-
+# 1305
 for(c = 1 ; c != sizeof dpowers/sizeof dpowers[0] ; c++)
 if(val < dpowers[c])
 break;
@@ -579,61 +713,14 @@ break;
 
 break;
 
-# 1326
-case 0x40:
-
-for(c = 1 ; c != sizeof octpowers/sizeof octpowers[0] ; c++)
-if(val < octpowers[c])
-break;
-
-break;
-
-
-
+# 1336
 }
 
-
-if(c < prec)
-c = prec;
-else if(prec < c)
-prec = c;
-
-
+# 1345
 if(width && flag & 0x03)
 width--;
 
-if(flag & 0x4000) {
-if(width > prec)
-width -= prec;
-else
-width = 0;
-}
-
-
-
-if((flag & (
-
-0x04|
-
-(0xC0)|0x800)) == (0x40|0x800)) {
-if(width)
-width--;
-} else
-
-
-
-if((flag & ((0xC0)|0x800)) == (0x80|0x800)) {
-
-# 1372
-if(width > 2)
-width -= 2;
-else
-width = 0;
-}
-
-
-
-
+# 1381
 if(width > c)
 width -= c;
 else
@@ -648,23 +735,7 @@ if(flag & 0x04) {
 if(flag & 0x03)
 ((*sp++ = ('-')));
 
-
-else
-
-
-if(flag & 0x01)
-((*sp++ = (' ')));
-
-
-else if((flag & ((0xC0)|0x800)) == (0x80|0x800)) {
-((*sp++ = ('0')));
-
-((*sp++ = (flag & 0x20 ? 'X' : 'x')));
-
-# 1412
-}
-
-
+# 1415
 if(width)
 do
 ((*sp++ = ('0')));
@@ -676,8 +747,7 @@ while(--width);
 
 if(width
 
-&& !(flag & 0x08)
-
+# 1428
 )
 do
 ((*sp++ = (' ')));
@@ -687,36 +757,15 @@ while(--width);
 if(flag & 0x03)
 ((*sp++ = ('-')));
 
-
-
-else if(flag & 0x01)
-((*sp++ = (' ')));
-
-
-
-if((flag & ((0xC0)|0x800)) == (0x40|0x800))
-((*sp++ = ('0')));
-else
-
-
-
-if((flag & ((0xC0)|0x800)) == (0x80|0x800)) {
-
-# 1458
-((*sp++ = ('0')));
-
-((*sp++ = (flag & 0x20 ? 'X' : 'x')));
-
-# 1466
+# 1469
 }
 
 
-}
+prec = c;
 
-# 1474
 while(prec--) {
 
-switch((unsigned char)(flag & (0xC0)))
+switch((unsigned char)(flag & 0x80))
 
 {
 
@@ -725,10 +774,7 @@ switch((unsigned char)(flag & (0xC0)))
 
 case 0x00:
 
-
-case 0xC0:
-
-
+# 1489
 c = (val / dpowers[prec]) % 10 + '0';
 
 break;
@@ -739,31 +785,21 @@ case 0x80:
 {
 unsigned char idx = (val / hexpowers[prec]) & 0xF;
 
-c = (flag & 0x20 ? "0123456789ABCDEF" : "0123456789abcdef")[idx];
+
+
+c = "0123456789ABCDEF"[idx];
 
 # 1508
 }
 
 break;
 
-# 1516
-case 0x40:
-
-c = ((val / octpowers[prec]) & 07) + '0';
-
-break;
-
-
+# 1523
 }
 ((*sp++ = (c)));
 }
 
-
-if((flag & 0x08) && width > 0)
-do
-((*sp++ = (' ')));
-while(--width);
-
+# 1533
 }
 
 alldone:

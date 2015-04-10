@@ -8,6 +8,8 @@
  * --------     ---------   ----------------------------------------------------
  * 04/02/15     1.0_DW0a    Initial project make.
  *                          Derived from project 'PIC_Smart_Rf'.
+ * 04/09/15     1.0_DW0b    Fixed bugs.
+ *                          Added features.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -64,6 +66,7 @@ volatile unsigned char ReceivingIR = Finished;
 volatile unsigned char IRbitPosition = 32;
 unsigned char IRaddress = 0;
 unsigned char IRcommand = 0;
+unsigned long IRtimeout = IRtimeoutLoops + 1;
 
 /******************************************************************************/
 /* Functions                                                                  */
@@ -275,9 +278,10 @@ unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char In
 /******************************************************************************/
 void UseIRCode(unsigned char* Code, unsigned long NEC)
 {
-    unsigned char   i;
+    unsigned char   i,j;
     unsigned char found = FALSE;
 
+    LEDTimerON();
     if(*Code == 2 || *Code == 1)
     {
         DecodeNEC(NEC, &IRaddress, &IRcommand);
@@ -321,19 +325,22 @@ void UseIRCode(unsigned char* Code, unsigned long NEC)
             }
             else
             {
-                for(i=0; i < RFcodesAmount; i++)
+                for(j=0; j < MirrorButtonsAmount; j++)
                 {
-                    if(IRaddress == Global.RemoteButton1RF[i][0])
+                    for(i=0; i < RFcodesAmount; i++)
                     {
-                        if(IRcommand == Global.RemoteButton1RF[i][1])
+
+                        if(IRaddress == Global.RemoteButtonRF[i][j][0])
                         {
-                            if(*Code == 2)
+                            if(IRcommand == Global.RemoteButtonRF[i][j][1])
                             {
-                                RedLEDON();
+                                if(*Code == 2)
+                                {
+                                    RedLEDON();
+                                }
+                                SendRF_Channel(i);
+                                found = TRUE;
                             }
-                            GreenLEDON();
-                            SendRF_Channel(i);
-                            found = TRUE;
                         }
                     }
                 }
@@ -343,8 +350,6 @@ void UseIRCode(unsigned char* Code, unsigned long NEC)
             {
                 RedLEDON();                
             }
-
-            LEDTimerON();
         }
     }
     *Code = 0;
@@ -387,7 +392,7 @@ unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount)
      *  (and hence end of the transmitted repeat code).
      */
 
-    if(Sent == YES)
+    if(Sent)
     {
         /* Previous send finished */
         if(!code)

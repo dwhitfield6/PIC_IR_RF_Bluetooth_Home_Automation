@@ -7,6 +7,11 @@
  * MM/DD/YY
  * --------     ---------   ----------------------------------------------------
  * 04/02/15     1.0_DW0a    Initial project make.
+ *                          Added IR, Bluetooth, and RF capabilities.
+ * 04/09/15     1.0_DW0b    Cleanded up project.
+ *                          Added macro to pick if the system has a bluetooth
+ *                            module.
+ *                          Fixed bugs.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -17,7 +22,7 @@
 /******************************************************************************/
 /* Pick Which System!!!
  *
- * Go to user.h and define if the system is the RS232 model or TTL model
+ * Go to user.h and define if the system has a bluetooth module or not.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -46,7 +51,7 @@
 /* Version number                                                             */
 /******************************************************************************/
 
-const unsigned char Version[] = {"1.0_DW0a"};
+const unsigned char Version[] = {"1.0_DW0b"};
 
 /******************************************************************************/
 /* Defines                                                                    */
@@ -66,58 +71,117 @@ void main(void)
     unsigned char i=0;
     unsigned char IRtask        = FALSE;
     unsigned char Bluetoothtask = FALSE;
+    unsigned char VoltageStatus = PASS;
+    unsigned char BluetoothString[RXbufsize];
+    unsigned char BluetoothStringPos = 0;
+
 
     ConfigureOscillator();
     InitApp();
     Init_System();
 
-    //blink LED
-    for(i =0;i<10;i++)
-    {
-       RedLEDON();
-       GreenLEDOFF();
-       delayUS(50000);
-       RedLEDOFF();
-       GreenLEDON();
-       delayUS(50000);
-    }
-    GreenLEDOFF();
-
     BatteryVoltage = ReadVoltage();
     if(BatteryVoltage < VoltageLow )
     {
-        NOP();
+        VoltageStatus = FAILlow;
     }
     else if (BatteryVoltage > VoltageHigh)
     {
-        NOP();
+        VoltageStatus = FAILhigh;
+    }
+    if(VoltageStatus == PASS)
+    {
+        /* Voltage is in range */
+        for(i =0;i<10;i++)
+        {
+            RedLEDON();
+            GreenLEDOFF();
+            delayUS(50000);
+            RedLEDOFF();
+            GreenLEDON();
+            delayUS(50000);
+        }
+        GreenLEDOFF();
+    }
+    else
+    {
+        for(i =0;i<10;i++)
+        {
+            RedLEDON();
+            delayUS(100000);
+            RedLEDOFF();
+            delayUS(100000);
+        }
     }
 
     while(1)
     {
         IRtask          = IR_New_Code;
         Bluetoothtask   = NewReceivedString;
-        if(IRtask)
+        BatteryVoltage = ReadVoltage();
+        if(VoltageStatus == FAILlow)
+        {
+            /* Require voltage drastic change to avoid oscillation */
+            BatteryVoltage -= 0.5;
+        }
+        else if(VoltageStatus == FAILhigh)
+        {
+            /* Require voltage drastic change to avoid oscillation */
+            BatteryVoltage += 0.5;
+        }
+
+        if(BatteryVoltage < VoltageLow )
+        {
+            VoltageStatus = FAILlow;
+        }
+        else if(BatteryVoltage > VoltageHigh)
+        {
+            VoltageStatus = FAILhigh;
+        }
+        else
+        {
+            VoltageStatus = PASS;
+        }
+
+        if(IRtask && IR_NEC)
         {
             UseIRCode(&IR_New_Code, IR_NEC);
         }
-        if(Bluetoothtask == TRUE)
+#ifdef BLUETOOTH
+        if(Bluetoothtask >= TRUE)
         {
-            NOP();
-            UseBluetooth();
-            if(ReceivedStringPos || NewReceivedString)
-            {
-                cleanBuffer(ReceivedString, ReceivedStringPos);
-                ReceivedStringPos = 0;
-                NewReceivedString = FALSE;
-                UARTstring(CRLN);
-                UARTchar('>');
-            }
+            cleanBuffer(BluetoothString, RXbufsize);
+            BufferCopy(ReceivedString,BluetoothString, ReceivedStringPos, 0);
+            BluetoothStringPos = ReceivedStringPos;
+            cleanBuffer(ReceivedString, ReceivedStringPos);
+            ReceivedStringPos = 0;
+            NewReceivedString = FALSE;
+            UseBluetooth(&BluetoothString, BluetoothStringPos);
+            UARTstring(CRLN);
+            UARTchar('>');
             if(IR_New_Code)
             {
                 IR_New_Code = Old;
             }
             /* Make sure that the IR reveicer is active */
+            IRpinOLD = ReadIRpin();
+            INTCONbits.RBIF = FALSE;
+            IRreceiverIntOn();
+            INTCONbits.RBIE = TRUE;
+            ClearUSART();
+            PIR1bits.RCIF = FALSE;
+            PIE1bits.RCIE   = TRUE;
+        }
+#endif
+        if(IRtimeout < IRtimeoutLoops)
+        {
+            IRtimeout++;
+        }
+        else if(IRtimeout == IRtimeoutLoops)
+        {
+            IRtimeout++;
+            IR_NEC = 0;
+            IR_New_Code = 0;
             IRpinOLD = ReadIRpin();
             INTCONbits.RBIF = FALSE;
             IRreceiverIntOn();

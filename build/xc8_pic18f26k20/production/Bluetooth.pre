@@ -4995,37 +4995,99 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 
-# 50 "user.h"
+# 52 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
 
-# 58
+# 60
 unsigned long SN = 1;
 
-# 286
+# 288
 void InitApp(void);
 void Init_System (void);
 
-# 49 "Bluetooth.h"
+# 51 "Bluetooth.h"
 void InitBluetooth(void);
 unsigned char BlueConnected(void);
 void ResetBlue(void);
 unsigned char EnterCommandMode(void);
 unsigned char BluetoothInitialSetup(void);
 unsigned char BluetoothConfigured(void);
-unsigned char UseBluetooth(void);
+unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos);
 unsigned char WaitForIRsignal(void);
 
-# 55 "system.h"
+# 57 "system.h"
 void ConfigureOscillator(void);
 
-# 113 "UART.h"
+# 128 "RF.h"
+const unsigned char Conf1_Channels[] = "DEF";
+
+
+const unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
+const unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
+
+
+const unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
+const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
+
+
+const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
+const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
+
+# 154
+const unsigned char Conf2_Channels[] = "BDH";
+
+const unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
+const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
+const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
+const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
+
+
+const unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
+const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
+const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
+const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
+
+
+const unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
+const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
+const unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
+const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
+const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
+const unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
+const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
+const unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
+
+
+
+
+extern unsigned char RFsendCode[20];
+extern volatile unsigned char RFsendFlag;
+extern unsigned char RFcodePlace;
+extern unsigned char RFcodeBit;
+extern volatile unsigned char Sendcount;
+extern unsigned char RFConfig;
+volatile unsigned char Sent;
+extern volatile unsigned char RF_IR_Postscaler;
+extern unsigned char RF_IR;
+
+# 198
+unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
+void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
+void SendRF_Channel(unsigned char channel);
+unsigned char GetRFstatus(void);
+
+# 116 "UART.h"
 extern unsigned char ReceivedString[255];
 extern unsigned char ReceivedStringPos;
 extern unsigned char CommandString[255];
 extern unsigned char CommandStringPos;
 extern volatile unsigned char NewReceivedString;
-unsigned char SYNTAX_ERR[] = "Error: Syntax not understood";
-unsigned char CRLN[] = "\r\n";
+const unsigned char SYNTAX_ERR[] = "Error: Syntax";
+const unsigned char CRLN[] = "\r\n";
 
 
 
@@ -5040,8 +5102,9 @@ void UART_send_break(void);
 void UARTstringCRLN(unsigned char *data);
 void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
 void EraseScreen(unsigned char characters);
+void ClearUSART(void);
 
-# 62 "MISC.h"
+# 64 "MISC.h"
 void delayUS(long US);
 unsigned char IsCharacter(unsigned char data);
 void cleanBuffer(unsigned char* data, int count);
@@ -5063,7 +5126,7 @@ unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned
 unsigned char StringAddEqual(unsigned char* Input);
 unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
 
-# 96 "EEPROM.h"
+# 101 "EEPROM.h"
 typedef struct EEdata
 {
 unsigned char BlueToothFlag;
@@ -5071,25 +5134,21 @@ unsigned long SWNECcode;
 unsigned char RemoteButtonNEC[20][2];
 unsigned char EEPROMinitFlag;
 
-# 113
-unsigned char RemoteButton1RF[20][2];
-unsigned char RemoteButton2RF[20][2];
-unsigned char RemoteButton3RF[20][2];
-unsigned char RemoteButton4RF[20][2];
-unsigned char RemoteButton5RF[20][2];
+# 120
+unsigned char RemoteButtonRF[15][3][2];
 
 }GBLdata;
 
 
 
 
-GBLdata Global =0;
+GBLdata Global = 0;
 
-# 130
+# 133
 unsigned int ReadEEPROM_1Byte(unsigned int address);
 void EEPROM_UNLOCK(void);
 void WriteEEPROM_1Byte(unsigned int address, unsigned char data);
-GBLdata GetEEPROM(void);
+void GetEEPROM(GBLdata *Temp);
 unsigned long SetEEPROM(GBLdata Temp,unsigned long burn);
 unsigned long GetMemoryLong(unsigned char AddressFirst);
 unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst);
@@ -5102,67 +5161,7 @@ void SyncEEPROMToGlobal(void);
 void SetEEPROMdefault(void);
 unsigned char EEPROMinitialized(void);
 
-# 60 "RF.h"
-unsigned char Conf1_Channels[] = "DEF";
-
-
-unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
-unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
-
-
-unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
-unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
-
-
-unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
-unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
-
-# 86
-unsigned char Conf2_Channels[] = "BDH";
-
-unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
-unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
-unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
-unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
-
-
-unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
-unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
-unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
-unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
-
-
-unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
-unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
-unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
-unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
-unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
-unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
-unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
-unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
-unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
-unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
-unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
-unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
-
-# 174
-extern unsigned char RFsendCode[20];
-extern volatile unsigned char RFsendFlag;
-extern unsigned char RFcodePlace;
-extern unsigned char RFcodeBit;
-extern volatile unsigned char Sendcount;
-extern unsigned char RFConfig;
-volatile unsigned char Sent;
-extern volatile unsigned char RF_IR_Postscaler;
-extern unsigned char RF_IR;
-
-# 188
-unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
-void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
-void SendRF_Channel(unsigned char channel);
-unsigned char GetRFstatus(void);
-
-# 185 "IR.h"
+# 194 "IR.h"
 extern unsigned char IRpinOLD;
 extern unsigned int IRRawCode[72];
 extern unsigned long IR_NEC;
@@ -5178,6 +5177,7 @@ extern unsigned char IRrepeatAmount;
 extern volatile unsigned char IRmod;
 extern volatile unsigned char ReceivingIR;
 extern volatile unsigned char IRbitPosition;
+extern unsigned long IRtimeout;
 
 
 
@@ -5193,7 +5193,26 @@ unsigned char CheckReceivingIR(void);
 unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
 unsigned long EncodeNEC(unsigned char address, unsigned char command);
 
-# 61 "Bluetooth.c"
+# 39 "Timer.h"
+extern unsigned char Timer1_Postscaler;
+extern unsigned char Timer2_Postscaler;
+extern unsigned char Timer3_Postscaler;
+
+# 176
+void InitTimer0(void);
+void ResetTimer0(void);
+void InitTimer1(void);
+void ResetTimer1(void);
+void InitTimer2(void);
+void LEDTimerON(void);
+void InitTimer3(void);
+void ResetTimer3(void);
+void InitTimers(void);
+
+# 55 "Bluetooth.c"
+extern const unsigned char Version[];
+
+# 65
 void InitBluetooth(void)
 {
 cleanBuffer(ReceivedString,255);
@@ -5211,7 +5230,7 @@ ResetBlue();
 }
 }
 
-# 83
+# 87
 unsigned char BlueConnected(void)
 {
 
@@ -5222,7 +5241,7 @@ return 1;
 return 0;
 }
 
-# 98
+# 102
 void ResetBlue(void)
 {
 LATA &= ~0x04;
@@ -5231,7 +5250,7 @@ LATA |= 0x04;
 delayUS(50000);
 }
 
-# 111
+# 115
 unsigned char EnterCommandMode(void)
 {
 unsigned char count = 0;
@@ -5260,7 +5279,7 @@ CommandStringPos = 0;
 return 0;
 }
 
-# 144
+# 148
 unsigned char BluetoothInitialSetup(void)
 {
 unsigned char buf[50];
@@ -5274,7 +5293,7 @@ if(!EnterCommandMode())
 {
 return 0;
 }
-sprintf(buf,(unsigned char *)"SN,Home Automation %ld\r",SN);
+sprintf(buf,"SN,Home Automation %ld\r",SN);
 UARTstring(buf);
 delayUS(50000);
 if(!StringContains(CommandString,(unsigned char *)"AOK"))
@@ -5346,7 +5365,7 @@ if(ok)
 {
 UARTstring((unsigned char *)"D,0\r");
 delayUS(50000);
-sprintf(buf,(unsigned char *)"BTName=Home Automation %ld\r",SN);
+sprintf(buf,"BTName=Home Automation %ld\r",SN);
 if(!StringContains(CommandString, buf))
 {
 ok = 0;
@@ -5371,7 +5390,7 @@ return 1;
 return 0;
 }
 
-# 259
+# 263
 unsigned char BluetoothConfigured(void)
 {
 if(Global.BlueToothFlag != 1)
@@ -5383,8 +5402,8 @@ return 0;
 return 1;
 }
 
-# 275
-unsigned char UseBluetooth(void)
+# 279
+unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
 {
 unsigned char ok = 1;
 
@@ -5393,28 +5412,30 @@ unsigned char NecAddress = 0;
 unsigned char NecCommand = 0;
 unsigned long temp = 0;
 unsigned long tempNec = 0;
-unsigned char buf[50];
+unsigned char buf[100];
 unsigned char timeout =0;
 unsigned char rfchannelSTR[10];
 unsigned char rfconf, i, tempRFArray;
 unsigned char device = 0;
+unsigned char EmptyPlace = 0;
+unsigned char set = 0;
 
-cleanBuffer(buf,50);
+cleanBuffer(buf,100);
 cleanBuffer(rfchannelSTR,10);
 
-if(StringContainsCaseInsensitive(ReceivedString,(unsigned char *)"Conf1"))
+if(StringContainsCaseInsensitive(String,(unsigned char *)"Conf1"))
 {
-if(StringMatchCaseInsensitive(ReceivedString,Conf1_ChannelD_STR))
+if(StringMatchCaseInsensitive(String,Conf1_ChannelD_STR))
 {
 
 SendRF_wait(Conf1_ChannelD,1,12,8);
 }
-else if(StringMatchCaseInsensitive(ReceivedString,Conf1_ChannelE_STR))
+else if(StringMatchCaseInsensitive(String,Conf1_ChannelE_STR))
 {
 
 SendRF_wait(Conf1_ChannelE,1,12,8);
 }
-else if(StringMatchCaseInsensitive(ReceivedString,Conf1_ChannelF_STR))
+else if(StringMatchCaseInsensitive(String,Conf1_ChannelF_STR))
 {
 
 SendRF_wait(Conf1_ChannelF,1,12,8);
@@ -5432,54 +5453,54 @@ UARTstringCRLN((unsigned char *)"Configuration 1 RF code sent");
 return 1;
 }
 }
-else if(StringContainsCaseInsensitive(ReceivedString,(unsigned char *)"Conf2"))
+else if(StringContainsCaseInsensitive(String,(unsigned char *)"Conf2"))
 {
-if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelB_ON_STR))
+if(StringMatchCaseInsensitive(String,Conf2_ChannelB_ON_STR))
 {
 
 SendRF_wait(Conf2_ChannelB_ON,2,16,8);
 }
-else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelB_OFF_STR))
+else if(StringMatchCaseInsensitive(String,Conf2_ChannelB_OFF_STR))
 {
 
 SendRF_wait(Conf2_ChannelB_OFF,2,16,8);
 }
-else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelD_ON_STR))
+else if(StringMatchCaseInsensitive(String,Conf2_ChannelD_ON_STR))
 {
 
 SendRF_wait(Conf2_ChannelD_ON,2,16,8);
 }
-else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelD_OFF_STR))
+else if(StringMatchCaseInsensitive(String,Conf2_ChannelD_OFF_STR))
 {
 
 SendRF_wait(Conf2_ChannelD_OFF,2,16,8);
 }
-else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelH_1_ON_STR))
+else if(StringMatchCaseInsensitive(String,Conf2_ChannelH_1_ON_STR))
 {
 
 SendRF_wait(Conf2_ChannelH_1_ON,2,16,8);
 }
-else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelH_1_OFF_STR))
+else if(StringMatchCaseInsensitive(String,Conf2_ChannelH_1_OFF_STR))
 {
 
 SendRF_wait(Conf2_ChannelH_1_OFF,2,16,8);
 }
-else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelH_2_ON_STR))
+else if(StringMatchCaseInsensitive(String,Conf2_ChannelH_2_ON_STR))
 {
 
 SendRF_wait(Conf2_ChannelH_2_ON,2,16,8);
 }
-else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelH_2_OFF_STR))
+else if(StringMatchCaseInsensitive(String,Conf2_ChannelH_2_OFF_STR))
 {
 
 SendRF_wait(Conf2_ChannelH_2_OFF,2,16,8);
 }
-else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelH_3_ON_STR))
+else if(StringMatchCaseInsensitive(String,Conf2_ChannelH_3_ON_STR))
 {
 
 SendRF_wait(Conf2_ChannelH_3_ON,2,16,8);
 }
-else if(StringMatchCaseInsensitive(ReceivedString,Conf2_ChannelH_3_OFF_STR))
+else if(StringMatchCaseInsensitive(String,Conf2_ChannelH_3_OFF_STR))
 {
 
 SendRF_wait(Conf2_ChannelH_2_OFF,3,16,8);
@@ -5497,21 +5518,33 @@ UARTstringCRLN((unsigned char *)"Configuration 2 RF code sent");
 return 1;
 }
 }
-else if(StringContainsCaseInsensitive(ReceivedString,(unsigned char *)"NEC"))
+else if(StringContainsCaseInsensitive(String,(unsigned char *)"NEC"))
 {
-if(!GetNumber(ReceivedString, 2, &temp))
+if(!GetNumber(String, 2, &temp))
 {
+if(temp > 0xFF)
+{
+UARTstringCRLN((unsigned char *)"Error: Command larger that 255");
+UARTstring(CRLN);
+return 0;
+}
 NecCommand = (unsigned char)temp;
-if(!GetNumber(ReceivedString, 1, &temp))
+if(!GetNumber(String, 1, &temp))
 {
+if(temp > 0xFF)
+{
+UARTstringCRLN((unsigned char *)"Error: Address larger that 255");
+UARTstring(CRLN);
+return 0;
+}
 NecAddress = (unsigned char) temp;
-sprintf(buf,(unsigned char *)"NEC address: 0x%X ", NecAddress);
+sprintf(buf,"NEC address: 0x%02X ", NecAddress);
 UARTstringCRLN(buf);
-sprintf(buf,(unsigned char *)"NEC command: 0x%X ", NecCommand);
+sprintf(buf,"NEC command: 0x%02X ", NecCommand);
 UARTstringCRLN(buf);
 EnteredNEC = EncodeNEC(NecAddress, NecCommand);
 SendNEC_wait(EnteredNEC,0);
-sprintf(buf,(unsigned char *)"Sent NEC code = 0x%lX ", EnteredNEC);
+sprintf(buf,"Sent NEC code = 0x%lX ", EnteredNEC);
 UARTstringCRLN(buf);
 UARTstring(CRLN);
 }
@@ -5520,16 +5553,16 @@ else
 UARTstringCRLN((unsigned char *)"Error: could not decode Address");
 }
 }
-else if(!GetNumber(ReceivedString, 1, &EnteredNEC))
+else if(!GetNumber(String, 1, &EnteredNEC))
 {
 SendNEC_wait(EnteredNEC,0);
-sprintf(buf,(unsigned char *)"sent NEC code 0x%lX", EnteredNEC);
+sprintf(buf,"sent NEC code 0x%lX", EnteredNEC);
 UARTstringCRLN(buf);
 if(DecodeNEC(EnteredNEC, &NecAddress, &NecCommand))
 {
-sprintf(buf,(unsigned char *)"address: 0x%X ", NecAddress);
+sprintf(buf,"address: 0x%02X ", NecAddress);
 UARTstringCRLN(buf);
-sprintf(buf,(unsigned char *)"command: 0x%X ", NecCommand);
+sprintf(buf,"command: 0x%02X ", NecCommand);
 UARTstringCRLN(buf);
 }
 else
@@ -5552,29 +5585,29 @@ UARTstring(CRLN);
 UARTstringCRLN((unsigned char *)"Example:");
 UARTstringCRLN((unsigned char *)"NEC = 0x1CE350af ");
 UARTstringCRLN((unsigned char *)"      or");
-UARTstringCRLN((unsigned char *)"NEC = 0x38, 0xA");
+UARTstringCRLN((unsigned char *)"NEC = 0x38, 0x0A");
 UARTstring(CRLN);
 return 0;
 }
 }
-else if(StringContainsCaseInsensitive(ReceivedString,(unsigned char *)"RemoteButton"))
+else if(StringContainsCaseInsensitive(String,(unsigned char *)"RemoteButton"))
 {
-if(StringAddEqual(ReceivedString))
+if(StringAddEqual(String))
 {
-ReceivedStringPos++;
-if(!GetNumber(ReceivedString, 1, &temp))
+StringPos++;
+if(!GetNumber(String, 1, &temp))
 {
 if(temp <= 20 && temp > 0)
 {
-if(!StringContainsCaseInsensitive(ReceivedString,(unsigned char *)"set"))
+if(!StringContainsCaseInsensitive(String,(unsigned char *)"set"))
 {
 tempNec = EncodeNEC(Global.RemoteButtonNEC[temp-1][0], Global.RemoteButtonNEC[temp-1][1]);
 if(tempNec != 0x00FF00FF)
 {
 SendNEC_wait(tempNec,0);
-sprintf(buf,(unsigned char *)"Sent NEC code 0x%lX ", tempNec);
+sprintf(buf,"Sent NEC code 0x%lX ", tempNec);
 UARTstringCRLN(buf);
-sprintf(buf,(unsigned char *)"NEC Code address: 0x%02X , command: 0x%02X ",Global.RemoteButtonNEC[temp-1][0], Global.RemoteButtonNEC[temp-1][1]);
+sprintf(buf,"NEC Code address: 0x%02X , command: 0x%02X ",Global.RemoteButtonNEC[temp-1][0], Global.RemoteButtonNEC[temp-1][1]);
 UARTstringCRLN(buf);
 UARTstring(CRLN);
 return 1;
@@ -5596,11 +5629,19 @@ Global.RemoteButtonNEC[temp - 1][0] = NecAddress;
 Global.RemoteButtonNEC[temp - 1][1] = NecCommand;
 SyncGlobalToEEPROM();
 UARTstring(CRLN);
-sprintf(buf,(unsigned char *)"RemoteButton%ld now transmits NEC code 0x%lX ",temp, IR_NEC);
+sprintf(buf,"RemoteButton%ld now transmits NEC code 0x%lX ",temp, IR_NEC);
 UARTstringCRLN(buf);
-sprintf(buf,(unsigned char *)"NEC Code address: 0x%02X , command: 0x%02X ",NecAddress, NecCommand);
+sprintf(buf,"NEC Code address: 0x%02X , command: 0x%02X ",NecAddress, NecCommand);
 UARTstringCRLN(buf);
 UARTstring(CRLN);
+
+for(i =0;i<10;i++)
+{
+(LATC |= 0x04);
+delayUS(50000);
+(LATC &= ~0x04);
+delayUS(50000);
+}
 return 1;
 }
 }
@@ -5626,17 +5667,25 @@ UARTstringCRLN((unsigned char *)"RemoteButton1 set");
 UARTstring(CRLN);
 return 0;
 }
-else if(StringContainsCaseInsensitive(ReceivedString,(unsigned char *)"RF set"))
+else if(StringContainsCaseInsensitive(String,(unsigned char *)"RF set") || StringContainsCaseInsensitive(String,(unsigned char *)"RF clear"))
 {
-if(!StringAddEqual(ReceivedString))
+if(StringContainsCaseInsensitive(String,(unsigned char *)"RF set"))
+{
+set = 1;
+}
+else
+{
+set = 0;
+}
+if(!StringAddEqual(String))
 {
 UARTstringCRLN((unsigned char *)"Error: No RF configuration specified");
 UARTstring(CRLN);
 return 0;
 }
-ReceivedStringPos++;
+StringPos++;
 UARTstring(CRLN);
-if(!GetNumber(ReceivedString, 1, &temp))
+if(!GetNumber(String, 1, &temp))
 {
 rfconf = (unsigned char) temp;
 }
@@ -5652,7 +5701,7 @@ UARTstringCRLN((unsigned char *)"Error: RF configuration out of range");
 UARTstring(CRLN);
 return 0;
 }
-if(GetStringAfterComma(ReceivedString, 1, rfchannelSTR))
+if(GetStringAfterComma(String, 1, rfchannelSTR))
 {
 UARTstringCRLN((unsigned char *)"Error: No RF channel specified");
 UARTstring(CRLN);
@@ -5682,10 +5731,6 @@ if(!ok)
 {
 UARTstringCRLN((unsigned char *)"Error: RF channel out of range");
 UARTstring(CRLN);
-return 0;
-}
-if(!WaitForIRsignal())
-{
 return 0;
 }
 
@@ -5724,11 +5769,13 @@ else if(rfchannelSTR[0] == 'h')
 cleanBuffer(ReceivedString, ReceivedStringPos);
 ReceivedStringPos = 0;
 NewReceivedString = 0;
-UARTstring(CRLN);
 UARTstring((unsigned char *)"Which device?");
 UARTstring(CRLN);
 UARTchar('>');
 timeout = 0;
+ClearUSART();
+PIR1bits.RCIF = 0;
+PIE1bits.RCIE = 1;
 while(!NewReceivedString)
 {
 delayUS(300000);
@@ -5740,11 +5787,21 @@ UARTstringCRLN((unsigned char *)"Error: No RF config 2, channel H device specifi
 return 0;
 }
 }
+PIE1bits.RCIE = 0;
+ok = 1;
 if(ReceivedString[0] < '1' || ReceivedString[0] > '3')
 {
 UARTstringCRLN((unsigned char *)"Error: RF config 2, channel H device out of range");
+ok = 0;
 }
-device = ReceivedString[0] - '0';
+cleanBuffer(ReceivedString, ReceivedStringPos);
+ReceivedStringPos = 0;
+NewReceivedString = 0;
+if(!ok)
+{
+return 0;
+}
+device = String[0] - '0';
 tempRFArray = device + 4;
 }
 else
@@ -5753,23 +5810,106 @@ else
 return 0;
 }
 }
-DecodeNEC(IR_NEC, &NecAddress, &NecCommand);
-Global.RemoteButton1RF[tempRFArray][0] = NecAddress;
-Global.RemoteButton1RF[tempRFArray][1] = NecCommand;
-SyncGlobalToEEPROM();
+if(set)
+{
+if(!WaitForIRsignal())
+{
+return 0;
+}
 UARTstring(CRLN);
+DecodeNEC(IR_NEC, &NecAddress, &NecCommand);
+ok = 0;
+for(i=0; i < 3; i++)
+{
+if(Global.RemoteButtonRF[tempRFArray][i][0] == 0 && Global.RemoteButtonRF[tempRFArray][i][1] == 0)
+{
+EmptyPlace = i;
+ok = 1;
+break;
+}
+}
+if(!ok)
+{
+UARTstringCRLN((unsigned char *)"Error: No space available to this RF code");
+return 0;
+}
+ok = 1;
+if(EmptyPlace)
+{
+
+for(i=0; i < EmptyPlace; i++)
+{
+if(NecAddress == Global.RemoteButtonRF[tempRFArray][i][0])
+{
+if(NecCommand == Global.RemoteButtonRF[tempRFArray][i][1])
+{
+ok = 0;
+break;
+}
+}
+}
+}
+if(!ok)
+{
+UARTstringCRLN((unsigned char *)"Error: NEC code already saved to this RF code");
+return 0;
+}
+
+
+Global.RemoteButtonRF[tempRFArray][EmptyPlace][0] = NecAddress;
+Global.RemoteButtonRF[tempRFArray][EmptyPlace][1] = NecCommand;
+SyncGlobalToEEPROM();
 
 if(device)
 {
-sprintf(buf,(unsigned char *)"NEC code 0x%lX now transmits RF config %d channel %c device %d",IR_NEC, rfconf, rfchannelSTR[0], device);
+sprintf(buf,"NEC code 0x%lX now transmits RF config %d channel %c device %d",IR_NEC, rfconf, rfchannelSTR[0], device);
 }
 else
 {
-sprintf(buf,(unsigned char *)"NEC code 0x%lX now transmits RF config %d channel %c ",IR_NEC, rfconf, rfchannelSTR[0]);
+sprintf(buf,"NEC code 0x%lX now transmits RF config %d channel %c ",IR_NEC, rfconf, rfchannelSTR[0]);
 }
 UARTstringCRLN(buf);
 UARTstring(CRLN);
+
+for(i =0;i<10;i++)
+{
+(LATC |= 0x04);
+delayUS(50000);
+(LATC &= ~0x04);
+delayUS(50000);
+}
 return 1;
+}
+else
+{
+
+for(i=0; i < 3; i++)
+{
+
+Global.RemoteButtonRF[tempRFArray][i][0] = 0;
+Global.RemoteButtonRF[tempRFArray][i][1] = 0;
+}
+SyncGlobalToEEPROM();
+if(device)
+{
+sprintf(buf,"RF config %d channel %c device %d successfully erased",rfconf, rfchannelSTR[0], device);
+}
+else
+{
+sprintf(buf,"RF config %d channel %c successfully erased",rfconf, rfchannelSTR[0]);
+}
+UARTstringCRLN(buf);
+UARTstring(CRLN);
+
+for(i =0;i<10;i++)
+{
+(LATC |= 0x04);
+delayUS(50000);
+(LATC &= ~0x04);
+delayUS(50000);
+}
+return 1;
+}
 }
 else
 {
@@ -5779,36 +5919,111 @@ return 0;
 }
 }
 }
-else
+else if(StringMatchCaseInsensitive(String,(unsigned char *)"Reset"))
 {
-UARTstringCRLN(SYNTAX_ERR);
-UARTstringCRLN((unsigned char *)"Enter ??? for Command Menu");
+cleanBuffer(ReceivedString, ReceivedStringPos);
+ReceivedStringPos = 0;
+NewReceivedString = 0;
+UARTstring((unsigned char *)"Enter Y to reset or N to cancel");
 UARTstring(CRLN);
+UARTchar('>');
+timeout = 0;
+ClearUSART();
+PIR1bits.RCIF = 0;
+PIE1bits.RCIE = 1;
+while(!NewReceivedString)
+{
+delayUS(300000);
+timeout++;
+if(timeout > 25)
+{
+UARTstring(CRLN);
+UARTstringCRLN((unsigned char *)"Device resumes without reset");
 return 0;
 }
+}
+PIE1bits.RCIE = 0;
+if(ReceivedString[0] == 'Y' || ReceivedString[0] == 'y' && ReceivedString[1] == 0)
+{
 
-if(StringMatch(ReceivedString,(unsigned char *)"???"))
+UARTstringCRLN((unsigned char *)"System will reset");
+Global.EEPROMinitFlag = 0;
+SyncGlobalToEEPROM();
+asm("reset");
+return 1;
+}
+else
 {
 UARTstring(CRLN);
-UARTstringCRLN((unsigned char *)"~~~~~~~~~~~~~~~~~~~~~~~~~Command Menu~~~~~~~~~~~~~~~~~~~~~~~~~~");
+UARTstringCRLN((unsigned char *)"Device resumes without reset");
+}
+cleanBuffer(ReceivedString, ReceivedStringPos);
+ReceivedStringPos = 0;
+NewReceivedString = 0;
+return 0;
+}
+else if(StringMatchCaseInsensitive(String,(unsigned char *)"Voltage"))
+{
+UARTstring(CRLN);
+sprintf(buf,"Supply Voltage = %f", (double) ReadVoltage());
+UARTstringCRLN(buf);
+UARTstring(CRLN);
+}
+else if(StringMatchCaseInsensitive(String,(unsigned char *)"Version"))
+{
+UARTstring(CRLN);
+sprintf(buf,"Firmware Version: %s", Version);
+UARTstringCRLN(buf);
+UARTstring(CRLN);
+}
+else if(StringMatch(String,(unsigned char *)"???"))
+{
+UARTstring(CRLN);
+for(i=0; i< 34; i++ )
+{
+UARTchar('~');
+}
+UARTstring((unsigned char *)"Command Menu");
+for(i=0; i< 34; i++ )
+{
+UARTchar('~');
+}
+UARTstring(CRLN);
 UARTstring(CRLN);
 UARTstringCRLN((unsigned char *)"System commands:");
 UARTcommandMenu((unsigned char *)"???", (unsigned char *)"Help Menu");
+UARTcommandMenu((unsigned char *)"Reset", (unsigned char *)"Clears memory and resets device");
+UARTcommandMenu((unsigned char *)"Version", (unsigned char *)"Displays Firmware Version");
+UARTstring(CRLN);
+UARTstringCRLN((unsigned char *)"Diagnostic Commands:");
+UARTcommandMenu((unsigned char *)"Voltage", (unsigned char *)"Displays the supply voltage");
 UARTstring(CRLN);
 UARTstringCRLN((unsigned char *)"IR commands:");
 for(i=1; i <= 20; i++)
 {
 cleanBuffer(buf,50);
-sprintf(buf,(unsigned char *)"RemoteButton%d",i);
-UARTcommandMenu((unsigned char *)"buf", (unsigned char *)"Transmits saved NEC code");
+sprintf(buf,"RemoteButton%d",i);
+UARTcommandMenu(buf, "Transmits saved NEC code");
 }
 for(i=1; i <= 20; i++)
 {
 cleanBuffer(buf,50);
-sprintf(buf,(unsigned char *)"RemoteButton%d set",i);
-UARTcommandMenu((unsigned char *)"buf",(unsigned char *) "Allows saving NEC codes");
+sprintf(buf,"RemoteButton%d set",i);
+UARTcommandMenu(buf,(unsigned char *) "Allows saving NEC codes");
 }
-UARTcommandMenu((unsigned char *)"NEC?", (unsigned char *)"Displays Description how send NEC signal");
+UARTcommandMenu("RF set 1,D", "Sets Remote button to send RF Config 1 channel D");
+UARTcommandMenu("RF set 1,E", "Sets Remote button to send RF Config 1 channel E");
+UARTcommandMenu("RF set 1,F", "Sets Remote button to send RF Config 1 channel F");
+UARTcommandMenu("RF set 2,B", "Sets Remote button to send RF Config 2 channel B");
+UARTcommandMenu("RF set 2,D", "Sets Remote button to send RF Config 2 channel D");
+UARTcommandMenu("RF set 2,H", "Sets Remote button to send RF Config 2 channel H");
+UARTcommandMenu("RF clear 1,D", "Clears saved Button for RF Config 1 channel D");
+UARTcommandMenu("RF clear 1,E", "Clears saved Button for RF Config 1 channel E");
+UARTcommandMenu("RF clear 1,F", "Clears saved Button for RF Config 1 channel F");
+UARTcommandMenu("RF clear 2,B", "Clears saved Button for RF Config 2 channel B");
+UARTcommandMenu("RF clear 2,D", "Clears saved Button for RF Config 2 channel D");
+UARTcommandMenu("RF clear 2,H", "Clears saved Button for RF Config 2 channel H");
+UARTcommandMenu((unsigned char *)"NEC?", (unsigned char *)"NEC description for Arbitrary code send");
 UARTstring(CRLN);
 UARTstringCRLN((unsigned char *)"RF commands:");
 UARTcommandMenu(Conf1_ChannelD_STR, (unsigned char *)"RFK100LC Channel D");
@@ -5826,11 +6041,18 @@ UARTcommandMenu(Conf2_ChannelH_3_ON_STR, (unsigned char *)"RC-015*3 Channel H de
 UARTcommandMenu(Conf2_ChannelH_3_OFF_STR, (unsigned char *)"RC-015*3 Channel H device 3 OFF");
 UARTstring(CRLN);
 }
+else
+{
+UARTstringCRLN(SYNTAX_ERR);
+UARTstringCRLN((unsigned char *)"Enter ??? for Command Menu");
+UARTstring(CRLN);
+return 0;
+}
 
 return 0;
 }
 
-# 726
+# 933
 unsigned char WaitForIRsignal(void)
 {
 unsigned char timeout = 0;
@@ -5850,6 +6072,8 @@ UARTstringCRLN((unsigned char *)"Error: No remote button was pressed");
 return 0;
 }
 }
+(LATC |= 0x04);
+LEDTimerON();
 return 1;
 }
 

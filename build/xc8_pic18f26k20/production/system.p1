@@ -3631,16 +3631,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 210: typedef int16_t intptr_t;
 [; ;stdint.h: 215: typedef uint16_t uintptr_t;
 [; ;stdbool.h: 12: typedef unsigned char bool;
-[; ;system.h: 55: void ConfigureOscillator(void);
-"41 system.c
+[; ;system.h: 57: void ConfigureOscillator(void);
+"43 system.c
 [v _ConfigureOscillator `(v ~T0 @X0 1 ef ]
-"42
+"44
 {
-[; ;system.c: 41: void ConfigureOscillator(void)
-[; ;system.c: 42: {
+[; ;system.c: 43: void ConfigureOscillator(void)
+[; ;system.c: 44: {
 [e :U _ConfigureOscillator ]
 [f ]
-[; ;system.c: 44: }
-"44
+[; ;system.c: 46: }
+"46
 [e :UE 379 ]
 }

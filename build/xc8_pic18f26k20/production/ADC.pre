@@ -4932,17 +4932,17 @@ typedef uint16_t uintptr_t;
 # 12 "C:\Program Files (x86)\Microchip\xc8\v1.34\include\stdbool.h"
 typedef unsigned char bool;
 
-# 50 "user.h"
+# 52 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
 
-# 58
+# 60
 unsigned long SN = 1;
 
-# 286
+# 288
 void InitApp(void);
 void Init_System (void);
 
-# 78 "ADC.h"
+# 82 "ADC.h"
 double ReadVoltage(void);
 unsigned char InternalADC_Read(unsigned char channel, unsigned int *ADCcounts);
 void ResetADC(void);
@@ -4950,10 +4950,10 @@ void InitADC(void);
 void VoltageDividerON(void);
 void VoltageDividerOFF(void);
 
-# 55 "system.h"
+# 57 "system.h"
 void ConfigureOscillator(void);
 
-# 62 "MISC.h"
+# 64 "MISC.h"
 void delayUS(long US);
 unsigned char IsCharacter(unsigned char data);
 void cleanBuffer(unsigned char* data, int count);
@@ -4975,7 +4975,7 @@ unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned
 unsigned char StringAddEqual(unsigned char* Input);
 unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
 
-# 58 "ADC.c"
+# 60 "ADC.c"
 double ReadVoltage(void)
 {
 unsigned int temp;
@@ -4995,7 +4995,7 @@ VoltageDividerOFF();
 return voltage;
 }
 
-# 82
+# 84
 unsigned char InternalADC_Read(unsigned char channel, unsigned int *ADCcounts)
 {
 unsigned char AnaChanSel = 1;
@@ -5029,7 +5029,7 @@ while(ADCON0bits.GO);
 return 1;
 }
 
-# 121
+# 123
 void ResetADC(void)
 {
 ADCON0 =0;
@@ -5037,7 +5037,7 @@ ADCON1 =0;
 ADCON2 =0;
 }
 
-# 133
+# 135
 void InitADC(void)
 {
 ResetADC();
@@ -5046,14 +5046,14 @@ ADCON2bits.ACQT = 0x7;
 ADCON2bits.ADCS = 0x4;
 }
 
-# 146
+# 148
 void VoltageDividerON(void)
 {
 TRISBbits.TRISB5 = 0;
 LATB &= ~0x20;
 }
 
-# 157
+# 159
 void VoltageDividerOFF(void)
 {
 TRISBbits.TRISB5 = 1;

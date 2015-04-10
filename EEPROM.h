@@ -8,6 +8,8 @@
  * --------     ---------   ----------------------------------------------------
  * 04/02/15     1.0_DW0a    Initial project make.
  *                          Derived from project 'PIC_Smart_Rf'.
+ * 04/09/15     1.0_DW0b    Fixed bugs.
+ *                          Added features.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -51,7 +53,18 @@
  * This parameter hold the amount of remote control buttons that are
  * able to be saved.
 /******************************************************************************/
-#define RFcodesAmount 20
+#define RFcodesAmount 15
+
+/******************************************************************************/
+/* RFcodesAmount
+ *
+ * This parameter holds the amount of remote control buttons that can control
+ *  the same RF switch code.
+ *
+ * example: if this is 5 it means that 5 different Remote buttons will cause
+ *  the rf channel to be sent
+/******************************************************************************/
+#define MirrorButtonsAmount 3
 
 /******************************************************************************/
 /* EEPROM Data Addresses                                                      */
@@ -80,15 +93,7 @@
 /******************************/
 /* Stores the first button that will cause each RF code to get sent */
 /* the amount of data needed 1 * RFcodesAmount */
-#define EE_RemoteButton1RF (2*ButtonAmount + 7)
-/* Stores the second button that will cause each RF code to get sent */
-#define EE_RemoteButton2RF (2*ButtonAmount + 7 + RFcodesAmount*2)
-/* Stores the third button that will cause each RF code to get sent */
-#define EE_RemoteButton3RF (2*ButtonAmount + 7 + RFcodesAmount*4)
-/* Stores the forth button that will cause each RF code to get sent */
-#define EE_RemoteButton4RF (2*ButtonAmount + 7 + RFcodesAmount*6)
-/* Stores the fifth button that will cause each RF code to get sent */
-#define EE_RemoteButton5RF (2*ButtonAmount + 7 + RFcodesAmount*8)
+#define EE_RemoteButtonRF (2*ButtonAmount + 7)
 
 /******************************************************************************/
 /* Structures                                                                 */
@@ -101,27 +106,25 @@ typedef struct EEdata
     unsigned char EEPROMinitFlag;
 
     /*
-     * RemoteButtonRF 0 is for config 1 channel D
-     * RemoteButtonRF 1 is for config 1 channel E
-     * RemoteButtonRF 2 is for config 1 channel F
-     * RemoteButtonRF 3 is for config 2 channel B
-     * RemoteButtonRF 4 is for config 2 channel D
-     * RemoteButtonRF 5 is for config 2 channel H device 1
-     * RemoteButtonRF 6 is for config 2 channel H device 2
-     * RemoteButtonRF 7 is for config 2 channel H device 3
+     * RemoteButtonRF[rfnum][Nec:Address Nec:Command];
+     *
+     * rfnum 0 is for config 1 channel D
+     * rfnum 1 is for config 1 channel E
+     * rfnum 2 is for config 1 channel F
+     * rfnum 3 is for config 2 channel B
+     * rfnum 4 is for config 2 channel D
+     * rfnum 5 is for config 2 channel H device 1
+     * rfnum 6 is for config 2 channel H device 2
+     * rfnum 7 is for config 2 channel H device 3
      */
-    unsigned char RemoteButton1RF[RFcodesAmount][2];
-    unsigned char RemoteButton2RF[RFcodesAmount][2];
-    unsigned char RemoteButton3RF[RFcodesAmount][2];
-    unsigned char RemoteButton4RF[RFcodesAmount][2];
-    unsigned char RemoteButton5RF[RFcodesAmount][2];
+    unsigned char RemoteButtonRF[RFcodesAmount][MirrorButtonsAmount][2];
 
 }GBLdata;
 
 /******************************************************************************/
 /* Global Variables                                                           */
 /******************************************************************************/
-GBLdata Global =0;
+GBLdata Global = 0;
 
 /******************************************************************************/
 /* Function prototypes                                                        */
@@ -130,7 +133,7 @@ GBLdata Global =0;
 unsigned int ReadEEPROM_1Byte(unsigned int address);
 void EEPROM_UNLOCK(void);
 void WriteEEPROM_1Byte(unsigned int address, unsigned char data);
-GBLdata GetEEPROM(void);
+void GetEEPROM(GBLdata *Temp);
 unsigned long SetEEPROM(GBLdata Temp,unsigned long burn);
 unsigned long GetMemoryLong(unsigned char AddressFirst);
 unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst);

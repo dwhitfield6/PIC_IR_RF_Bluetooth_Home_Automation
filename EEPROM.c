@@ -8,6 +8,8 @@
  * --------     ---------   ----------------------------------------------------
  * 04/02/15     1.0_DW0a    Initial project make.
  *                          Derived from project 'PIC_Smart_Rf'.
+ * 04/09/15     1.0_DW0b    Fixed bugs.
+ *                          Added features.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -115,32 +117,32 @@ void WriteEEPROM_1Byte(unsigned int address, unsigned char data)
  *
  * The function gets the EEdata struct from memory.
 /******************************************************************************/
-GBLdata GetEEPROM(void)
+void GetEEPROM(GBLdata *Temp)
 {
-    unsigned char i,j;
+    unsigned char i,j,k;
     unsigned char Arrayspot=EE_RemoteButtonNEC;
 
-    GBLdata Temp;
-    Temp.BlueToothFlag          = GetMemoryChar(EE_BlueToothFlag);
-    Temp.SWNECcode              = GetMemoryLong(EE_NECcodeBYTE1);
+    Temp->BlueToothFlag          = GetMemoryChar(EE_BlueToothFlag);
+    Temp->SWNECcode              = GetMemoryLong(EE_NECcodeBYTE1);
     for(i=0; i< ButtonAmount; i++)
     {
         for(j=0; j < 2; j++)
         {
-            Temp.RemoteButtonNEC[i][j] = GetMemoryChar(Arrayspot++);
+            Temp->RemoteButtonNEC[i][j] = GetMemoryChar(Arrayspot++);
         }
     }
-    Temp.EEPROMinitFlag         = GetMemoryChar(EE_EEPROMinitFlag);
-    Arrayspot=EE_RemoteButton1RF;
+    Temp->EEPROMinitFlag         = GetMemoryChar(EE_EEPROMinitFlag);
+    Arrayspot=EE_RemoteButtonRF;
     for(i=0; i< RFcodesAmount; i++)
     {
-        for(j=0; j < 2; j++)
+        for(j=0; j < MirrorButtonsAmount; j++)
         {
-            Temp.RemoteButton1RF[i][j] = GetMemoryChar(Arrayspot++);
+            for(k=0; k < 2; k++)
+            {
+                Temp->RemoteButtonRF[i][j][k] = GetMemoryChar(Arrayspot++);
+            }
         }
-    }
-    
-    return Temp;
+    }    
 }
 
 /******************************************************************************/
@@ -151,7 +153,7 @@ GBLdata GetEEPROM(void)
 unsigned long SetEEPROM(GBLdata Temp,unsigned long burn)
 {
     unsigned long fail = 0;
-    unsigned char i,j,temp;
+    unsigned char i,j,k,temp;
     unsigned char Arrayspot=EE_RemoteButtonNEC;
 
     if(burn & 0x00000001)
@@ -195,16 +197,19 @@ unsigned long SetEEPROM(GBLdata Temp,unsigned long burn)
     }
     if(burn & 0x00000010)
     {
-        Arrayspot=EE_RemoteButton1RF;
+        Arrayspot=EE_RemoteButtonRF;
         for(i=0; i< RFcodesAmount; i++)
         {
-            for(j=0; j < 2; j++)
+            for(j=0; j < MirrorButtonsAmount; j++)
             {
-                temp = Temp.RemoteButton1RF[i][j];
-                if(!SetMemoryChar(temp,Arrayspot++))
+                for(k=0; k < 2; k++)
                 {
-                    /* Failed to burn RemoteButtonRF */
-                    fail |= 0x00000010;
+                    temp = Temp.RemoteButtonRF[i][j][k];
+                    if(!SetMemoryChar(temp,Arrayspot++))
+                    {
+                        /* Failed to burn RemoteButtonRF */
+                        fail |= 0x00000010;
+                    }
                 }
             }
         }
@@ -235,7 +240,7 @@ unsigned char SyncGlobalToEEPROM(void)
 /******************************************************************************/
 void SetEEPROMdefault(void)
 {
-    unsigned char i,j;
+    unsigned char i,j,k;
 
     Global.BlueToothFlag = 0;
     Global.SWNECcode = 0x00FF00FF; // address is 0 and command is 0
@@ -249,9 +254,12 @@ void SetEEPROMdefault(void)
     }
     for(i=0; i< RFcodesAmount; i++)
     {
-        for(j=0; j < 2; j++)
+        for(j=0; j < MirrorButtonsAmount; j++)
         {
-            Global.RemoteButton1RF[i][j] = 0x00;
+            for(k=0; k < 2; k++)
+            {
+                Global.RemoteButtonRF[i][j][k] = 0x00;
+            }
         }
     }
     SyncGlobalToEEPROM();
@@ -265,7 +273,6 @@ void SetEEPROMdefault(void)
 /******************************************************************************/
 unsigned char EEPROMinitialized(void)
 {
-    SyncGlobalToEEPROM();
     if(Global.EEPROMinitFlag == EEPROMinitilized)
     {
         return TRUE;
@@ -280,10 +287,10 @@ unsigned char EEPROMinitialized(void)
 /******************************************************************************/
 void SyncEEPROMToGlobal(void)
 {
-    unsigned char i,j;
+    unsigned char i,j,k;
     GBLdata Temp;
 
-    Temp = GetEEPROM();
+    GetEEPROM(&Temp);
 
     Global.BlueToothFlag            = Temp.BlueToothFlag;
     Global.SWNECcode                = Temp.SWNECcode;
@@ -298,9 +305,12 @@ void SyncEEPROMToGlobal(void)
     Global.EEPROMinitFlag           = Temp.EEPROMinitFlag;
     for(i=0; i< RFcodesAmount; i++)
     {
-        for(j=0; j < 2; j++)
+        for(j=0; j < MirrorButtonsAmount; j++)
         {
-            Global.RemoteButton1RF[i][j] = Temp.RemoteButton1RF[i][j];
+            for(k=0; k < 2; k++)
+            {
+                Global.RemoteButtonRF[i][j][k] = Temp.RemoteButtonRF[i][j][k];
+            }
         }
     }
 }

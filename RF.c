@@ -8,6 +8,8 @@
  * --------     ---------   ----------------------------------------------------
  * 04/02/15     1.0_DW0a    Initial project make.
  *                          Derived from project 'PIC_IR_to_RF_MICRF113_test'.
+ * 04/09/15     1.0_DW0b    Fixed bugs.
+ *                          Added features.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -43,7 +45,7 @@ volatile unsigned char RFsendFlag = 0;
 unsigned char RFcodePlace = 0;
 unsigned char RFcodeBit = 0;
 volatile unsigned char Sendcount =0;
-volatile unsigned char Sent = 1;
+volatile unsigned char Sent = TRUE;
 unsigned char RFConfig = 0;
 volatile unsigned char RF_IR_Postscaler = 2;
 unsigned char Conf2_ChannelB_Status = OFF;
@@ -66,7 +68,7 @@ unsigned char RF_IR = RF;
 unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount)
 {
     unsigned char i;
-    if(Sent == YES)
+    if(Sent)
     {
         /* Previous send finished */
         RF_IR = RF;
@@ -145,7 +147,8 @@ void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char 
     IRreceiverIntOff();
     INTCONbits.RBIE = OFF;
     INTCONbits.PEIE = OFF;
-
+    LEDTimerON();
+    GreenLEDON();
     SendRF(Code, Config, size, amount);
     while(!Sent);
     INTCONbits.PEIE = ON;
@@ -165,26 +168,26 @@ void SendRF_Channel(unsigned char channel)
     {
         case 0:
             // Configuration 1 channel D
-            SendRF_wait(Conf1_ChannelD,1,12,8);
+            SendRF_wait(Conf1_ChannelD,1,12,RFrepeatAmount);
             break;
         case 1:
             // Configuration 1 channel E
-            SendRF_wait(Conf1_ChannelE,1,12,8);
+            SendRF_wait(Conf1_ChannelE,1,12,RFrepeatAmount);
             break;
         case 2:
             // Configuration 1 channel F
-            SendRF_wait(Conf1_ChannelF,1,12,8);
+            SendRF_wait(Conf1_ChannelF,1,12,RFrepeatAmount);
             break;
         case 3:
             // Configuration 2 channel B
             if(Conf2_ChannelB_Status)
             {
-                SendRF_wait(Conf2_ChannelB_OFF,2,16,8);
+                SendRF_wait(Conf2_ChannelB_OFF,2,16,RFrepeatAmount);
                 Conf2_ChannelB_Status = OFF;
             }
             else
             {
-                SendRF_wait(Conf2_ChannelB_ON,2,16,8);
+                SendRF_wait(Conf2_ChannelB_ON,2,16,RFrepeatAmount);
                 Conf2_ChannelB_Status = ON;
             }
             break;
@@ -192,12 +195,12 @@ void SendRF_Channel(unsigned char channel)
             // Configuration 2 channel D
             if(Conf2_ChannelD_Status)
             {
-                SendRF_wait(Conf2_ChannelD_OFF,2,16,8);
+                SendRF_wait(Conf2_ChannelD_OFF,2,16,RFrepeatAmount);
                 Conf2_ChannelD_Status = OFF;
             }
             else
             {
-                SendRF_wait(Conf2_ChannelD_ON,2,16,8);
+                SendRF_wait(Conf2_ChannelD_ON,2,16,RFrepeatAmount);
                 Conf2_ChannelD_Status = ON;
             }
             break;
@@ -205,12 +208,12 @@ void SendRF_Channel(unsigned char channel)
             // Configuration 2 channel H device 1
             if(Conf2_ChannelH_1_Status)
             {
-                SendRF_wait(Conf2_ChannelH_1_ON,2,16,8);
+                SendRF_wait(Conf2_ChannelH_1_OFF,2,16,RFrepeatAmount);
                 Conf2_ChannelH_1_Status = OFF;
             }
             else
             {
-                SendRF_wait(Conf2_ChannelH_1_OFF,2,16,8);
+                SendRF_wait(Conf2_ChannelH_1_ON,2,16,RFrepeatAmount);
                 Conf2_ChannelH_1_Status = ON;
             }
             break;
@@ -218,12 +221,12 @@ void SendRF_Channel(unsigned char channel)
             // Configuration 2 channel H device 2
             if(Conf2_ChannelH_2_Status)
             {
-                SendRF_wait(Conf2_ChannelH_2_ON,2,16,8);
+                SendRF_wait(Conf2_ChannelH_2_OFF,2,16,RFrepeatAmount);
                 Conf2_ChannelH_2_Status = OFF;
             }
             else
             {
-                SendRF_wait(Conf2_ChannelH_2_OFF,2,16,8);
+                SendRF_wait(Conf2_ChannelH_2_ON,2,16,RFrepeatAmount);
                 Conf2_ChannelH_2_Status = ON;
             }
             break;
@@ -231,12 +234,12 @@ void SendRF_Channel(unsigned char channel)
             // Configuration 2 channel H device 3
             if(Conf2_ChannelH_3_Status)
             {
-                SendRF_wait(Conf2_ChannelH_3_ON,2,16,8);
+                SendRF_wait(Conf2_ChannelH_3_OFF,2,16,RFrepeatAmount);
                 Conf2_ChannelH_3_Status = OFF;
             }
             else
             {
-                SendRF_wait(Conf2_ChannelH_3_OFF,2,16,8);
+                SendRF_wait(Conf2_ChannelH_3_ON,2,16,RFrepeatAmount);
                 Conf2_ChannelH_3_Status = ON;
             }
             break;

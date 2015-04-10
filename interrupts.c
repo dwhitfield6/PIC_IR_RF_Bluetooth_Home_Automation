@@ -8,6 +8,8 @@
  * --------     ---------   ----------------------------------------------------
  * 04/02/15     1.0_DW0a    Initial project make.
  *                          Derived from project 'PIC_Smart_Rf'.
+ * 04/09/15     1.0_DW0b    Fixed bugs.
+ *                          Added features.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -70,6 +72,9 @@ void high_isr(void)
 
     if(INTCONbits.RBIF)
     {
+        NOP();
+        NOP();
+        IRtimeout = 0;
         IRpin = ReadIRpin();
         if(IRpin != IRpinOLD)
         {
@@ -625,7 +630,7 @@ void low_isr(void)
                 }
                 else if(ReceivedStringPos < RXbufsize)
                 {
-                    if(NewReceivedString == FALSE)
+                    if(!NewReceivedString)
                     {
                         if(IsCharacter(data))
                         {
@@ -641,11 +646,11 @@ void low_isr(void)
                     ReceivedStringPos = 0;
                     UARTstring(CRLN);
                     UARTstringCRLN((unsigned char *)"Buffer Overflow");
-
                 }
             }
-            else if(ReceivedStringPos > 0)
+            else if(ReceivedStringPos > 0 && (NewReceivedString == FALSE))
             {
+                PIE1bits.RCIE   = FALSE;   // disable RX interrupts
                 UARTstring(CRLN);
                 NewReceivedString = TRUE;
             }

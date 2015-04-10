@@ -4932,12 +4932,12 @@ typedef uint16_t uintptr_t;
 # 12 "C:\Program Files (x86)\Microchip\xc8\v1.34\include\stdbool.h"
 typedef unsigned char bool;
 
-# 37 "Timer.h"
+# 39 "Timer.h"
 extern unsigned char Timer1_Postscaler;
 extern unsigned char Timer2_Postscaler;
 extern unsigned char Timer3_Postscaler;
 
-# 174
+# 176
 void InitTimer0(void);
 void ResetTimer0(void);
 void InitTimer1(void);
@@ -4948,12 +4948,12 @@ void InitTimer3(void);
 void ResetTimer3(void);
 void InitTimers(void);
 
-# 35 "Timer.c"
+# 37 "Timer.c"
 unsigned char Timer1_Postscaler = 0;
 unsigned char Timer2_Postscaler = 0;
 unsigned char Timer3_Postscaler = 0;
 
-# 49
+# 51
 void InitTimers(void)
 {
 InitTimer1();
@@ -4964,7 +4964,7 @@ InitTimer3();
 (PIE2bits.TMR3IE = TRUE);
 }
 
-# 64
+# 66
 void InitTimer0(void)
 {
 T0CONbits.T08BIT = FALSE;
@@ -4973,16 +4973,16 @@ T0CONbits.PSA = FALSE;
 T0CONbits.T0PS = 0x4;
 }
 
-# 77
+# 79
 void ResetTimer0(void)
 {
 
-# 83
+# 85
 TMR0H = 0;
 TMR0L = 2;
 }
 
-# 92
+# 94
 void InitTimer1(void)
 {
 T1CONbits.RD16 = TRUE;
@@ -4992,31 +4992,33 @@ T1CONbits.T1OSCEN = FALSE;
 T1CONbits.TMR1CS = FALSE;
 }
 
-# 106
+# 108
 void ResetTimer1(void)
 {
 
-# 112
+# 114
 TMR1H = 0;
 TMR1L = 2;
 }
 
-# 121
+# 123
 void InitTimer2(void)
 {
 T2CONbits.T2OUTPS = 0xE;
 T2CONbits.T2CKPS = 0x3;
 }
 
-# 132
+# 134
 void LEDTimerON(void)
 {
+(T1CONbits.TMR1ON = FALSE);
+ResetTimer1();
 Timer1_Postscaler = 0;
 ResetTimer1();
 (T1CONbits.TMR1ON = TRUE);
 }
 
-# 144
+# 148
 void InitTimer3(void)
 {
 T3CONbits.RD16 = TRUE;
@@ -5024,11 +5026,11 @@ T3CONbits.T3CKPS = 0x3;
 T3CONbits.TMR3CS = FALSE;
 }
 
-# 156
+# 160
 void ResetTimer3(void)
 {
 
-# 162
+# 166
 TMR3H = 0;
 TMR3L = 2;
 }

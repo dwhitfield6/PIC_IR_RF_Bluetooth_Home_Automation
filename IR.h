@@ -8,6 +8,8 @@
  * --------     ---------   ----------------------------------------------------
  * 04/02/15     1.0_DW0a    Initial project make.
  *                          Derived from project 'PIC_Smart_Rf'.
+ * 04/09/15     1.0_DW0b    Fixed bugs.
+ *                          Added features.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -57,6 +59,13 @@
 #define Repeat5    18
 #define Receiving  19
 
+/******************************************************************************/
+/* IRtimeoutLoops
+ *
+ * This controls how many loops around the main program are allowed to pass
+ *  before the IR receiver tiemsout and there can no longer be a repeat code.
+/******************************************************************************/
+#define IRtimeoutLoops 5000
 
 /******************************************************************************/
 /* MaxScanEdgeChange
@@ -197,6 +206,7 @@ extern unsigned char IRrepeatAmount;
 extern volatile unsigned char IRmod;
 extern volatile unsigned char ReceivingIR;
 extern volatile unsigned char IRbitPosition;
+extern unsigned long IRtimeout;
 
 /******************************************************************************/
 /* Function prototypes                                                        */

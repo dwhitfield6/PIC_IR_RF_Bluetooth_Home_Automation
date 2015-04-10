@@ -7,4 +7,5 @@ MISC.h  \
 user.h  \
 IR.h  \
 system.h  \
+RF.h  \
 ADC.h 

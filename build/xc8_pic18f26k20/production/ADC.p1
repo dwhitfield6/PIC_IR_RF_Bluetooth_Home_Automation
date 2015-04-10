@@ -1,11 +1,11 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"82 ADC.h
+"86 ADC.h
 [v _VoltageDividerON `(v ~T0 @X0 0 ef ]
-"62 MISC.h
+"64 MISC.h
 [v _delayUS `(v ~T0 @X0 0 ef1`l ]
-"79 ADC.h
+"83 ADC.h
 [v _InternalADC_Read `(uc ~T0 @X0 0 ef2`uc`*ui ]
-"83
+"87
 [v _VoltageDividerOFF `(v ~T0 @X0 0 ef ]
 "4615 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [v _ADCON0 `Vuc ~T0 @X0 0 e@4034 ]
@@ -3719,7 +3719,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 210: typedef int16_t intptr_t;
 [; ;stdint.h: 215: typedef uint16_t uintptr_t;
 [; ;stdbool.h: 12: typedef unsigned char bool;
-"50 user.h
+"52 user.h
 [v _ProductName `uc ~T0 @X0 -> 50 `i e ]
 [i _ProductName
 :U ..
@@ -3741,274 +3741,274 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;user.h: 50: unsigned char ProductName[50] = {"Home Automation"};
-"58
+[; ;user.h: 52: unsigned char ProductName[50] = {"Home Automation"};
+"60
 [v _SN `ul ~T0 @X0 1 e ]
 [i _SN
 -> -> -> 1 `i `l `ul
 ]
-[; ;user.h: 58: unsigned long SN = 1;
-[; ;user.h: 286: void InitApp(void);
-[; ;user.h: 287: void Init_System (void);
-[; ;ADC.h: 78: double ReadVoltage(void);
-[; ;ADC.h: 79: unsigned char InternalADC_Read(unsigned char channel, unsigned int *ADCcounts);
-[; ;ADC.h: 80: void ResetADC(void);
-[; ;ADC.h: 81: void InitADC(void);
-[; ;ADC.h: 82: void VoltageDividerON(void);
-[; ;ADC.h: 83: void VoltageDividerOFF(void);
-[; ;system.h: 55: void ConfigureOscillator(void);
-[; ;MISC.h: 62: void delayUS(long US);
-[; ;MISC.h: 63: unsigned char IsCharacter(unsigned char data);
-[; ;MISC.h: 64: void cleanBuffer(unsigned char* data, int count);
-[; ;MISC.h: 65: void cleanBuffer16bit(unsigned int* data, int count);
-[; ;MISC.h: 66: double Round(double input);
-[; ;MISC.h: 67: void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
-[; ;MISC.h: 68: unsigned char StringMatch(unsigned char* This,const unsigned char* That);
-[; ;MISC.h: 69: unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
-[; ;MISC.h: 70: unsigned char StringContains(unsigned char* This, const unsigned char* That);
-[; ;MISC.h: 71: unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
-[; ;MISC.h: 72: void CalibrateDelay(void);
-[; ;MISC.h: 73: void lowercaseChar(unsigned char* Input);
-[; ;MISC.h: 74: void lowercaseString(unsigned char* Input);
-[; ;MISC.h: 75: void delayNOP(unsigned char NOPs);
-[; ;MISC.h: 76: unsigned char Reverse_Byte(unsigned char This);
-[; ;MISC.h: 77: unsigned int Reverse_2Byte(unsigned int This);
-[; ;MISC.h: 78: unsigned long Reverse_4Byte(unsigned long This);
-[; ;MISC.h: 79: unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
-[; ;MISC.h: 80: unsigned char StringAddEqual(unsigned char* Input);
-[; ;MISC.h: 81: unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
-"58 ADC.c
+[; ;user.h: 60: unsigned long SN = 1;
+[; ;user.h: 288: void InitApp(void);
+[; ;user.h: 289: void Init_System (void);
+[; ;ADC.h: 82: double ReadVoltage(void);
+[; ;ADC.h: 83: unsigned char InternalADC_Read(unsigned char channel, unsigned int *ADCcounts);
+[; ;ADC.h: 84: void ResetADC(void);
+[; ;ADC.h: 85: void InitADC(void);
+[; ;ADC.h: 86: void VoltageDividerON(void);
+[; ;ADC.h: 87: void VoltageDividerOFF(void);
+[; ;system.h: 57: void ConfigureOscillator(void);
+[; ;MISC.h: 64: void delayUS(long US);
+[; ;MISC.h: 65: unsigned char IsCharacter(unsigned char data);
+[; ;MISC.h: 66: void cleanBuffer(unsigned char* data, int count);
+[; ;MISC.h: 67: void cleanBuffer16bit(unsigned int* data, int count);
+[; ;MISC.h: 68: double Round(double input);
+[; ;MISC.h: 69: void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
+[; ;MISC.h: 70: unsigned char StringMatch(unsigned char* This,const unsigned char* That);
+[; ;MISC.h: 71: unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
+[; ;MISC.h: 72: unsigned char StringContains(unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 73: unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 74: void CalibrateDelay(void);
+[; ;MISC.h: 75: void lowercaseChar(unsigned char* Input);
+[; ;MISC.h: 76: void lowercaseString(unsigned char* Input);
+[; ;MISC.h: 77: void delayNOP(unsigned char NOPs);
+[; ;MISC.h: 78: unsigned char Reverse_Byte(unsigned char This);
+[; ;MISC.h: 79: unsigned int Reverse_2Byte(unsigned int This);
+[; ;MISC.h: 80: unsigned long Reverse_4Byte(unsigned long This);
+[; ;MISC.h: 81: unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
+[; ;MISC.h: 82: unsigned char StringAddEqual(unsigned char* Input);
+[; ;MISC.h: 83: unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
+"60 ADC.c
 [v _ReadVoltage `(d ~T0 @X0 1 ef ]
-"59
+"61
 {
-[; ;ADC.c: 58: double ReadVoltage(void)
-[; ;ADC.c: 59: {
+[; ;ADC.c: 60: double ReadVoltage(void)
+[; ;ADC.c: 61: {
 [e :U _ReadVoltage ]
 [f ]
-"60
+"62
 [v _temp `ui ~T0 @X0 1 a ]
-"61
-[v _voltage `d ~T0 @X0 1 a ]
-[; ;ADC.c: 60: unsigned int temp;
-[; ;ADC.c: 61: double voltage;
-[; ;ADC.c: 63: VoltageDividerON();
 "63
-[e ( _VoltageDividerON ..  ]
-[; ;ADC.c: 64: delayUS(5);
-"64
-[e ( _delayUS (1 -> -> 5 `i `l ]
-[; ;ADC.c: 65: if(InternalADC_Read(0, &temp))
+[v _voltage `d ~T0 @X0 1 a ]
+[; ;ADC.c: 62: unsigned int temp;
+[; ;ADC.c: 63: double voltage;
+[; ;ADC.c: 65: VoltageDividerON();
 "65
-[e $ ! != -> ( _InternalADC_Read (2 , -> -> 0 `i `uc &U _temp `i -> -> -> 0 `i `uc `i 380  ]
-[; ;ADC.c: 66: {
+[e ( _VoltageDividerON ..  ]
+[; ;ADC.c: 66: delayUS(5);
 "66
-{
-[; ;ADC.c: 67: voltage = ((double)temp / 1024.0) * 11 * 3.3;
+[e ( _delayUS (1 -> -> 5 `i `l ]
+[; ;ADC.c: 67: if(InternalADC_Read(0, &temp))
 "67
-[e = _voltage * * / -> _temp `d .1024.0 -> -> 11 `i `d .3.3 ]
+[e $ ! != -> ( _InternalADC_Read (2 , -> -> 0 `i `uc &U _temp `i -> -> -> 0 `i `uc `i 380  ]
+[; ;ADC.c: 68: {
 "68
-}
-[; ;ADC.c: 68: }
-[e $U 381  ]
-"69
-[e :U 380 ]
-[; ;ADC.c: 69: else
-[; ;ADC.c: 70: {
-"70
 {
-[; ;ADC.c: 71: voltage = 0.0;
+[; ;ADC.c: 69: voltage = ((double)temp / 1024.0) * 11 * 3.3;
+"69
+[e = _voltage * * / -> _temp `d .1024.0 -> -> 11 `i `d .3.3 ]
+"70
+}
+[; ;ADC.c: 70: }
+[e $U 381  ]
 "71
-[e = _voltage .0.0 ]
+[e :U 380 ]
+[; ;ADC.c: 71: else
+[; ;ADC.c: 72: {
 "72
+{
+[; ;ADC.c: 73: voltage = 0.0;
+"73
+[e = _voltage .0.0 ]
+"74
 }
 [e :U 381 ]
-[; ;ADC.c: 72: }
-[; ;ADC.c: 73: VoltageDividerOFF();
-"73
+[; ;ADC.c: 74: }
+[; ;ADC.c: 75: VoltageDividerOFF();
+"75
 [e ( _VoltageDividerOFF ..  ]
-[; ;ADC.c: 74: return voltage;
-"74
+[; ;ADC.c: 76: return voltage;
+"76
 [e ) _voltage ]
 [e $UE 379  ]
-[; ;ADC.c: 75: }
-"75
+[; ;ADC.c: 77: }
+"77
 [e :UE 379 ]
 }
-"82
+"84
 [v _InternalADC_Read `(uc ~T0 @X0 1 ef2`uc`*ui ]
-"83
+"85
 {
-[; ;ADC.c: 82: unsigned char InternalADC_Read(unsigned char channel, unsigned int *ADCcounts)
-[; ;ADC.c: 83: {
+[; ;ADC.c: 84: unsigned char InternalADC_Read(unsigned char channel, unsigned int *ADCcounts)
+[; ;ADC.c: 85: {
 [e :U _InternalADC_Read ]
-"82
+"84
 [v _channel `uc ~T0 @X0 1 r1 ]
 [v _ADCcounts `*ui ~T0 @X0 1 r2 ]
-"83
-[f ]
-"84
-[v _AnaChanSel `uc ~T0 @X0 1 a ]
-[; ;ADC.c: 84: unsigned char AnaChanSel = 1;
-[e = _AnaChanSel -> -> 1 `i `uc ]
-[; ;ADC.c: 85: if(channel > 0b1100)
 "85
-[e $ ! > -> _channel `i -> 12 `i 383  ]
-[; ;ADC.c: 86: {
+[f ]
 "86
-{
-[; ;ADC.c: 87: *ADCcounts = 0;
+[v _AnaChanSel `uc ~T0 @X0 1 a ]
+[; ;ADC.c: 86: unsigned char AnaChanSel = 1;
+[e = _AnaChanSel -> -> 1 `i `uc ]
+[; ;ADC.c: 87: if(channel > 0b1100)
 "87
-[e = *U _ADCcounts -> -> 0 `i `ui ]
-[; ;ADC.c: 88: return 0;
+[e $ ! > -> _channel `i -> 12 `i 383  ]
+[; ;ADC.c: 88: {
 "88
+{
+[; ;ADC.c: 89: *ADCcounts = 0;
+"89
+[e = *U _ADCcounts -> -> 0 `i `ui ]
+[; ;ADC.c: 90: return 0;
+"90
 [e ) -> -> 0 `i `uc ]
 [e $UE 382  ]
-"89
+"91
 }
 [e :U 383 ]
-[; ;ADC.c: 89: }
-[; ;ADC.c: 90: if(channel > 1)
-"90
-[e $ ! > -> _channel `i -> 1 `i 384  ]
-[; ;ADC.c: 91: {
-"91
-{
-[; ;ADC.c: 92: AnaChanSel <= (channel - 1);
+[; ;ADC.c: 91: }
+[; ;ADC.c: 92: if(channel > 1)
 "92
-[e <= -> _AnaChanSel `i - -> _channel `i -> 1 `i ]
+[e $ ! > -> _channel `i -> 1 `i 384  ]
+[; ;ADC.c: 93: {
 "93
-}
-[; ;ADC.c: 93: }
-[e $U 385  ]
-"94
-[e :U 384 ]
-[; ;ADC.c: 94: else if (channel == 0)
-[e $ ! == -> _channel `i -> 0 `i 386  ]
-[; ;ADC.c: 95: {
-"95
 {
-[; ;ADC.c: 96: AnaChanSel = 0;
+[; ;ADC.c: 94: AnaChanSel <= (channel - 1);
+"94
+[e <= -> _AnaChanSel `i - -> _channel `i -> 1 `i ]
+"95
+}
+[; ;ADC.c: 95: }
+[e $U 385  ]
 "96
-[e = _AnaChanSel -> -> 0 `i `uc ]
+[e :U 384 ]
+[; ;ADC.c: 96: else if (channel == 0)
+[e $ ! == -> _channel `i -> 0 `i 386  ]
+[; ;ADC.c: 97: {
 "97
+{
+[; ;ADC.c: 98: AnaChanSel = 0;
+"98
+[e = _AnaChanSel -> -> 0 `i `uc ]
+"99
 }
 [e :U 386 ]
-"99
-[e :U 385 ]
-[; ;ADC.c: 97: }
-[; ;ADC.c: 99: ADCON0 |= (AnaChanSel << 2);
-[e =| _ADCON0 -> << -> _AnaChanSel `i -> 2 `i `uc ]
-[; ;ADC.c: 101: ADCON1bits.VCFG0 = 0;
 "101
+[e :U 385 ]
+[; ;ADC.c: 99: }
+[; ;ADC.c: 101: ADCON0 |= (AnaChanSel << 2);
+[e =| _ADCON0 -> << -> _AnaChanSel `i -> 2 `i `uc ]
+[; ;ADC.c: 103: ADCON1bits.VCFG0 = 0;
+"103
 [e = . . _ADCON1bits 1 1 -> -> 0 `i `uc ]
-[; ;ADC.c: 102: ADCON1bits.VCFG1 = 0;
-"102
-[e = . . _ADCON1bits 1 2 -> -> 0 `i `uc ]
-[; ;ADC.c: 104: (ADCON0bits.ADON = 1);
+[; ;ADC.c: 104: ADCON1bits.VCFG1 = 0;
 "104
+[e = . . _ADCON1bits 1 2 -> -> 0 `i `uc ]
+[; ;ADC.c: 106: (ADCON0bits.ADON = 1);
+"106
 [e = . . _ADCON0bits 1 0 -> -> 1 `i `uc ]
-[; ;ADC.c: 105: delayUS(50);
-"105
-[e ( _delayUS (1 -> -> 50 `i `l ]
-[; ;ADC.c: 107: ADCON0bits.GO = 1;
+[; ;ADC.c: 107: delayUS(50);
 "107
+[e ( _delayUS (1 -> -> 50 `i `l ]
+[; ;ADC.c: 109: ADCON0bits.GO = 1;
+"109
 [e = . . _ADCON0bits 6 1 -> -> 1 `i `uc ]
-[; ;ADC.c: 108: while(ADCON0bits.GO);
-"108
+[; ;ADC.c: 110: while(ADCON0bits.GO);
+"110
 [e $U 387  ]
 [e :U 388 ]
 [e :U 387 ]
 [e $ != -> . . _ADCON0bits 6 1 `i -> -> -> 0 `i `Vuc `i 388  ]
 [e :U 389 ]
-[; ;ADC.c: 109: (ADCON0bits.ADON = 0);
-"109
-[e = . . _ADCON0bits 1 0 -> -> 0 `i `uc ]
-[; ;ADC.c: 111: *ADCcounts = ((ADRESH << 8) + ADRESL);
+[; ;ADC.c: 111: (ADCON0bits.ADON = 0);
 "111
+[e = . . _ADCON0bits 1 0 -> -> 0 `i `uc ]
+[; ;ADC.c: 113: *ADCcounts = ((ADRESH << 8) + ADRESL);
+"113
 [e = *U _ADCcounts -> + << -> _ADRESH `i -> 8 `i -> _ADRESL `i `ui ]
-[; ;ADC.c: 112: return 1;
-"112
+[; ;ADC.c: 114: return 1;
+"114
 [e ) -> -> 1 `i `uc ]
 [e $UE 382  ]
-[; ;ADC.c: 113: }
-"113
+[; ;ADC.c: 115: }
+"115
 [e :UE 382 ]
 }
-"121
+"123
 [v _ResetADC `(v ~T0 @X0 1 ef ]
-"122
+"124
 {
-[; ;ADC.c: 121: void ResetADC(void)
-[; ;ADC.c: 122: {
+[; ;ADC.c: 123: void ResetADC(void)
+[; ;ADC.c: 124: {
 [e :U _ResetADC ]
 [f ]
-[; ;ADC.c: 123: ADCON0 =0;
-"123
-[e = _ADCON0 -> -> 0 `i `uc ]
-[; ;ADC.c: 124: ADCON1 =0;
-"124
-[e = _ADCON1 -> -> 0 `i `uc ]
-[; ;ADC.c: 125: ADCON2 =0;
+[; ;ADC.c: 125: ADCON0 =0;
 "125
-[e = _ADCON2 -> -> 0 `i `uc ]
-[; ;ADC.c: 126: }
+[e = _ADCON0 -> -> 0 `i `uc ]
+[; ;ADC.c: 126: ADCON1 =0;
 "126
+[e = _ADCON1 -> -> 0 `i `uc ]
+[; ;ADC.c: 127: ADCON2 =0;
+"127
+[e = _ADCON2 -> -> 0 `i `uc ]
+[; ;ADC.c: 128: }
+"128
 [e :UE 390 ]
 }
-"133
+"135
 [v _InitADC `(v ~T0 @X0 1 ef ]
-"134
+"136
 {
-[; ;ADC.c: 133: void InitADC(void)
-[; ;ADC.c: 134: {
+[; ;ADC.c: 135: void InitADC(void)
+[; ;ADC.c: 136: {
 [e :U _InitADC ]
 [f ]
-[; ;ADC.c: 135: ResetADC();
-"135
-[e ( _ResetADC ..  ]
-[; ;ADC.c: 136: ADCON2bits.ADFM = 1;
-"136
-[e = . . _ADCON2bits 0 3 -> -> 1 `i `uc ]
-[; ;ADC.c: 137: ADCON2bits.ACQT = 0x7;
+[; ;ADC.c: 137: ResetADC();
 "137
-[e = . . _ADCON2bits 0 1 -> -> 7 `i `uc ]
-[; ;ADC.c: 138: ADCON2bits.ADCS = 0x4;
+[e ( _ResetADC ..  ]
+[; ;ADC.c: 138: ADCON2bits.ADFM = 1;
 "138
-[e = . . _ADCON2bits 0 0 -> -> 4 `i `uc ]
-[; ;ADC.c: 139: }
+[e = . . _ADCON2bits 0 3 -> -> 1 `i `uc ]
+[; ;ADC.c: 139: ADCON2bits.ACQT = 0x7;
 "139
+[e = . . _ADCON2bits 0 1 -> -> 7 `i `uc ]
+[; ;ADC.c: 140: ADCON2bits.ADCS = 0x4;
+"140
+[e = . . _ADCON2bits 0 0 -> -> 4 `i `uc ]
+[; ;ADC.c: 141: }
+"141
 [e :UE 391 ]
 }
-"146
+"148
 [v _VoltageDividerON `(v ~T0 @X0 1 ef ]
-"147
+"149
 {
-[; ;ADC.c: 146: void VoltageDividerON(void)
-[; ;ADC.c: 147: {
+[; ;ADC.c: 148: void VoltageDividerON(void)
+[; ;ADC.c: 149: {
 [e :U _VoltageDividerON ]
 [f ]
-[; ;ADC.c: 148: TRISBbits.TRISB5 = 0;
-"148
-[e = . . _TRISBbits 0 5 -> -> 0 `i `uc ]
-[; ;ADC.c: 149: LATB &= ~0x20;
-"149
-[e =& _LATB -> ~ -> 32 `i `uc ]
-[; ;ADC.c: 150: }
+[; ;ADC.c: 150: TRISBbits.TRISB5 = 0;
 "150
+[e = . . _TRISBbits 0 5 -> -> 0 `i `uc ]
+[; ;ADC.c: 151: LATB &= ~0x20;
+"151
+[e =& _LATB -> ~ -> 32 `i `uc ]
+[; ;ADC.c: 152: }
+"152
 [e :UE 392 ]
 }
-"157
+"159
 [v _VoltageDividerOFF `(v ~T0 @X0 1 ef ]
-"158
+"160
 {
-[; ;ADC.c: 157: void VoltageDividerOFF(void)
-[; ;ADC.c: 158: {
+[; ;ADC.c: 159: void VoltageDividerOFF(void)
+[; ;ADC.c: 160: {
 [e :U _VoltageDividerOFF ]
 [f ]
-[; ;ADC.c: 159: TRISBbits.TRISB5 = 1;
-"159
+[; ;ADC.c: 161: TRISBbits.TRISB5 = 1;
+"161
 [e = . . _TRISBbits 0 5 -> -> 1 `i `uc ]
-[; ;ADC.c: 160: }
-"160
+[; ;ADC.c: 162: }
+"162
 [e :UE 393 ]
 }

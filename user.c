@@ -8,6 +8,8 @@
  * --------     ---------   ----------------------------------------------------
  * 04/02/15     1.0_DW0a    Initial project make.
  *                          Derived from project 'PIC_PS2_to_UART'.
+ * 04/09/15     1.0_DW0b    Fixed bugs.
+ *                          Added features.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -126,10 +128,12 @@ void Init_System (void)
     }
     InitADC();
     InitIR();
+#ifdef BLUETOOTH
     InitUART(BAUD);
+    InitBluetooth();
     UARTstring(CRLN);
     UARTchar('>');
-    InitBluetooth();
+#endif
     InitTimers();
 }
 /*-----------------------------------------------------------------------------/

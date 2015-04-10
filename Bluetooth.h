@@ -7,6 +7,8 @@
  * MM/DD/YY
  * --------     ---------   ----------------------------------------------------
  * 04/02/15     1.0_DW0a    Initial project make.
+ * 04/09/15     1.0_DW0b    Fixed bugs.
+ *                          Added features.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -52,7 +54,7 @@ void ResetBlue(void);
 unsigned char EnterCommandMode(void);
 unsigned char BluetoothInitialSetup(void);
 unsigned char BluetoothConfigured(void);
-unsigned char UseBluetooth(void);
+unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos);
 unsigned char WaitForIRsignal(void);
 
 #endif	/* Bluetooth_H */
