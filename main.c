@@ -14,6 +14,8 @@
  *                          Fixed bugs.
  *                          Print project title when the bluetooth gets
  *                            connected.
+ *                          Fixed bug in conf2 channel H parsing.
+ *                          Check bluetooth status in initiation.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -119,11 +121,15 @@ void main(void)
             delayUS(100000);
         }
     }
-
+    Connected = BlueConnected();
+    ConnectedOLD = FALSE;
     while(1)
     {
         IRtask          = IR_New_Code;
         Bluetoothtask   = NewReceivedString;
+#ifdef BLUETOOTH
+        Connected = BlueConnected();
+#endif
         BatteryVoltage = ReadVoltage();
         if(VoltageStatus == FAILlow)
         {
@@ -154,7 +160,10 @@ void main(void)
             UseIRCode(&IR_New_Code, IR_NEC);
         }
 #ifdef BLUETOOTH
-        Connected = BlueConnected();
+        if(!Connected)
+        {
+            Connected = BlueConnected();
+        }
         if(Connected != ConnectedOLD)
         {
             if(Connected)

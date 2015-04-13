@@ -20,22 +20,22 @@ TRUE 1
 [v _VoltageDividerON VoltageDividerON `(v  1 e 0 0 ]
 "159
 [v _VoltageDividerOFF VoltageDividerOFF `(v  1 e 0 0 ]
-"68 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
+"69 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
 [v _InitBluetooth InitBluetooth `(v  1 e 0 0 ]
-"90
+"91
 [v _BlueConnected BlueConnected `(uc  1 e 1 0 ]
 [v i1_BlueConnected BlueConnected `(uc  1 e 1 0 ]
-"105
+"106
 [v _ResetBlue ResetBlue `(v  1 e 0 0 ]
-"118
+"119
 [v _EnterCommandMode EnterCommandMode `(uc  1 e 1 0 ]
-"151
+"152
 [v _BluetoothInitialSetup BluetoothInitialSetup `(uc  1 e 1 0 ]
-"266
+"267
 [v _BluetoothConfigured BluetoothConfigured `(uc  1 e 1 0 ]
-"282
+"283
 [v _UseBluetooth UseBluetooth `(uc  1 e 1 0 ]
-"952
+"953
 [v _WaitForIRsignal WaitForIRsignal `(uc  1 e 1 0 ]
 "52 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Button.c
 [v _ReadPushButton ReadPushButton `(uc  1 e 1 0 ]
@@ -148,7 +148,7 @@ TRUE 1
 [v _EncodeNEC EncodeNEC `(ul  1 e 4 0 ]
 "548
 [v _DecodeNEC DecodeNEC `(uc  1 e 1 0 ]
-"74 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\main.c
+"76 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\main.c
 [v _main main `(v  1 e 0 0 ]
 "51 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
 [v _delayUS delayUS `(v  1 e 0 0 ]
@@ -875,15 +875,15 @@ TRUE 1
 [v _IRcommand IRcommand `uc  1 e 1 0 ]
 "69
 [v _IRtimeout IRtimeout `ul  1 e 4 0 ]
-"56 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\main.c
+"58 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\main.c
 [v _FirmVersion FirmVersion `C[9]uc  1 e 9 0 ]
-"57
-[v _PCBVersion PCBVersion `C[5]uc  1 e 5 0 ]
-"58
-[v _Frequency Frequency `C[4]uc  1 e 4 0 ]
 "59
+[v _PCBVersion PCBVersion `C[5]uc  1 e 5 0 ]
+"60
+[v _Frequency Frequency `C[4]uc  1 e 4 0 ]
+"61
 [v _ProjectName ProjectName `C[26]uc  1 e 26 0 ]
-"68
+"70
 [v _BatteryVoltage BatteryVoltage `d  1 e 3 0 ]
 "43 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\RF.c
 [v _RFsendCode RFsendCode `[20]uc  1 e 20 0 ]
@@ -991,26 +991,26 @@ TRUE 1
 [v _CRLN CRLN `C[3]uc  1 e 3 0 ]
 "60 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\user.h
 [v _SN SN `ul  1 e 4 0 ]
-"74 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\main.c
+"76 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\main.c
 [v _main main `(v  1 e 0 0 ]
 {
-"80
+"82
 [v main@BluetoothString BluetoothString `[255]uc  1 a 255 0 ]
-"76
-[v main@i i `uc  1 a 1 152 ]
-"79
-[v main@VoltageStatus VoltageStatus `uc  1 a 1 151 ]
-"82
-[v main@Connected Connected `uc  1 a 1 150 ]
-"81
-[v main@BluetoothStringPos BluetoothStringPos `uc  1 a 1 149 ]
+"84
+[v main@Connected Connected `uc  1 a 1 152 ]
 "78
-[v main@Bluetoothtask Bluetoothtask `uc  1 a 1 148 ]
-"77
-[v main@IRtask IRtask `uc  1 a 1 147 ]
-"82
-[v main@ConnectedOLD ConnectedOLD `uc  1 a 1 121 ]
-"212
+[v main@i i `uc  1 a 1 151 ]
+"81
+[v main@VoltageStatus VoltageStatus `uc  1 a 1 150 ]
+"84
+[v main@ConnectedOLD ConnectedOLD `uc  1 a 1 149 ]
+"83
+[v main@BluetoothStringPos BluetoothStringPos `uc  1 a 1 148 ]
+"80
+[v main@Bluetoothtask Bluetoothtask `uc  1 a 1 147 ]
+"79
+[v main@IRtask IRtask `uc  1 a 1 121 ]
+"221
 } 0
 "271 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\IR.c
 [v _UseIRCode UseIRCode `(v  1 e 0 0 ]
@@ -1045,42 +1045,42 @@ TRUE 1
 [v ReadCodeButtons@temp temp `uc  1 a 1 37 ]
 "93
 } 0
-"282 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
+"283 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
 [v _UseBluetooth UseBluetooth `(uc  1 e 1 0 ]
 {
-"291
+"292
 [v UseBluetooth@buf buf `[100]uc  1 a 100 15 ]
-"293
+"294
 [v UseBluetooth@rfchannelSTR rfchannelSTR `[10]uc  1 a 10 115 ]
-"289
-[v UseBluetooth@temp temp `ul  1 a 4 142 ]
-"286
-[v UseBluetooth@EnteredNEC EnteredNEC `ul  1 a 4 133 ]
 "290
-[v UseBluetooth@tempNec tempNec `ul  1 a 4 126 ]
-"294
-[v UseBluetooth@i i `uc  1 a 1 146 ]
-"288
-[v UseBluetooth@NecCommand NecCommand `uc  1 a 1 141 ]
+[v UseBluetooth@temp temp `ul  1 a 4 142 ]
 "287
+[v UseBluetooth@EnteredNEC EnteredNEC `ul  1 a 4 133 ]
+"291
+[v UseBluetooth@tempNec tempNec `ul  1 a 4 126 ]
+"295
+[v UseBluetooth@i i `uc  1 a 1 146 ]
+"289
+[v UseBluetooth@NecCommand NecCommand `uc  1 a 1 141 ]
+"288
 [v UseBluetooth@NecAddress NecAddress `uc  1 a 1 140 ]
-"294
+"295
 [v UseBluetooth@rfconf rfconf `uc  1 a 1 139 ]
 [v UseBluetooth@tempRFArray tempRFArray `uc  1 a 1 138 ]
-"284
+"285
 [v UseBluetooth@ok ok `uc  1 a 1 137 ]
-"295
-[v UseBluetooth@device device `uc  1 a 1 132 ]
 "296
-[v UseBluetooth@EmptyPlace EmptyPlace `uc  1 a 1 131 ]
-"292
-[v UseBluetooth@timeout timeout `uc  1 a 1 130 ]
+[v UseBluetooth@device device `uc  1 a 1 132 ]
 "297
+[v UseBluetooth@EmptyPlace EmptyPlace `uc  1 a 1 131 ]
+"293
+[v UseBluetooth@timeout timeout `uc  1 a 1 130 ]
+"298
 [v UseBluetooth@set set `uc  1 a 1 125 ]
-"282
+"283
 [v UseBluetooth@String String `*.39uc  1 p 2 0 ]
 [v UseBluetooth@StringPos StringPos `uc  1 p 1 2 ]
-"945
+"946
 } 0
 "332 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
 [v _lowercaseString lowercaseString `(v  1 e 0 0 ]
@@ -1088,12 +1088,12 @@ TRUE 1
 [v lowercaseString@Input Input `*.39uc  1 p 2 28 ]
 "342
 } 0
-"952 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
+"953 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
 [v _WaitForIRsignal WaitForIRsignal `(uc  1 e 1 0 ]
 {
-"954
+"955
 [v WaitForIRsignal@timeout timeout `uc  1 a 1 37 ]
-"974
+"975
 } 0
 "262 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
 [v _UARTstringCRLN UARTstringCRLN `(v  1 e 0 0 ]
@@ -1545,21 +1545,21 @@ TRUE 1
 {
 "72
 } 0
-"68 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
+"69 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
 [v _InitBluetooth InitBluetooth `(v  1 e 0 0 ]
 {
-"83
+"84
 } 0
-"151
+"152
 [v _BluetoothInitialSetup BluetoothInitialSetup `(uc  1 e 1 0 ]
 {
-"153
-[v BluetoothInitialSetup@buf buf `[50]uc  1 a 50 46 ]
-"155
-[v BluetoothInitialSetup@RFchannel RFchannel `[10]uc  1 a 10 36 ]
 "154
+[v BluetoothInitialSetup@buf buf `[50]uc  1 a 50 46 ]
+"156
+[v BluetoothInitialSetup@RFchannel RFchannel `[10]uc  1 a 10 36 ]
+"155
 [v BluetoothInitialSetup@ok ok `uc  1 a 1 96 ]
-"259
+"260
 } 0
 "492 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\doprnt.c
 [v _sprintf sprintf `(i  1 e 2 0 ]
@@ -1778,12 +1778,12 @@ TRUE 1
 [v ___ftge@ff2 ff2 `f  1 p 3 31 ]
 "13
 } 0
-"118 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
+"119 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
 [v _EnterCommandMode EnterCommandMode `(uc  1 e 1 0 ]
 {
-"120
+"121
 [v EnterCommandMode@count count `uc  1 a 1 37 ]
-"144
+"145
 } 0
 "127 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
 [v _cleanBuffer cleanBuffer `(v  1 e 0 0 ]
@@ -1820,10 +1820,10 @@ TRUE 1
 [v StringContains@That That `*.34Cuc  1 p 2 30 ]
 "281
 } 0
-"105 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
+"106 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
 [v _ResetBlue ResetBlue `(v  1 e 0 0 ]
 {
-"111
+"112
 } 0
 "51 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
 [v _delayUS delayUS `(v  1 e 0 0 ]
@@ -1834,15 +1834,15 @@ TRUE 1
 [v delayUS@US US `l  1 p 4 28 ]
 "58
 } 0
-"90 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
+"91 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
 [v _BlueConnected BlueConnected `(uc  1 e 1 0 ]
 {
-"98
+"99
 } 0
-"266
+"267
 [v _BluetoothConfigured BluetoothConfigured `(uc  1 e 1 0 ]
 {
-"275
+"276
 } 0
 "239 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\EEPROM.c
 [v _SyncGlobalToEEPROM SyncGlobalToEEPROM `(uc  1 e 1 0 ]
@@ -2017,10 +2017,10 @@ TRUE 1
 [v i1ReadUSART@data ReadUSART `uc  1 a 1 0 ]
 "241
 } 0
-"90 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
+"91 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
 [v i1_BlueConnected BlueConnected `(uc  1 e 1 0 ]
 {
-"98
+"99
 } 0
 "113 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
 [v _IsCharacter IsCharacter `(uc  1 e 1 0 ]

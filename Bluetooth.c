@@ -9,6 +9,7 @@
  * 04/02/15     1.0_DW0a    Initial project make.
  * 04/09/15     1.0_DW0b    Fixed bugs.
  *                          Added features.
+ *                          Fixed bug in conf2 channel H parsing.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -673,6 +674,8 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
                             UARTstringCRLN((unsigned char *)"Error: RF config 2, channel H device out of range");
                             ok = FALSE;
                         }
+                        device = ReceivedString[0] - '0';
+                        tempRFArray = device + 4;
                         cleanBuffer(ReceivedString, ReceivedStringPos);
                         ReceivedStringPos = 0;
                         NewReceivedString = FALSE;
@@ -680,8 +683,6 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
                         {
                             return FAIL;
                         }
-                        device = String[0] - '0';
-                        tempRFArray = device + 4;
                     }
                     else
                     {
