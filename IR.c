@@ -158,12 +158,7 @@ unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char In
     /* Start Bit begin*/
     for (i =0; i < IR_SIZE; i++)
     {
-        if(Raw[i] >= Repeatlower && Raw[i] <= Repeatupper )
-        {
-            /* This is the Repeat bit*/
-            return Repeat;
-        }
-        else if(Raw[i] >= StartbitHIGHlower && Raw[i] <= StartbitHIGHupper )
+        if(Raw[i] >= StartbitHIGHlower && Raw[i] <= StartbitHIGHupper )
         {
             /* This is the Start bit*/
             StartBit = i;
@@ -180,20 +175,17 @@ unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char In
     if(Raw[StartBit] >= PauseSpacelower && Raw[StartBit] <= PauseSpaceupper )
     {
         /* This is a repeat code most likely */
+        StartBit++;
         if(Raw[StartBit] >= DataShortlower && Raw[StartBit] <= DataShortupper )
         {
             /* This is a repeat code most likely */
-            if(Raw[StartBit] >= DataShortlower && Raw[StartBit] <= DataShortupper )
+            StartBit++;
+            if(Raw[StartBit] >= Repeatlower && Raw[StartBit] <= Repeatupper)
             {
-                /* This is a repeat code most likely */
-                if(Raw[StartBit] >= Repeatlower && Raw[StartBit] <= Repeatupper)
-                {
-                    /* This is a repeat code */
-                    return Repeat;
-                }
+                /* This is a repeat code */
+                return Repeat;
             }
-        }
-        
+        }       
     }
     else if(Raw[StartBit] < StartbitLOWlower || Raw[StartBit] > StartbitLOWupper )
     {

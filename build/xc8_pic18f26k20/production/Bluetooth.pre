@@ -5213,8 +5213,9 @@ void InitTimers(void);
 # 55 "Bluetooth.c"
 extern const unsigned char FirmVersion[];
 extern const unsigned char PCBVersion[];
+extern const unsigned char Frequency[];
 
-# 66
+# 68
 void InitBluetooth(void)
 {
 cleanBuffer(ReceivedString,255);
@@ -5232,7 +5233,7 @@ ResetBlue();
 }
 }
 
-# 88
+# 90
 unsigned char BlueConnected(void)
 {
 
@@ -5243,7 +5244,7 @@ return 1;
 return 0;
 }
 
-# 103
+# 105
 void ResetBlue(void)
 {
 LATA &= ~0x04;
@@ -5252,7 +5253,7 @@ LATA |= 0x04;
 delayUS(50000);
 }
 
-# 116
+# 118
 unsigned char EnterCommandMode(void)
 {
 unsigned char count = 0;
@@ -5281,7 +5282,7 @@ CommandStringPos = 0;
 return 0;
 }
 
-# 149
+# 151
 unsigned char BluetoothInitialSetup(void)
 {
 unsigned char buf[50];
@@ -5392,7 +5393,7 @@ return 1;
 return 0;
 }
 
-# 264
+# 266
 unsigned char BluetoothConfigured(void)
 {
 if(Global.BlueToothFlag != 1)
@@ -5404,7 +5405,7 @@ return 0;
 return 1;
 }
 
-# 280
+# 282
 unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
 {
 unsigned char ok = 1;
@@ -5576,8 +5577,11 @@ return 1;
 }
 else
 {
+if(!StringContains(String,(unsigned char *)"?"))
+{
 UARTstring(CRLN);
 UARTstringCRLN((unsigned char *)"NEC code not entered correctly");
+}
 UARTstring(CRLN);
 UARTstringCRLN((unsigned char *)"Usage:");
 UARTstringCRLN((unsigned char *)"NEC = (32 bit code)");
@@ -5585,7 +5589,7 @@ UARTstringCRLN((unsigned char *)"        or");
 UARTstringCRLN((unsigned char *)"NEC = address,command");
 UARTstring(CRLN);
 UARTstringCRLN((unsigned char *)"Example:");
-UARTstringCRLN((unsigned char *)"NEC = 0x1CE350af ");
+UARTstringCRLN((unsigned char *)"NEC = 0x1CE350AF ");
 UARTstringCRLN((unsigned char *)"      or");
 UARTstringCRLN((unsigned char *)"NEC = 0x38, 0x0A");
 UARTstring(CRLN);
@@ -5977,13 +5981,17 @@ UARTstring(CRLN);
 sprintf(buf,"Firmware Version: %s", FirmVersion);
 UARTstringCRLN(buf);
 UARTstring(CRLN);
-sprintf(buf,"PCB Version: %s", PCBVersion);
-UARTstringCRLN(buf);
 
 sprintf(buf,"PCB has Bluetooth capability");
 
-# 859
+# 862
 UARTstringCRLN(buf);
+UARTstring(CRLN);
+sprintf(buf,"PCB Version: %s", PCBVersion);
+UARTstringCRLN(buf);
+sprintf(buf,"Transmitting Frequency: %s", Frequency);
+UARTstring(buf);
+UARTstringCRLN(" MHz");
 UARTstring(CRLN);
 }
 else if(StringMatch(String,(unsigned char *)"???"))
@@ -6003,7 +6011,7 @@ UARTstring(CRLN);
 UARTstringCRLN((unsigned char *)"System commands:");
 UARTcommandMenu((unsigned char *)"???", (unsigned char *)"Help Menu");
 UARTcommandMenu((unsigned char *)"Reset", (unsigned char *)"Clears memory and resets device");
-UARTcommandMenu((unsigned char *)"Version", (unsigned char *)"Displays Firmware Version");
+UARTcommandMenu((unsigned char *)"Version", (unsigned char *)"Displays Firmware/Hardware Version");
 UARTstring(CRLN);
 UARTstringCRLN((unsigned char *)"Diagnostic Commands:");
 UARTcommandMenu((unsigned char *)"Voltage", (unsigned char *)"Displays the supply voltage");
@@ -6062,7 +6070,7 @@ return 0;
 return 0;
 }
 
-# 943
+# 952
 unsigned char WaitForIRsignal(void)
 {
 unsigned char timeout = 0;

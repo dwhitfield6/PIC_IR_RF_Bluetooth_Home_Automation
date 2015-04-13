@@ -158,10 +158,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _InitUART `(v ~T0 @X0 0 ef1`ul ]
 "51 Bluetooth.h
 [v _InitBluetooth `(v ~T0 @X0 0 ef ]
-"131 UART.h
-[v _UARTstring `(v ~T0 @X0 0 ef1`*uc ]
-"130
-[v _UARTchar `(v ~T0 @X0 0 ef1`uc ]
 "185 Timer.h
 [v _InitTimers `(v ~T0 @X0 0 ef ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -4837,16 +4833,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;user.c: 133: InitBluetooth();
 "133
 [e ( _InitBluetooth ..  ]
-[; ;user.c: 134: UARTstring(CRLN);
-"134
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
-[; ;user.c: 135: UARTchar('>');
+[; ;user.c: 135: InitTimers();
 "135
-[e ( _UARTchar (1 -> -> 62 `ui `uc ]
-[; ;user.c: 137: InitTimers();
-"137
 [e ( _InitTimers ..  ]
-[; ;user.c: 138: }
-"138
+[; ;user.c: 136: }
+"136
 [e :UE 382 ]
 }

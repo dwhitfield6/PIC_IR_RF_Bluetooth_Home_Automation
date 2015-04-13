@@ -5290,8 +5290,6 @@ InitIR();
 
 InitUART(115200);
 InitBluetooth();
-UARTstring(CRLN);
-UARTchar('>');
 
 InitTimers();
 }

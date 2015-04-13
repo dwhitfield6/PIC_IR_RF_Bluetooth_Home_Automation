@@ -131,8 +131,6 @@ void Init_System (void)
 #ifdef BLUETOOTH
     InitUART(BAUD);
     InitBluetooth();
-    UARTstring(CRLN);
-    UARTchar('>');
 #endif
     InitTimers();
 }

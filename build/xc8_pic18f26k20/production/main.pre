@@ -5103,14 +5103,16 @@ unsigned char BluetoothConfigured(void);
 unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos);
 unsigned char WaitForIRsignal(void);
 
-# 54 "main.c"
+# 56 "main.c"
 const unsigned char FirmVersion[] = {"1.0_DW0b"};
 const unsigned char PCBVersion[] = {"RevA"};
+const unsigned char Frequency[] = {"315"};
+const unsigned char ProjectName[] = {"Home Automation IR/RF Hub"};
 
-# 64
+# 68
 double BatteryVoltage = 0.0;
 
-# 70
+# 74
 void main(void)
 {
 unsigned char i=0;
@@ -5119,6 +5121,7 @@ unsigned char Bluetoothtask = 0;
 unsigned char VoltageStatus = 1;
 unsigned char BluetoothString[255];
 unsigned char BluetoothStringPos = 0;
+unsigned char Connected, ConnectedOLD;
 
 
 ConfigureOscillator();
@@ -5193,7 +5196,18 @@ if(IRtask && IR_NEC)
 UseIRCode(&IR_New_Code, IR_NEC);
 }
 
-if(Bluetoothtask >= 1)
+Connected = BlueConnected();
+if(Connected != ConnectedOLD)
+{
+if(Connected)
+{
+delayUS(1000);
+UARTstringCRLN(ProjectName);
+UARTstring(CRLN);
+UARTchar('>');
+}
+}
+if(Bluetoothtask >= 1 && Connected)
 {
 cleanBuffer(BluetoothString, 255);
 BufferCopy(ReceivedString,BluetoothString, ReceivedStringPos, 0);
@@ -5220,6 +5234,7 @@ ClearUSART();
 PIR1bits.RCIF = 0;
 PIE1bits.RCIE = 1;
 }
+ConnectedOLD = Connected;
 
 if(IRtimeout < 5000)
 {

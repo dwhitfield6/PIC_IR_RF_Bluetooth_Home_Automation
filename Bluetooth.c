@@ -54,6 +54,8 @@
 /******************************************************************************/
 extern const unsigned char FirmVersion[];
 extern const unsigned char PCBVersion[];
+extern const unsigned char Frequency[];
+
 /******************************************************************************/
 /* Functions                                                                  */
 /******************************************************************************/
@@ -852,14 +854,18 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
         sprintf(buf,"Firmware Version: %s", FirmVersion);
         UARTstringCRLN(buf);
         UARTstring(CRLN);
-        sprintf(buf,"PCB Version: %s", PCBVersion);
-        UARTstringCRLN(buf);
-#ifdef BLUETOOTH
+        #ifdef BLUETOOTH
         sprintf(buf,"PCB has Bluetooth capability");
 #else
         sprintf(buf,"PCB does not have Bluetooth capability");
 #endif
         UARTstringCRLN(buf);
+        UARTstring(CRLN);
+        sprintf(buf,"PCB Version: %s", PCBVersion);
+        UARTstringCRLN(buf);
+        sprintf(buf,"Transmitting Frequency: %s", Frequency);
+        UARTstring(buf);
+        UARTstringCRLN(" MHz");
         UARTstring(CRLN);
     }
     else if(StringMatch(String,(unsigned char *)"???"))
@@ -879,7 +885,7 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
         UARTstringCRLN((unsigned char *)"System commands:");
         UARTcommandMenu((unsigned char *)"???", (unsigned char *)"Help Menu");
         UARTcommandMenu((unsigned char *)"Reset", (unsigned char *)"Clears memory and resets device");
-        UARTcommandMenu((unsigned char *)"Version", (unsigned char *)"Displays Firmware Version");
+        UARTcommandMenu((unsigned char *)"Version", (unsigned char *)"Displays Firmware/Hardware Version");
         UARTstring(CRLN);
         UARTstringCRLN((unsigned char *)"Diagnostic Commands:");
         UARTcommandMenu((unsigned char *)"Voltage", (unsigned char *)"Displays the supply voltage");

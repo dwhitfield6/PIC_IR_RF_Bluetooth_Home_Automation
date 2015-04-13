@@ -12,6 +12,8 @@
  *                          Added macro to pick if the system has a bluetooth
  *                            module.
  *                          Fixed bugs.
+ *                          Print project title when the bluetooth gets
+ *                            connected.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -53,6 +55,8 @@
 
 const unsigned char FirmVersion[] = {"1.0_DW0b"};
 const unsigned char PCBVersion[] = {"RevA"};
+const unsigned char Frequency[] = {"315"};
+const unsigned char ProjectName[] = {"Home Automation IR/RF Hub"};
 
 /******************************************************************************/
 /* Defines                                                                    */
@@ -75,6 +79,7 @@ void main(void)
     unsigned char VoltageStatus = PASS;
     unsigned char BluetoothString[RXbufsize];
     unsigned char BluetoothStringPos = 0;
+    unsigned char Connected, ConnectedOLD;
 
 
     ConfigureOscillator();
@@ -149,7 +154,18 @@ void main(void)
             UseIRCode(&IR_New_Code, IR_NEC);
         }
 #ifdef BLUETOOTH
-        if(Bluetoothtask >= TRUE)
+        Connected = BlueConnected();
+        if(Connected != ConnectedOLD)
+        {
+            if(Connected)
+            {
+                delayUS(1000);
+                UARTstringCRLN(ProjectName);
+                UARTstring(CRLN);
+                UARTchar('>');
+            }
+        }
+        if(Bluetoothtask >= TRUE && Connected)
         {
             cleanBuffer(BluetoothString, RXbufsize);
             BufferCopy(ReceivedString,BluetoothString, ReceivedStringPos, 0);
@@ -176,6 +192,7 @@ void main(void)
             PIR1bits.RCIF = FALSE;
             PIE1bits.RCIE   = TRUE;
         }
+        ConnectedOLD = Connected;
 #endif
         if(IRtimeout < IRtimeoutLoops)
         {
