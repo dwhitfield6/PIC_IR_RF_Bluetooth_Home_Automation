@@ -42,7 +42,7 @@
  *
  * This contains the number times to repeat an RF code.
 /******************************************************************************/
-#define RFrepeatAmount 4
+#define RFrepeatAmount 5
 
 /******************************************************************************/
 /* NumRfConfigs
@@ -107,7 +107,7 @@
  * This is the amount of delay that the system waits before it allows another
  *  RF code to send. This is dependant upon the toggle speed of the end system.
 /******************************************************************************/
-#define RFsendWaitTime 4
+#define RFsendWaitTime 3
 
 /******************************************************************************/
 /* Defines                                                                    */

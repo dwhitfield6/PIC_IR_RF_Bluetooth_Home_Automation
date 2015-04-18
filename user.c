@@ -49,6 +49,8 @@
 /* User Global Variable Declaration                                           */
 /******************************************************************************/
 extern const unsigned char Version[];
+extern unsigned char BluetoothFirmware1[BlueFWbuf];
+extern unsigned char BluetoothFirmware2[BlueFWbuf];
 
 /******************************************************************************/
 /* Functions
@@ -104,7 +106,9 @@ void InitApp(void)
 /******************************************************************************/
 void Init_System (void)
 {
-    cleanBuffer(&ReceivedString, RXbufsize);
+    unsigned char buf[50];
+
+    cleanBuffer(ReceivedString, RXbufsize);
 
     /* set up interrupt priorities */
     IPR1bits.RCIP       = OFF;  // UART receive is Low priority
@@ -113,6 +117,14 @@ void Init_System (void)
     IPR1bits.TMR2IP     = ON;   // Timer2 compare is High priority
     IPR1bits.TMR1IP     = OFF;  // Timer1 overflow is Low priority
     IPR2bits.TMR3IP     = ON;   // Timer3 overflow is High priority
+
+    cleanBuffer(BluetoothFirmware1,BlueFWbuf);
+    cleanBuffer(BluetoothFirmware2,BlueFWbuf);
+
+    sprintf(buf,"System must be");
+    BufferCopy(buf, BluetoothFirmware1, BlueFWbuf, 0);
+    sprintf(buf,"RESET to read version!");
+    BufferCopy(buf, BluetoothFirmware2, BlueFWbuf, 0);
 
     /* Enable interrupts */
     RCONbits.IPEN   = ON; //Priority interrupts
@@ -123,12 +135,21 @@ void Init_System (void)
     if(!EEPROMinitialized())
     {
         SetEEPROMdefault();
-        Global.EEPROMinitFlag = EEPROMinitilized;
+        Global1.EEPROMinitFlag = EEPROMinitilized;
         SyncGlobalToEEPROM();
     }
+
+    if(Global2.SerialNumber == 0xFFFFFFFF)
+    {
+        /* this is the first time powering on after a firmware upload */
+        Global2.SerialNumber = 0;
+        SetEEPROM2(Global2,0x00000002); // burn serial number
+        SyncEEPROMToGlobal();
+    }
+    
     InitADC();
     InitIR();
-#ifdef BLUETOOTH
+#ifdef BLUETOOTHMODULE
     InitUART(BAUD);
     InitBluetooth();
 #endif

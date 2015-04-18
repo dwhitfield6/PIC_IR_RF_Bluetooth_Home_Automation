@@ -67,7 +67,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _IRrawToNEC `(uc ~T0 @X0 0 ef3`*ui`*ul`uc ]
 "204
 [v _IR_NEC `ul ~T0 @X0 0 e ]
-"67 MISC.h
+"68 MISC.h
 [v _cleanBuffer16bit `(v ~T0 @X0 0 ef2`*ui`i ]
 "2634 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [s S134 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -175,30 +175,28 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _IRrepeatAmount `uc ~T0 @X0 0 e ]
 "596 C:\Program Files (x86)\Microchip\xc8\v1.34\include\plib\usart.h
 [v _ReadUSART `(uc ~T0 @X0 0 ef ]
-"52 Bluetooth.h
+"60 Bluetooth.h
 [v _BlueConnected `(uc ~T0 @X0 0 ef ]
-"119 UART.h
-[v _CommandStringPos `uc ~T0 @X0 0 e ]
-"118
-[v _CommandString `uc ~T0 @X0 -> 0 `x e ]
-"117
-[v _ReceivedStringPos `uc ~T0 @X0 0 e ]
-"136
+"127 UART.h
+[v _CommandStringPos `Vuc ~T0 @X0 0 e ]
+"126
+[v _CommandString `Vuc ~T0 @X0 -> 0 `x e ]
+"125
+[v _ReceivedStringPos `Vuc ~T0 @X0 0 e ]
+"148
 [v _EraseScreen `(v ~T0 @X0 0 ef1`uc ]
-"116
-[v _ReceivedString `uc ~T0 @X0 -> 0 `x e ]
-"130
-[v _UARTchar `(v ~T0 @X0 0 ef1`uc ]
-"131
+"124
+[v _ReceivedString `Vuc ~T0 @X0 -> 0 `x e ]
+"140
+[v _UARTchar_CONST `(v ~T0 @X0 0 ef1`Cuc ]
+"141
 [v _UARTstring `(v ~T0 @X0 0 ef1`*uc ]
-"120
+"128
 [v _NewReceivedString `Vuc ~T0 @X0 0 e ]
-"65 MISC.h
+"66 MISC.h
 [v _IsCharacter `(uc ~T0 @X0 0 ef1`uc ]
-"66
-[v _cleanBuffer `(v ~T0 @X0 0 ef2`*uc`i ]
-"134 UART.h
-[v _UARTstringCRLN `(v ~T0 @X0 0 ef1`*uc ]
+"139 UART.h
+[v _UARTchar `(v ~T0 @X0 0 ef1`uc ]
 "2561 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [s S130 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S130 . TMR1IE TMR2IE CCP1IE SSPIE TXIE RCIE ADIE ]
@@ -213,6 +211,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S129 . . . . ]
 "2579
 [v _PIE1bits `VS129 ~T0 @X0 0 e@3997 ]
+"142 UART.h
+[v _UARTstring_CONST `(v ~T0 @X0 0 ef1`*Cuc ]
 "39 Timer.h
 [v _Timer1_Postscaler `uc ~T0 @X0 0 e ]
 "5312 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
@@ -3868,26 +3868,27 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 215: typedef uint16_t uintptr_t;
 [; ;stdbool.h: 12: typedef unsigned char bool;
 [; ;system.h: 57: void ConfigureOscillator(void);
-[; ;MISC.h: 64: void delayUS(long US);
-[; ;MISC.h: 65: unsigned char IsCharacter(unsigned char data);
-[; ;MISC.h: 66: void cleanBuffer(unsigned char* data, int count);
-[; ;MISC.h: 67: void cleanBuffer16bit(unsigned int* data, int count);
-[; ;MISC.h: 68: double Round(double input);
-[; ;MISC.h: 69: void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
-[; ;MISC.h: 70: unsigned char StringMatch(unsigned char* This,const unsigned char* That);
-[; ;MISC.h: 71: unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
-[; ;MISC.h: 72: unsigned char StringContains(unsigned char* This, const unsigned char* That);
-[; ;MISC.h: 73: unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
-[; ;MISC.h: 74: void CalibrateDelay(void);
-[; ;MISC.h: 75: void lowercaseChar(unsigned char* Input);
-[; ;MISC.h: 76: void lowercaseString(unsigned char* Input);
-[; ;MISC.h: 77: void delayNOP(unsigned char NOPs);
-[; ;MISC.h: 78: unsigned char Reverse_Byte(unsigned char This);
-[; ;MISC.h: 79: unsigned int Reverse_2Byte(unsigned int This);
-[; ;MISC.h: 80: unsigned long Reverse_4Byte(unsigned long This);
-[; ;MISC.h: 81: unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
-[; ;MISC.h: 82: unsigned char StringAddEqual(unsigned char* Input);
-[; ;MISC.h: 83: unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
+[; ;MISC.h: 65: void delayUS(long US);
+[; ;MISC.h: 66: unsigned char IsCharacter(unsigned char data);
+[; ;MISC.h: 67: void cleanBuffer(unsigned char* data, int count);
+[; ;MISC.h: 68: void cleanBuffer16bit(unsigned int* data, int count);
+[; ;MISC.h: 69: double Round(double input);
+[; ;MISC.h: 70: void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
+[; ;MISC.h: 71: unsigned char StringMatch(const unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 72: unsigned char StringMatchCaseInsensitive(const unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 73: unsigned char StringContains(const unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 74: unsigned char StringContainsCaseInsensitive(const unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 75: void CalibrateDelay(void);
+[; ;MISC.h: 76: void lowercaseChar(unsigned char* Input);
+[; ;MISC.h: 77: void lowercaseString(unsigned char* Input);
+[; ;MISC.h: 78: void delayNOP(unsigned char NOPs);
+[; ;MISC.h: 79: unsigned char Reverse_Byte(unsigned char This);
+[; ;MISC.h: 80: unsigned int Reverse_2Byte(unsigned int This);
+[; ;MISC.h: 81: unsigned long Reverse_4Byte(unsigned long This);
+[; ;MISC.h: 82: unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, long* result);
+[; ;MISC.h: 83: unsigned char StringAddEqual(unsigned char* Input);
+[; ;MISC.h: 84: unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
+[; ;MISC.h: 85: unsigned char GetNumberUnsigned(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
 "52 user.h
 [v _ProductName `uc ~T0 @X0 -> 50 `i e ]
 [i _ProductName
@@ -3911,14 +3912,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [; ;user.h: 52: unsigned char ProductName[50] = {"Home Automation"};
-"60
-[v _SN `ul ~T0 @X0 1 e ]
-[i _SN
--> -> -> 1 `i `l `ul
-]
-[; ;user.h: 60: unsigned long SN = 1;
-[; ;user.h: 288: void InitApp(void);
-[; ;user.h: 289: void Init_System (void);
+[; ;user.h: 280: void InitApp(void);
+[; ;user.h: 281: void Init_System (void);
 "128 RF.h
 [v _Conf1_Channels `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_Channels
@@ -4576,12 +4571,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;RF.h: 199: void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
 [; ;RF.h: 200: void SendRF_Channel(unsigned char channel);
 [; ;RF.h: 201: unsigned char GetRFstatus(void);
-[; ;UART.h: 116: extern unsigned char ReceivedString[255];
-[; ;UART.h: 117: extern unsigned char ReceivedStringPos;
-[; ;UART.h: 118: extern unsigned char CommandString[255];
-[; ;UART.h: 119: extern unsigned char CommandStringPos;
-[; ;UART.h: 120: extern volatile unsigned char NewReceivedString;
-"121 UART.h
+[; ;UART.h: 124: extern volatile unsigned char ReceivedString[100];
+[; ;UART.h: 125: extern volatile unsigned char ReceivedStringPos;
+[; ;UART.h: 126: extern volatile unsigned char CommandString[100];
+[; ;UART.h: 127: extern volatile unsigned char CommandStringPos;
+[; ;UART.h: 128: extern volatile unsigned char NewReceivedString;
+"129 UART.h
 [v _SYNTAX_ERR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _SYNTAX_ERR
 :U ..
@@ -4601,8 +4596,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;UART.h: 121: const unsigned char SYNTAX_ERR[] = "Error: Syntax";
-"122
+[; ;UART.h: 129: const unsigned char SYNTAX_ERR[] = "Error: Syntax";
+"130
 [v _CRLN `Cuc ~T0 @X0 -> 0 `x e ]
 [i _CRLN
 :U ..
@@ -4611,18 +4606,27 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;UART.h: 122: const unsigned char CRLN[] = "\r\n";
-[; ;UART.h: 127: void Local_CloseUSART(void );
-[; ;UART.h: 128: void InitUART(unsigned long Baud);
-[; ;UART.h: 129: void OpenUSART( unsigned char config, unsigned int spbrg);
-[; ;UART.h: 130: void UARTchar(unsigned char data);
-[; ;UART.h: 131: void UARTstring(unsigned char *data);
-[; ;UART.h: 132: unsigned char ReadUSART(void);
-[; ;UART.h: 133: void UART_send_break(void);
-[; ;UART.h: 134: void UARTstringCRLN(unsigned char *data);
-[; ;UART.h: 135: void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
-[; ;UART.h: 136: void EraseScreen(unsigned char characters);
-[; ;UART.h: 137: void ClearUSART(void);
+[; ;UART.h: 130: const unsigned char CRLN[] = "\r\n";
+"131
+[v _BufferOverflow `uc ~T0 @X0 1 e ]
+[i _BufferOverflow
+-> -> 0 `i `uc
+]
+[; ;UART.h: 131: unsigned char BufferOverflow = 0;
+[; ;UART.h: 136: void Local_CloseUSART(void );
+[; ;UART.h: 137: void InitUART(unsigned long Baud);
+[; ;UART.h: 138: void OpenUSART( unsigned char config, unsigned int spbrg);
+[; ;UART.h: 139: void UARTchar(unsigned char data);
+[; ;UART.h: 140: void UARTchar_CONST(const unsigned char data);
+[; ;UART.h: 141: void UARTstring(unsigned char *data);
+[; ;UART.h: 142: void UARTstring_CONST(const unsigned char *data);
+[; ;UART.h: 143: unsigned char ReadUSART(void);
+[; ;UART.h: 144: void UART_send_break(void);
+[; ;UART.h: 145: void UARTstringCRLN(unsigned char *data);
+[; ;UART.h: 146: void UARTstringCRLN_CONST(const unsigned char *data);
+[; ;UART.h: 147: void UARTcommandMenu(const unsigned char *Command,const unsigned char *Desc);
+[; ;UART.h: 148: void EraseScreen(unsigned char characters);
+[; ;UART.h: 149: void ClearUSART(void);
 [; ;IR.h: 202: extern unsigned char IRpinOLD;
 [; ;IR.h: 203: extern unsigned int IRRawCode[100];
 [; ;IR.h: 204: extern unsigned long IR_NEC;
@@ -4662,17 +4666,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Timer.h: 183: void InitTimer3(void);
 [; ;Timer.h: 184: void ResetTimer3(void);
 [; ;Timer.h: 185: void InitTimers(void);
-[; ;Bluetooth.h: 51: void InitBluetooth(void);
-[; ;Bluetooth.h: 52: unsigned char BlueConnected(void);
-[; ;Bluetooth.h: 53: void ResetBlue(void);
-[; ;Bluetooth.h: 54: unsigned char EnterCommandMode(void);
-[; ;Bluetooth.h: 55: unsigned char BluetoothInitialSetup(void);
-[; ;Bluetooth.h: 56: unsigned char BluetoothConfigured(void);
-[; ;Bluetooth.h: 57: unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos);
-[; ;Bluetooth.h: 58: unsigned char WaitForIRsignal(void);
-[v F4228 `(v ~T0 @X0 1 tf ]
+[; ;Bluetooth.h: 59: void InitBluetooth(void);
+[; ;Bluetooth.h: 60: unsigned char BlueConnected(void);
+[; ;Bluetooth.h: 61: void ResetBlue(void);
+[; ;Bluetooth.h: 62: unsigned char EnterCommandMode(void);
+[; ;Bluetooth.h: 63: unsigned char BluetoothInitialSetup(void);
+[; ;Bluetooth.h: 64: unsigned char BluetoothConfigured(void);
+[; ;Bluetooth.h: 65: unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos);
+[; ;Bluetooth.h: 66: unsigned char WaitForIRsignal(void);
+[v F4238 `(v ~T0 @X0 1 tf ]
 "59 interrupts.c
-[v _high_isr `IF4228 ~T0 @X0 1 e ]
+[v _high_isr `IF4238 ~T0 @X0 1 e ]
 "67
 {
 [; ;interrupts.c: 59: void interrupt high_isr(void)
@@ -6242,9 +6246,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 578: (T3CONbits.TMR3ON = 0);
 "578
 [e = . . _T3CONbits 1 0 -> -> 0 `i `uc ]
-[; ;interrupts.c: 579: if(Timer3_Postscaler < 4)
+[; ;interrupts.c: 579: if(Timer3_Postscaler < 3)
 "579
-[e $ ! < -> _Timer3_Postscaler `i -> 4 `i 497  ]
+[e $ ! < -> _Timer3_Postscaler `i -> 3 `i 497  ]
 [; ;interrupts.c: 580: {
 "580
 {
@@ -6297,256 +6301,248 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 396 ]
 [e :U 392 ]
 [; ;interrupts.c: 599: }
-[; ;interrupts.c: 601: INTCONbits.GIE = 1;
-"601
+[; ;interrupts.c: 600: INTCONbits.GIE = 1;
+"600
 [e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
-[; ;interrupts.c: 602: }
-"602
+[; ;interrupts.c: 601: }
+"601
 [e :UE 379 ]
 }
-[v F4234 `(v ~T0 @X0 1 tf ]
-"608
-[v _low_isr `ILF4234 ~T0 @X0 1 e ]
-"616
+[v F4244 `(v ~T0 @X0 1 tf ]
+"607
+[v _low_isr `ILF4244 ~T0 @X0 1 e ]
+"615
 {
-[; ;interrupts.c: 608: void low_priority interrupt low_isr(void)
-[; ;interrupts.c: 616: {
+[; ;interrupts.c: 607: void low_priority interrupt low_isr(void)
+[; ;interrupts.c: 615: {
 [e :U _low_isr ]
 [f ]
-"617
+"616
 [v _data `uc ~T0 @X0 1 a ]
-[; ;interrupts.c: 617: char data = 0;
+[; ;interrupts.c: 616: char data = 0;
 [e = _data -> -> 0 `i `uc ]
-[; ;interrupts.c: 619: INTCONbits.PEIE = 0;
-"619
+[; ;interrupts.c: 618: INTCONbits.PEIE = 0;
+"618
 [e = . . _INTCONbits 1 6 -> -> 0 `i `uc ]
-[; ;interrupts.c: 621: if(PIR1bits.RCIF)
-"621
+[; ;interrupts.c: 620: if(PIR1bits.RCIF)
+"620
 [e $ ! != -> . . _PIR1bits 0 5 `i -> -> -> 0 `i `Vuc `i 501  ]
-[; ;interrupts.c: 622: {
-"622
+[; ;interrupts.c: 621: {
+"621
 {
-[; ;interrupts.c: 624: data = ReadUSART();
-"624
+[; ;interrupts.c: 623: data = ReadUSART();
+"623
 [e = _data ( _ReadUSART ..  ]
-[; ;interrupts.c: 626: if(!BlueConnected())
-"626
+[; ;interrupts.c: 625: if(!BlueConnected())
+"625
 [e $ ! ! != -> ( _BlueConnected ..  `i -> -> -> 0 `i `uc `i 502  ]
-[; ;interrupts.c: 627: {
+[; ;interrupts.c: 626: {
+"626
+{
+[; ;interrupts.c: 627: if(CommandStringPos < (100 - 1))
 "627
-{
-[; ;interrupts.c: 628: if(CommandStringPos < 255)
+[e $ ! < -> _CommandStringPos `i - -> 100 `i -> 1 `i 503  ]
+[; ;interrupts.c: 628: {
 "628
-[e $ ! < -> _CommandStringPos `i -> 255 `i 503  ]
-[; ;interrupts.c: 629: {
-"629
 {
-[; ;interrupts.c: 630: CommandString[CommandStringPos] = data;
-"630
+[; ;interrupts.c: 629: CommandString[CommandStringPos] = data;
+"629
 [e = *U + &U _CommandString * -> _CommandStringPos `ux -> -> # *U &U _CommandString `ui `ux _data ]
-[; ;interrupts.c: 631: CommandStringPos++;
-"631
+[; ;interrupts.c: 630: CommandStringPos++;
+"630
 [e ++ _CommandStringPos -> -> 1 `i `uc ]
-"632
+"631
 }
 [e :U 503 ]
-"633
+"632
 }
+[; ;interrupts.c: 631: }
 [; ;interrupts.c: 632: }
-[; ;interrupts.c: 633: }
 [e $U 504  ]
-"634
+"633
 [e :U 502 ]
-[; ;interrupts.c: 634: else
-[; ;interrupts.c: 635: {
+[; ;interrupts.c: 633: else
+[; ;interrupts.c: 634: {
+"634
+{
+[; ;interrupts.c: 635: if(data != '\r' && data != '\n')
 "635
-{
-[; ;interrupts.c: 636: if(data != '\r' && data != '\n')
-"636
 [e $ ! && != -> _data `ui -> 13 `ui != -> _data `ui -> 10 `ui 505  ]
-[; ;interrupts.c: 637: {
+[; ;interrupts.c: 636: {
+"636
+{
+[; ;interrupts.c: 637: if((data == 127 || data == 8) && (ReceivedStringPos > 0))
 "637
-{
-[; ;interrupts.c: 638: if((data == 127 || data == 8) && (ReceivedStringPos > 0))
-"638
 [e $ ! && || == -> _data `i -> 127 `i == -> _data `i -> 8 `i > -> _ReceivedStringPos `i -> 0 `i 506  ]
-[; ;interrupts.c: 639: {
-"639
+[; ;interrupts.c: 638: {
+"638
 {
-[; ;interrupts.c: 641: EraseScreen(ReceivedStringPos + 1);
-"641
+[; ;interrupts.c: 640: EraseScreen(ReceivedStringPos + 1);
+"640
 [e ( _EraseScreen (1 -> + -> _ReceivedStringPos `i -> 1 `i `uc ]
-[; ;interrupts.c: 642: ReceivedStringPos--;
-"642
+[; ;interrupts.c: 641: ReceivedStringPos--;
+"641
 [e -- _ReceivedStringPos -> -> 1 `i `uc ]
-[; ;interrupts.c: 643: ReceivedString[ReceivedStringPos] = '\0';
-"643
+[; ;interrupts.c: 642: ReceivedString[ReceivedStringPos] = '\0';
+"642
 [e = *U + &U _ReceivedString * -> _ReceivedStringPos `ux -> -> # *U &U _ReceivedString `ui `ux -> -> 0 `ui `uc ]
-[; ;interrupts.c: 644: UARTchar('>');
+[; ;interrupts.c: 643: UARTchar_CONST('>');
+"643
+[e ( _UARTchar_CONST (1 -> -> 62 `ui `uc ]
+[; ;interrupts.c: 644: UARTstring(ReceivedString);
 "644
-[e ( _UARTchar (1 -> -> 62 `ui `uc ]
-[; ;interrupts.c: 645: UARTstring(ReceivedString);
+[e ( _UARTstring (1 -> &U _ReceivedString `*uc ]
 "645
-[e ( _UARTstring (1 &U _ReceivedString ]
-"646
 }
-[; ;interrupts.c: 646: }
+[; ;interrupts.c: 645: }
 [e $U 507  ]
-"647
+"646
 [e :U 506 ]
-[; ;interrupts.c: 647: else if(ReceivedStringPos < 255)
-[e $ ! < -> _ReceivedStringPos `i -> 255 `i 508  ]
-[; ;interrupts.c: 648: {
+[; ;interrupts.c: 646: else if(ReceivedStringPos < (100 - 2))
+[e $ ! < -> _ReceivedStringPos `i - -> 100 `i -> 2 `i 508  ]
+[; ;interrupts.c: 647: {
+"647
+{
+[; ;interrupts.c: 648: if(!NewReceivedString)
 "648
-{
-[; ;interrupts.c: 649: if(!NewReceivedString)
-"649
 [e $ ! ! != -> _NewReceivedString `i -> -> -> 0 `i `Vuc `i 509  ]
-[; ;interrupts.c: 650: {
+[; ;interrupts.c: 649: {
+"649
+{
+[; ;interrupts.c: 650: if(IsCharacter(data))
 "650
-{
-[; ;interrupts.c: 651: if(IsCharacter(data))
-"651
 [e $ ! != -> ( _IsCharacter (1 _data `i -> -> -> 0 `i `uc `i 510  ]
-[; ;interrupts.c: 652: {
-"652
+[; ;interrupts.c: 651: {
+"651
 {
-[; ;interrupts.c: 653: UARTchar(data);
-"653
+[; ;interrupts.c: 652: UARTchar(data);
+"652
 [e ( _UARTchar (1 _data ]
-[; ;interrupts.c: 654: ReceivedString[ReceivedStringPos] = data;
-"654
+[; ;interrupts.c: 653: ReceivedString[ReceivedStringPos] = data;
+"653
 [e = *U + &U _ReceivedString * -> _ReceivedStringPos `ux -> -> # *U &U _ReceivedString `ui `ux _data ]
-[; ;interrupts.c: 655: ReceivedStringPos++;
-"655
+[; ;interrupts.c: 654: ReceivedStringPos++;
+"654
 [e ++ _ReceivedStringPos -> -> 1 `i `uc ]
-"656
+"655
 }
 [e :U 510 ]
-"657
+"656
 }
 [e :U 509 ]
-"658
+"657
 }
+[; ;interrupts.c: 655: }
 [; ;interrupts.c: 656: }
 [; ;interrupts.c: 657: }
-[; ;interrupts.c: 658: }
 [e $U 511  ]
-"659
+"658
 [e :U 508 ]
-[; ;interrupts.c: 659: else
-[; ;interrupts.c: 660: {
-"660
+[; ;interrupts.c: 658: else
+[; ;interrupts.c: 659: {
+"659
 {
-[; ;interrupts.c: 661: cleanBuffer(ReceivedString,255);
+[; ;interrupts.c: 660: PIE1bits.RCIE = 0;
+"660
+[e = . . _PIE1bits 0 5 -> -> 0 `i `uc ]
+[; ;interrupts.c: 661: BufferOverflow = 1;
 "661
-[e ( _cleanBuffer (2 , &U _ReceivedString -> 255 `i ]
-[; ;interrupts.c: 662: ReceivedStringPos = 0;
+[e = _BufferOverflow -> -> 1 `i `uc ]
 "662
-[e = _ReceivedStringPos -> -> 0 `i `uc ]
-[; ;interrupts.c: 663: UARTstring(CRLN);
-"663
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
-[; ;interrupts.c: 664: UARTstringCRLN((unsigned char *)"Buffer Overflow");
-"664
-[e ( _UARTstringCRLN (1 -> :s 1C `*uc ]
-"665
 }
 [e :U 511 ]
 [e :U 507 ]
-"666
+"663
 }
-[; ;interrupts.c: 665: }
-[; ;interrupts.c: 666: }
+[; ;interrupts.c: 662: }
+[; ;interrupts.c: 663: }
 [e $U 512  ]
-"667
+"664
 [e :U 505 ]
-[; ;interrupts.c: 667: else if(ReceivedStringPos > 0 && (NewReceivedString == 0))
+[; ;interrupts.c: 664: else if(ReceivedStringPos > 0 && (NewReceivedString == 0))
 [e $ ! && > -> _ReceivedStringPos `i -> 0 `i == -> _NewReceivedString `i -> 0 `i 513  ]
-[; ;interrupts.c: 668: {
-"668
+[; ;interrupts.c: 665: {
+"665
 {
-[; ;interrupts.c: 669: PIE1bits.RCIE = 0;
-"669
+[; ;interrupts.c: 666: PIE1bits.RCIE = 0;
+"666
 [e = . . _PIE1bits 0 5 -> -> 0 `i `uc ]
-[; ;interrupts.c: 670: UARTstring(CRLN);
-"670
-[e ( _UARTstring (1 -> &U _CRLN `*uc ]
-[; ;interrupts.c: 671: NewReceivedString = 1;
-"671
+[; ;interrupts.c: 667: UARTstring_CONST(CRLN);
+"667
+[e ( _UARTstring_CONST (1 &U _CRLN ]
+[; ;interrupts.c: 668: NewReceivedString = 1;
+"668
 [e = _NewReceivedString -> -> 1 `i `uc ]
-"672
+"669
 }
 [e :U 513 ]
-"673
+"670
 [e :U 512 ]
 }
 [e :U 504 ]
-[; ;interrupts.c: 672: }
-[; ;interrupts.c: 673: }
-[; ;interrupts.c: 674: PIR1bits.RCIF = 0;
-"674
+[; ;interrupts.c: 669: }
+[; ;interrupts.c: 670: }
+[; ;interrupts.c: 671: PIR1bits.RCIF = 0;
+"671
 [e = . . _PIR1bits 0 5 -> -> 0 `i `uc ]
-"675
+"672
 }
-[; ;interrupts.c: 675: }
+[; ;interrupts.c: 672: }
 [e $U 514  ]
-"676
+"673
 [e :U 501 ]
-[; ;interrupts.c: 676: else if(PIR1bits.TMR1IF)
+[; ;interrupts.c: 673: else if(PIR1bits.TMR1IF)
 [e $ ! != -> . . _PIR1bits 0 0 `i -> -> -> 0 `i `Vuc `i 515  ]
+[; ;interrupts.c: 674: {
+"674
+{
+[; ;interrupts.c: 675: Timer1_Postscaler++;
+"675
+[e ++ _Timer1_Postscaler -> -> 1 `i `uc ]
+[; ;interrupts.c: 676: if(Timer1_Postscaler == 3)
+"676
+[e $ ! == -> _Timer1_Postscaler `i -> 3 `i 516  ]
 [; ;interrupts.c: 677: {
 "677
 {
-[; ;interrupts.c: 678: Timer1_Postscaler++;
+[; ;interrupts.c: 678: (LATC &= ~0x04);
 "678
-[e ++ _Timer1_Postscaler -> -> 1 `i `uc ]
-[; ;interrupts.c: 679: if(Timer1_Postscaler == 3)
-"679
-[e $ ! == -> _Timer1_Postscaler `i -> 3 `i 516  ]
-[; ;interrupts.c: 680: {
-"680
-{
-[; ;interrupts.c: 681: (LATC &= ~0x04);
-"681
 [e =& _LATC -> ~ -> 4 `i `uc ]
-[; ;interrupts.c: 682: (LATC &= ~0x02);
-"682
+[; ;interrupts.c: 679: (LATC &= ~0x02);
+"679
 [e =& _LATC -> ~ -> 2 `i `uc ]
-[; ;interrupts.c: 683: (T1CONbits.TMR1ON = 0);
-"683
+[; ;interrupts.c: 680: (T1CONbits.TMR1ON = 0);
+"680
 [e = . . _T1CONbits 1 0 -> -> 0 `i `uc ]
-"684
+"681
 }
 [e :U 516 ]
-[; ;interrupts.c: 684: }
-[; ;interrupts.c: 685: PIR1bits.TMR1IF = 0;
-"685
+[; ;interrupts.c: 681: }
+[; ;interrupts.c: 682: PIR1bits.TMR1IF = 0;
+"682
 [e = . . _PIR1bits 0 0 -> -> 0 `i `uc ]
-"686
+"683
 }
-[; ;interrupts.c: 686: }
+[; ;interrupts.c: 683: }
 [e $U 517  ]
-"687
+"684
 [e :U 515 ]
-[; ;interrupts.c: 687: else
-[; ;interrupts.c: 688: {
-"688
+[; ;interrupts.c: 684: else
+[; ;interrupts.c: 685: {
+"685
 {
-[; ;interrupts.c: 690: __nop();
-"690
+[; ;interrupts.c: 687: __nop();
+"687
 [e ( ___nop ..  ]
-"691
+"688
 }
 [e :U 517 ]
 [e :U 514 ]
-[; ;interrupts.c: 691: }
-[; ;interrupts.c: 692: INTCONbits.PEIE = 1;
-"692
+[; ;interrupts.c: 688: }
+[; ;interrupts.c: 689: INTCONbits.PEIE = 1;
+"689
 [e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
-[; ;interrupts.c: 694: }
-"694
+[; ;interrupts.c: 691: }
+"691
 [e :UE 500 ]
 }
-[a 1C 66 117 102 102 101 114 32 79 118 101 114 102 108 111 119 0 ]
-

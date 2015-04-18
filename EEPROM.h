@@ -45,7 +45,7 @@
  * This parameter hold the amount of remote control buttons that are
  * able to be saved.
 /******************************************************************************/
-#define ButtonAmount 20
+#define ButtonAmount 12
 
 /******************************************************************************/
 /* RFcodesAmount
@@ -53,7 +53,7 @@
  * This parameter hold the amount of remote control buttons that are
  * able to be saved.
 /******************************************************************************/
-#define RFcodesAmount 15
+#define RFcodesAmount 10
 
 /******************************************************************************/
 /* RFcodesAmount
@@ -82,18 +82,27 @@
 /* NEC button data
 /******************************/
 /* Remote Button storage of NEC codes */
-/* the amount of data needed is 2 * ButtonAmount */
+/* the amount of data needed is (2 * ButtonAmount) */
 #define EE_RemoteButtonNEC 5
 
 /* unsigned char EEPROMinitFlag */
 #define EE_EEPROMinitFlag (2*ButtonAmount + 5)
 
-/******************************/
+/***********************************/
 /* RF associated with each NEC code
-/******************************/
+/***********************************/
 /* Stores the first button that will cause each RF code to get sent */
-/* the amount of data needed 1 * RFcodesAmount */
-#define EE_RemoteButtonRF (2*ButtonAmount + 7)
+/* the amount of data needed (2 * MirrorButtonsAmount * RFcodesAmount) */
+#define EE_RemoteButtonRF (2*ButtonAmount + 6)
+
+/******************************/
+/* Serial Number
+/******************************/
+/* unsigned long SerialNumber */
+#define EE_SerialNumberBYTE1 (2*ButtonAmount + 2*MirrorButtonsAmount*RFcodesAmount + 6)
+#define EE_SerialNumberBYTE2 (2*ButtonAmount + 2*MirrorButtonsAmount*RFcodesAmount + 7)
+#define EE_SerialNumberBYTE3 (2*ButtonAmount + 2*MirrorButtonsAmount*RFcodesAmount + 8)
+#define EE_SerialNumberBYTE4 (2*ButtonAmount + 2*MirrorButtonsAmount*RFcodesAmount + 9)
 
 /******************************************************************************/
 /* Structures                                                                 */
@@ -104,7 +113,10 @@ typedef struct EEdata
     unsigned long SWNECcode;
     unsigned char RemoteButtonNEC[ButtonAmount][2];
     unsigned char EEPROMinitFlag;
+}GBLdata1;
 
+typedef struct EEdata2
+{
     /*
      * RemoteButtonRF[rfnum][Nec:Address Nec:Command];
      *
@@ -118,13 +130,14 @@ typedef struct EEdata
      * rfnum 7 is for config 2 channel H device 3
      */
     unsigned char RemoteButtonRF[RFcodesAmount][MirrorButtonsAmount][2];
-
-}GBLdata;
+    unsigned long SerialNumber;
+}GBLdata2;
 
 /******************************************************************************/
 /* Global Variables                                                           */
 /******************************************************************************/
-GBLdata Global = 0;
+GBLdata1    Global1 = 0;
+GBLdata2    Global2 = 0;
 
 /******************************************************************************/
 /* Function prototypes                                                        */
@@ -133,8 +146,10 @@ GBLdata Global = 0;
 unsigned int ReadEEPROM_1Byte(unsigned int address);
 void EEPROM_UNLOCK(void);
 void WriteEEPROM_1Byte(unsigned int address, unsigned char data);
-void GetEEPROM(GBLdata *Temp);
-unsigned long SetEEPROM(GBLdata Temp,unsigned long burn);
+void GetEEPROM1(GBLdata1 *Temp);
+unsigned long SetEEPROM1(GBLdata1 Temp,unsigned long burn);
+void GetEEPROM2(GBLdata2 *Temp);
+unsigned long SetEEPROM2(GBLdata2 Temp,unsigned long burn);
 unsigned long GetMemoryLong(unsigned char AddressFirst);
 unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst);
 unsigned long GetMemoryInt(unsigned char AddressFirst);

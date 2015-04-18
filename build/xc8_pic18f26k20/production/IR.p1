@@ -1,10 +1,13 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F4277 `uc ~T0 @X0 -> 2 `i t ]
-[v F4281 `uc ~T0 @X0 -> 2 `i t ]
-[v F4280 `F4281 ~T0 @X0 -> 3 `i t ]
-"101 EEPROM.h
-[s S380 `uc 1 `ul 1 `F4277 -> 20 `i `uc 1 `F4280 -> 15 `i ]
-[n S380 EEdata BlueToothFlag SWNECcode RemoteButtonNEC EEPROMinitFlag RemoteButtonRF ]
+[v F4287 `uc ~T0 @X0 -> 2 `i t ]
+"110 EEPROM.h
+[s S380 `uc 1 `ul 1 `F4287 -> 12 `i `uc 1 ]
+[n S380 EEdata BlueToothFlag SWNECcode RemoteButtonNEC EEPROMinitFlag ]
+[v F4293 `uc ~T0 @X0 -> 2 `i t ]
+[v F4292 `F4293 ~T0 @X0 -> 3 `i t ]
+"118
+[s S381 `F4292 -> 10 `i `ul 1 ]
+[n S381 EEdata2 RemoteButtonRF SerialNumber ]
 "384 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [s S16 :4 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S16 . . IOCB4 IOCB5 IOCB6 IOCB7 ]
@@ -17,7 +20,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _ReadIRpin `(uc ~T0 @X0 0 ef ]
 "176 Timer.h
 [v _InitTimer0 `(v ~T0 @X0 0 ef ]
-"67 MISC.h
+"68 MISC.h
 [v _cleanBuffer16bit `(v ~T0 @X0 0 ef2`*ui`i ]
 "5938 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [s S319 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -60,11 +63,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _DecodeNEC `(uc ~T0 @X0 0 ef3`ul`*uc`*uc ]
 "37 Button.h
 [v _ReadPushButton `(uc ~T0 @X0 0 ef ]
-"144 EEPROM.h
+"159 EEPROM.h
 [v _SyncGlobalToEEPROM `(uc ~T0 @X0 0 ef ]
 "1691 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [v _LATC `Vuc ~T0 @X0 0 e@3979 ]
-"64 MISC.h
+"65 MISC.h
 [v _delayUS `(v ~T0 @X0 0 ef1`l ]
 "200 RF.h
 [v _SendRF_Channel `(v ~T0 @X0 0 ef1`uc ]
@@ -72,7 +75,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _ReadCodeButtons `(uc ~T0 @X0 0 ef ]
 "192 RF.h
 [v _RF_IR `uc ~T0 @X0 0 e ]
-"80 MISC.h
+"81 MISC.h
 [v _Reverse_4Byte `(ul ~T0 @X0 0 ef1`ul ]
 "5300 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [v _TMR2 `Vuc ~T0 @X0 0 e@4044 ]
@@ -96,7 +99,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "42 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18.h
 [v ___nop `(v ~T0 @X0 0 ef ]
 [p i ___nop ]
-"78 MISC.h
+"79 MISC.h
 [v _Reverse_Byte `(uc ~T0 @X0 0 ef1`uc ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -3783,14 +3786,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [; ;user.h: 52: unsigned char ProductName[50] = {"Home Automation"};
-"60
-[v _SN `ul ~T0 @X0 1 e ]
-[i _SN
--> -> -> 1 `i `l `ul
-]
-[; ;user.h: 60: unsigned long SN = 1;
-[; ;user.h: 288: void InitApp(void);
-[; ;user.h: 289: void Init_System (void);
+[; ;user.h: 280: void InitApp(void);
+[; ;user.h: 281: void Init_System (void);
 [; ;IR.h: 202: extern unsigned char IRpinOLD;
 [; ;IR.h: 203: extern unsigned int IRRawCode[100];
 [; ;IR.h: 204: extern unsigned long IR_NEC;
@@ -3831,26 +3828,27 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Timer.h: 184: void ResetTimer3(void);
 [; ;Timer.h: 185: void InitTimers(void);
 [; ;system.h: 57: void ConfigureOscillator(void);
-[; ;MISC.h: 64: void delayUS(long US);
-[; ;MISC.h: 65: unsigned char IsCharacter(unsigned char data);
-[; ;MISC.h: 66: void cleanBuffer(unsigned char* data, int count);
-[; ;MISC.h: 67: void cleanBuffer16bit(unsigned int* data, int count);
-[; ;MISC.h: 68: double Round(double input);
-[; ;MISC.h: 69: void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
-[; ;MISC.h: 70: unsigned char StringMatch(unsigned char* This,const unsigned char* That);
-[; ;MISC.h: 71: unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
-[; ;MISC.h: 72: unsigned char StringContains(unsigned char* This, const unsigned char* That);
-[; ;MISC.h: 73: unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
-[; ;MISC.h: 74: void CalibrateDelay(void);
-[; ;MISC.h: 75: void lowercaseChar(unsigned char* Input);
-[; ;MISC.h: 76: void lowercaseString(unsigned char* Input);
-[; ;MISC.h: 77: void delayNOP(unsigned char NOPs);
-[; ;MISC.h: 78: unsigned char Reverse_Byte(unsigned char This);
-[; ;MISC.h: 79: unsigned int Reverse_2Byte(unsigned int This);
-[; ;MISC.h: 80: unsigned long Reverse_4Byte(unsigned long This);
-[; ;MISC.h: 81: unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
-[; ;MISC.h: 82: unsigned char StringAddEqual(unsigned char* Input);
-[; ;MISC.h: 83: unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
+[; ;MISC.h: 65: void delayUS(long US);
+[; ;MISC.h: 66: unsigned char IsCharacter(unsigned char data);
+[; ;MISC.h: 67: void cleanBuffer(unsigned char* data, int count);
+[; ;MISC.h: 68: void cleanBuffer16bit(unsigned int* data, int count);
+[; ;MISC.h: 69: double Round(double input);
+[; ;MISC.h: 70: void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
+[; ;MISC.h: 71: unsigned char StringMatch(const unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 72: unsigned char StringMatchCaseInsensitive(const unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 73: unsigned char StringContains(const unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 74: unsigned char StringContainsCaseInsensitive(const unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 75: void CalibrateDelay(void);
+[; ;MISC.h: 76: void lowercaseChar(unsigned char* Input);
+[; ;MISC.h: 77: void lowercaseString(unsigned char* Input);
+[; ;MISC.h: 78: void delayNOP(unsigned char NOPs);
+[; ;MISC.h: 79: unsigned char Reverse_Byte(unsigned char This);
+[; ;MISC.h: 80: unsigned int Reverse_2Byte(unsigned int This);
+[; ;MISC.h: 81: unsigned long Reverse_4Byte(unsigned long This);
+[; ;MISC.h: 82: unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, long* result);
+[; ;MISC.h: 83: unsigned char StringAddEqual(unsigned char* Input);
+[; ;MISC.h: 84: unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
+[; ;MISC.h: 85: unsigned char GetNumberUnsigned(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
 "128 RF.h
 [v _Conf1_Channels `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_Channels
@@ -4508,12 +4506,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;RF.h: 199: void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
 [; ;RF.h: 200: void SendRF_Channel(unsigned char channel);
 [; ;RF.h: 201: unsigned char GetRFstatus(void);
-[; ;UART.h: 116: extern unsigned char ReceivedString[255];
-[; ;UART.h: 117: extern unsigned char ReceivedStringPos;
-[; ;UART.h: 118: extern unsigned char CommandString[255];
-[; ;UART.h: 119: extern unsigned char CommandStringPos;
-[; ;UART.h: 120: extern volatile unsigned char NewReceivedString;
-"121 UART.h
+[; ;UART.h: 124: extern volatile unsigned char ReceivedString[100];
+[; ;UART.h: 125: extern volatile unsigned char ReceivedStringPos;
+[; ;UART.h: 126: extern volatile unsigned char CommandString[100];
+[; ;UART.h: 127: extern volatile unsigned char CommandStringPos;
+[; ;UART.h: 128: extern volatile unsigned char NewReceivedString;
+"129 UART.h
 [v _SYNTAX_ERR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _SYNTAX_ERR
 :U ..
@@ -4533,8 +4531,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;UART.h: 121: const unsigned char SYNTAX_ERR[] = "Error: Syntax";
-"122
+[; ;UART.h: 129: const unsigned char SYNTAX_ERR[] = "Error: Syntax";
+"130
 [v _CRLN `Cuc ~T0 @X0 -> 0 `x e ]
 [i _CRLN
 :U ..
@@ -4543,53 +4541,84 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;UART.h: 122: const unsigned char CRLN[] = "\r\n";
-[; ;UART.h: 127: void Local_CloseUSART(void );
-[; ;UART.h: 128: void InitUART(unsigned long Baud);
-[; ;UART.h: 129: void OpenUSART( unsigned char config, unsigned int spbrg);
-[; ;UART.h: 130: void UARTchar(unsigned char data);
-[; ;UART.h: 131: void UARTstring(unsigned char *data);
-[; ;UART.h: 132: unsigned char ReadUSART(void);
-[; ;UART.h: 133: void UART_send_break(void);
-[; ;UART.h: 134: void UARTstringCRLN(unsigned char *data);
-[; ;UART.h: 135: void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
-[; ;UART.h: 136: void EraseScreen(unsigned char characters);
-[; ;UART.h: 137: void ClearUSART(void);
+[; ;UART.h: 130: const unsigned char CRLN[] = "\r\n";
+"131
+[v _BufferOverflow `uc ~T0 @X0 1 e ]
+[i _BufferOverflow
+-> -> 0 `i `uc
+]
+[; ;UART.h: 131: unsigned char BufferOverflow = 0;
+[; ;UART.h: 136: void Local_CloseUSART(void );
+[; ;UART.h: 137: void InitUART(unsigned long Baud);
+[; ;UART.h: 138: void OpenUSART( unsigned char config, unsigned int spbrg);
+[; ;UART.h: 139: void UARTchar(unsigned char data);
+[; ;UART.h: 140: void UARTchar_CONST(const unsigned char data);
+[; ;UART.h: 141: void UARTstring(unsigned char *data);
+[; ;UART.h: 142: void UARTstring_CONST(const unsigned char *data);
+[; ;UART.h: 143: unsigned char ReadUSART(void);
+[; ;UART.h: 144: void UART_send_break(void);
+[; ;UART.h: 145: void UARTstringCRLN(unsigned char *data);
+[; ;UART.h: 146: void UARTstringCRLN_CONST(const unsigned char *data);
+[; ;UART.h: 147: void UARTcommandMenu(const unsigned char *Command,const unsigned char *Desc);
+[; ;UART.h: 148: void EraseScreen(unsigned char characters);
+[; ;UART.h: 149: void ClearUSART(void);
 [; ;Button.h: 37: unsigned char ReadPushButton(void);
 [; ;Button.h: 38: unsigned char ReadCodeButtons(void);
-[; ;EEPROM.h: 101: typedef struct EEdata
-[; ;EEPROM.h: 102: {
-[; ;EEPROM.h: 103: unsigned char BlueToothFlag;
-[; ;EEPROM.h: 104: unsigned long SWNECcode;
-[; ;EEPROM.h: 105: unsigned char RemoteButtonNEC[20][2];
-[; ;EEPROM.h: 106: unsigned char EEPROMinitFlag;
-[; ;EEPROM.h: 120: unsigned char RemoteButtonRF[15][3][2];
-[; ;EEPROM.h: 122: }GBLdata;
-"127 EEPROM.h
-[v _Global `S380 ~T0 @X0 1 e ]
-[i _Global
+[; ;EEPROM.h: 110: typedef struct EEdata
+[; ;EEPROM.h: 111: {
+[; ;EEPROM.h: 112: unsigned char BlueToothFlag;
+[; ;EEPROM.h: 113: unsigned long SWNECcode;
+[; ;EEPROM.h: 114: unsigned char RemoteButtonNEC[12][2];
+[; ;EEPROM.h: 115: unsigned char EEPROMinitFlag;
+[; ;EEPROM.h: 116: }GBLdata1;
+[; ;EEPROM.h: 118: typedef struct EEdata2
+[; ;EEPROM.h: 119: {
+[; ;EEPROM.h: 132: unsigned char RemoteButtonRF[10][3][2];
+[; ;EEPROM.h: 133: unsigned long SerialNumber;
+[; ;EEPROM.h: 134: }GBLdata2;
+"139 EEPROM.h
+[v _Global1 `S380 ~T0 @X0 1 e ]
+[i _Global1
 :U ..
 :U ..
 -> -> 0 `i `uc
 ..
 ..
 ]
-[; ;EEPROM.h: 127: GBLdata Global = 0;
-[; ;EEPROM.h: 133: unsigned int ReadEEPROM_1Byte(unsigned int address);
-[; ;EEPROM.h: 134: void EEPROM_UNLOCK(void);
-[; ;EEPROM.h: 135: void WriteEEPROM_1Byte(unsigned int address, unsigned char data);
-[; ;EEPROM.h: 136: void GetEEPROM(GBLdata *Temp);
-[; ;EEPROM.h: 137: unsigned long SetEEPROM(GBLdata Temp,unsigned long burn);
-[; ;EEPROM.h: 138: unsigned long GetMemoryLong(unsigned char AddressFirst);
-[; ;EEPROM.h: 139: unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst);
-[; ;EEPROM.h: 140: unsigned long GetMemoryInt(unsigned char AddressFirst);
-[; ;EEPROM.h: 141: unsigned char SetMemoryInt(unsigned int Data, unsigned char AddressFirst);
-[; ;EEPROM.h: 142: unsigned long GetMemoryChar(unsigned char AddressFirst);
-[; ;EEPROM.h: 143: unsigned char SetMemoryChar(unsigned char Data, unsigned char AddressFirst);
-[; ;EEPROM.h: 144: unsigned char SyncGlobalToEEPROM(void);
-[; ;EEPROM.h: 145: void SyncEEPROMToGlobal(void);
-[; ;EEPROM.h: 146: void SetEEPROMdefault(void);
-[; ;EEPROM.h: 147: unsigned char EEPROMinitialized(void);
+[; ;EEPROM.h: 139: GBLdata1 Global1 = 0;
+"140
+[v _Global2 `S381 ~T0 @X0 1 e ]
+[i _Global2
+:U ..
+:U ..
+:U ..
+:U ..
+:U ..
+-> -> 0 `i `uc
+..
+..
+..
+..
+..
+]
+[; ;EEPROM.h: 140: GBLdata2 Global2 = 0;
+[; ;EEPROM.h: 146: unsigned int ReadEEPROM_1Byte(unsigned int address);
+[; ;EEPROM.h: 147: void EEPROM_UNLOCK(void);
+[; ;EEPROM.h: 148: void WriteEEPROM_1Byte(unsigned int address, unsigned char data);
+[; ;EEPROM.h: 149: void GetEEPROM1(GBLdata1 *Temp);
+[; ;EEPROM.h: 150: unsigned long SetEEPROM1(GBLdata1 Temp,unsigned long burn);
+[; ;EEPROM.h: 151: void GetEEPROM2(GBLdata2 *Temp);
+[; ;EEPROM.h: 152: unsigned long SetEEPROM2(GBLdata2 Temp,unsigned long burn);
+[; ;EEPROM.h: 153: unsigned long GetMemoryLong(unsigned char AddressFirst);
+[; ;EEPROM.h: 154: unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst);
+[; ;EEPROM.h: 155: unsigned long GetMemoryInt(unsigned char AddressFirst);
+[; ;EEPROM.h: 156: unsigned char SetMemoryInt(unsigned int Data, unsigned char AddressFirst);
+[; ;EEPROM.h: 157: unsigned long GetMemoryChar(unsigned char AddressFirst);
+[; ;EEPROM.h: 158: unsigned char SetMemoryChar(unsigned char Data, unsigned char AddressFirst);
+[; ;EEPROM.h: 159: unsigned char SyncGlobalToEEPROM(void);
+[; ;EEPROM.h: 160: void SyncEEPROMToGlobal(void);
+[; ;EEPROM.h: 161: void SetEEPROMdefault(void);
+[; ;EEPROM.h: 162: unsigned char EEPROMinitialized(void);
 "52 IR.c
 [v _IRpinOLD `uc ~T0 @X0 1 e ]
 [; ;IR.c: 52: unsigned char IRpinOLD;
@@ -4732,7 +4761,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . _INTCONbits 0 3 -> -> 1 `i `uc ]
 [; ;IR.c: 100: }
 "100
-[e :UE 381 ]
+[e :UE 382 ]
 }
 "107
 [v _ReadIRpin `(uc ~T0 @X0 1 ef ]
@@ -4744,20 +4773,20 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;IR.c: 110: if((PORTB & 0x10) == 0x10)
 "110
-[e $ ! == & -> _PORTB `i -> 16 `i -> 16 `i 383  ]
+[e $ ! == & -> _PORTB `i -> 16 `i -> 16 `i 384  ]
 [; ;IR.c: 111: {
 "111
 {
 [; ;IR.c: 112: return (1);
 "112
 [e ) -> -> 1 `i `uc ]
-[e $UE 382  ]
+[e $UE 383  ]
 "113
 }
 [; ;IR.c: 113: }
-[e $U 384  ]
+[e $U 385  ]
 "114
-[e :U 383 ]
+[e :U 384 ]
 [; ;IR.c: 114: else
 [; ;IR.c: 115: {
 "115
@@ -4765,14 +4794,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;IR.c: 116: return 0;
 "116
 [e ) -> -> 0 `i `uc ]
-[e $UE 382  ]
+[e $UE 383  ]
 "117
 }
-[e :U 384 ]
+[e :U 385 ]
 [; ;IR.c: 117: }
 [; ;IR.c: 118: }
 "118
-[e :UE 382 ]
+[e :UE 383 ]
 }
 "125
 [v _IRrawToNEC `(uc ~T0 @X0 1 ef3`*ui`*ul`uc ]
@@ -4806,15 +4835,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 "159
 {
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 100 `i 386  ]
-[e $U 387  ]
+[e $ < -> _i `i -> 100 `i 387  ]
+[e $U 388  ]
 "160
-[e :U 386 ]
+[e :U 387 ]
 [; ;IR.c: 160: {
 {
 [; ;IR.c: 161: if(Raw[i] >= 4000 && Raw[i] <= 5000 )
 "161
-[e $ ! && >= *U + _Raw * -> _i `ux -> -> # *U _Raw `ui `ux -> -> 4000 `i `ui <= *U + _Raw * -> _i `ux -> -> # *U _Raw `ui `ux -> -> 5000 `i `ui 389  ]
+[e $ ! && >= *U + _Raw * -> _i `ux -> -> # *U _Raw `ui `ux -> -> 4000 `i `ui <= *U + _Raw * -> _i `ux -> -> # *U _Raw `ui `ux -> -> 5000 `i `ui 390  ]
 [; ;IR.c: 162: {
 "162
 {
@@ -4823,40 +4852,40 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _StartBit _i ]
 [; ;IR.c: 165: break;
 "165
-[e $U 387  ]
+[e $U 388  ]
 "166
 }
-[e :U 389 ]
+[e :U 390 ]
 "167
 }
 "159
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 100 `i 386  ]
-[e :U 387 ]
+[e $ < -> _i `i -> 100 `i 387  ]
+[e :U 388 ]
 "167
 }
 [; ;IR.c: 166: }
 [; ;IR.c: 167: }
 [; ;IR.c: 168: if((100 - StartBit) < 50)
 "168
-[e $ ! < - -> 100 `i -> _StartBit `i -> 50 `i 390  ]
+[e $ ! < - -> 100 `i -> _StartBit `i -> 50 `i 391  ]
 [; ;IR.c: 169: {
 "169
 {
 [; ;IR.c: 171: return 0;
 "171
 [e ) -> -> 0 `i `uc ]
-[e $UE 385  ]
+[e $UE 386  ]
 "172
 }
-[e :U 390 ]
+[e :U 391 ]
 [; ;IR.c: 172: }
 [; ;IR.c: 174: StartBit++;
 "174
 [e ++ _StartBit -> -> 1 `i `uc ]
 [; ;IR.c: 175: if(Raw[StartBit] >= 925 && Raw[StartBit] <= 1250 )
 "175
-[e $ ! && >= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 925 `i `ui <= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 1250 `i `ui 391  ]
+[e $ ! && >= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 925 `i `ui <= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 1250 `i `ui 392  ]
 [; ;IR.c: 176: {
 "176
 {
@@ -4865,7 +4894,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ++ _StartBit -> -> 1 `i `uc ]
 [; ;IR.c: 179: if(Raw[StartBit] >= 125 && Raw[StartBit] <= 600 )
 "179
-[e $ ! && >= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 125 `i `ui <= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 600 `i `ui 392  ]
+[e $ ! && >= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 125 `i `ui <= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 600 `i `ui 393  ]
 [; ;IR.c: 180: {
 "180
 {
@@ -4874,42 +4903,42 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ++ _StartBit -> -> 1 `i `uc ]
 [; ;IR.c: 183: if(Raw[StartBit] >= 45000 && Raw[StartBit] <= 50000)
 "183
-[e $ ! && >= -> *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux `l -> 45000 `l <= -> *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux `l -> 50000 `l 393  ]
+[e $ ! && >= -> *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux `l -> 45000 `l <= -> *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux `l -> 50000 `l 394  ]
 [; ;IR.c: 184: {
 "184
 {
 [; ;IR.c: 186: return 2;
 "186
 [e ) -> -> 2 `i `uc ]
-[e $UE 385  ]
+[e $UE 386  ]
 "187
 }
-[e :U 393 ]
+[e :U 394 ]
 "188
 }
-[e :U 392 ]
+[e :U 393 ]
 "189
 }
 [; ;IR.c: 187: }
 [; ;IR.c: 188: }
 [; ;IR.c: 189: }
-[e $U 394  ]
+[e $U 395  ]
 "190
-[e :U 391 ]
+[e :U 392 ]
 [; ;IR.c: 190: else if(Raw[StartBit] < 1750 || Raw[StartBit] > 2750 )
-[e $ ! || < *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 1750 `i `ui > *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 2750 `i `ui 395  ]
+[e $ ! || < *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 1750 `i `ui > *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 2750 `i `ui 396  ]
 [; ;IR.c: 191: {
 "191
 {
 [; ;IR.c: 193: return 0;
 "193
 [e ) -> -> 0 `i `uc ]
-[e $UE 385  ]
+[e $UE 386  ]
 "194
 }
-[e :U 395 ]
+[e :U 396 ]
 "196
-[e :U 394 ]
+[e :U 395 ]
 [; ;IR.c: 194: }
 [; ;IR.c: 196: StartBit++;
 [e ++ _StartBit -> -> 1 `i `uc ]
@@ -4917,21 +4946,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 "197
 {
 [e = _i _StartBit ]
-[e $ < -> _i `i -> 100 `i 396  ]
-[e $U 397  ]
+[e $ < -> _i `i -> 100 `i 397  ]
+[e $U 398  ]
 "198
-[e :U 396 ]
+[e :U 397 ]
 [; ;IR.c: 198: {
 {
 [; ;IR.c: 199: if(Raw[StartBit] >= 125 && Raw[StartBit] <= 600 )
 "199
-[e $ ! && >= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 125 `i `ui <= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 600 `i `ui 399  ]
+[e $ ! && >= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 125 `i `ui <= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 600 `i `ui 400  ]
 [; ;IR.c: 200: {
 "200
 {
 [; ;IR.c: 201: if(!first)
 "201
-[e $ ! ! != -> _first `i -> -> -> 0 `i `uc `i 400  ]
+[e $ ! ! != -> _first `i -> -> -> 0 `i `uc `i 401  ]
 [; ;IR.c: 202: {
 "202
 {
@@ -4941,9 +4970,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "205
 }
 [; ;IR.c: 205: }
-[e $U 401  ]
+[e $U 402  ]
 "206
-[e :U 400 ]
+[e :U 401 ]
 [; ;IR.c: 206: else
 [; ;IR.c: 207: {
 "207
@@ -4956,7 +4985,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e =<< _NECtemp -> 1 `i ]
 [; ;IR.c: 211: if(!Invert)
 "211
-[e $ ! ! != -> _Invert `i -> -> -> 0 `i `uc `i 402  ]
+[e $ ! ! != -> _Invert `i -> -> -> 0 `i `uc `i 403  ]
 [; ;IR.c: 212: {
 "212
 {
@@ -4965,26 +4994,26 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ++ _NECtemp -> -> -> 1 `i `l `ul ]
 "214
 }
-[e :U 402 ]
+[e :U 403 ]
 "215
 }
-[e :U 401 ]
+[e :U 402 ]
 "216
 }
 [; ;IR.c: 214: }
 [; ;IR.c: 215: }
 [; ;IR.c: 216: }
-[e $U 403  ]
+[e $U 404  ]
 "217
-[e :U 399 ]
+[e :U 400 ]
 [; ;IR.c: 217: else if(Raw[StartBit] >= 700 && Raw[StartBit] <= 950)
-[e $ ! && >= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 700 `i `ui <= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 950 `i `ui 404  ]
+[e $ ! && >= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 700 `i `ui <= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 950 `i `ui 405  ]
 [; ;IR.c: 218: {
 "218
 {
 [; ;IR.c: 219: if(first)
 "219
-[e $ ! != -> _first `i -> -> -> 0 `i `uc `i 405  ]
+[e $ ! != -> _first `i -> -> -> 0 `i `uc `i 406  ]
 [; ;IR.c: 220: {
 "220
 {
@@ -4993,7 +5022,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e =<< _NECtemp -> 1 `i ]
 [; ;IR.c: 223: if(Invert)
 "223
-[e $ ! != -> _Invert `i -> -> -> 0 `i `uc `i 406  ]
+[e $ ! != -> _Invert `i -> -> -> 0 `i `uc `i 407  ]
 [; ;IR.c: 224: {
 "224
 {
@@ -5002,7 +5031,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ++ _NECtemp -> -> -> 1 `i `l `ul ]
 "226
 }
-[e :U 406 ]
+[e :U 407 ]
 [; ;IR.c: 226: }
 [; ;IR.c: 227: first = 0;
 "227
@@ -5010,9 +5039,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "228
 }
 [; ;IR.c: 228: }
-[e $U 407  ]
+[e $U 408  ]
 "229
-[e :U 405 ]
+[e :U 406 ]
 [; ;IR.c: 229: else
 [; ;IR.c: 230: {
 "230
@@ -5020,19 +5049,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;IR.c: 232: return 0;
 "232
 [e ) -> -> 0 `i `uc ]
-[e $UE 385  ]
+[e $UE 386  ]
 "233
 }
-[e :U 407 ]
+[e :U 408 ]
 "234
 }
 [; ;IR.c: 233: }
 [; ;IR.c: 234: }
-[e $U 408  ]
+[e $U 409  ]
 "235
-[e :U 404 ]
+[e :U 405 ]
 [; ;IR.c: 235: else if(Raw[StartBit] == 0 && first == 1)
-[e $ ! && == *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 0 `i `ui == -> _first `i -> 1 `i 409  ]
+[e $ ! && == *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 0 `i `ui == -> _first `i -> 1 `i 410  ]
 [; ;IR.c: 236: {
 "236
 {
@@ -5042,15 +5071,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;IR.c: 242: return 1;
 "242
 [e ) -> -> 1 `i `uc ]
-[e $UE 385  ]
+[e $UE 386  ]
 "243
 }
 [; ;IR.c: 243: }
-[e $U 410  ]
+[e $U 411  ]
 "244
-[e :U 409 ]
+[e :U 410 ]
 [; ;IR.c: 244: else if(Raw[StartBit] >= 19000 && Raw[StartBit] <= 21000)
-[e $ ! && >= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 19000 `i `ui <= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 21000 `i `ui 411  ]
+[e $ ! && >= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 19000 `i `ui <= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 21000 `i `ui 412  ]
 [; ;IR.c: 245: {
 "245
 {
@@ -5060,28 +5089,28 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;IR.c: 248: return 1;
 "248
 [e ) -> -> 1 `i `uc ]
-[e $UE 385  ]
+[e $UE 386  ]
 "249
 }
 [; ;IR.c: 249: }
-[e $U 412  ]
+[e $U 413  ]
 "250
-[e :U 411 ]
+[e :U 412 ]
 [; ;IR.c: 250: else if(Raw[StartBit] >= 45000 && Raw[StartBit] <= 50000)
-[e $ ! && >= -> *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux `l -> 45000 `l <= -> *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux `l -> 50000 `l 413  ]
+[e $ ! && >= -> *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux `l -> 45000 `l <= -> *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux `l -> 50000 `l 414  ]
 [; ;IR.c: 251: {
 "251
 {
 [; ;IR.c: 253: return 2;
 "253
 [e ) -> -> 2 `i `uc ]
-[e $UE 385  ]
+[e $UE 386  ]
 "254
 }
 [; ;IR.c: 254: }
-[e $U 414  ]
+[e $U 415  ]
 "255
-[e :U 413 ]
+[e :U 414 ]
 [; ;IR.c: 255: else
 [; ;IR.c: 256: {
 "256
@@ -5089,14 +5118,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;IR.c: 257: return 0;
 "257
 [e ) -> -> 0 `i `uc ]
-[e $UE 385  ]
+[e $UE 386  ]
 "258
 }
-[e :U 414 ]
-[e :U 412 ]
-[e :U 410 ]
-[e :U 408 ]
-[e :U 403 ]
+[e :U 415 ]
+[e :U 413 ]
+[e :U 411 ]
+[e :U 409 ]
+[e :U 404 ]
 [; ;IR.c: 258: }
 [; ;IR.c: 259: StartBit++;
 "259
@@ -5105,18 +5134,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 "197
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 100 `i 396  ]
-[e :U 397 ]
+[e $ < -> _i `i -> 100 `i 397  ]
+[e :U 398 ]
 "260
 }
 [; ;IR.c: 260: }
 [; ;IR.c: 262: return 0;
 "262
 [e ) -> -> 0 `i `uc ]
-[e $UE 385  ]
+[e $UE 386  ]
 [; ;IR.c: 263: }
 "263
-[e :UE 385 ]
+[e :UE 386 ]
 }
 "271
 [v _UseIRCode `(v ~T0 @X0 1 ef2`*uc`ul ]
@@ -5143,7 +5172,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _LEDTimerON ..  ]
 [; ;IR.c: 277: if(*Code == 2 || *Code == 1)
 "277
-[e $ ! || == -> *U _Code `i -> 2 `i == -> *U _Code `i -> 1 `i 416  ]
+[e $ ! || == -> *U _Code `i -> 2 `i == -> *U _Code `i -> 1 `i 417  ]
 [; ;IR.c: 278: {
 "278
 {
@@ -5152,16 +5181,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _DecodeNEC (3 , , _NEC &U _IRaddress &U _IRcommand ]
 [; ;IR.c: 280: if(ReadPushButton())
 "280
-[e $ ! != -> ( _ReadPushButton ..  `i -> -> -> 0 `i `uc `i 417  ]
+[e $ ! != -> ( _ReadPushButton ..  `i -> -> -> 0 `i `uc `i 418  ]
 [; ;IR.c: 281: {
 "281
 {
-[; ;IR.c: 282: Global.SWNECcode = NEC;
+[; ;IR.c: 282: Global1.SWNECcode = NEC;
 "282
-[e = . _Global 1 _NEC ]
+[e = . _Global1 1 _NEC ]
 [; ;IR.c: 283: if(SyncGlobalToEEPROM())
 "283
-[e $ ! != -> ( _SyncGlobalToEEPROM ..  `i -> -> -> 0 `i `uc `i 418  ]
+[e $ ! != -> ( _SyncGlobalToEEPROM ..  `i -> -> -> 0 `i `uc `i 419  ]
 [; ;IR.c: 284: {
 "284
 {
@@ -5169,10 +5198,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 "286
 {
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 10 `i 419  ]
-[e $U 420  ]
+[e $ < -> _i `i -> 10 `i 420  ]
+[e $U 421  ]
 "287
-[e :U 419 ]
+[e :U 420 ]
 [; ;IR.c: 287: {
 {
 [; ;IR.c: 288: (LATC |= 0x04);
@@ -5191,17 +5220,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 "286
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 10 `i 419  ]
-[e :U 420 ]
+[e $ < -> _i `i -> 10 `i 420  ]
+[e :U 421 ]
 "292
 }
 "293
 }
 [; ;IR.c: 292: }
 [; ;IR.c: 293: }
-[e $U 422  ]
+[e $U 423  ]
 "294
-[e :U 418 ]
+[e :U 419 ]
 [; ;IR.c: 294: else
 [; ;IR.c: 295: {
 "295
@@ -5210,10 +5239,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 "297
 {
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 10 `i 423  ]
-[e $U 424  ]
+[e $ < -> _i `i -> 10 `i 424  ]
+[e $U 425  ]
 "298
-[e :U 423 ]
+[e :U 424 ]
 [; ;IR.c: 298: {
 {
 [; ;IR.c: 299: (LATC |= 0x02);
@@ -5232,34 +5261,34 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 "297
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 10 `i 423  ]
-[e :U 424 ]
+[e $ < -> _i `i -> 10 `i 424  ]
+[e :U 425 ]
 "303
 }
 "304
 }
-[e :U 422 ]
+[e :U 423 ]
 "305
 }
 [; ;IR.c: 303: }
 [; ;IR.c: 304: }
 [; ;IR.c: 305: }
-[e $U 426  ]
+[e $U 427  ]
 "306
-[e :U 417 ]
+[e :U 418 ]
 [; ;IR.c: 306: else
 [; ;IR.c: 307: {
 "307
 {
-[; ;IR.c: 308: if(NEC == Global.SWNECcode)
+[; ;IR.c: 308: if(NEC == Global1.SWNECcode)
 "308
-[e $ ! == _NEC . _Global 1 427  ]
+[e $ ! == _NEC . _Global1 1 428  ]
 [; ;IR.c: 309: {
 "309
 {
 [; ;IR.c: 310: if(*Code == 2)
 "310
-[e $ ! == -> *U _Code `i -> 2 `i 428  ]
+[e $ ! == -> *U _Code `i -> 2 `i 429  ]
 [; ;IR.c: 311: {
 "311
 {
@@ -5268,7 +5297,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e =| _LATC -> -> 2 `i `uc ]
 "313
 }
-[e :U 428 ]
+[e :U 429 ]
 [; ;IR.c: 313: }
 [; ;IR.c: 314: (LATC |= 0x04);
 "314
@@ -5281,43 +5310,43 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _found -> -> 1 `i `uc ]
 "317
 }
-[e :U 427 ]
+[e :U 428 ]
 [; ;IR.c: 317: }
 [; ;IR.c: 319: for(j=0; j < 3; j++)
 "319
 {
 [e = _j -> -> 0 `i `uc ]
-[e $ < -> _j `i -> 3 `i 429  ]
-[e $U 430  ]
+[e $ < -> _j `i -> 3 `i 430  ]
+[e $U 431  ]
 "320
-[e :U 429 ]
+[e :U 430 ]
 [; ;IR.c: 320: {
 {
-[; ;IR.c: 321: for(i=0; i < 15; i++)
+[; ;IR.c: 321: for(i=0; i < 10; i++)
 "321
 {
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 15 `i 432  ]
-[e $U 433  ]
+[e $ < -> _i `i -> 10 `i 433  ]
+[e $U 434  ]
 "322
-[e :U 432 ]
+[e :U 433 ]
 [; ;IR.c: 322: {
 {
-[; ;IR.c: 324: if(IRaddress == Global.RemoteButtonRF[i][j][0])
+[; ;IR.c: 324: if(IRaddress == Global2.RemoteButtonRF[i][j][0])
 "324
-[e $ ! == -> _IRaddress `i -> *U + &U *U + &U *U + &U . _Global 4 * -> _i `ux -> * * -> # *U &U *U &U . _Global 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global 4 * -> _i `ux -> * * -> # *U &U *U &U . _Global 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U *U + &U . _Global 4 * -> _i `ux -> * * -> # *U &U *U &U . _Global 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global 4 * -> _i `ux -> * * -> # *U &U *U &U . _Global 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux `ui `ux `i 435  ]
+[e $ ! == -> _IRaddress `i -> *U + &U *U + &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux `ui `ux `i 436  ]
 [; ;IR.c: 325: {
 "325
 {
-[; ;IR.c: 326: if(IRcommand == Global.RemoteButtonRF[i][j][1])
+[; ;IR.c: 326: if(IRcommand == Global2.RemoteButtonRF[i][j][1])
 "326
-[e $ ! == -> _IRcommand `i -> *U + &U *U + &U *U + &U . _Global 4 * -> _i `ux -> * * -> # *U &U *U &U . _Global 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global 4 * -> _i `ux -> * * -> # *U &U *U &U . _Global 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U *U + &U . _Global 4 * -> _i `ux -> * * -> # *U &U *U &U . _Global 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global 4 * -> _i `ux -> * * -> # *U &U *U &U . _Global 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux `ui `ux `i 436  ]
+[e $ ! == -> _IRcommand `i -> *U + &U *U + &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux `ui `ux `i 437  ]
 [; ;IR.c: 327: {
 "327
 {
 [; ;IR.c: 328: if(*Code == 2)
 "328
-[e $ ! == -> *U _Code `i -> 2 `i 437  ]
+[e $ ! == -> *U _Code `i -> 2 `i 438  ]
 [; ;IR.c: 329: {
 "329
 {
@@ -5326,7 +5355,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e =| _LATC -> -> 2 `i `uc ]
 "331
 }
-[e :U 437 ]
+[e :U 438 ]
 [; ;IR.c: 331: }
 [; ;IR.c: 332: SendRF_Channel(i);
 "332
@@ -5336,24 +5365,24 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _found -> -> 1 `i `uc ]
 "334
 }
-[e :U 436 ]
+[e :U 437 ]
 "335
 }
-[e :U 435 ]
+[e :U 436 ]
 "336
 }
 "321
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 15 `i 432  ]
-[e :U 433 ]
+[e $ < -> _i `i -> 10 `i 433  ]
+[e :U 434 ]
 "336
 }
 "337
 }
 "319
 [e ++ _j -> -> 1 `i `uc ]
-[e $ < -> _j `i -> 3 `i 429  ]
-[e :U 430 ]
+[e $ < -> _j `i -> 3 `i 430  ]
+[e :U 431 ]
 "337
 }
 [; ;IR.c: 334: }
@@ -5362,7 +5391,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;IR.c: 337: }
 [; ;IR.c: 339: if(found == 0)
 "339
-[e $ ! == -> _found `i -> 0 `i 438  ]
+[e $ ! == -> _found `i -> 0 `i 439  ]
 [; ;IR.c: 340: {
 "340
 {
@@ -5371,13 +5400,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e =| _LATC -> -> 2 `i `uc ]
 "342
 }
-[e :U 438 ]
+[e :U 439 ]
 "343
 }
-[e :U 426 ]
+[e :U 427 ]
 "344
 }
-[e :U 416 ]
+[e :U 417 ]
 [; ;IR.c: 342: }
 [; ;IR.c: 343: }
 [; ;IR.c: 344: }
@@ -5398,7 +5427,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . _INTCONbits 0 3 -> -> 1 `i `uc ]
 [; ;IR.c: 350: }
 "350
-[e :UE 415 ]
+[e :UE 416 ]
 }
 "356
 [v _SendNEC_bytes `(uc ~T0 @X0 1 ef2`ul`uc ]
@@ -5414,23 +5443,23 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;IR.c: 385: if(Sent)
 "385
-[e $ ! != -> _Sent `i -> -> -> 0 `i `Vuc `i 440  ]
+[e $ ! != -> _Sent `i -> -> -> 0 `i `Vuc `i 441  ]
 [; ;IR.c: 386: {
 "386
 {
 [; ;IR.c: 388: if(!code)
 "388
-[e $ ! ! != _code -> -> 0 `i `ul 441  ]
+[e $ ! ! != _code -> -> 0 `i `ul 442  ]
 [; ;IR.c: 389: {
 "389
 {
 [; ;IR.c: 390: return 0;
 "390
 [e ) -> -> 0 `i `uc ]
-[e $UE 439  ]
+[e $UE 440  ]
 "391
 }
-[e :U 441 ]
+[e :U 442 ]
 [; ;IR.c: 391: }
 [; ;IR.c: 392: RF_IR = 66;
 "392
@@ -5452,7 +5481,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _IRsendCode ( _Reverse_4Byte (1 _code ]
 [; ;IR.c: 398: if(RepeatAmount)
 "398
-[e $ ! != -> _RepeatAmount `i -> -> -> 0 `i `uc `i 442  ]
+[e $ ! != -> _RepeatAmount `i -> -> -> 0 `i `uc `i 443  ]
 [; ;IR.c: 399: {
 "399
 {
@@ -5461,7 +5490,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _IRrepeatflag -> -> 1 `i `uc ]
 "401
 }
-[e :U 442 ]
+[e :U 443 ]
 [; ;IR.c: 401: }
 [; ;IR.c: 402: IRrepeatAmount = RepeatAmount;
 "402
@@ -5484,18 +5513,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;IR.c: 408: return 1;
 "408
 [e ) -> -> 1 `i `uc ]
-[e $UE 439  ]
+[e $UE 440  ]
 "409
 }
-[e :U 440 ]
+[e :U 441 ]
 [; ;IR.c: 409: }
 [; ;IR.c: 410: return 2;
 "410
 [e ) -> -> 2 `i `uc ]
-[e $UE 439  ]
+[e $UE 440  ]
 [; ;IR.c: 411: }
 "411
-[e :UE 439 ]
+[e :UE 440 ]
 }
 "419
 [v _SendNEC_wait `(v ~T0 @X0 1 ef2`ul`uc ]
@@ -5515,11 +5544,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _toggle -> -> 0 `i `uc ]
 [; ;IR.c: 422: while(CheckReceivingIR());
 "422
-[e $U 444  ]
-[e :U 445 ]
-[e :U 444 ]
-[e $ != -> ( _CheckReceivingIR ..  `i -> -> -> 0 `i `uc `i 445  ]
+[e $U 445  ]
 [e :U 446 ]
+[e :U 445 ]
+[e $ != -> ( _CheckReceivingIR ..  `i -> -> -> 0 `i `uc `i 446  ]
+[e :U 447 ]
 [; ;IR.c: 424: (IOCBbits.IOCB4 = 0);
 "424
 [e = . . _IOCBbits 0 1 -> -> 0 `i `uc ]
@@ -5534,20 +5563,20 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _SendNEC_bytes (2 , _code _RepeatAmount ]
 [; ;IR.c: 429: while(!Sent)
 "429
-[e $U 447  ]
-[e :U 448 ]
+[e $U 448  ]
+[e :U 449 ]
 [; ;IR.c: 430: {
 "430
 {
 [; ;IR.c: 431: if(IRmod)
 "431
-[e $ ! != -> _IRmod `i -> -> -> 0 `i `Vuc `i 450  ]
+[e $ ! != -> _IRmod `i -> -> -> 0 `i `Vuc `i 451  ]
 [; ;IR.c: 432: {
 "432
 {
 [; ;IR.c: 434: if(toggle < 9)
 "434
-[e $ ! < -> _toggle `i -> 9 `i 451  ]
+[e $ ! < -> _toggle `i -> 9 `i 452  ]
 [; ;IR.c: 435: {
 "435
 {
@@ -5557,11 +5586,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 "437
 }
 [; ;IR.c: 437: }
-[e $U 452  ]
+[e $U 453  ]
 "438
-[e :U 451 ]
+[e :U 452 ]
 [; ;IR.c: 438: else if(toggle < 17)
-[e $ ! < -> _toggle `i -> 17 `i 453  ]
+[e $ ! < -> _toggle `i -> 17 `i 454  ]
 [; ;IR.c: 439: {
 "439
 {
@@ -5571,9 +5600,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "441
 }
 [; ;IR.c: 441: }
-[e $U 454  ]
+[e $U 455  ]
 "442
-[e :U 453 ]
+[e :U 454 ]
 [; ;IR.c: 442: else
 [; ;IR.c: 443: {
 "443
@@ -5583,8 +5612,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _toggle -> -> 0 `i `uc ]
 "445
 }
-[e :U 454 ]
-[e :U 452 ]
+[e :U 455 ]
+[e :U 453 ]
 [; ;IR.c: 445: }
 [; ;IR.c: 446: toggle++;
 "446
@@ -5592,9 +5621,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "447
 }
 [; ;IR.c: 447: }
-[e $U 455  ]
+[e $U 456  ]
 "448
-[e :U 450 ]
+[e :U 451 ]
 [; ;IR.c: 448: else
 [; ;IR.c: 449: {
 "449
@@ -5607,18 +5636,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _toggle -> -> 0 `i `uc ]
 "452
 }
-[e :U 455 ]
+[e :U 456 ]
 "453
 }
-[e :U 447 ]
+[e :U 448 ]
 "429
-[e $ ! != -> _Sent `i -> -> -> 0 `i `Vuc `i 448  ]
-[e :U 449 ]
+[e $ ! != -> _Sent `i -> -> -> 0 `i `Vuc `i 449  ]
+[e :U 450 ]
 [; ;IR.c: 452: }
 [; ;IR.c: 453: }
 [; ;IR.c: 455: if(IRbitPosition)
 "455
-[e $ ! != -> _IRbitPosition `i -> -> -> 0 `i `Vuc `i 456  ]
+[e $ ! != -> _IRbitPosition `i -> -> -> 0 `i `Vuc `i 457  ]
 [; ;IR.c: 456: {
 "456
 {
@@ -5627,7 +5656,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( ___nop ..  ]
 "459
 }
-[e :U 456 ]
+[e :U 457 ]
 [; ;IR.c: 459: }
 [; ;IR.c: 461: INTCONbits.PEIE = 1;
 "461
@@ -5649,7 +5678,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . _INTCONbits 0 3 -> -> 1 `i `uc ]
 [; ;IR.c: 467: }
 "467
-[e :UE 443 ]
+[e :UE 444 ]
 }
 "475
 [v _CalibrateIR `(v ~T0 @X0 1 ef ]
@@ -5677,13 +5706,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . _INTCONbits 1 6 -> -> 0 `i `uc ]
 [; ;IR.c: 483: while(1)
 "483
-[e :U 459 ]
+[e :U 460 ]
 [; ;IR.c: 484: {
 "484
 {
 [; ;IR.c: 486: if(toggle < 9)
 "486
-[e $ ! < -> _toggle `i -> 9 `i 461  ]
+[e $ ! < -> _toggle `i -> 9 `i 462  ]
 [; ;IR.c: 487: {
 "487
 {
@@ -5693,11 +5722,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 "489
 }
 [; ;IR.c: 489: }
-[e $U 462  ]
+[e $U 463  ]
 "490
-[e :U 461 ]
+[e :U 462 ]
 [; ;IR.c: 490: else if(toggle < 17)
-[e $ ! < -> _toggle `i -> 17 `i 463  ]
+[e $ ! < -> _toggle `i -> 17 `i 464  ]
 [; ;IR.c: 491: {
 "491
 {
@@ -5707,9 +5736,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "493
 }
 [; ;IR.c: 493: }
-[e $U 464  ]
+[e $U 465  ]
 "494
-[e :U 463 ]
+[e :U 464 ]
 [; ;IR.c: 494: else
 [; ;IR.c: 495: {
 "495
@@ -5719,22 +5748,22 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _toggle -> -> 0 `i `uc ]
 "497
 }
-[e :U 464 ]
-[e :U 462 ]
+[e :U 465 ]
+[e :U 463 ]
 [; ;IR.c: 497: }
 [; ;IR.c: 498: toggle++;
 "498
 [e ++ _toggle -> -> 1 `i `uc ]
 "499
 }
-[e :U 458 ]
+[e :U 459 ]
 "483
-[e $U 459  ]
-[e :U 460 ]
+[e $U 460  ]
+[e :U 461 ]
 [; ;IR.c: 499: }
 [; ;IR.c: 500: }
 "500
-[e :UE 457 ]
+[e :UE 458 ]
 }
 "508
 [v _CheckReceivingIR `(uc ~T0 @X0 1 ef ]
@@ -5746,25 +5775,25 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;IR.c: 510: if(ReceivingIR == 13)
 "510
-[e $ ! == -> _ReceivingIR `i -> 13 `i 466  ]
+[e $ ! == -> _ReceivingIR `i -> 13 `i 467  ]
 [; ;IR.c: 511: {
 "511
 {
 [; ;IR.c: 512: return 0;
 "512
 [e ) -> -> 0 `i `uc ]
-[e $UE 465  ]
+[e $UE 466  ]
 "513
 }
-[e :U 466 ]
+[e :U 467 ]
 [; ;IR.c: 513: }
 [; ;IR.c: 514: return 1;
 "514
 [e ) -> -> 1 `i `uc ]
-[e $UE 465  ]
+[e $UE 466  ]
 [; ;IR.c: 515: }
 "515
-[e :UE 465 ]
+[e :UE 466 ]
 }
 "522
 [v _EncodeNEC `(ul ~T0 @X0 1 ef2`uc`uc ]
@@ -5805,10 +5834,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;IR.c: 540: return ((temp1 << 24) + (temp2 << 16) + (temp3 << 8) + temp4);
 "540
 [e ) + + + << _temp1 -> 24 `i << _temp2 -> 16 `i << _temp3 -> 8 `i _temp4 ]
-[e $UE 467  ]
+[e $UE 468  ]
 [; ;IR.c: 541: }
 "541
-[e :UE 467 ]
+[e :UE 468 ]
 }
 "548
 [v _DecodeNEC `(uc ~T0 @X0 1 ef3`ul`*uc`*uc ]
@@ -5840,17 +5869,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _temp2 ( _Reverse_Byte (1 -> >> & _Nec -> -> 65280 `ui `ul -> 8 `i `uc ]
 [; ;IR.c: 556: if(temp1 != temp2)
 "556
-[e $ ! != -> _temp1 `i -> _temp2 `i 469  ]
+[e $ ! != -> _temp1 `i -> _temp2 `i 470  ]
 [; ;IR.c: 557: {
 "557
 {
 [; ;IR.c: 559: return 0;
 "559
 [e ) -> -> 0 `i `uc ]
-[e $UE 468  ]
+[e $UE 469  ]
 "560
 }
-[e :U 469 ]
+[e :U 470 ]
 [; ;IR.c: 560: }
 [; ;IR.c: 561: temp1 = ~Reverse_Byte((unsigned char) ((Nec & 0x00FF0000) >> 16));
 "561
@@ -5860,17 +5889,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _temp3 ( _Reverse_Byte (1 -> >> & _Nec -> -16777216 `ul -> 24 `i `uc ]
 [; ;IR.c: 563: if(temp1 != temp3)
 "563
-[e $ ! != -> _temp1 `i -> _temp3 `i 470  ]
+[e $ ! != -> _temp1 `i -> _temp3 `i 471  ]
 [; ;IR.c: 564: {
 "564
 {
 [; ;IR.c: 566: return 0;
 "566
 [e ) -> -> 0 `i `uc ]
-[e $UE 468  ]
+[e $UE 469  ]
 "567
 }
-[e :U 470 ]
+[e :U 471 ]
 [; ;IR.c: 567: }
 [; ;IR.c: 568: *command = temp2;
 "568
@@ -5881,8 +5910,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;IR.c: 570: return 1;
 "570
 [e ) -> -> 1 `i `uc ]
-[e $UE 468  ]
+[e $UE 469  ]
 [; ;IR.c: 571: }
 "571
-[e :UE 468 ]
+[e :UE 469 ]
 }

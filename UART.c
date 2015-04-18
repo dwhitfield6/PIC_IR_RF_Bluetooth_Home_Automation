@@ -46,10 +46,10 @@
 /******************************************************************************/
 /* User Global Variable Declaration                                           */
 /******************************************************************************/
-unsigned char ReceivedString[RXbufsize];
-unsigned char ReceivedStringPos = 0;
-unsigned char CommandString[RXCommandsize];
-unsigned char CommandStringPos = 0;
+volatile unsigned char ReceivedString[RXbufsize];
+volatile unsigned char ReceivedStringPos = 0;
+volatile unsigned char CommandString[RXCommandsize];
+volatile unsigned char CommandStringPos = 0;
 volatile unsigned char NewReceivedString = FALSE;
 
 /******************************************************************************/
@@ -103,7 +103,7 @@ void InitUART(unsigned long Baud)
     OpenUSART(config, spbrg);
 
     PIR1bits.RCIF   = 0;   // reset RX pin flag
-    PIE1bits.RCIE   = 1;   // enable RX interrupts
+    PIE1bits.RCIE   = FALSE;   // enable RX interrupts
     INTCONbits.PEIE = 1; //Enable pheripheral interrupt
 }
 
@@ -187,11 +187,32 @@ void OpenUSART( unsigned char config, unsigned int spbrg)
 /******************************************************************************/
 void UARTchar(unsigned char data)
 {
+    RCSTAbits.CREN = 0;
     if(data != 0)
     {
         TXREG = data;      // Write the data byte to the USART
+        delayUS(TimeBetweenChars);
         while(!TXSTAbits.TRMT); //Wait for previous character to be output
     }
+    RCSTAbits.CREN = 1;
+}
+
+/******************************************************************************/
+/* UARTchar_CONST
+ *
+ * The function sends one character over the UART.
+/******************************************************************************/
+void UARTchar_CONST(const unsigned char data)
+{
+    unsigned char temp = data;
+    RCSTAbits.CREN = 0;
+    if(temp != 0)
+    {
+        TXREG = temp;      // Write the data byte to the USART
+        delayUS(TimeBetweenChars);
+        while(!TXSTAbits.TRMT); //Wait for previous character to be output
+    }
+    RCSTAbits.CREN = 1;
 }
 
 /******************************************************************************/
@@ -209,12 +230,28 @@ void UARTstring(unsigned char *data)
 }
 
 /******************************************************************************/
+/* UARTstring_CONST
+ *
+ * The function sends a group of characters over the UART.
+/******************************************************************************/
+void UARTstring_CONST(const unsigned char *data)
+{
+    while(*data != 0)
+    {
+        UARTchar_CONST(*data); // Transmit a byte
+        *data++;
+    }
+}
+
+/******************************************************************************/
 /* ClearUSART
  *
  * The function clears the UART and returns the data read.
 /******************************************************************************/
 void ClearUSART(void)
 {
+    RCSTAbits.CREN = 0;
+    RCSTAbits.CREN = 1;
     ReadUSART();
     ReadUSART();
     ReadUSART();
@@ -266,15 +303,32 @@ void UARTstringCRLN(unsigned char *data)
         UARTchar(*data); // Transmit a byte
         *data++;
     }
-    UARTstring(CRLN);
+    UARTstring_CONST(CRLN);
 }
+
+/******************************************************************************/
+/* UARTstringCRLN_CONST
+ *
+ * The function sends a group of characters over the UART. There is a carriage
+ *  retun and line feed after the string.
+/******************************************************************************/
+void UARTstringCRLN_CONST(const unsigned char *data)
+{
+    while(*data != 0)
+    {
+        UARTchar_CONST(*data); // Transmit a byte
+        *data++;
+    }
+    UARTstring_CONST(CRLN);
+}
+
 /******************************************************************************/
 /* UARTcommandMenu
  *
  * The function sends the Command string followed by a bunch of dashes followed
  *  by the description string used for the command menu.
 /******************************************************************************/
-void UARTcommandMenu(unsigned char *Command, unsigned char *Desc)
+void UARTcommandMenu(const unsigned char *Command,const unsigned char *Desc)
 {
     unsigned char place = 0;
     unsigned char i;
@@ -296,7 +350,7 @@ void UARTcommandMenu(unsigned char *Command, unsigned char *Desc)
         *Desc++;
         place++;
     }
-    UARTstring(CRLN);
+    UARTstring_CONST(CRLN);
 }
 /******************************************************************************/
 /* EraseScreen

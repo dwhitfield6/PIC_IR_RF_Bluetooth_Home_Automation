@@ -55,6 +55,7 @@
 #define DOUBLECOMMA 2
 #define NOVALUE     3
 #define TOOBIG      4
+#define NEGATIVE    5
 #define NoError     0
 
 
@@ -67,10 +68,10 @@ void cleanBuffer(unsigned char* data, int count);
 void cleanBuffer16bit(unsigned int* data, int count);
 double Round(double input);
 void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
-unsigned char StringMatch(unsigned char* This,const unsigned char* That);
-unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
-unsigned char StringContains(unsigned char* This, const unsigned char* That);
-unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
+unsigned char StringMatch(const unsigned char* This, const unsigned char* That);
+unsigned char StringMatchCaseInsensitive(const unsigned char* This, const unsigned char* That);
+unsigned char StringContains(const unsigned char* This, const unsigned char* That);
+unsigned char StringContainsCaseInsensitive(const unsigned char* This, const unsigned char* That);
 void CalibrateDelay(void);
 void lowercaseChar(unsigned char* Input);
 void lowercaseString(unsigned char* Input);
@@ -78,8 +79,9 @@ void delayNOP(unsigned char NOPs);
 unsigned char Reverse_Byte(unsigned char This);
 unsigned int Reverse_2Byte(unsigned int This);
 unsigned long Reverse_4Byte(unsigned long This);
-unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
+unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, long* result);
 unsigned char StringAddEqual(unsigned char* Input);
 unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
+unsigned char GetNumberUnsigned(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
 
 #endif	/* MISC_H */

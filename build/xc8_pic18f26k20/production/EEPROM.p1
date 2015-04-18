@@ -1,10 +1,13 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F4011 `uc ~T0 @X0 -> 2 `i t ]
-[v F4015 `uc ~T0 @X0 -> 2 `i t ]
-[v F4014 `F4015 ~T0 @X0 -> 3 `i t ]
-"101 EEPROM.h
-[s S379 `uc 1 `ul 1 `F4011 -> 20 `i `uc 1 `F4014 -> 15 `i ]
-[n S379 EEdata BlueToothFlag SWNECcode RemoteButtonNEC EEPROMinitFlag RemoteButtonRF ]
+[v F4010 `uc ~T0 @X0 -> 2 `i t ]
+"110 EEPROM.h
+[s S379 `uc 1 `ul 1 `F4010 -> 12 `i `uc 1 ]
+[n S379 EEdata BlueToothFlag SWNECcode RemoteButtonNEC EEPROMinitFlag ]
+[v F4016 `uc ~T0 @X0 -> 2 `i t ]
+[v F4015 `F4016 ~T0 @X0 -> 3 `i t ]
+"118
+[s S380 `F4015 -> 10 `i `ul 1 ]
+[n S380 EEdata2 RemoteButtonRF SerialNumber ]
 "6424 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [s S335 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S335 . RBIF INT0IF TMR0IF RBIE INT0IE TMR0IE PEIE_GIEL GIE_GIEH ]
@@ -47,13 +50,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _EEDATA `Vuc ~T0 @X0 0 e@4008 ]
 "3076
 [v _EECON2 `Vuc ~T0 @X0 0 e@4007 ]
-"142 EEPROM.h
+"157 EEPROM.h
 [v _GetMemoryChar `(ul ~T0 @X0 0 ef1`uc ]
-"138
+"153
 [v _GetMemoryLong `(ul ~T0 @X0 0 ef1`uc ]
-"143
+"158
 [v _SetMemoryChar `(uc ~T0 @X0 0 ef2`uc`uc ]
-"139
+"154
 [v _SetMemoryLong `(uc ~T0 @X0 0 ef2`ul`uc ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -3710,47 +3713,63 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [; ;user.h: 52: unsigned char ProductName[50] = {"Home Automation"};
-"60
-[v _SN `ul ~T0 @X0 1 e ]
-[i _SN
--> -> -> 1 `i `l `ul
-]
-[; ;user.h: 60: unsigned long SN = 1;
-[; ;user.h: 288: void InitApp(void);
-[; ;user.h: 289: void Init_System (void);
-[; ;EEPROM.h: 101: typedef struct EEdata
-[; ;EEPROM.h: 102: {
-[; ;EEPROM.h: 103: unsigned char BlueToothFlag;
-[; ;EEPROM.h: 104: unsigned long SWNECcode;
-[; ;EEPROM.h: 105: unsigned char RemoteButtonNEC[20][2];
-[; ;EEPROM.h: 106: unsigned char EEPROMinitFlag;
-[; ;EEPROM.h: 120: unsigned char RemoteButtonRF[15][3][2];
-[; ;EEPROM.h: 122: }GBLdata;
-"127 EEPROM.h
-[v _Global `S379 ~T0 @X0 1 e ]
-[i _Global
+[; ;user.h: 280: void InitApp(void);
+[; ;user.h: 281: void Init_System (void);
+[; ;EEPROM.h: 110: typedef struct EEdata
+[; ;EEPROM.h: 111: {
+[; ;EEPROM.h: 112: unsigned char BlueToothFlag;
+[; ;EEPROM.h: 113: unsigned long SWNECcode;
+[; ;EEPROM.h: 114: unsigned char RemoteButtonNEC[12][2];
+[; ;EEPROM.h: 115: unsigned char EEPROMinitFlag;
+[; ;EEPROM.h: 116: }GBLdata1;
+[; ;EEPROM.h: 118: typedef struct EEdata2
+[; ;EEPROM.h: 119: {
+[; ;EEPROM.h: 132: unsigned char RemoteButtonRF[10][3][2];
+[; ;EEPROM.h: 133: unsigned long SerialNumber;
+[; ;EEPROM.h: 134: }GBLdata2;
+"139 EEPROM.h
+[v _Global1 `S379 ~T0 @X0 1 e ]
+[i _Global1
 :U ..
 :U ..
 -> -> 0 `i `uc
 ..
 ..
 ]
-[; ;EEPROM.h: 127: GBLdata Global = 0;
-[; ;EEPROM.h: 133: unsigned int ReadEEPROM_1Byte(unsigned int address);
-[; ;EEPROM.h: 134: void EEPROM_UNLOCK(void);
-[; ;EEPROM.h: 135: void WriteEEPROM_1Byte(unsigned int address, unsigned char data);
-[; ;EEPROM.h: 136: void GetEEPROM(GBLdata *Temp);
-[; ;EEPROM.h: 137: unsigned long SetEEPROM(GBLdata Temp,unsigned long burn);
-[; ;EEPROM.h: 138: unsigned long GetMemoryLong(unsigned char AddressFirst);
-[; ;EEPROM.h: 139: unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst);
-[; ;EEPROM.h: 140: unsigned long GetMemoryInt(unsigned char AddressFirst);
-[; ;EEPROM.h: 141: unsigned char SetMemoryInt(unsigned int Data, unsigned char AddressFirst);
-[; ;EEPROM.h: 142: unsigned long GetMemoryChar(unsigned char AddressFirst);
-[; ;EEPROM.h: 143: unsigned char SetMemoryChar(unsigned char Data, unsigned char AddressFirst);
-[; ;EEPROM.h: 144: unsigned char SyncGlobalToEEPROM(void);
-[; ;EEPROM.h: 145: void SyncEEPROMToGlobal(void);
-[; ;EEPROM.h: 146: void SetEEPROMdefault(void);
-[; ;EEPROM.h: 147: unsigned char EEPROMinitialized(void);
+[; ;EEPROM.h: 139: GBLdata1 Global1 = 0;
+"140
+[v _Global2 `S380 ~T0 @X0 1 e ]
+[i _Global2
+:U ..
+:U ..
+:U ..
+:U ..
+:U ..
+-> -> 0 `i `uc
+..
+..
+..
+..
+..
+]
+[; ;EEPROM.h: 140: GBLdata2 Global2 = 0;
+[; ;EEPROM.h: 146: unsigned int ReadEEPROM_1Byte(unsigned int address);
+[; ;EEPROM.h: 147: void EEPROM_UNLOCK(void);
+[; ;EEPROM.h: 148: void WriteEEPROM_1Byte(unsigned int address, unsigned char data);
+[; ;EEPROM.h: 149: void GetEEPROM1(GBLdata1 *Temp);
+[; ;EEPROM.h: 150: unsigned long SetEEPROM1(GBLdata1 Temp,unsigned long burn);
+[; ;EEPROM.h: 151: void GetEEPROM2(GBLdata2 *Temp);
+[; ;EEPROM.h: 152: unsigned long SetEEPROM2(GBLdata2 Temp,unsigned long burn);
+[; ;EEPROM.h: 153: unsigned long GetMemoryLong(unsigned char AddressFirst);
+[; ;EEPROM.h: 154: unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst);
+[; ;EEPROM.h: 155: unsigned long GetMemoryInt(unsigned char AddressFirst);
+[; ;EEPROM.h: 156: unsigned char SetMemoryInt(unsigned int Data, unsigned char AddressFirst);
+[; ;EEPROM.h: 157: unsigned long GetMemoryChar(unsigned char AddressFirst);
+[; ;EEPROM.h: 158: unsigned char SetMemoryChar(unsigned char Data, unsigned char AddressFirst);
+[; ;EEPROM.h: 159: unsigned char SyncGlobalToEEPROM(void);
+[; ;EEPROM.h: 160: void SyncEEPROMToGlobal(void);
+[; ;EEPROM.h: 161: void SetEEPROMdefault(void);
+[; ;EEPROM.h: 162: unsigned char EEPROMinitialized(void);
 [; ;system.h: 57: void ConfigureOscillator(void);
 "128 RF.h
 [v _Conf1_Channels `Cuc ~T0 @X0 -> 0 `x e ]
@@ -4409,12 +4428,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;RF.h: 199: void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
 [; ;RF.h: 200: void SendRF_Channel(unsigned char channel);
 [; ;RF.h: 201: unsigned char GetRFstatus(void);
-[; ;UART.h: 116: extern unsigned char ReceivedString[255];
-[; ;UART.h: 117: extern unsigned char ReceivedStringPos;
-[; ;UART.h: 118: extern unsigned char CommandString[255];
-[; ;UART.h: 119: extern unsigned char CommandStringPos;
-[; ;UART.h: 120: extern volatile unsigned char NewReceivedString;
-"121 UART.h
+[; ;UART.h: 124: extern volatile unsigned char ReceivedString[100];
+[; ;UART.h: 125: extern volatile unsigned char ReceivedStringPos;
+[; ;UART.h: 126: extern volatile unsigned char CommandString[100];
+[; ;UART.h: 127: extern volatile unsigned char CommandStringPos;
+[; ;UART.h: 128: extern volatile unsigned char NewReceivedString;
+"129 UART.h
 [v _SYNTAX_ERR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _SYNTAX_ERR
 :U ..
@@ -4434,8 +4453,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;UART.h: 121: const unsigned char SYNTAX_ERR[] = "Error: Syntax";
-"122
+[; ;UART.h: 129: const unsigned char SYNTAX_ERR[] = "Error: Syntax";
+"130
 [v _CRLN `Cuc ~T0 @X0 -> 0 `x e ]
 [i _CRLN
 :U ..
@@ -4444,18 +4463,27 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;UART.h: 122: const unsigned char CRLN[] = "\r\n";
-[; ;UART.h: 127: void Local_CloseUSART(void );
-[; ;UART.h: 128: void InitUART(unsigned long Baud);
-[; ;UART.h: 129: void OpenUSART( unsigned char config, unsigned int spbrg);
-[; ;UART.h: 130: void UARTchar(unsigned char data);
-[; ;UART.h: 131: void UARTstring(unsigned char *data);
-[; ;UART.h: 132: unsigned char ReadUSART(void);
-[; ;UART.h: 133: void UART_send_break(void);
-[; ;UART.h: 134: void UARTstringCRLN(unsigned char *data);
-[; ;UART.h: 135: void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
-[; ;UART.h: 136: void EraseScreen(unsigned char characters);
-[; ;UART.h: 137: void ClearUSART(void);
+[; ;UART.h: 130: const unsigned char CRLN[] = "\r\n";
+"131
+[v _BufferOverflow `uc ~T0 @X0 1 e ]
+[i _BufferOverflow
+-> -> 0 `i `uc
+]
+[; ;UART.h: 131: unsigned char BufferOverflow = 0;
+[; ;UART.h: 136: void Local_CloseUSART(void );
+[; ;UART.h: 137: void InitUART(unsigned long Baud);
+[; ;UART.h: 138: void OpenUSART( unsigned char config, unsigned int spbrg);
+[; ;UART.h: 139: void UARTchar(unsigned char data);
+[; ;UART.h: 140: void UARTchar_CONST(const unsigned char data);
+[; ;UART.h: 141: void UARTstring(unsigned char *data);
+[; ;UART.h: 142: void UARTstring_CONST(const unsigned char *data);
+[; ;UART.h: 143: unsigned char ReadUSART(void);
+[; ;UART.h: 144: void UART_send_break(void);
+[; ;UART.h: 145: void UARTstringCRLN(unsigned char *data);
+[; ;UART.h: 146: void UARTstringCRLN_CONST(const unsigned char *data);
+[; ;UART.h: 147: void UARTcommandMenu(const unsigned char *Command,const unsigned char *Desc);
+[; ;UART.h: 148: void EraseScreen(unsigned char characters);
+[; ;UART.h: 149: void ClearUSART(void);
 "55 EEPROM.c
 [v _ReadEEPROM_1Byte `(ui ~T0 @X0 1 ef1`ui ]
 "56
@@ -4501,11 +4529,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . _EECON1bits 0 0 -> -> 1 `i `uc ]
 [; ;EEPROM.c: 67: while(EECON1bits.RD);
 "67
-[e $U 381  ]
-[e :U 382 ]
-[e :U 381 ]
-[e $ != -> . . _EECON1bits 0 0 `i -> -> -> 0 `i `Vuc `i 382  ]
+[e $U 382  ]
 [e :U 383 ]
+[e :U 382 ]
+[e $ != -> . . _EECON1bits 0 0 `i -> -> -> 0 `i `Vuc `i 383  ]
+[e :U 384 ]
 [; ;EEPROM.c: 68: __nop();
 "68
 [e ( ___nop ..  ]
@@ -4514,37 +4542,37 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( ___nop ..  ]
 [; ;EEPROM.c: 70: if(GIEstatus)
 "70
-[e $ ! != -> _GIEstatus `i -> -> -> 0 `i `uc `i 384  ]
+[e $ ! != -> _GIEstatus `i -> -> -> 0 `i `uc `i 385  ]
 [; ;EEPROM.c: 71: {
 "71
 {
-[; ;EEPROM.c: 72: INTCONbits.GIE =1;
+[; ;EEPROM.c: 72: INTCONbits.GIE = 1;
 "72
 [e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
 "73
 }
-[e :U 384 ]
+[e :U 385 ]
 [; ;EEPROM.c: 73: }
 [; ;EEPROM.c: 74: if(PEIEstatus)
 "74
-[e $ ! != -> _PEIEstatus `i -> -> -> 0 `i `uc `i 385  ]
+[e $ ! != -> _PEIEstatus `i -> -> -> 0 `i `uc `i 386  ]
 [; ;EEPROM.c: 75: {
 "75
 {
-[; ;EEPROM.c: 76: PEIEstatus = INTCONbits.PEIE;
+[; ;EEPROM.c: 76: INTCONbits.PEIE = 1;
 "76
-[e = _PEIEstatus . . _INTCONbits 1 6 ]
+[e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
 "77
 }
-[e :U 385 ]
+[e :U 386 ]
 [; ;EEPROM.c: 77: }
 [; ;EEPROM.c: 78: return (EEDATA);
 "78
 [e ) -> _EEDATA `ui ]
-[e $UE 380  ]
+[e $UE 381  ]
 [; ;EEPROM.c: 79: }
 "79
-[e :UE 380 ]
+[e :UE 381 ]
 }
 "87
 [v _EEPROM_UNLOCK `(v ~T0 @X0 1 ef ]
@@ -4565,11 +4593,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . _EECON1bits 0 1 -> -> 1 `i `uc ]
 [; ;EEPROM.c: 92: while(EECON1bits.WR);
 "92
-[e $U 387  ]
-[e :U 388 ]
-[e :U 387 ]
-[e $ != -> . . _EECON1bits 0 1 `i -> -> -> 0 `i `Vuc `i 388  ]
+[e $U 388  ]
 [e :U 389 ]
+[e :U 388 ]
+[e $ != -> . . _EECON1bits 0 1 `i -> -> -> 0 `i `Vuc `i 389  ]
+[e :U 390 ]
 [; ;EEPROM.c: 93: __nop();
 "93
 [e ( ___nop ..  ]
@@ -4578,7 +4606,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( ___nop ..  ]
 [; ;EEPROM.c: 95: }
 "95
-[e :UE 386 ]
+[e :UE 387 ]
 }
 "102
 [v _WriteEEPROM_1Byte `(v ~T0 @X0 1 ef2`ui`uc ]
@@ -4635,51 +4663,51 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . _EECON1bits 0 1 -> -> 1 `i `uc ]
 [; ;EEPROM.c: 117: while(EECON1bits.WR);
 "117
-[e $U 391  ]
-[e :U 392 ]
-[e :U 391 ]
-[e $ != -> . . _EECON1bits 0 1 `i -> -> -> 0 `i `Vuc `i 392  ]
+[e $U 392  ]
 [e :U 393 ]
+[e :U 392 ]
+[e $ != -> . . _EECON1bits 0 1 `i -> -> -> 0 `i `Vuc `i 393  ]
+[e :U 394 ]
 [; ;EEPROM.c: 118: EECON1bits.WREN =0;
 "118
 [e = . . _EECON1bits 0 2 -> -> 0 `i `uc ]
 [; ;EEPROM.c: 119: if(GIEstatus)
 "119
-[e $ ! != -> _GIEstatus `i -> -> -> 0 `i `uc `i 394  ]
+[e $ ! != -> _GIEstatus `i -> -> -> 0 `i `uc `i 395  ]
 [; ;EEPROM.c: 120: {
 "120
 {
-[; ;EEPROM.c: 121: INTCONbits.GIE =1;
+[; ;EEPROM.c: 121: INTCONbits.GIE = 1;
 "121
 [e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
 "122
 }
-[e :U 394 ]
+[e :U 395 ]
 [; ;EEPROM.c: 122: }
 [; ;EEPROM.c: 123: if(PEIEstatus)
 "123
-[e $ ! != -> _PEIEstatus `i -> -> -> 0 `i `uc `i 395  ]
+[e $ ! != -> _PEIEstatus `i -> -> -> 0 `i `uc `i 396  ]
 [; ;EEPROM.c: 124: {
 "124
 {
-[; ;EEPROM.c: 125: PEIEstatus = INTCONbits.PEIE;
+[; ;EEPROM.c: 125: INTCONbits.PEIE = 1;
 "125
-[e = _PEIEstatus . . _INTCONbits 1 6 ]
+[e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
 "126
 }
-[e :U 395 ]
+[e :U 396 ]
 [; ;EEPROM.c: 126: }
 [; ;EEPROM.c: 127: }
 "127
-[e :UE 390 ]
+[e :UE 391 ]
 }
 "134
-[v _GetEEPROM `(v ~T0 @X0 1 ef1`*S379 ]
+[v _GetEEPROM1 `(v ~T0 @X0 1 ef1`*S379 ]
 "135
 {
-[; ;EEPROM.c: 134: void GetEEPROM(GBLdata *Temp)
+[; ;EEPROM.c: 134: void GetEEPROM1(GBLdata1 *Temp)
 [; ;EEPROM.c: 135: {
-[e :U _GetEEPROM ]
+[e :U _GetEEPROM1 ]
 "134
 [v _Temp `*S379 ~T0 @X0 1 r1 ]
 "135
@@ -4699,24 +4727,24 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;EEPROM.c: 140: Temp->SWNECcode = GetMemoryLong(1);
 "140
 [e = . *U _Temp 1 ( _GetMemoryLong (1 -> -> 1 `i `uc ]
-[; ;EEPROM.c: 141: for(i=0; i< 20; i++)
+[; ;EEPROM.c: 141: for(i=0; i< 12; i++)
 "141
 {
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 20 `i 397  ]
-[e $U 398  ]
+[e $ < -> _i `i -> 12 `i 398  ]
+[e $U 399  ]
 "142
-[e :U 397 ]
+[e :U 398 ]
 [; ;EEPROM.c: 142: {
 {
 [; ;EEPROM.c: 143: for(j=0; j < 2; j++)
 "143
 {
 [e = _j -> -> 0 `i `uc ]
-[e $ < -> _j `i -> 2 `i 400  ]
-[e $U 401  ]
+[e $ < -> _j `i -> 2 `i 401  ]
+[e $U 402  ]
 "144
-[e :U 400 ]
+[e :U 401 ]
 [; ;EEPROM.c: 144: {
 {
 [; ;EEPROM.c: 145: Temp->RemoteButtonNEC[i][j] = GetMemoryChar(Arrayspot++);
@@ -4726,957 +4754,1077 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 "143
 [e ++ _j -> -> 1 `i `uc ]
-[e $ < -> _j `i -> 2 `i 400  ]
-[e :U 401 ]
+[e $ < -> _j `i -> 2 `i 401  ]
+[e :U 402 ]
 "146
 }
 "147
 }
 "141
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 20 `i 397  ]
-[e :U 398 ]
+[e $ < -> _i `i -> 12 `i 398  ]
+[e :U 399 ]
 "147
 }
 [; ;EEPROM.c: 146: }
 [; ;EEPROM.c: 147: }
-[; ;EEPROM.c: 148: Temp->EEPROMinitFlag = GetMemoryChar((2*20 + 5));
+[; ;EEPROM.c: 148: Temp->EEPROMinitFlag = GetMemoryChar((2*12 + 5));
 "148
-[e = . *U _Temp 3 -> ( _GetMemoryChar (1 -> + * -> 2 `i -> 20 `i -> 5 `i `uc `uc ]
-[; ;EEPROM.c: 149: Arrayspot=(2*20 + 7);
+[e = . *U _Temp 3 -> ( _GetMemoryChar (1 -> + * -> 2 `i -> 12 `i -> 5 `i `uc `uc ]
+[; ;EEPROM.c: 149: }
 "149
-[e = _Arrayspot -> + * -> 2 `i -> 20 `i -> 7 `i `uc ]
-[; ;EEPROM.c: 150: for(i=0; i< 15; i++)
-"150
+[e :UE 397 ]
+}
+"156
+[v _GetEEPROM2 `(v ~T0 @X0 1 ef1`*S380 ]
+"157
+{
+[; ;EEPROM.c: 156: void GetEEPROM2(GBLdata2 *Temp)
+[; ;EEPROM.c: 157: {
+[e :U _GetEEPROM2 ]
+"156
+[v _Temp `*S380 ~T0 @X0 1 r1 ]
+"157
+[f ]
+"158
+[v _i `uc ~T0 @X0 1 a ]
+[v _j `uc ~T0 @X0 1 a ]
+[v _k `uc ~T0 @X0 1 a ]
+"159
+[v _Arrayspot `uc ~T0 @X0 1 a ]
+[; ;EEPROM.c: 158: unsigned char i,j,k;
+[; ;EEPROM.c: 159: unsigned char Arrayspot=(2*12 + 6);
+[e = _Arrayspot -> + * -> 2 `i -> 12 `i -> 6 `i `uc ]
+[; ;EEPROM.c: 161: for(i=0; i< 10; i++)
+"161
 {
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 15 `i 403  ]
-[e $U 404  ]
-"151
-[e :U 403 ]
-[; ;EEPROM.c: 151: {
+[e $ < -> _i `i -> 10 `i 405  ]
+[e $U 406  ]
+"162
+[e :U 405 ]
+[; ;EEPROM.c: 162: {
 {
-[; ;EEPROM.c: 152: for(j=0; j < 3; j++)
-"152
+[; ;EEPROM.c: 163: for(j=0; j < 3; j++)
+"163
 {
 [e = _j -> -> 0 `i `uc ]
-[e $ < -> _j `i -> 3 `i 406  ]
-[e $U 407  ]
-"153
-[e :U 406 ]
-[; ;EEPROM.c: 153: {
+[e $ < -> _j `i -> 3 `i 408  ]
+[e $U 409  ]
+"164
+[e :U 408 ]
+[; ;EEPROM.c: 164: {
 {
-[; ;EEPROM.c: 154: for(k=0; k < 2; k++)
-"154
+[; ;EEPROM.c: 165: for(k=0; k < 2; k++)
+"165
 {
 [e = _k -> -> 0 `i `uc ]
-[e $ < -> _k `i -> 2 `i 409  ]
-[e $U 410  ]
-"155
-[e :U 409 ]
-[; ;EEPROM.c: 155: {
+[e $ < -> _k `i -> 2 `i 411  ]
+[e $U 412  ]
+"166
+[e :U 411 ]
+[; ;EEPROM.c: 166: {
 {
-[; ;EEPROM.c: 156: Temp->RemoteButtonRF[i][j][k] = GetMemoryChar(Arrayspot++);
-"156
-[e = *U + &U *U + &U *U + &U . *U _Temp 4 * -> _i `ux -> * * -> # *U &U *U &U . *U _Temp 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . *U _Temp 4 * -> _i `ux -> * * -> # *U &U *U &U . *U _Temp 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux * -> _k `ux -> -> # *U &U *U + &U *U + &U . *U _Temp 4 * -> _i `ux -> * * -> # *U &U *U &U . *U _Temp 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . *U _Temp 4 * -> _i `ux -> * * -> # *U &U *U &U . *U _Temp 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux `ui `ux -> ( _GetMemoryChar (1 ++ _Arrayspot -> -> 1 `i `uc `uc ]
-"157
-}
-"154
-[e ++ _k -> -> 1 `i `uc ]
-[e $ < -> _k `i -> 2 `i 409  ]
-[e :U 410 ]
-"157
-}
-"158
-}
-"152
-[e ++ _j -> -> 1 `i `uc ]
-[e $ < -> _j `i -> 3 `i 406  ]
-[e :U 407 ]
-"158
-}
-"159
-}
-"150
-[e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 15 `i 403  ]
-[e :U 404 ]
-"159
-}
-[; ;EEPROM.c: 157: }
-[; ;EEPROM.c: 158: }
-[; ;EEPROM.c: 159: }
-[; ;EEPROM.c: 160: }
-"160
-[e :UE 396 ]
-}
+[; ;EEPROM.c: 167: Temp->RemoteButtonRF[i][j][k] = GetMemoryChar(Arrayspot++);
 "167
-[v _SetEEPROM `(ul ~T0 @X0 1 ef2`S379`ul ]
+[e = *U + &U *U + &U *U + &U . *U _Temp 0 * -> _i `ux -> * * -> # *U &U *U &U . *U _Temp 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . *U _Temp 0 * -> _i `ux -> * * -> # *U &U *U &U . *U _Temp 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux * -> _k `ux -> -> # *U &U *U + &U *U + &U . *U _Temp 0 * -> _i `ux -> * * -> # *U &U *U &U . *U _Temp 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . *U _Temp 0 * -> _i `ux -> * * -> # *U &U *U &U . *U _Temp 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux `ui `ux -> ( _GetMemoryChar (1 ++ _Arrayspot -> -> 1 `i `uc `uc ]
 "168
+}
+"165
+[e ++ _k -> -> 1 `i `uc ]
+[e $ < -> _k `i -> 2 `i 411  ]
+[e :U 412 ]
+"168
+}
+"169
+}
+"163
+[e ++ _j -> -> 1 `i `uc ]
+[e $ < -> _j `i -> 3 `i 408  ]
+[e :U 409 ]
+"169
+}
+"170
+}
+"161
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 10 `i 405  ]
+[e :U 406 ]
+"170
+}
+[; ;EEPROM.c: 168: }
+[; ;EEPROM.c: 169: }
+[; ;EEPROM.c: 170: }
+[; ;EEPROM.c: 171: Temp->SerialNumber = GetMemoryLong((2*12 + 2*3*10 + 6));
+"171
+[e = . *U _Temp 1 ( _GetMemoryLong (1 -> + + * -> 2 `i -> 12 `i * * -> 2 `i -> 3 `i -> 10 `i -> 6 `i `uc ]
+[; ;EEPROM.c: 172: }
+"172
+[e :UE 404 ]
+}
+"179
+[v _SetEEPROM1 `(ul ~T0 @X0 1 ef2`S379`ul ]
+"180
 {
-[; ;EEPROM.c: 167: unsigned long SetEEPROM(GBLdata Temp,unsigned long burn)
-[; ;EEPROM.c: 168: {
-[e :U _SetEEPROM ]
-"167
+[; ;EEPROM.c: 179: unsigned long SetEEPROM1(GBLdata1 Temp,unsigned long burn)
+[; ;EEPROM.c: 180: {
+[e :U _SetEEPROM1 ]
+"179
 [v _Temp `S379 ~T0 @X0 1 r1 ]
 [v _burn `ul ~T0 @X0 1 r2 ]
-"168
+"180
 [f ]
-"169
+"181
 [v _fail `ul ~T0 @X0 1 a ]
-[; ;EEPROM.c: 169: unsigned long fail = 0;
+[; ;EEPROM.c: 181: unsigned long fail = 0;
 [e = _fail -> -> -> 0 `i `l `ul ]
-"170
+"182
 [v _i `uc ~T0 @X0 1 a ]
 [v _j `uc ~T0 @X0 1 a ]
 [v _k `uc ~T0 @X0 1 a ]
 [v _temp `uc ~T0 @X0 1 a ]
-"171
-[v _Arrayspot `uc ~T0 @X0 1 a ]
-[; ;EEPROM.c: 170: unsigned char i,j,k,temp;
-[; ;EEPROM.c: 171: unsigned char Arrayspot=5;
-[e = _Arrayspot -> -> 5 `i `uc ]
-[; ;EEPROM.c: 173: if(burn & 0x00000001)
-"173
-[e $ ! != & _burn -> -> -> 1 `i `l `ul -> -> 0 `i `ul 413  ]
-[; ;EEPROM.c: 174: {
-"174
-{
-[; ;EEPROM.c: 175: if(!SetMemoryChar(Temp.BlueToothFlag,0))
-"175
-[e $ ! ! != -> ( _SetMemoryChar (2 , . _Temp 0 -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 414  ]
-[; ;EEPROM.c: 176: {
-"176
-{
-[; ;EEPROM.c: 178: fail |= 0x00000001;
-"178
-[e =| _fail -> -> -> 1 `i `l `ul ]
-"179
-}
-[e :U 414 ]
-"180
-}
-[e :U 413 ]
-[; ;EEPROM.c: 179: }
-[; ;EEPROM.c: 180: }
-[; ;EEPROM.c: 181: if(burn & 0x00000002)
-"181
-[e $ ! != & _burn -> -> -> 2 `i `l `ul -> -> 0 `i `ul 415  ]
-[; ;EEPROM.c: 182: {
-"182
-{
-[; ;EEPROM.c: 183: if(!SetMemoryLong(Temp.SWNECcode,1))
 "183
-[e $ ! ! != -> ( _SetMemoryLong (2 , . _Temp 1 -> -> 1 `i `uc `i -> -> -> 0 `i `uc `i 416  ]
-[; ;EEPROM.c: 184: {
-"184
-{
-[; ;EEPROM.c: 186: fail |= 0x00000002;
+[v _Arrayspot `uc ~T0 @X0 1 a ]
+[; ;EEPROM.c: 182: unsigned char i,j,k,temp;
+[; ;EEPROM.c: 183: unsigned char Arrayspot=5;
+[e = _Arrayspot -> -> 5 `i `uc ]
+[; ;EEPROM.c: 185: if(burn & 0x00000001)
+"185
+[e $ ! != & _burn -> -> -> 1 `i `l `ul -> -> 0 `i `ul 415  ]
+[; ;EEPROM.c: 186: {
 "186
-[e =| _fail -> -> -> 2 `i `l `ul ]
+{
+[; ;EEPROM.c: 187: if(!SetMemoryChar(Temp.BlueToothFlag,0))
 "187
+[e $ ! ! != -> ( _SetMemoryChar (2 , . _Temp 0 -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 416  ]
+[; ;EEPROM.c: 188: {
+"188
+{
+[; ;EEPROM.c: 190: fail |= 0x00000001;
+"190
+[e =| _fail -> -> -> 1 `i `l `ul ]
+"191
 }
 [e :U 416 ]
-"188
+"192
 }
 [e :U 415 ]
-[; ;EEPROM.c: 187: }
-[; ;EEPROM.c: 188: }
-[; ;EEPROM.c: 189: if(burn & 0x00000004)
-"189
-[e $ ! != & _burn -> -> -> 4 `i `l `ul -> -> 0 `i `ul 417  ]
-[; ;EEPROM.c: 190: {
-"190
-{
-[; ;EEPROM.c: 191: for(i=0; i< 20; i++)
-"191
-{
-[e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 20 `i 418  ]
-[e $U 419  ]
-"192
-[e :U 418 ]
-[; ;EEPROM.c: 192: {
-{
-[; ;EEPROM.c: 193: for(j=0; j < 2; j++)
+[; ;EEPROM.c: 191: }
+[; ;EEPROM.c: 192: }
+[; ;EEPROM.c: 193: if(burn & 0x00000002)
 "193
-{
-[e = _j -> -> 0 `i `uc ]
-[e $ < -> _j `i -> 2 `i 421  ]
-[e $U 422  ]
-"194
-[e :U 421 ]
+[e $ ! != & _burn -> -> -> 2 `i `l `ul -> -> 0 `i `ul 417  ]
 [; ;EEPROM.c: 194: {
+"194
 {
-[; ;EEPROM.c: 195: temp = Temp.RemoteButtonNEC[i][j];
+[; ;EEPROM.c: 195: if(!SetMemoryLong(Temp.SWNECcode,1))
 "195
-[e = _temp *U + &U *U + &U . _Temp 2 * -> _i `ux -> * -> # *U &U *U &U . _Temp 2 `ui -> -> 2 `i `ui `ux * -> _j `ux -> -> # *U &U *U + &U . _Temp 2 * -> _i `ux -> * -> # *U &U *U &U . _Temp 2 `ui -> -> 2 `i `ui `ux `ui `ux ]
-[; ;EEPROM.c: 196: if(!SetMemoryChar(temp,Arrayspot++))
+[e $ ! ! != -> ( _SetMemoryLong (2 , . _Temp 1 -> -> 1 `i `uc `i -> -> -> 0 `i `uc `i 418  ]
+[; ;EEPROM.c: 196: {
 "196
-[e $ ! ! != -> ( _SetMemoryChar (2 , _temp ++ _Arrayspot -> -> 1 `i `uc `i -> -> -> 0 `i `uc `i 424  ]
-[; ;EEPROM.c: 197: {
-"197
 {
-[; ;EEPROM.c: 199: fail |= 0x00000004;
+[; ;EEPROM.c: 198: fail |= 0x00000002;
+"198
+[e =| _fail -> -> -> 2 `i `l `ul ]
 "199
-[e =| _fail -> -> -> 4 `i `l `ul ]
+}
+[e :U 418 ]
 "200
 }
-[e :U 424 ]
-"201
-}
-"193
-[e ++ _j -> -> 1 `i `uc ]
-[e $ < -> _j `i -> 2 `i 421  ]
-[e :U 422 ]
-"201
-}
-"202
-}
-"191
-[e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 20 `i 418  ]
-[e :U 419 ]
-"202
-}
-"203
-}
 [e :U 417 ]
+[; ;EEPROM.c: 199: }
 [; ;EEPROM.c: 200: }
-[; ;EEPROM.c: 201: }
-[; ;EEPROM.c: 202: }
-[; ;EEPROM.c: 203: }
-[; ;EEPROM.c: 204: if(burn & 0x00000008)
+[; ;EEPROM.c: 201: if(burn & 0x00000004)
+"201
+[e $ ! != & _burn -> -> -> 4 `i `l `ul -> -> 0 `i `ul 419  ]
+[; ;EEPROM.c: 202: {
+"202
+{
+[; ;EEPROM.c: 203: for(i=0; i< 12; i++)
+"203
+{
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 12 `i 420  ]
+[e $U 421  ]
 "204
-[e $ ! != & _burn -> -> -> 8 `i `l `ul -> -> 0 `i `ul 425  ]
-[; ;EEPROM.c: 205: {
+[e :U 420 ]
+[; ;EEPROM.c: 204: {
+{
+[; ;EEPROM.c: 205: for(j=0; j < 2; j++)
 "205
 {
-[; ;EEPROM.c: 206: if(!SetMemoryChar(Temp.EEPROMinitFlag,(2*20 + 5)))
+[e = _j -> -> 0 `i `uc ]
+[e $ < -> _j `i -> 2 `i 423  ]
+[e $U 424  ]
 "206
-[e $ ! ! != -> ( _SetMemoryChar (2 , . _Temp 3 -> + * -> 2 `i -> 20 `i -> 5 `i `uc `i -> -> -> 0 `i `uc `i 426  ]
-[; ;EEPROM.c: 207: {
-"207
+[e :U 423 ]
+[; ;EEPROM.c: 206: {
 {
-[; ;EEPROM.c: 209: fail |= 0x00000008;
+[; ;EEPROM.c: 207: temp = Temp.RemoteButtonNEC[i][j];
+"207
+[e = _temp *U + &U *U + &U . _Temp 2 * -> _i `ux -> * -> # *U &U *U &U . _Temp 2 `ui -> -> 2 `i `ui `ux * -> _j `ux -> -> # *U &U *U + &U . _Temp 2 * -> _i `ux -> * -> # *U &U *U &U . _Temp 2 `ui -> -> 2 `i `ui `ux `ui `ux ]
+[; ;EEPROM.c: 208: if(!SetMemoryChar(temp,Arrayspot++))
+"208
+[e $ ! ! != -> ( _SetMemoryChar (2 , _temp ++ _Arrayspot -> -> 1 `i `uc `i -> -> -> 0 `i `uc `i 426  ]
+[; ;EEPROM.c: 209: {
 "209
-[e =| _fail -> -> -> 8 `i `l `ul ]
-"210
+{
+[; ;EEPROM.c: 211: fail |= 0x00000004;
+"211
+[e =| _fail -> -> -> 4 `i `l `ul ]
+"212
 }
 [e :U 426 ]
-"211
-}
-[e :U 425 ]
-[; ;EEPROM.c: 210: }
-[; ;EEPROM.c: 211: }
-[; ;EEPROM.c: 212: if(burn & 0x00000010)
-"212
-[e $ ! != & _burn -> -> -> 16 `i `l `ul -> -> 0 `i `ul 427  ]
-[; ;EEPROM.c: 213: {
 "213
-{
-[; ;EEPROM.c: 214: Arrayspot=(2*20 + 7);
-"214
-[e = _Arrayspot -> + * -> 2 `i -> 20 `i -> 7 `i `uc ]
-[; ;EEPROM.c: 215: for(i=0; i< 15; i++)
-"215
-{
-[e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 15 `i 428  ]
-[e $U 429  ]
-"216
-[e :U 428 ]
-[; ;EEPROM.c: 216: {
-{
-[; ;EEPROM.c: 217: for(j=0; j < 3; j++)
-"217
-{
-[e = _j -> -> 0 `i `uc ]
-[e $ < -> _j `i -> 3 `i 431  ]
-[e $U 432  ]
-"218
-[e :U 431 ]
-[; ;EEPROM.c: 218: {
-{
-[; ;EEPROM.c: 219: for(k=0; k < 2; k++)
-"219
-{
-[e = _k -> -> 0 `i `uc ]
-[e $ < -> _k `i -> 2 `i 434  ]
-[e $U 435  ]
-"220
-[e :U 434 ]
-[; ;EEPROM.c: 220: {
-{
-[; ;EEPROM.c: 221: temp = Temp.RemoteButtonRF[i][j][k];
-"221
-[e = _temp *U + &U *U + &U *U + &U . _Temp 4 * -> _i `ux -> * * -> # *U &U *U &U . _Temp 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Temp 4 * -> _i `ux -> * * -> # *U &U *U &U . _Temp 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux * -> _k `ux -> -> # *U &U *U + &U *U + &U . _Temp 4 * -> _i `ux -> * * -> # *U &U *U &U . _Temp 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Temp 4 * -> _i `ux -> * * -> # *U &U *U &U . _Temp 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux `ui `ux ]
-[; ;EEPROM.c: 222: if(!SetMemoryChar(temp,Arrayspot++))
-"222
-[e $ ! ! != -> ( _SetMemoryChar (2 , _temp ++ _Arrayspot -> -> 1 `i `uc `i -> -> -> 0 `i `uc `i 437  ]
-[; ;EEPROM.c: 223: {
-"223
-{
-[; ;EEPROM.c: 225: fail |= 0x00000010;
-"225
-[e =| _fail -> -> -> 16 `i `l `ul ]
-"226
 }
-[e :U 437 ]
-"227
-}
-"219
-[e ++ _k -> -> 1 `i `uc ]
-[e $ < -> _k `i -> 2 `i 434  ]
-[e :U 435 ]
-"227
-}
-"228
-}
-"217
+"205
 [e ++ _j -> -> 1 `i `uc ]
-[e $ < -> _j `i -> 3 `i 431  ]
-[e :U 432 ]
-"228
+[e $ < -> _j `i -> 2 `i 423  ]
+[e :U 424 ]
+"213
 }
-"229
+"214
+}
+"203
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 12 `i 420  ]
+[e :U 421 ]
+"214
 }
 "215
-[e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 15 `i 428  ]
-[e :U 429 ]
-"229
 }
-"230
+[e :U 419 ]
+[; ;EEPROM.c: 212: }
+[; ;EEPROM.c: 213: }
+[; ;EEPROM.c: 214: }
+[; ;EEPROM.c: 215: }
+[; ;EEPROM.c: 216: if(burn & 0x00000008)
+"216
+[e $ ! != & _burn -> -> -> 8 `i `l `ul -> -> 0 `i `ul 427  ]
+[; ;EEPROM.c: 217: {
+"217
+{
+[; ;EEPROM.c: 218: if(!SetMemoryChar(Temp.EEPROMinitFlag,(2*12 + 5)))
+"218
+[e $ ! ! != -> ( _SetMemoryChar (2 , . _Temp 3 -> + * -> 2 `i -> 12 `i -> 5 `i `uc `i -> -> -> 0 `i `uc `i 428  ]
+[; ;EEPROM.c: 219: {
+"219
+{
+[; ;EEPROM.c: 221: fail |= 0x00000008;
+"221
+[e =| _fail -> -> -> 8 `i `l `ul ]
+"222
+}
+[e :U 428 ]
+"223
 }
 [e :U 427 ]
-[; ;EEPROM.c: 226: }
-[; ;EEPROM.c: 227: }
-[; ;EEPROM.c: 228: }
-[; ;EEPROM.c: 229: }
-[; ;EEPROM.c: 230: }
-[; ;EEPROM.c: 231: return fail;
-"231
+[; ;EEPROM.c: 222: }
+[; ;EEPROM.c: 223: }
+[; ;EEPROM.c: 224: return fail;
+"224
 [e ) _fail ]
-[e $UE 412  ]
-[; ;EEPROM.c: 232: }
-"232
-[e :UE 412 ]
+[e $UE 414  ]
+[; ;EEPROM.c: 225: }
+"225
+[e :UE 414 ]
 }
-"239
-[v _SyncGlobalToEEPROM `(uc ~T0 @X0 1 ef ]
-"240
+"232
+[v _SetEEPROM2 `(ul ~T0 @X0 1 ef2`S380`ul ]
+"233
 {
-[; ;EEPROM.c: 239: unsigned char SyncGlobalToEEPROM(void)
-[; ;EEPROM.c: 240: {
-[e :U _SyncGlobalToEEPROM ]
+[; ;EEPROM.c: 232: unsigned long SetEEPROM2(GBLdata2 Temp,unsigned long burn)
+[; ;EEPROM.c: 233: {
+[e :U _SetEEPROM2 ]
+"232
+[v _Temp `S380 ~T0 @X0 1 r1 ]
+[v _burn `ul ~T0 @X0 1 r2 ]
+"233
 [f ]
-[; ;EEPROM.c: 242: if(!SetEEPROM(Global,0xFFFFFFFF))
+"234
+[v _fail `ul ~T0 @X0 1 a ]
+[; ;EEPROM.c: 234: unsigned long fail = 0;
+[e = _fail -> -> -> 0 `i `l `ul ]
+"235
+[v _i `uc ~T0 @X0 1 a ]
+[v _j `uc ~T0 @X0 1 a ]
+[v _k `uc ~T0 @X0 1 a ]
+[v _temp `uc ~T0 @X0 1 a ]
+"236
+[v _Arrayspot `uc ~T0 @X0 1 a ]
+[; ;EEPROM.c: 235: unsigned char i,j,k,temp;
+[; ;EEPROM.c: 236: unsigned char Arrayspot=5;
+[e = _Arrayspot -> -> 5 `i `uc ]
+[; ;EEPROM.c: 238: if(burn & 0x00000001)
+"238
+[e $ ! != & _burn -> -> -> 1 `i `l `ul -> -> 0 `i `ul 430  ]
+[; ;EEPROM.c: 239: {
+"239
+{
+[; ;EEPROM.c: 240: Arrayspot=(2*12 + 6);
+"240
+[e = _Arrayspot -> + * -> 2 `i -> 12 `i -> 6 `i `uc ]
+[; ;EEPROM.c: 241: for(i=0; i< 10; i++)
+"241
+{
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 10 `i 431  ]
+[e $U 432  ]
 "242
-[e $ ! ! != ( _SetEEPROM (2 , _Global -> -1 `ul -> -> 0 `i `ul 439  ]
-[; ;EEPROM.c: 243: {
+[e :U 431 ]
+[; ;EEPROM.c: 242: {
+{
+[; ;EEPROM.c: 243: for(j=0; j < 3; j++)
 "243
 {
-[; ;EEPROM.c: 244: return 1;
+[e = _j -> -> 0 `i `uc ]
+[e $ < -> _j `i -> 3 `i 434  ]
+[e $U 435  ]
 "244
-[e ) -> -> 1 `i `uc ]
-[e $UE 438  ]
+[e :U 434 ]
+[; ;EEPROM.c: 244: {
+{
+[; ;EEPROM.c: 245: for(k=0; k < 2; k++)
 "245
-}
-[e :U 439 ]
-[; ;EEPROM.c: 245: }
-[; ;EEPROM.c: 246: return 0;
+{
+[e = _k -> -> 0 `i `uc ]
+[e $ < -> _k `i -> 2 `i 437  ]
+[e $U 438  ]
 "246
-[e ) -> -> 0 `i `uc ]
-[e $UE 438  ]
-[; ;EEPROM.c: 247: }
+[e :U 437 ]
+[; ;EEPROM.c: 246: {
+{
+[; ;EEPROM.c: 247: temp = Temp.RemoteButtonRF[i][j][k];
 "247
-[e :UE 438 ]
+[e = _temp *U + &U *U + &U *U + &U . _Temp 0 * -> _i `ux -> * * -> # *U &U *U &U . _Temp 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Temp 0 * -> _i `ux -> * * -> # *U &U *U &U . _Temp 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux * -> _k `ux -> -> # *U &U *U + &U *U + &U . _Temp 0 * -> _i `ux -> * * -> # *U &U *U &U . _Temp 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Temp 0 * -> _i `ux -> * * -> # *U &U *U &U . _Temp 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux `ui `ux ]
+[; ;EEPROM.c: 248: if(!SetMemoryChar(temp,Arrayspot++))
+"248
+[e $ ! ! != -> ( _SetMemoryChar (2 , _temp ++ _Arrayspot -> -> 1 `i `uc `i -> -> -> 0 `i `uc `i 440  ]
+[; ;EEPROM.c: 249: {
+"249
+{
+[; ;EEPROM.c: 251: fail |= 0x00000001;
+"251
+[e =| _fail -> -> -> 1 `i `l `ul ]
+"252
+}
+[e :U 440 ]
+"253
+}
+"245
+[e ++ _k -> -> 1 `i `uc ]
+[e $ < -> _k `i -> 2 `i 437  ]
+[e :U 438 ]
+"253
+}
+"254
+}
+"243
+[e ++ _j -> -> 1 `i `uc ]
+[e $ < -> _j `i -> 3 `i 434  ]
+[e :U 435 ]
+"254
 }
 "255
-[v _SetEEPROMdefault `(v ~T0 @X0 1 ef ]
+}
+"241
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 10 `i 431  ]
+[e :U 432 ]
+"255
+}
 "256
+}
+[e :U 430 ]
+[; ;EEPROM.c: 252: }
+[; ;EEPROM.c: 253: }
+[; ;EEPROM.c: 254: }
+[; ;EEPROM.c: 255: }
+[; ;EEPROM.c: 256: }
+[; ;EEPROM.c: 257: if(burn & 0x00000002)
+"257
+[e $ ! != & _burn -> -> -> 2 `i `l `ul -> -> 0 `i `ul 441  ]
+[; ;EEPROM.c: 258: {
+"258
 {
-[; ;EEPROM.c: 255: void SetEEPROMdefault(void)
-[; ;EEPROM.c: 256: {
+[; ;EEPROM.c: 259: if(!SetMemoryLong(Temp.SerialNumber,(2*12 + 2*3*10 + 6)))
+"259
+[e $ ! ! != -> ( _SetMemoryLong (2 , . _Temp 1 -> + + * -> 2 `i -> 12 `i * * -> 2 `i -> 3 `i -> 10 `i -> 6 `i `uc `i -> -> -> 0 `i `uc `i 442  ]
+[; ;EEPROM.c: 260: {
+"260
+{
+[; ;EEPROM.c: 262: fail |= 0x00000002;
+"262
+[e =| _fail -> -> -> 2 `i `l `ul ]
+"263
+}
+[e :U 442 ]
+"264
+}
+[e :U 441 ]
+[; ;EEPROM.c: 263: }
+[; ;EEPROM.c: 264: }
+[; ;EEPROM.c: 265: return fail;
+"265
+[e ) _fail ]
+[e $UE 429  ]
+[; ;EEPROM.c: 266: }
+"266
+[e :UE 429 ]
+}
+"273
+[v _SyncGlobalToEEPROM `(uc ~T0 @X0 1 ef ]
+"274
+{
+[; ;EEPROM.c: 273: unsigned char SyncGlobalToEEPROM(void)
+[; ;EEPROM.c: 274: {
+[e :U _SyncGlobalToEEPROM ]
+[f ]
+"275
+[v _ok `uc ~T0 @X0 1 a ]
+[; ;EEPROM.c: 275: unsigned char ok = 1;
+[e = _ok -> -> 1 `i `uc ]
+[; ;EEPROM.c: 278: if(SetEEPROM1(Global1,0xFFFFFFFF))
+"278
+[e $ ! != ( _SetEEPROM1 (2 , _Global1 -> -1 `ul -> -> 0 `i `ul 444  ]
+[; ;EEPROM.c: 279: {
+"279
+{
+[; ;EEPROM.c: 280: ok = 0;
+"280
+[e = _ok -> -> 0 `i `uc ]
+"281
+}
+[e :U 444 ]
+[; ;EEPROM.c: 281: }
+[; ;EEPROM.c: 282: if(SetEEPROM2(Global2,0xFFFFFFFD))
+"282
+[e $ ! != ( _SetEEPROM2 (2 , _Global2 -> -3 `ul -> -> 0 `i `ul 445  ]
+[; ;EEPROM.c: 283: {
+"283
+{
+[; ;EEPROM.c: 284: ok = 0;
+"284
+[e = _ok -> -> 0 `i `uc ]
+"285
+}
+[e :U 445 ]
+[; ;EEPROM.c: 285: }
+[; ;EEPROM.c: 286: if(ok)
+"286
+[e $ ! != -> _ok `i -> -> -> 0 `i `uc `i 446  ]
+[; ;EEPROM.c: 287: {
+"287
+{
+[; ;EEPROM.c: 288: return 1;
+"288
+[e ) -> -> 1 `i `uc ]
+[e $UE 443  ]
+"289
+}
+[e :U 446 ]
+[; ;EEPROM.c: 289: }
+[; ;EEPROM.c: 290: return 0;
+"290
+[e ) -> -> 0 `i `uc ]
+[e $UE 443  ]
+[; ;EEPROM.c: 291: }
+"291
+[e :UE 443 ]
+}
+"299
+[v _SetEEPROMdefault `(v ~T0 @X0 1 ef ]
+"300
+{
+[; ;EEPROM.c: 299: void SetEEPROMdefault(void)
+[; ;EEPROM.c: 300: {
 [e :U _SetEEPROMdefault ]
 [f ]
-"257
+"301
 [v _i `uc ~T0 @X0 1 a ]
 [v _j `uc ~T0 @X0 1 a ]
 [v _k `uc ~T0 @X0 1 a ]
-[; ;EEPROM.c: 257: unsigned char i,j,k;
-[; ;EEPROM.c: 259: Global.BlueToothFlag = 0;
-"259
-[e = . _Global 0 -> -> 0 `i `uc ]
-[; ;EEPROM.c: 260: Global.SWNECcode = 0x00FF00FF;
-"260
-[e = . _Global 1 -> -> 16711935 `l `ul ]
-[; ;EEPROM.c: 261: Global.EEPROMinitFlag = 0;
-"261
-[e = . _Global 3 -> -> 0 `i `uc ]
-[; ;EEPROM.c: 262: for(i=0; i< 20; i++)
-"262
+[; ;EEPROM.c: 301: unsigned char i,j,k;
+[; ;EEPROM.c: 303: Global1.BlueToothFlag = 0;
+"303
+[e = . _Global1 0 -> -> 0 `i `uc ]
+[; ;EEPROM.c: 304: Global1.SWNECcode = 0x00FF00FF;
+"304
+[e = . _Global1 1 -> -> 16711935 `l `ul ]
+[; ;EEPROM.c: 305: Global1.EEPROMinitFlag = 0;
+"305
+[e = . _Global1 3 -> -> 0 `i `uc ]
+[; ;EEPROM.c: 306: for(i=0; i< 12; i++)
+"306
 {
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 20 `i 441  ]
-[e $U 442  ]
-"263
-[e :U 441 ]
-[; ;EEPROM.c: 263: {
+[e $ < -> _i `i -> 12 `i 448  ]
+[e $U 449  ]
+"307
+[e :U 448 ]
+[; ;EEPROM.c: 307: {
 {
-[; ;EEPROM.c: 264: for(j=0; j < 2; j++)
-"264
+[; ;EEPROM.c: 308: for(j=0; j < 2; j++)
+"308
 {
 [e = _j -> -> 0 `i `uc ]
-[e $ < -> _j `i -> 2 `i 444  ]
-[e $U 445  ]
-"265
-[e :U 444 ]
-[; ;EEPROM.c: 265: {
+[e $ < -> _j `i -> 2 `i 451  ]
+[e $U 452  ]
+"309
+[e :U 451 ]
+[; ;EEPROM.c: 309: {
 {
-[; ;EEPROM.c: 266: Global.RemoteButtonNEC[i][j] = 0x00;
-"266
-[e = *U + &U *U + &U . _Global 2 * -> _i `ux -> * -> # *U &U *U &U . _Global 2 `ui -> -> 2 `i `ui `ux * -> _j `ux -> -> # *U &U *U + &U . _Global 2 * -> _i `ux -> * -> # *U &U *U &U . _Global 2 `ui -> -> 2 `i `ui `ux `ui `ux -> -> 0 `i `uc ]
-"267
+[; ;EEPROM.c: 310: Global1.RemoteButtonNEC[i][j] = 0x00;
+"310
+[e = *U + &U *U + &U . _Global1 2 * -> _i `ux -> * -> # *U &U *U &U . _Global1 2 `ui -> -> 2 `i `ui `ux * -> _j `ux -> -> # *U &U *U + &U . _Global1 2 * -> _i `ux -> * -> # *U &U *U &U . _Global1 2 `ui -> -> 2 `i `ui `ux `ui `ux -> -> 0 `i `uc ]
+"311
 }
-"264
+"308
 [e ++ _j -> -> 1 `i `uc ]
-[e $ < -> _j `i -> 2 `i 444  ]
-[e :U 445 ]
-"267
+[e $ < -> _j `i -> 2 `i 451  ]
+[e :U 452 ]
+"311
 }
-"268
+"312
 }
-"262
+"306
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 20 `i 441  ]
-[e :U 442 ]
-"268
+[e $ < -> _i `i -> 12 `i 448  ]
+[e :U 449 ]
+"312
 }
-[; ;EEPROM.c: 267: }
-[; ;EEPROM.c: 268: }
-[; ;EEPROM.c: 269: for(i=0; i< 15; i++)
-"269
+[; ;EEPROM.c: 311: }
+[; ;EEPROM.c: 312: }
+[; ;EEPROM.c: 313: for(i=0; i< 10; i++)
+"313
 {
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 15 `i 447  ]
-[e $U 448  ]
-"270
-[e :U 447 ]
-[; ;EEPROM.c: 270: {
+[e $ < -> _i `i -> 10 `i 454  ]
+[e $U 455  ]
+"314
+[e :U 454 ]
+[; ;EEPROM.c: 314: {
 {
-[; ;EEPROM.c: 271: for(j=0; j < 3; j++)
-"271
+[; ;EEPROM.c: 315: for(j=0; j < 3; j++)
+"315
 {
 [e = _j -> -> 0 `i `uc ]
-[e $ < -> _j `i -> 3 `i 450  ]
-[e $U 451  ]
-"272
-[e :U 450 ]
-[; ;EEPROM.c: 272: {
+[e $ < -> _j `i -> 3 `i 457  ]
+[e $U 458  ]
+"316
+[e :U 457 ]
+[; ;EEPROM.c: 316: {
 {
-[; ;EEPROM.c: 273: for(k=0; k < 2; k++)
-"273
+[; ;EEPROM.c: 317: for(k=0; k < 2; k++)
+"317
 {
 [e = _k -> -> 0 `i `uc ]
-[e $ < -> _k `i -> 2 `i 453  ]
-[e $U 454  ]
-"274
-[e :U 453 ]
-[; ;EEPROM.c: 274: {
+[e $ < -> _k `i -> 2 `i 460  ]
+[e $U 461  ]
+"318
+[e :U 460 ]
+[; ;EEPROM.c: 318: {
 {
-[; ;EEPROM.c: 275: Global.RemoteButtonRF[i][j][k] = 0x00;
-"275
-[e = *U + &U *U + &U *U + &U . _Global 4 * -> _i `ux -> * * -> # *U &U *U &U . _Global 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global 4 * -> _i `ux -> * * -> # *U &U *U &U . _Global 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux * -> _k `ux -> -> # *U &U *U + &U *U + &U . _Global 4 * -> _i `ux -> * * -> # *U &U *U &U . _Global 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global 4 * -> _i `ux -> * * -> # *U &U *U &U . _Global 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux `ui `ux -> -> 0 `i `uc ]
-"276
+[; ;EEPROM.c: 319: Global2.RemoteButtonRF[i][j][k] = 0x00;
+"319
+[e = *U + &U *U + &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux * -> _k `ux -> -> # *U &U *U + &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux `ui `ux -> -> 0 `i `uc ]
+"320
 }
-"273
+"317
 [e ++ _k -> -> 1 `i `uc ]
-[e $ < -> _k `i -> 2 `i 453  ]
-[e :U 454 ]
-"276
+[e $ < -> _k `i -> 2 `i 460  ]
+[e :U 461 ]
+"320
 }
-"277
+"321
 }
-"271
+"315
 [e ++ _j -> -> 1 `i `uc ]
-[e $ < -> _j `i -> 3 `i 450  ]
-[e :U 451 ]
-"277
+[e $ < -> _j `i -> 3 `i 457  ]
+[e :U 458 ]
+"321
 }
-"278
+"322
 }
-"269
+"313
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 15 `i 447  ]
-[e :U 448 ]
-"278
+[e $ < -> _i `i -> 10 `i 454  ]
+[e :U 455 ]
+"322
 }
-[; ;EEPROM.c: 276: }
-[; ;EEPROM.c: 277: }
-[; ;EEPROM.c: 278: }
-[; ;EEPROM.c: 279: SyncGlobalToEEPROM();
-"279
+[; ;EEPROM.c: 320: }
+[; ;EEPROM.c: 321: }
+[; ;EEPROM.c: 322: }
+[; ;EEPROM.c: 323: SyncGlobalToEEPROM();
+"323
 [e ( _SyncGlobalToEEPROM ..  ]
-[; ;EEPROM.c: 280: }
-"280
-[e :UE 440 ]
+[; ;EEPROM.c: 324: }
+"324
+[e :UE 447 ]
 }
-"288
+"332
 [v _EEPROMinitialized `(uc ~T0 @X0 1 ef ]
-"289
+"333
 {
-[; ;EEPROM.c: 288: unsigned char EEPROMinitialized(void)
-[; ;EEPROM.c: 289: {
+[; ;EEPROM.c: 332: unsigned char EEPROMinitialized(void)
+[; ;EEPROM.c: 333: {
 [e :U _EEPROMinitialized ]
 [f ]
-[; ;EEPROM.c: 290: if(Global.EEPROMinitFlag == 59)
-"290
-[e $ ! == -> . _Global 3 `i -> 59 `i 457  ]
-[; ;EEPROM.c: 291: {
-"291
+[; ;EEPROM.c: 334: if(Global1.EEPROMinitFlag == 59)
+"334
+[e $ ! == -> . _Global1 3 `i -> 59 `i 464  ]
+[; ;EEPROM.c: 335: {
+"335
 {
-[; ;EEPROM.c: 292: return 1;
-"292
+[; ;EEPROM.c: 336: return 1;
+"336
 [e ) -> -> 1 `i `uc ]
-[e $UE 456  ]
-"293
+[e $UE 463  ]
+"337
 }
-[e :U 457 ]
-[; ;EEPROM.c: 293: }
-[; ;EEPROM.c: 294: return 0;
-"294
+[e :U 464 ]
+[; ;EEPROM.c: 337: }
+[; ;EEPROM.c: 338: return 0;
+"338
 [e ) -> -> 0 `i `uc ]
-[e $UE 456  ]
-[; ;EEPROM.c: 295: }
-"295
-[e :UE 456 ]
+[e $UE 463  ]
+[; ;EEPROM.c: 339: }
+"339
+[e :UE 463 ]
 }
-"302
+"346
 [v _SyncEEPROMToGlobal `(v ~T0 @X0 1 ef ]
-"303
+"347
 {
-[; ;EEPROM.c: 302: void SyncEEPROMToGlobal(void)
-[; ;EEPROM.c: 303: {
+[; ;EEPROM.c: 346: void SyncEEPROMToGlobal(void)
+[; ;EEPROM.c: 347: {
 [e :U _SyncEEPROMToGlobal ]
 [f ]
-"304
+"348
 [v _i `uc ~T0 @X0 1 a ]
 [v _j `uc ~T0 @X0 1 a ]
 [v _k `uc ~T0 @X0 1 a ]
-"305
-[v _Temp `S379 ~T0 @X0 1 a ]
-[; ;EEPROM.c: 304: unsigned char i,j,k;
-[; ;EEPROM.c: 305: GBLdata Temp;
-[; ;EEPROM.c: 307: GetEEPROM(&Temp);
-"307
-[e ( _GetEEPROM (1 &U _Temp ]
-[; ;EEPROM.c: 309: Global.BlueToothFlag = Temp.BlueToothFlag;
-"309
-[e = . _Global 0 . _Temp 0 ]
-[; ;EEPROM.c: 310: Global.SWNECcode = Temp.SWNECcode;
-"310
-[e = . _Global 1 . _Temp 1 ]
-[; ;EEPROM.c: 311: Global.EEPROMinitFlag = Temp.EEPROMinitFlag;
-"311
-[e = . _Global 3 . _Temp 3 ]
-[; ;EEPROM.c: 312: for(i=0; i< 20; i++)
-"312
+"349
+[v _Temp1 `S379 ~T0 @X0 1 a ]
+"350
+[v _Temp2 `S380 ~T0 @X0 1 a ]
+[; ;EEPROM.c: 348: unsigned char i,j,k;
+[; ;EEPROM.c: 349: GBLdata1 Temp1;
+[; ;EEPROM.c: 350: GBLdata2 Temp2;
+[; ;EEPROM.c: 352: GetEEPROM1(&Temp1);
+"352
+[e ( _GetEEPROM1 (1 &U _Temp1 ]
+[; ;EEPROM.c: 353: GetEEPROM2(&Temp2);
+"353
+[e ( _GetEEPROM2 (1 &U _Temp2 ]
+[; ;EEPROM.c: 355: Global1.BlueToothFlag = Temp1.BlueToothFlag;
+"355
+[e = . _Global1 0 . _Temp1 0 ]
+[; ;EEPROM.c: 356: Global1.SWNECcode = Temp1.SWNECcode;
+"356
+[e = . _Global1 1 . _Temp1 1 ]
+[; ;EEPROM.c: 357: Global1.EEPROMinitFlag = Temp1.EEPROMinitFlag;
+"357
+[e = . _Global1 3 . _Temp1 3 ]
+[; ;EEPROM.c: 358: for(i=0; i< 12; i++)
+"358
 {
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 20 `i 459  ]
-[e $U 460  ]
-"313
-[e :U 459 ]
-[; ;EEPROM.c: 313: {
+[e $ < -> _i `i -> 12 `i 466  ]
+[e $U 467  ]
+"359
+[e :U 466 ]
+[; ;EEPROM.c: 359: {
 {
-[; ;EEPROM.c: 314: for(j=0; j < 2; j++)
-"314
+[; ;EEPROM.c: 360: for(j=0; j < 2; j++)
+"360
 {
 [e = _j -> -> 0 `i `uc ]
-[e $ < -> _j `i -> 2 `i 462  ]
-[e $U 463  ]
-"315
-[e :U 462 ]
-[; ;EEPROM.c: 315: {
+[e $ < -> _j `i -> 2 `i 469  ]
+[e $U 470  ]
+"361
+[e :U 469 ]
+[; ;EEPROM.c: 361: {
 {
-[; ;EEPROM.c: 316: Global.RemoteButtonNEC[i][j] = Temp.RemoteButtonNEC[i][j];
-"316
-[e = *U + &U *U + &U . _Global 2 * -> _i `ux -> * -> # *U &U *U &U . _Global 2 `ui -> -> 2 `i `ui `ux * -> _j `ux -> -> # *U &U *U + &U . _Global 2 * -> _i `ux -> * -> # *U &U *U &U . _Global 2 `ui -> -> 2 `i `ui `ux `ui `ux *U + &U *U + &U . _Temp 2 * -> _i `ux -> * -> # *U &U *U &U . _Temp 2 `ui -> -> 2 `i `ui `ux * -> _j `ux -> -> # *U &U *U + &U . _Temp 2 * -> _i `ux -> * -> # *U &U *U &U . _Temp 2 `ui -> -> 2 `i `ui `ux `ui `ux ]
-"317
+[; ;EEPROM.c: 362: Global1.RemoteButtonNEC[i][j] = Temp1.RemoteButtonNEC[i][j];
+"362
+[e = *U + &U *U + &U . _Global1 2 * -> _i `ux -> * -> # *U &U *U &U . _Global1 2 `ui -> -> 2 `i `ui `ux * -> _j `ux -> -> # *U &U *U + &U . _Global1 2 * -> _i `ux -> * -> # *U &U *U &U . _Global1 2 `ui -> -> 2 `i `ui `ux `ui `ux *U + &U *U + &U . _Temp1 2 * -> _i `ux -> * -> # *U &U *U &U . _Temp1 2 `ui -> -> 2 `i `ui `ux * -> _j `ux -> -> # *U &U *U + &U . _Temp1 2 * -> _i `ux -> * -> # *U &U *U &U . _Temp1 2 `ui -> -> 2 `i `ui `ux `ui `ux ]
+"363
 }
-"314
+"360
 [e ++ _j -> -> 1 `i `uc ]
-[e $ < -> _j `i -> 2 `i 462  ]
-[e :U 463 ]
-"317
+[e $ < -> _j `i -> 2 `i 469  ]
+[e :U 470 ]
+"363
 }
-"318
+"364
 }
-"312
+"358
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 20 `i 459  ]
-[e :U 460 ]
-"318
+[e $ < -> _i `i -> 12 `i 466  ]
+[e :U 467 ]
+"364
 }
-[; ;EEPROM.c: 317: }
-[; ;EEPROM.c: 318: }
-[; ;EEPROM.c: 319: Global.EEPROMinitFlag = Temp.EEPROMinitFlag;
-"319
-[e = . _Global 3 . _Temp 3 ]
-[; ;EEPROM.c: 320: for(i=0; i< 15; i++)
-"320
+[; ;EEPROM.c: 363: }
+[; ;EEPROM.c: 364: }
+[; ;EEPROM.c: 365: Global1.EEPROMinitFlag = Temp1.EEPROMinitFlag;
+"365
+[e = . _Global1 3 . _Temp1 3 ]
+[; ;EEPROM.c: 366: for(i=0; i< 10; i++)
+"366
 {
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 15 `i 465  ]
-[e $U 466  ]
-"321
-[e :U 465 ]
-[; ;EEPROM.c: 321: {
+[e $ < -> _i `i -> 10 `i 472  ]
+[e $U 473  ]
+"367
+[e :U 472 ]
+[; ;EEPROM.c: 367: {
 {
-[; ;EEPROM.c: 322: for(j=0; j < 3; j++)
-"322
+[; ;EEPROM.c: 368: for(j=0; j < 3; j++)
+"368
 {
 [e = _j -> -> 0 `i `uc ]
-[e $ < -> _j `i -> 3 `i 468  ]
-[e $U 469  ]
-"323
-[e :U 468 ]
-[; ;EEPROM.c: 323: {
+[e $ < -> _j `i -> 3 `i 475  ]
+[e $U 476  ]
+"369
+[e :U 475 ]
+[; ;EEPROM.c: 369: {
 {
-[; ;EEPROM.c: 324: for(k=0; k < 2; k++)
-"324
+[; ;EEPROM.c: 370: for(k=0; k < 2; k++)
+"370
 {
 [e = _k -> -> 0 `i `uc ]
-[e $ < -> _k `i -> 2 `i 471  ]
-[e $U 472  ]
-"325
-[e :U 471 ]
-[; ;EEPROM.c: 325: {
+[e $ < -> _k `i -> 2 `i 478  ]
+[e $U 479  ]
+"371
+[e :U 478 ]
+[; ;EEPROM.c: 371: {
 {
-[; ;EEPROM.c: 326: Global.RemoteButtonRF[i][j][k] = Temp.RemoteButtonRF[i][j][k];
-"326
-[e = *U + &U *U + &U *U + &U . _Global 4 * -> _i `ux -> * * -> # *U &U *U &U . _Global 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global 4 * -> _i `ux -> * * -> # *U &U *U &U . _Global 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux * -> _k `ux -> -> # *U &U *U + &U *U + &U . _Global 4 * -> _i `ux -> * * -> # *U &U *U &U . _Global 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global 4 * -> _i `ux -> * * -> # *U &U *U &U . _Global 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux `ui `ux *U + &U *U + &U *U + &U . _Temp 4 * -> _i `ux -> * * -> # *U &U *U &U . _Temp 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Temp 4 * -> _i `ux -> * * -> # *U &U *U &U . _Temp 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux * -> _k `ux -> -> # *U &U *U + &U *U + &U . _Temp 4 * -> _i `ux -> * * -> # *U &U *U &U . _Temp 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Temp 4 * -> _i `ux -> * * -> # *U &U *U &U . _Temp 4 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux `ui `ux ]
-"327
+[; ;EEPROM.c: 372: Global2.RemoteButtonRF[i][j][k] = Temp2.RemoteButtonRF[i][j][k];
+"372
+[e = *U + &U *U + &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux * -> _k `ux -> -> # *U &U *U + &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux `ui `ux *U + &U *U + &U *U + &U . _Temp2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Temp2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Temp2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Temp2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux * -> _k `ux -> -> # *U &U *U + &U *U + &U . _Temp2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Temp2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Temp2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Temp2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux `ui `ux ]
+"373
 }
-"324
+"370
 [e ++ _k -> -> 1 `i `uc ]
-[e $ < -> _k `i -> 2 `i 471  ]
-[e :U 472 ]
-"327
+[e $ < -> _k `i -> 2 `i 478  ]
+[e :U 479 ]
+"373
 }
-"328
+"374
 }
-"322
+"368
 [e ++ _j -> -> 1 `i `uc ]
-[e $ < -> _j `i -> 3 `i 468  ]
-[e :U 469 ]
-"328
+[e $ < -> _j `i -> 3 `i 475  ]
+[e :U 476 ]
+"374
 }
-"329
+"375
 }
-"320
+"366
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 15 `i 465  ]
-[e :U 466 ]
-"329
+[e $ < -> _i `i -> 10 `i 472  ]
+[e :U 473 ]
+"375
 }
-[; ;EEPROM.c: 327: }
-[; ;EEPROM.c: 328: }
-[; ;EEPROM.c: 329: }
-[; ;EEPROM.c: 330: }
-"330
-[e :UE 458 ]
+[; ;EEPROM.c: 373: }
+[; ;EEPROM.c: 374: }
+[; ;EEPROM.c: 375: }
+[; ;EEPROM.c: 376: Global2.SerialNumber = Temp2.SerialNumber;
+"376
+[e = . _Global2 1 . _Temp2 1 ]
+[; ;EEPROM.c: 377: }
+"377
+[e :UE 465 ]
 }
-"337
+"384
 [v _GetMemoryLong `(ul ~T0 @X0 1 ef1`uc ]
-"338
+"385
 {
-[; ;EEPROM.c: 337: unsigned long GetMemoryLong(unsigned char AddressFirst)
-[; ;EEPROM.c: 338: {
+[; ;EEPROM.c: 384: unsigned long GetMemoryLong(unsigned char AddressFirst)
+[; ;EEPROM.c: 385: {
 [e :U _GetMemoryLong ]
-"337
+"384
 [v _AddressFirst `uc ~T0 @X0 1 r1 ]
-"338
+"385
 [f ]
-"339
+"386
 [v _H `uc ~T0 @X0 1 a ]
-"340
+"387
 [v _MH `uc ~T0 @X0 1 a ]
-"341
+"388
 [v _ML `uc ~T0 @X0 1 a ]
-"342
+"389
 [v _L `uc ~T0 @X0 1 a ]
-"343
+"390
 [v _temp `ul ~T0 @X0 1 a ]
-[; ;EEPROM.c: 339: unsigned char H;
-[; ;EEPROM.c: 340: unsigned char MH;
-[; ;EEPROM.c: 341: unsigned char ML;
-[; ;EEPROM.c: 342: unsigned char L;
-[; ;EEPROM.c: 343: unsigned long temp =0;
+[; ;EEPROM.c: 386: unsigned char H;
+[; ;EEPROM.c: 387: unsigned char MH;
+[; ;EEPROM.c: 388: unsigned char ML;
+[; ;EEPROM.c: 389: unsigned char L;
+[; ;EEPROM.c: 390: unsigned long temp =0;
 [e = _temp -> -> -> 0 `i `l `ul ]
-[; ;EEPROM.c: 345: H = ReadEEPROM_1Byte(AddressFirst);
-"345
+[; ;EEPROM.c: 392: H = ReadEEPROM_1Byte(AddressFirst);
+"392
 [e = _H -> ( _ReadEEPROM_1Byte (1 -> _AddressFirst `ui `uc ]
-[; ;EEPROM.c: 346: MH = ReadEEPROM_1Byte(AddressFirst + 1);
-"346
+[; ;EEPROM.c: 393: MH = ReadEEPROM_1Byte(AddressFirst + 1);
+"393
 [e = _MH -> ( _ReadEEPROM_1Byte (1 -> + -> _AddressFirst `i -> 1 `i `ui `uc ]
-[; ;EEPROM.c: 347: ML = ReadEEPROM_1Byte(AddressFirst + 2);
-"347
+[; ;EEPROM.c: 394: ML = ReadEEPROM_1Byte(AddressFirst + 2);
+"394
 [e = _ML -> ( _ReadEEPROM_1Byte (1 -> + -> _AddressFirst `i -> 2 `i `ui `uc ]
-[; ;EEPROM.c: 348: L = ReadEEPROM_1Byte(AddressFirst + 3);
-"348
+[; ;EEPROM.c: 395: L = ReadEEPROM_1Byte(AddressFirst + 3);
+"395
 [e = _L -> ( _ReadEEPROM_1Byte (1 -> + -> _AddressFirst `i -> 3 `i `ui `uc ]
-[; ;EEPROM.c: 350: temp = (((unsigned long) H << 24) + ((unsigned long)MH << 16)
-[; ;EEPROM.c: 351: + ((unsigned long)ML << 8) + (unsigned long)L);
-"351
+[; ;EEPROM.c: 397: temp = (((unsigned long) H << 24) + ((unsigned long)MH << 16)
+[; ;EEPROM.c: 398: + ((unsigned long)ML << 8) + (unsigned long)L);
+"398
 [e = _temp + + + << -> _H `ul -> 24 `i << -> _MH `ul -> 16 `i << -> _ML `ul -> 8 `i -> _L `ul ]
-[; ;EEPROM.c: 352: return temp;
-"352
+[; ;EEPROM.c: 399: return temp;
+"399
 [e ) _temp ]
-[e $UE 474  ]
-[; ;EEPROM.c: 353: }
-"353
-[e :UE 474 ]
+[e $UE 481  ]
+[; ;EEPROM.c: 400: }
+"400
+[e :UE 481 ]
 }
-"360
+"407
 [v _SetMemoryLong `(uc ~T0 @X0 1 ef2`ul`uc ]
-"361
+"408
 {
-[; ;EEPROM.c: 360: unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst)
-[; ;EEPROM.c: 361: {
+[; ;EEPROM.c: 407: unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst)
+[; ;EEPROM.c: 408: {
 [e :U _SetMemoryLong ]
-"360
+"407
 [v _Data `ul ~T0 @X0 1 r1 ]
 [v _AddressFirst `uc ~T0 @X0 1 r2 ]
-"361
+"408
 [f ]
-"362
+"409
 [v _H `uc ~T0 @X0 1 a ]
-"363
+"410
 [v _MH `uc ~T0 @X0 1 a ]
-"364
+"411
 [v _ML `uc ~T0 @X0 1 a ]
-"365
-[v _L `uc ~T0 @X0 1 a ]
-"366
-[v _Test `ul ~T0 @X0 1 a ]
-[; ;EEPROM.c: 362: unsigned char H;
-[; ;EEPROM.c: 363: unsigned char MH;
-[; ;EEPROM.c: 364: unsigned char ML;
-[; ;EEPROM.c: 365: unsigned char L;
-[; ;EEPROM.c: 366: unsigned long Test;
-[; ;EEPROM.c: 368: H = (unsigned char) ((Data & 0XFF000000) >> 24);
-"368
-[e = _H -> >> & _Data -> -16777216 `ul -> 24 `i `uc ]
-[; ;EEPROM.c: 369: MH = (unsigned char) ((Data & 0X00FF0000) >> 16);
-"369
-[e = _MH -> >> & _Data -> -> 16711680 `l `ul -> 16 `i `uc ]
-[; ;EEPROM.c: 370: ML = (unsigned char) ((Data & 0X0000FF00) >> 8);
-"370
-[e = _ML -> >> & _Data -> -> 65280 `ui `ul -> 8 `i `uc ]
-[; ;EEPROM.c: 371: L = (unsigned char) (Data & 0X000000FF);
-"371
-[e = _L -> & _Data -> -> -> 255 `i `l `ul `uc ]
-[; ;EEPROM.c: 374: WriteEEPROM_1Byte(AddressFirst, H);
-"374
-[e ( _WriteEEPROM_1Byte (2 , -> _AddressFirst `ui _H ]
-[; ;EEPROM.c: 375: WriteEEPROM_1Byte((AddressFirst + 1), MH);
-"375
-[e ( _WriteEEPROM_1Byte (2 , -> + -> _AddressFirst `i -> 1 `i `ui _MH ]
-[; ;EEPROM.c: 376: WriteEEPROM_1Byte((AddressFirst + 2), ML);
-"376
-[e ( _WriteEEPROM_1Byte (2 , -> + -> _AddressFirst `i -> 2 `i `ui _ML ]
-[; ;EEPROM.c: 377: WriteEEPROM_1Byte((AddressFirst + 3), L);
-"377
-[e ( _WriteEEPROM_1Byte (2 , -> + -> _AddressFirst `i -> 3 `i `ui _L ]
-[; ;EEPROM.c: 380: Test = GetMemoryLong(AddressFirst);
-"380
-[e = _Test ( _GetMemoryLong (1 _AddressFirst ]
-[; ;EEPROM.c: 382: if(Test == Data)
-"382
-[e $ ! == _Test _Data 476  ]
-[; ;EEPROM.c: 383: {
-"383
-{
-[; ;EEPROM.c: 384: return 1;
-"384
-[e ) -> -> 1 `i `uc ]
-[e $UE 475  ]
-"385
-}
-[e :U 476 ]
-[; ;EEPROM.c: 385: }
-[; ;EEPROM.c: 386: return 0;
-"386
-[e ) -> -> 0 `i `uc ]
-[e $UE 475  ]
-[; ;EEPROM.c: 387: }
-"387
-[e :UE 475 ]
-}
-"394
-[v _GetMemoryInt `(ul ~T0 @X0 1 ef1`uc ]
-"395
-{
-[; ;EEPROM.c: 394: unsigned long GetMemoryInt(unsigned char AddressFirst)
-[; ;EEPROM.c: 395: {
-[e :U _GetMemoryInt ]
-"394
-[v _AddressFirst `uc ~T0 @X0 1 r1 ]
-"395
-[f ]
-"396
-[v _H `uc ~T0 @X0 1 a ]
-"397
-[v _L `uc ~T0 @X0 1 a ]
-"398
-[v _temp `ui ~T0 @X0 1 a ]
-[; ;EEPROM.c: 396: unsigned char H;
-[; ;EEPROM.c: 397: unsigned char L;
-[; ;EEPROM.c: 398: unsigned int temp =0;
-[e = _temp -> -> 0 `i `ui ]
-[; ;EEPROM.c: 400: H = ReadEEPROM_1Byte(AddressFirst);
-"400
-[e = _H -> ( _ReadEEPROM_1Byte (1 -> _AddressFirst `ui `uc ]
-[; ;EEPROM.c: 401: L = ReadEEPROM_1Byte(AddressFirst + 1);
-"401
-[e = _L -> ( _ReadEEPROM_1Byte (1 -> + -> _AddressFirst `i -> 1 `i `ui `uc ]
-[; ;EEPROM.c: 403: temp = (((unsigned int) H << 8) + (unsigned int)L);
-"403
-[e = _temp + << -> _H `ui -> 8 `i -> _L `ui ]
-[; ;EEPROM.c: 404: return temp;
-"404
-[e ) -> _temp `ul ]
-[e $UE 477  ]
-[; ;EEPROM.c: 405: }
-"405
-[e :UE 477 ]
-}
 "412
-[v _SetMemoryInt `(uc ~T0 @X0 1 ef2`ui`uc ]
+[v _L `uc ~T0 @X0 1 a ]
 "413
+[v _Test `ul ~T0 @X0 1 a ]
+[; ;EEPROM.c: 409: unsigned char H;
+[; ;EEPROM.c: 410: unsigned char MH;
+[; ;EEPROM.c: 411: unsigned char ML;
+[; ;EEPROM.c: 412: unsigned char L;
+[; ;EEPROM.c: 413: unsigned long Test;
+[; ;EEPROM.c: 415: H = (unsigned char) ((Data & 0XFF000000) >> 24);
+"415
+[e = _H -> >> & _Data -> -16777216 `ul -> 24 `i `uc ]
+[; ;EEPROM.c: 416: MH = (unsigned char) ((Data & 0X00FF0000) >> 16);
+"416
+[e = _MH -> >> & _Data -> -> 16711680 `l `ul -> 16 `i `uc ]
+[; ;EEPROM.c: 417: ML = (unsigned char) ((Data & 0X0000FF00) >> 8);
+"417
+[e = _ML -> >> & _Data -> -> 65280 `ui `ul -> 8 `i `uc ]
+[; ;EEPROM.c: 418: L = (unsigned char) (Data & 0X000000FF);
+"418
+[e = _L -> & _Data -> -> -> 255 `i `l `ul `uc ]
+[; ;EEPROM.c: 421: WriteEEPROM_1Byte(AddressFirst, H);
+"421
+[e ( _WriteEEPROM_1Byte (2 , -> _AddressFirst `ui _H ]
+[; ;EEPROM.c: 422: WriteEEPROM_1Byte((AddressFirst + 1), MH);
+"422
+[e ( _WriteEEPROM_1Byte (2 , -> + -> _AddressFirst `i -> 1 `i `ui _MH ]
+[; ;EEPROM.c: 423: WriteEEPROM_1Byte((AddressFirst + 2), ML);
+"423
+[e ( _WriteEEPROM_1Byte (2 , -> + -> _AddressFirst `i -> 2 `i `ui _ML ]
+[; ;EEPROM.c: 424: WriteEEPROM_1Byte((AddressFirst + 3), L);
+"424
+[e ( _WriteEEPROM_1Byte (2 , -> + -> _AddressFirst `i -> 3 `i `ui _L ]
+[; ;EEPROM.c: 427: Test = GetMemoryLong(AddressFirst);
+"427
+[e = _Test ( _GetMemoryLong (1 _AddressFirst ]
+[; ;EEPROM.c: 429: if(Test == Data)
+"429
+[e $ ! == _Test _Data 483  ]
+[; ;EEPROM.c: 430: {
+"430
 {
-[; ;EEPROM.c: 412: unsigned char SetMemoryInt(unsigned int Data, unsigned char AddressFirst)
-[; ;EEPROM.c: 413: {
+[; ;EEPROM.c: 431: return 1;
+"431
+[e ) -> -> 1 `i `uc ]
+[e $UE 482  ]
+"432
+}
+[e :U 483 ]
+[; ;EEPROM.c: 432: }
+[; ;EEPROM.c: 433: return 0;
+"433
+[e ) -> -> 0 `i `uc ]
+[e $UE 482  ]
+[; ;EEPROM.c: 434: }
+"434
+[e :UE 482 ]
+}
+"441
+[v _GetMemoryInt `(ul ~T0 @X0 1 ef1`uc ]
+"442
+{
+[; ;EEPROM.c: 441: unsigned long GetMemoryInt(unsigned char AddressFirst)
+[; ;EEPROM.c: 442: {
+[e :U _GetMemoryInt ]
+"441
+[v _AddressFirst `uc ~T0 @X0 1 r1 ]
+"442
+[f ]
+"443
+[v _H `uc ~T0 @X0 1 a ]
+"444
+[v _L `uc ~T0 @X0 1 a ]
+"445
+[v _temp `ui ~T0 @X0 1 a ]
+[; ;EEPROM.c: 443: unsigned char H;
+[; ;EEPROM.c: 444: unsigned char L;
+[; ;EEPROM.c: 445: unsigned int temp =0;
+[e = _temp -> -> 0 `i `ui ]
+[; ;EEPROM.c: 447: H = ReadEEPROM_1Byte(AddressFirst);
+"447
+[e = _H -> ( _ReadEEPROM_1Byte (1 -> _AddressFirst `ui `uc ]
+[; ;EEPROM.c: 448: L = ReadEEPROM_1Byte(AddressFirst + 1);
+"448
+[e = _L -> ( _ReadEEPROM_1Byte (1 -> + -> _AddressFirst `i -> 1 `i `ui `uc ]
+[; ;EEPROM.c: 450: temp = (((unsigned int) H << 8) + (unsigned int)L);
+"450
+[e = _temp + << -> _H `ui -> 8 `i -> _L `ui ]
+[; ;EEPROM.c: 451: return temp;
+"451
+[e ) -> _temp `ul ]
+[e $UE 484  ]
+[; ;EEPROM.c: 452: }
+"452
+[e :UE 484 ]
+}
+"459
+[v _SetMemoryInt `(uc ~T0 @X0 1 ef2`ui`uc ]
+"460
+{
+[; ;EEPROM.c: 459: unsigned char SetMemoryInt(unsigned int Data, unsigned char AddressFirst)
+[; ;EEPROM.c: 460: {
 [e :U _SetMemoryInt ]
-"412
+"459
 [v _Data `ui ~T0 @X0 1 r1 ]
 [v _AddressFirst `uc ~T0 @X0 1 r2 ]
-"413
+"460
 [f ]
-"414
+"461
 [v _H `uc ~T0 @X0 1 a ]
-"415
+"462
 [v _L `uc ~T0 @X0 1 a ]
-"416
+"463
 [v _Test `ul ~T0 @X0 1 a ]
-[; ;EEPROM.c: 414: unsigned char H;
-[; ;EEPROM.c: 415: unsigned char L;
-[; ;EEPROM.c: 416: unsigned long Test;
-[; ;EEPROM.c: 418: H = (unsigned char) ((Data & 0xFF00) >> 8);
-"418
+[; ;EEPROM.c: 461: unsigned char H;
+[; ;EEPROM.c: 462: unsigned char L;
+[; ;EEPROM.c: 463: unsigned long Test;
+[; ;EEPROM.c: 465: H = (unsigned char) ((Data & 0xFF00) >> 8);
+"465
 [e = _H -> >> & _Data -> 65280 `ui -> 8 `i `uc ]
-[; ;EEPROM.c: 419: L = (unsigned char) (Data & 0x00FF);
-"419
+[; ;EEPROM.c: 466: L = (unsigned char) (Data & 0x00FF);
+"466
 [e = _L -> & _Data -> -> 255 `i `ui `uc ]
-[; ;EEPROM.c: 422: WriteEEPROM_1Byte(AddressFirst, H);
-"422
+[; ;EEPROM.c: 469: WriteEEPROM_1Byte(AddressFirst, H);
+"469
 [e ( _WriteEEPROM_1Byte (2 , -> _AddressFirst `ui _H ]
-[; ;EEPROM.c: 423: WriteEEPROM_1Byte((AddressFirst + 1), L);
-"423
+[; ;EEPROM.c: 470: WriteEEPROM_1Byte((AddressFirst + 1), L);
+"470
 [e ( _WriteEEPROM_1Byte (2 , -> + -> _AddressFirst `i -> 1 `i `ui _L ]
-[; ;EEPROM.c: 426: Test = GetMemoryInt(AddressFirst);
-"426
+[; ;EEPROM.c: 473: Test = GetMemoryInt(AddressFirst);
+"473
 [e = _Test ( _GetMemoryInt (1 _AddressFirst ]
-[; ;EEPROM.c: 428: if(Test == Data)
-"428
-[e $ ! == _Test -> _Data `ul 479  ]
-[; ;EEPROM.c: 429: {
-"429
+[; ;EEPROM.c: 475: if(Test == Data)
+"475
+[e $ ! == _Test -> _Data `ul 486  ]
+[; ;EEPROM.c: 476: {
+"476
 {
-[; ;EEPROM.c: 430: return 1;
-"430
+[; ;EEPROM.c: 477: return 1;
+"477
 [e ) -> -> 1 `i `uc ]
-[e $UE 478  ]
-"431
+[e $UE 485  ]
+"478
 }
-[e :U 479 ]
-[; ;EEPROM.c: 431: }
-[; ;EEPROM.c: 432: return 0;
-"432
+[e :U 486 ]
+[; ;EEPROM.c: 478: }
+[; ;EEPROM.c: 479: return 0;
+"479
 [e ) -> -> 0 `i `uc ]
-[e $UE 478  ]
-[; ;EEPROM.c: 433: }
-"433
-[e :UE 478 ]
+[e $UE 485  ]
+[; ;EEPROM.c: 480: }
+"480
+[e :UE 485 ]
 }
-"440
+"487
 [v _GetMemoryChar `(ul ~T0 @X0 1 ef1`uc ]
-"441
+"488
 {
-[; ;EEPROM.c: 440: unsigned long GetMemoryChar(unsigned char AddressFirst)
-[; ;EEPROM.c: 441: {
+[; ;EEPROM.c: 487: unsigned long GetMemoryChar(unsigned char AddressFirst)
+[; ;EEPROM.c: 488: {
 [e :U _GetMemoryChar ]
-"440
+"487
 [v _AddressFirst `uc ~T0 @X0 1 r1 ]
-"441
+"488
 [f ]
-"442
+"489
 [v _H `uc ~T0 @X0 1 a ]
-[; ;EEPROM.c: 442: unsigned char H;
-[; ;EEPROM.c: 444: H = ReadEEPROM_1Byte(AddressFirst);
-"444
+[; ;EEPROM.c: 489: unsigned char H;
+[; ;EEPROM.c: 491: H = ReadEEPROM_1Byte(AddressFirst);
+"491
 [e = _H -> ( _ReadEEPROM_1Byte (1 -> _AddressFirst `ui `uc ]
-[; ;EEPROM.c: 446: return H;
-"446
+[; ;EEPROM.c: 493: return H;
+"493
 [e ) -> _H `ul ]
-[e $UE 480  ]
-[; ;EEPROM.c: 447: }
-"447
-[e :UE 480 ]
+[e $UE 487  ]
+[; ;EEPROM.c: 494: }
+"494
+[e :UE 487 ]
 }
-"454
+"501
 [v _SetMemoryChar `(uc ~T0 @X0 1 ef2`uc`uc ]
-"455
+"502
 {
-[; ;EEPROM.c: 454: unsigned char SetMemoryChar(unsigned char Data, unsigned char AddressFirst)
-[; ;EEPROM.c: 455: {
+[; ;EEPROM.c: 501: unsigned char SetMemoryChar(unsigned char Data, unsigned char AddressFirst)
+[; ;EEPROM.c: 502: {
 [e :U _SetMemoryChar ]
-"454
+"501
 [v _Data `uc ~T0 @X0 1 r1 ]
 [v _AddressFirst `uc ~T0 @X0 1 r2 ]
-"455
+"502
 [f ]
-"456
+"503
 [v _Test `uc ~T0 @X0 1 a ]
-[; ;EEPROM.c: 456: unsigned char Test;
-[; ;EEPROM.c: 458: WriteEEPROM_1Byte(AddressFirst, Data);
-"458
+[; ;EEPROM.c: 503: unsigned char Test;
+[; ;EEPROM.c: 505: WriteEEPROM_1Byte(AddressFirst, Data);
+"505
 [e ( _WriteEEPROM_1Byte (2 , -> _AddressFirst `ui _Data ]
-[; ;EEPROM.c: 461: Test = GetMemoryChar(AddressFirst);
-"461
+[; ;EEPROM.c: 508: Test = GetMemoryChar(AddressFirst);
+"508
 [e = _Test -> ( _GetMemoryChar (1 _AddressFirst `uc ]
-[; ;EEPROM.c: 463: if(Test == Data)
-"463
-[e $ ! == -> _Test `i -> _Data `i 482  ]
-[; ;EEPROM.c: 464: {
-"464
+[; ;EEPROM.c: 510: if(Test == Data)
+"510
+[e $ ! == -> _Test `i -> _Data `i 489  ]
+[; ;EEPROM.c: 511: {
+"511
 {
-[; ;EEPROM.c: 465: return 1;
-"465
+[; ;EEPROM.c: 512: return 1;
+"512
 [e ) -> -> 1 `i `uc ]
-[e $UE 481  ]
-"466
+[e $UE 488  ]
+"513
 }
-[e :U 482 ]
-[; ;EEPROM.c: 466: }
-[; ;EEPROM.c: 467: return 0;
-"467
+[e :U 489 ]
+[; ;EEPROM.c: 513: }
+[; ;EEPROM.c: 514: return 0;
+"514
 [e ) -> -> 0 `i `uc ]
-[e $UE 481  ]
-[; ;EEPROM.c: 468: }
-"468
-[e :UE 481 ]
+[e $UE 488  ]
+[; ;EEPROM.c: 515: }
+"515
+[e :UE 488 ]
 }

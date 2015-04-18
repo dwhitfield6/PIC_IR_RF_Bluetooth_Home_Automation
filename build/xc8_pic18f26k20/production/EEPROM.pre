@@ -4935,37 +4935,41 @@ typedef unsigned char bool;
 # 52 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
 
-# 60
-unsigned long SN = 1;
-
-# 288
+# 280
 void InitApp(void);
 void Init_System (void);
 
-# 101 "EEPROM.h"
+# 110 "EEPROM.h"
 typedef struct EEdata
 {
 unsigned char BlueToothFlag;
 unsigned long SWNECcode;
-unsigned char RemoteButtonNEC[20][2];
+unsigned char RemoteButtonNEC[12][2];
 unsigned char EEPROMinitFlag;
+}GBLdata1;
 
-# 120
-unsigned char RemoteButtonRF[15][3][2];
+typedef struct EEdata2
+{
 
-}GBLdata;
+# 132
+unsigned char RemoteButtonRF[10][3][2];
+unsigned long SerialNumber;
+}GBLdata2;
 
 
 
 
-GBLdata Global = 0;
+GBLdata1 Global1 = 0;
+GBLdata2 Global2 = 0;
 
-# 133
+# 146
 unsigned int ReadEEPROM_1Byte(unsigned int address);
 void EEPROM_UNLOCK(void);
 void WriteEEPROM_1Byte(unsigned int address, unsigned char data);
-void GetEEPROM(GBLdata *Temp);
-unsigned long SetEEPROM(GBLdata Temp,unsigned long burn);
+void GetEEPROM1(GBLdata1 *Temp);
+unsigned long SetEEPROM1(GBLdata1 Temp,unsigned long burn);
+void GetEEPROM2(GBLdata2 *Temp);
+unsigned long SetEEPROM2(GBLdata2 Temp,unsigned long burn);
 unsigned long GetMemoryLong(unsigned char AddressFirst);
 unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst);
 unsigned long GetMemoryInt(unsigned char AddressFirst);
@@ -5042,14 +5046,15 @@ void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char 
 void SendRF_Channel(unsigned char channel);
 unsigned char GetRFstatus(void);
 
-# 116 "UART.h"
-extern unsigned char ReceivedString[255];
-extern unsigned char ReceivedStringPos;
-extern unsigned char CommandString[255];
-extern unsigned char CommandStringPos;
+# 124 "UART.h"
+extern volatile unsigned char ReceivedString[100];
+extern volatile unsigned char ReceivedStringPos;
+extern volatile unsigned char CommandString[100];
+extern volatile unsigned char CommandStringPos;
 extern volatile unsigned char NewReceivedString;
 const unsigned char SYNTAX_ERR[] = "Error: Syntax";
 const unsigned char CRLN[] = "\r\n";
+unsigned char BufferOverflow = 0;
 
 
 
@@ -5058,11 +5063,14 @@ void Local_CloseUSART(void );
 void InitUART(unsigned long Baud);
 void OpenUSART( unsigned char config, unsigned int spbrg);
 void UARTchar(unsigned char data);
+void UARTchar_CONST(const unsigned char data);
 void UARTstring(unsigned char *data);
+void UARTstring_CONST(const unsigned char *data);
 unsigned char ReadUSART(void);
 void UART_send_break(void);
 void UARTstringCRLN(unsigned char *data);
-void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
+void UARTstringCRLN_CONST(const unsigned char *data);
+void UARTcommandMenu(const unsigned char *Command,const unsigned char *Desc);
 void EraseScreen(unsigned char characters);
 void ClearUSART(void);
 
@@ -5084,11 +5092,11 @@ __nop();
 __nop();
 if(GIEstatus)
 {
-INTCONbits.GIE =1;
+INTCONbits.GIE = 1;
 }
 if(PEIEstatus)
 {
-PEIEstatus = INTCONbits.PEIE;
+INTCONbits.PEIE = 1;
 }
 return (EEDATA);
 }
@@ -5124,32 +5132,39 @@ while(EECON1bits.WR);
 EECON1bits.WREN =0;
 if(GIEstatus)
 {
-INTCONbits.GIE =1;
+INTCONbits.GIE = 1;
 }
 if(PEIEstatus)
 {
-PEIEstatus = INTCONbits.PEIE;
+INTCONbits.PEIE = 1;
 }
 }
 
 # 134
-void GetEEPROM(GBLdata *Temp)
+void GetEEPROM1(GBLdata1 *Temp)
 {
 unsigned char i,j,k;
 unsigned char Arrayspot=5;
 
 Temp->BlueToothFlag = GetMemoryChar(0);
 Temp->SWNECcode = GetMemoryLong(1);
-for(i=0; i< 20; i++)
+for(i=0; i< 12; i++)
 {
 for(j=0; j < 2; j++)
 {
 Temp->RemoteButtonNEC[i][j] = GetMemoryChar(Arrayspot++);
 }
 }
-Temp->EEPROMinitFlag = GetMemoryChar((2*20 + 5));
-Arrayspot=(2*20 + 7);
-for(i=0; i< 15; i++)
+Temp->EEPROMinitFlag = GetMemoryChar((2*12 + 5));
+}
+
+# 156
+void GetEEPROM2(GBLdata2 *Temp)
+{
+unsigned char i,j,k;
+unsigned char Arrayspot=(2*12 + 6);
+
+for(i=0; i< 10; i++)
 {
 for(j=0; j < 3; j++)
 {
@@ -5159,10 +5174,11 @@ Temp->RemoteButtonRF[i][j][k] = GetMemoryChar(Arrayspot++);
 }
 }
 }
+Temp->SerialNumber = GetMemoryLong((2*12 + 2*3*10 + 6));
 }
 
-# 167
-unsigned long SetEEPROM(GBLdata Temp,unsigned long burn)
+# 179
+unsigned long SetEEPROM1(GBLdata1 Temp,unsigned long burn)
 {
 unsigned long fail = 0;
 unsigned char i,j,k,temp;
@@ -5186,7 +5202,7 @@ fail |= 0x00000002;
 }
 if(burn & 0x00000004)
 {
-for(i=0; i< 20; i++)
+for(i=0; i< 12; i++)
 {
 for(j=0; j < 2; j++)
 {
@@ -5201,16 +5217,26 @@ fail |= 0x00000004;
 }
 if(burn & 0x00000008)
 {
-if(!SetMemoryChar(Temp.EEPROMinitFlag,(2*20 + 5)))
+if(!SetMemoryChar(Temp.EEPROMinitFlag,(2*12 + 5)))
 {
 
 fail |= 0x00000008;
 }
 }
-if(burn & 0x00000010)
+return fail;
+}
+
+# 232
+unsigned long SetEEPROM2(GBLdata2 Temp,unsigned long burn)
 {
-Arrayspot=(2*20 + 7);
-for(i=0; i< 15; i++)
+unsigned long fail = 0;
+unsigned char i,j,k,temp;
+unsigned char Arrayspot=5;
+
+if(burn & 0x00000001)
+{
+Arrayspot=(2*12 + 6);
+for(i=0; i< 10; i++)
 {
 for(j=0; j < 3; j++)
 {
@@ -5220,96 +5246,117 @@ temp = Temp.RemoteButtonRF[i][j][k];
 if(!SetMemoryChar(temp,Arrayspot++))
 {
 
-fail |= 0x00000010;
+fail |= 0x00000001;
 }
 }
 }
+}
+}
+if(burn & 0x00000002)
+{
+if(!SetMemoryLong(Temp.SerialNumber,(2*12 + 2*3*10 + 6)))
+{
+
+fail |= 0x00000002;
 }
 }
 return fail;
 }
 
-# 239
+# 273
 unsigned char SyncGlobalToEEPROM(void)
 {
+unsigned char ok = 1;
 
-if(!SetEEPROM(Global,0xFFFFFFFF))
+
+if(SetEEPROM1(Global1,0xFFFFFFFF))
+{
+ok = 0;
+}
+if(SetEEPROM2(Global2,0xFFFFFFFD))
+{
+ok = 0;
+}
+if(ok)
 {
 return 1;
 }
 return 0;
 }
 
-# 255
+# 299
 void SetEEPROMdefault(void)
 {
 unsigned char i,j,k;
 
-Global.BlueToothFlag = 0;
-Global.SWNECcode = 0x00FF00FF;
-Global.EEPROMinitFlag = 0;
-for(i=0; i< 20; i++)
+Global1.BlueToothFlag = 0;
+Global1.SWNECcode = 0x00FF00FF;
+Global1.EEPROMinitFlag = 0;
+for(i=0; i< 12; i++)
 {
 for(j=0; j < 2; j++)
 {
-Global.RemoteButtonNEC[i][j] = 0x00;
+Global1.RemoteButtonNEC[i][j] = 0x00;
 }
 }
-for(i=0; i< 15; i++)
+for(i=0; i< 10; i++)
 {
 for(j=0; j < 3; j++)
 {
 for(k=0; k < 2; k++)
 {
-Global.RemoteButtonRF[i][j][k] = 0x00;
+Global2.RemoteButtonRF[i][j][k] = 0x00;
 }
 }
 }
 SyncGlobalToEEPROM();
 }
 
-# 288
+# 332
 unsigned char EEPROMinitialized(void)
 {
-if(Global.EEPROMinitFlag == 59)
+if(Global1.EEPROMinitFlag == 59)
 {
 return 1;
 }
 return 0;
 }
 
-# 302
+# 346
 void SyncEEPROMToGlobal(void)
 {
 unsigned char i,j,k;
-GBLdata Temp;
+GBLdata1 Temp1;
+GBLdata2 Temp2;
 
-GetEEPROM(&Temp);
+GetEEPROM1(&Temp1);
+GetEEPROM2(&Temp2);
 
-Global.BlueToothFlag = Temp.BlueToothFlag;
-Global.SWNECcode = Temp.SWNECcode;
-Global.EEPROMinitFlag = Temp.EEPROMinitFlag;
-for(i=0; i< 20; i++)
+Global1.BlueToothFlag = Temp1.BlueToothFlag;
+Global1.SWNECcode = Temp1.SWNECcode;
+Global1.EEPROMinitFlag = Temp1.EEPROMinitFlag;
+for(i=0; i< 12; i++)
 {
 for(j=0; j < 2; j++)
 {
-Global.RemoteButtonNEC[i][j] = Temp.RemoteButtonNEC[i][j];
+Global1.RemoteButtonNEC[i][j] = Temp1.RemoteButtonNEC[i][j];
 }
 }
-Global.EEPROMinitFlag = Temp.EEPROMinitFlag;
-for(i=0; i< 15; i++)
+Global1.EEPROMinitFlag = Temp1.EEPROMinitFlag;
+for(i=0; i< 10; i++)
 {
 for(j=0; j < 3; j++)
 {
 for(k=0; k < 2; k++)
 {
-Global.RemoteButtonRF[i][j][k] = Temp.RemoteButtonRF[i][j][k];
+Global2.RemoteButtonRF[i][j][k] = Temp2.RemoteButtonRF[i][j][k];
 }
 }
 }
+Global2.SerialNumber = Temp2.SerialNumber;
 }
 
-# 337
+# 384
 unsigned long GetMemoryLong(unsigned char AddressFirst)
 {
 unsigned char H;
@@ -5328,7 +5375,7 @@ temp = (((unsigned long) H << 24) + ((unsigned long)MH << 16)
 return temp;
 }
 
-# 360
+# 407
 unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst)
 {
 unsigned char H;
@@ -5358,7 +5405,7 @@ return 1;
 return 0;
 }
 
-# 394
+# 441
 unsigned long GetMemoryInt(unsigned char AddressFirst)
 {
 unsigned char H;
@@ -5372,7 +5419,7 @@ temp = (((unsigned int) H << 8) + (unsigned int)L);
 return temp;
 }
 
-# 412
+# 459
 unsigned char SetMemoryInt(unsigned int Data, unsigned char AddressFirst)
 {
 unsigned char H;
@@ -5396,7 +5443,7 @@ return 1;
 return 0;
 }
 
-# 440
+# 487
 unsigned long GetMemoryChar(unsigned char AddressFirst)
 {
 unsigned char H;
@@ -5406,7 +5453,7 @@ H = ReadEEPROM_1Byte(AddressFirst);
 return H;
 }
 
-# 454
+# 501
 unsigned char SetMemoryChar(unsigned char Data, unsigned char AddressFirst)
 {
 unsigned char Test;

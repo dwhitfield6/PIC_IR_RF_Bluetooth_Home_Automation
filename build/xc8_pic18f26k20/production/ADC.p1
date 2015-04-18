@@ -1,7 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "86 ADC.h
 [v _VoltageDividerON `(v ~T0 @X0 0 ef ]
-"64 MISC.h
+"65 MISC.h
 [v _delayUS `(v ~T0 @X0 0 ef1`l ]
 "83 ADC.h
 [v _InternalADC_Read `(uc ~T0 @X0 0 ef2`uc`*ui ]
@@ -3742,14 +3742,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [; ;user.h: 52: unsigned char ProductName[50] = {"Home Automation"};
-"60
-[v _SN `ul ~T0 @X0 1 e ]
-[i _SN
--> -> -> 1 `i `l `ul
-]
-[; ;user.h: 60: unsigned long SN = 1;
-[; ;user.h: 288: void InitApp(void);
-[; ;user.h: 289: void Init_System (void);
+[; ;user.h: 280: void InitApp(void);
+[; ;user.h: 281: void Init_System (void);
 [; ;ADC.h: 82: double ReadVoltage(void);
 [; ;ADC.h: 83: unsigned char InternalADC_Read(unsigned char channel, unsigned int *ADCcounts);
 [; ;ADC.h: 84: void ResetADC(void);
@@ -3757,26 +3751,27 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ADC.h: 86: void VoltageDividerON(void);
 [; ;ADC.h: 87: void VoltageDividerOFF(void);
 [; ;system.h: 57: void ConfigureOscillator(void);
-[; ;MISC.h: 64: void delayUS(long US);
-[; ;MISC.h: 65: unsigned char IsCharacter(unsigned char data);
-[; ;MISC.h: 66: void cleanBuffer(unsigned char* data, int count);
-[; ;MISC.h: 67: void cleanBuffer16bit(unsigned int* data, int count);
-[; ;MISC.h: 68: double Round(double input);
-[; ;MISC.h: 69: void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
-[; ;MISC.h: 70: unsigned char StringMatch(unsigned char* This,const unsigned char* That);
-[; ;MISC.h: 71: unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
-[; ;MISC.h: 72: unsigned char StringContains(unsigned char* This, const unsigned char* That);
-[; ;MISC.h: 73: unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
-[; ;MISC.h: 74: void CalibrateDelay(void);
-[; ;MISC.h: 75: void lowercaseChar(unsigned char* Input);
-[; ;MISC.h: 76: void lowercaseString(unsigned char* Input);
-[; ;MISC.h: 77: void delayNOP(unsigned char NOPs);
-[; ;MISC.h: 78: unsigned char Reverse_Byte(unsigned char This);
-[; ;MISC.h: 79: unsigned int Reverse_2Byte(unsigned int This);
-[; ;MISC.h: 80: unsigned long Reverse_4Byte(unsigned long This);
-[; ;MISC.h: 81: unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
-[; ;MISC.h: 82: unsigned char StringAddEqual(unsigned char* Input);
-[; ;MISC.h: 83: unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
+[; ;MISC.h: 65: void delayUS(long US);
+[; ;MISC.h: 66: unsigned char IsCharacter(unsigned char data);
+[; ;MISC.h: 67: void cleanBuffer(unsigned char* data, int count);
+[; ;MISC.h: 68: void cleanBuffer16bit(unsigned int* data, int count);
+[; ;MISC.h: 69: double Round(double input);
+[; ;MISC.h: 70: void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
+[; ;MISC.h: 71: unsigned char StringMatch(const unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 72: unsigned char StringMatchCaseInsensitive(const unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 73: unsigned char StringContains(const unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 74: unsigned char StringContainsCaseInsensitive(const unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 75: void CalibrateDelay(void);
+[; ;MISC.h: 76: void lowercaseChar(unsigned char* Input);
+[; ;MISC.h: 77: void lowercaseString(unsigned char* Input);
+[; ;MISC.h: 78: void delayNOP(unsigned char NOPs);
+[; ;MISC.h: 79: unsigned char Reverse_Byte(unsigned char This);
+[; ;MISC.h: 80: unsigned int Reverse_2Byte(unsigned int This);
+[; ;MISC.h: 81: unsigned long Reverse_4Byte(unsigned long This);
+[; ;MISC.h: 82: unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, long* result);
+[; ;MISC.h: 83: unsigned char StringAddEqual(unsigned char* Input);
+[; ;MISC.h: 84: unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
+[; ;MISC.h: 85: unsigned char GetNumberUnsigned(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
 "60 ADC.c
 [v _ReadVoltage `(d ~T0 @X0 1 ef ]
 "61

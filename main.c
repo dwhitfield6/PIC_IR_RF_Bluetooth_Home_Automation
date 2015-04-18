@@ -59,6 +59,8 @@ const unsigned char FirmVersion[] = {"1.0_DW0b"};
 const unsigned char PCBVersion[] = {"RevA"};
 const unsigned char Frequency[] = {"315"};
 const unsigned char ProjectName[] = {"Home Automation IR/RF Hub"};
+unsigned char BluetoothFirmware1[BlueFWbuf];
+unsigned char BluetoothFirmware2[BlueFWbuf];
 
 /******************************************************************************/
 /* Defines                                                                    */
@@ -83,6 +85,7 @@ void main(void)
     unsigned char BluetoothStringPos = 0;
     unsigned char Connected, ConnectedOLD;
 
+    cleanBuffer(BluetoothString, RXbufsize);
 
     ConfigureOscillator();
     InitApp();
@@ -127,18 +130,15 @@ void main(void)
     {
         IRtask          = IR_New_Code;
         Bluetoothtask   = NewReceivedString;
-#ifdef BLUETOOTH
-        Connected = BlueConnected();
-#endif
+        /* read voltage */
         BatteryVoltage = ReadVoltage();
+
         if(VoltageStatus == FAILlow)
-        {
-            /* Require voltage drastic change to avoid oscillation */
+        {            
             BatteryVoltage -= 0.5;
         }
         else if(VoltageStatus == FAILhigh)
         {
-            /* Require voltage drastic change to avoid oscillation */
             BatteryVoltage += 0.5;
         }
 
@@ -155,23 +155,33 @@ void main(void)
             VoltageStatus = PASS;
         }
 
+        /* IR */
         if(IRtask && IR_NEC)
         {
             UseIRCode(&IR_New_Code, IR_NEC);
         }
-#ifdef BLUETOOTH
-        if(!Connected)
-        {
-            Connected = BlueConnected();
-        }
+
+        /* Bluetooth */
+#ifdef BLUETOOTHMODULE
+        Connected = BlueConnected();
+
         if(Connected != ConnectedOLD)
         {
             if(Connected)
             {
-                delayUS(1000);
-                UARTstringCRLN(ProjectName);
-                UARTstring(CRLN);
-                UARTchar('>');
+                cleanBuffer(ReceivedString, ReceivedStringPos);
+                ReceivedStringPos = 0;
+                delayUS(1000000);
+                UARTstringCRLN_CONST(ProjectName);
+                UARTstring_CONST(CRLN);
+                UARTchar_CONST('>');
+                ClearUSART();
+                PIR1bits.RCIF = FALSE;
+                PIE1bits.RCIE   = TRUE;
+            }
+            else
+            {
+                PIE1bits.RCIE   = FALSE;
             }
         }
         if(Bluetoothtask >= TRUE && Connected)
@@ -184,15 +194,18 @@ void main(void)
             NewReceivedString = FALSE;
             if(BluetoothString[0] != 0)
             {
-                UseBluetooth(&BluetoothString, BluetoothStringPos);
+                UseBluetooth(BluetoothString, BluetoothStringPos);
             }
-            UARTstring(CRLN);
-            UARTchar('>');
+            cleanBuffer(ReceivedString, ReceivedStringPos);
+            ReceivedStringPos = 0;
+            NewReceivedString = FALSE;
+            UARTstring_CONST(CRLN);
+            UARTchar_CONST('>');
             if(IR_New_Code)
             {
                 IR_New_Code = Old;
             }
-            /* Make sure that the IR reveicer is active */
+            /* Make sure that the IR receiver is active */
             IRpinOLD = ReadIRpin();
             INTCONbits.RBIF = FALSE;
             IRreceiverIntOn();
@@ -201,8 +214,8 @@ void main(void)
             PIR1bits.RCIF = FALSE;
             PIE1bits.RCIE   = TRUE;
         }
-        ConnectedOLD = Connected;
 #endif
+        /* maintainance */
         if(IRtimeout < IRtimeoutLoops)
         {
             IRtimeout++;
@@ -217,6 +230,21 @@ void main(void)
             IRreceiverIntOn();
             INTCONbits.RBIE = TRUE;
         }
+        if(BufferOverflow)
+        {
+            /* Clean up an overflowed buffer */
+            cleanBuffer(ReceivedString,RXbufsize);
+            ReceivedStringPos = 0;
+            UARTstring_CONST(CRLN);
+            UARTstringCRLN_CONST("Buffer Overflow");
+            UARTstring_CONST(CRLN);
+            UARTchar('>');
+            BufferOverflow = FALSE;
+            ClearUSART();
+            PIR1bits.RCIF = FALSE;
+            PIE1bits.RCIE   = TRUE;
+        }
+        ConnectedOLD = Connected;
     }
 }
 /*-----------------------------------------------------------------------------/

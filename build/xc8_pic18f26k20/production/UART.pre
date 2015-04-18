@@ -5001,10 +5001,7 @@ void ConfigureOscillator(void);
 # 52 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
 
-# 60
-unsigned long SN = 1;
-
-# 288
+# 280
 void InitApp(void);
 void Init_System (void);
 
@@ -5070,14 +5067,15 @@ void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char 
 void SendRF_Channel(unsigned char channel);
 unsigned char GetRFstatus(void);
 
-# 116 "UART.h"
-extern unsigned char ReceivedString[255];
-extern unsigned char ReceivedStringPos;
-extern unsigned char CommandString[255];
-extern unsigned char CommandStringPos;
+# 124 "UART.h"
+extern volatile unsigned char ReceivedString[100];
+extern volatile unsigned char ReceivedStringPos;
+extern volatile unsigned char CommandString[100];
+extern volatile unsigned char CommandStringPos;
 extern volatile unsigned char NewReceivedString;
 const unsigned char SYNTAX_ERR[] = "Error: Syntax";
 const unsigned char CRLN[] = "\r\n";
+unsigned char BufferOverflow = 0;
 
 
 
@@ -5086,25 +5084,28 @@ void Local_CloseUSART(void );
 void InitUART(unsigned long Baud);
 void OpenUSART( unsigned char config, unsigned int spbrg);
 void UARTchar(unsigned char data);
+void UARTchar_CONST(const unsigned char data);
 void UARTstring(unsigned char *data);
+void UARTstring_CONST(const unsigned char *data);
 unsigned char ReadUSART(void);
 void UART_send_break(void);
 void UARTstringCRLN(unsigned char *data);
-void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
+void UARTstringCRLN_CONST(const unsigned char *data);
+void UARTcommandMenu(const unsigned char *Command,const unsigned char *Desc);
 void EraseScreen(unsigned char characters);
 void ClearUSART(void);
 
-# 64 "MISC.h"
+# 65 "MISC.h"
 void delayUS(long US);
 unsigned char IsCharacter(unsigned char data);
 void cleanBuffer(unsigned char* data, int count);
 void cleanBuffer16bit(unsigned int* data, int count);
 double Round(double input);
 void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
-unsigned char StringMatch(unsigned char* This,const unsigned char* That);
-unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
-unsigned char StringContains(unsigned char* This, const unsigned char* That);
-unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
+unsigned char StringMatch(const unsigned char* This, const unsigned char* That);
+unsigned char StringMatchCaseInsensitive(const unsigned char* This, const unsigned char* That);
+unsigned char StringContains(const unsigned char* This, const unsigned char* That);
+unsigned char StringContainsCaseInsensitive(const unsigned char* This, const unsigned char* That);
 void CalibrateDelay(void);
 void lowercaseChar(unsigned char* Input);
 void lowercaseString(unsigned char* Input);
@@ -5112,15 +5113,16 @@ void delayNOP(unsigned char NOPs);
 unsigned char Reverse_Byte(unsigned char This);
 unsigned int Reverse_2Byte(unsigned int This);
 unsigned long Reverse_4Byte(unsigned long This);
-unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
+unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, long* result);
 unsigned char StringAddEqual(unsigned char* Input);
 unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
+unsigned char GetNumberUnsigned(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
 
 # 49 "UART.c"
-unsigned char ReceivedString[255];
-unsigned char ReceivedStringPos = 0;
-unsigned char CommandString[255];
-unsigned char CommandStringPos = 0;
+volatile unsigned char ReceivedString[100];
+volatile unsigned char ReceivedStringPos = 0;
+volatile unsigned char CommandString[100];
+volatile unsigned char CommandStringPos = 0;
 volatile unsigned char NewReceivedString = 0;
 
 # 64
@@ -5161,7 +5163,7 @@ ClearUSART();
 OpenUSART(config, spbrg);
 
 PIR1bits.RCIF = 0;
-PIE1bits.RCIE = 1;
+PIE1bits.RCIE = 0;
 INTCONbits.PEIE = 1;
 }
 
@@ -5237,14 +5239,31 @@ RCSTAbits.SPEN = 1;
 # 188
 void UARTchar(unsigned char data)
 {
+RCSTAbits.CREN = 0;
 if(data != 0)
 {
 TXREG = data;
+delayUS(100);
 while(!TXSTAbits.TRMT);
 }
+RCSTAbits.CREN = 1;
 }
 
-# 202
+# 205
+void UARTchar_CONST(const unsigned char data)
+{
+unsigned char temp = data;
+RCSTAbits.CREN = 0;
+if(temp != 0)
+{
+TXREG = temp;
+delayUS(100);
+while(!TXSTAbits.TRMT);
+}
+RCSTAbits.CREN = 1;
+}
+
+# 223
 void UARTstring(unsigned char *data)
 {
 while(*data != 0)
@@ -5254,15 +5273,27 @@ UARTchar(*data);
 }
 }
 
-# 216
+# 237
+void UARTstring_CONST(const unsigned char *data)
+{
+while(*data != 0)
+{
+UARTchar_CONST(*data);
+*data++;
+}
+}
+
+# 251
 void ClearUSART(void)
 {
+RCSTAbits.CREN = 0;
+RCSTAbits.CREN = 1;
 ReadUSART();
 ReadUSART();
 ReadUSART();
 }
 
-# 227
+# 264
 unsigned char ReadUSART(void)
 {
 unsigned char data;
@@ -5279,7 +5310,7 @@ data = RCREG;
 return (data);
 }
 
-# 249
+# 286
 void UART_send_break(void)
 {
 TXSTAbits.SENDB = 1;
@@ -5287,7 +5318,7 @@ TXREG = 'd';
 while(TXSTAbits.SENDB);
 }
 
-# 262
+# 299
 void UARTstringCRLN(unsigned char *data)
 {
 while(*data != 0)
@@ -5295,11 +5326,22 @@ while(*data != 0)
 UARTchar(*data);
 *data++;
 }
-UARTstring(CRLN);
+UARTstring_CONST(CRLN);
 }
 
-# 277
-void UARTcommandMenu(unsigned char *Command, unsigned char *Desc)
+# 315
+void UARTstringCRLN_CONST(const unsigned char *data)
+{
+while(*data != 0)
+{
+UARTchar_CONST(*data);
+*data++;
+}
+UARTstring_CONST(CRLN);
+}
+
+# 331
+void UARTcommandMenu(const unsigned char *Command,const unsigned char *Desc)
 {
 unsigned char place = 0;
 unsigned char i;
@@ -5321,10 +5363,10 @@ UARTchar(*Desc);
 *Desc++;
 place++;
 }
-UARTstring(CRLN);
+UARTstring_CONST(CRLN);
 }
 
-# 308
+# 362
 void EraseScreen(unsigned char characters)
 {
 unsigned char i;

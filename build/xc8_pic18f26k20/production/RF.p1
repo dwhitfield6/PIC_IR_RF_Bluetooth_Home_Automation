@@ -3705,21 +3705,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [; ;user.h: 52: unsigned char ProductName[50] = {"Home Automation"};
-"60
-[v _SN `ul ~T0 @X0 1 e ]
-[i _SN
--> -> -> 1 `i `l `ul
-]
-[; ;user.h: 60: unsigned long SN = 1;
-[; ;user.h: 288: void InitApp(void);
-[; ;user.h: 289: void Init_System (void);
+[; ;user.h: 280: void InitApp(void);
+[; ;user.h: 281: void Init_System (void);
 [; ;system.h: 57: void ConfigureOscillator(void);
-[; ;UART.h: 116: extern unsigned char ReceivedString[255];
-[; ;UART.h: 117: extern unsigned char ReceivedStringPos;
-[; ;UART.h: 118: extern unsigned char CommandString[255];
-[; ;UART.h: 119: extern unsigned char CommandStringPos;
-[; ;UART.h: 120: extern volatile unsigned char NewReceivedString;
-"121 UART.h
+[; ;UART.h: 124: extern volatile unsigned char ReceivedString[100];
+[; ;UART.h: 125: extern volatile unsigned char ReceivedStringPos;
+[; ;UART.h: 126: extern volatile unsigned char CommandString[100];
+[; ;UART.h: 127: extern volatile unsigned char CommandStringPos;
+[; ;UART.h: 128: extern volatile unsigned char NewReceivedString;
+"129 UART.h
 [v _SYNTAX_ERR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _SYNTAX_ERR
 :U ..
@@ -3739,8 +3733,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;UART.h: 121: const unsigned char SYNTAX_ERR[] = "Error: Syntax";
-"122
+[; ;UART.h: 129: const unsigned char SYNTAX_ERR[] = "Error: Syntax";
+"130
 [v _CRLN `Cuc ~T0 @X0 -> 0 `x e ]
 [i _CRLN
 :U ..
@@ -3749,18 +3743,27 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;UART.h: 122: const unsigned char CRLN[] = "\r\n";
-[; ;UART.h: 127: void Local_CloseUSART(void );
-[; ;UART.h: 128: void InitUART(unsigned long Baud);
-[; ;UART.h: 129: void OpenUSART( unsigned char config, unsigned int spbrg);
-[; ;UART.h: 130: void UARTchar(unsigned char data);
-[; ;UART.h: 131: void UARTstring(unsigned char *data);
-[; ;UART.h: 132: unsigned char ReadUSART(void);
-[; ;UART.h: 133: void UART_send_break(void);
-[; ;UART.h: 134: void UARTstringCRLN(unsigned char *data);
-[; ;UART.h: 135: void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
-[; ;UART.h: 136: void EraseScreen(unsigned char characters);
-[; ;UART.h: 137: void ClearUSART(void);
+[; ;UART.h: 130: const unsigned char CRLN[] = "\r\n";
+"131
+[v _BufferOverflow `uc ~T0 @X0 1 e ]
+[i _BufferOverflow
+-> -> 0 `i `uc
+]
+[; ;UART.h: 131: unsigned char BufferOverflow = 0;
+[; ;UART.h: 136: void Local_CloseUSART(void );
+[; ;UART.h: 137: void InitUART(unsigned long Baud);
+[; ;UART.h: 138: void OpenUSART( unsigned char config, unsigned int spbrg);
+[; ;UART.h: 139: void UARTchar(unsigned char data);
+[; ;UART.h: 140: void UARTchar_CONST(const unsigned char data);
+[; ;UART.h: 141: void UARTstring(unsigned char *data);
+[; ;UART.h: 142: void UARTstring_CONST(const unsigned char *data);
+[; ;UART.h: 143: unsigned char ReadUSART(void);
+[; ;UART.h: 144: void UART_send_break(void);
+[; ;UART.h: 145: void UARTstringCRLN(unsigned char *data);
+[; ;UART.h: 146: void UARTstringCRLN_CONST(const unsigned char *data);
+[; ;UART.h: 147: void UARTcommandMenu(const unsigned char *Command,const unsigned char *Desc);
+[; ;UART.h: 148: void EraseScreen(unsigned char characters);
+[; ;UART.h: 149: void ClearUSART(void);
 "128 RF.h
 [v _Conf1_Channels `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_Channels
@@ -4431,26 +4434,27 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Timer.h: 183: void InitTimer3(void);
 [; ;Timer.h: 184: void ResetTimer3(void);
 [; ;Timer.h: 185: void InitTimers(void);
-[; ;MISC.h: 64: void delayUS(long US);
-[; ;MISC.h: 65: unsigned char IsCharacter(unsigned char data);
-[; ;MISC.h: 66: void cleanBuffer(unsigned char* data, int count);
-[; ;MISC.h: 67: void cleanBuffer16bit(unsigned int* data, int count);
-[; ;MISC.h: 68: double Round(double input);
-[; ;MISC.h: 69: void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
-[; ;MISC.h: 70: unsigned char StringMatch(unsigned char* This,const unsigned char* That);
-[; ;MISC.h: 71: unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
-[; ;MISC.h: 72: unsigned char StringContains(unsigned char* This, const unsigned char* That);
-[; ;MISC.h: 73: unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
-[; ;MISC.h: 74: void CalibrateDelay(void);
-[; ;MISC.h: 75: void lowercaseChar(unsigned char* Input);
-[; ;MISC.h: 76: void lowercaseString(unsigned char* Input);
-[; ;MISC.h: 77: void delayNOP(unsigned char NOPs);
-[; ;MISC.h: 78: unsigned char Reverse_Byte(unsigned char This);
-[; ;MISC.h: 79: unsigned int Reverse_2Byte(unsigned int This);
-[; ;MISC.h: 80: unsigned long Reverse_4Byte(unsigned long This);
-[; ;MISC.h: 81: unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
-[; ;MISC.h: 82: unsigned char StringAddEqual(unsigned char* Input);
-[; ;MISC.h: 83: unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
+[; ;MISC.h: 65: void delayUS(long US);
+[; ;MISC.h: 66: unsigned char IsCharacter(unsigned char data);
+[; ;MISC.h: 67: void cleanBuffer(unsigned char* data, int count);
+[; ;MISC.h: 68: void cleanBuffer16bit(unsigned int* data, int count);
+[; ;MISC.h: 69: double Round(double input);
+[; ;MISC.h: 70: void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
+[; ;MISC.h: 71: unsigned char StringMatch(const unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 72: unsigned char StringMatchCaseInsensitive(const unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 73: unsigned char StringContains(const unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 74: unsigned char StringContainsCaseInsensitive(const unsigned char* This, const unsigned char* That);
+[; ;MISC.h: 75: void CalibrateDelay(void);
+[; ;MISC.h: 76: void lowercaseChar(unsigned char* Input);
+[; ;MISC.h: 77: void lowercaseString(unsigned char* Input);
+[; ;MISC.h: 78: void delayNOP(unsigned char NOPs);
+[; ;MISC.h: 79: unsigned char Reverse_Byte(unsigned char This);
+[; ;MISC.h: 80: unsigned int Reverse_2Byte(unsigned int This);
+[; ;MISC.h: 81: unsigned long Reverse_4Byte(unsigned long This);
+[; ;MISC.h: 82: unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, long* result);
+[; ;MISC.h: 83: unsigned char StringAddEqual(unsigned char* Input);
+[; ;MISC.h: 84: unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
+[; ;MISC.h: 85: unsigned char GetNumberUnsigned(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
 [; ;IR.h: 202: extern unsigned char IRpinOLD;
 [; ;IR.h: 203: extern unsigned int IRRawCode[100];
 [; ;IR.h: 204: extern unsigned long IR_NEC;
@@ -4853,27 +4857,27 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;RF.c: 169: case 0:
 "169
 [e :U 402 ]
-[; ;RF.c: 171: SendRF_wait(Conf1_ChannelD,1,12,4);
+[; ;RF.c: 171: SendRF_wait(Conf1_ChannelD,1,12,5);
 "171
-[e ( _SendRF_wait (4 , , , &U _Conf1_ChannelD -> -> 1 `i `uc -> -> 12 `i `uc -> -> 4 `i `uc ]
+[e ( _SendRF_wait (4 , , , &U _Conf1_ChannelD -> -> 1 `i `uc -> -> 12 `i `uc -> -> 5 `i `uc ]
 [; ;RF.c: 172: break;
 "172
 [e $U 400  ]
 [; ;RF.c: 173: case 1:
 "173
 [e :U 403 ]
-[; ;RF.c: 175: SendRF_wait(Conf1_ChannelE,1,12,4);
+[; ;RF.c: 175: SendRF_wait(Conf1_ChannelE,1,12,5);
 "175
-[e ( _SendRF_wait (4 , , , &U _Conf1_ChannelE -> -> 1 `i `uc -> -> 12 `i `uc -> -> 4 `i `uc ]
+[e ( _SendRF_wait (4 , , , &U _Conf1_ChannelE -> -> 1 `i `uc -> -> 12 `i `uc -> -> 5 `i `uc ]
 [; ;RF.c: 176: break;
 "176
 [e $U 400  ]
 [; ;RF.c: 177: case 2:
 "177
 [e :U 404 ]
-[; ;RF.c: 179: SendRF_wait(Conf1_ChannelF,1,12,4);
+[; ;RF.c: 179: SendRF_wait(Conf1_ChannelF,1,12,5);
 "179
-[e ( _SendRF_wait (4 , , , &U _Conf1_ChannelF -> -> 1 `i `uc -> -> 12 `i `uc -> -> 4 `i `uc ]
+[e ( _SendRF_wait (4 , , , &U _Conf1_ChannelF -> -> 1 `i `uc -> -> 12 `i `uc -> -> 5 `i `uc ]
 [; ;RF.c: 180: break;
 "180
 [e $U 400  ]
@@ -4886,9 +4890,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;RF.c: 184: {
 "184
 {
-[; ;RF.c: 185: SendRF_wait(Conf2_ChannelB_OFF,2,16,4);
+[; ;RF.c: 185: SendRF_wait(Conf2_ChannelB_OFF,2,16,5);
 "185
-[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelB_OFF -> -> 2 `i `uc -> -> 16 `i `uc -> -> 4 `i `uc ]
+[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelB_OFF -> -> 2 `i `uc -> -> 16 `i `uc -> -> 5 `i `uc ]
 [; ;RF.c: 186: Conf2_ChannelB_Status = 0;
 "186
 [e = _Conf2_ChannelB_Status -> -> 0 `i `uc ]
@@ -4902,9 +4906,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;RF.c: 189: {
 "189
 {
-[; ;RF.c: 190: SendRF_wait(Conf2_ChannelB_ON,2,16,4);
+[; ;RF.c: 190: SendRF_wait(Conf2_ChannelB_ON,2,16,5);
 "190
-[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelB_ON -> -> 2 `i `uc -> -> 16 `i `uc -> -> 4 `i `uc ]
+[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelB_ON -> -> 2 `i `uc -> -> 16 `i `uc -> -> 5 `i `uc ]
 [; ;RF.c: 191: Conf2_ChannelB_Status = 1;
 "191
 [e = _Conf2_ChannelB_Status -> -> 1 `i `uc ]
@@ -4924,9 +4928,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;RF.c: 197: {
 "197
 {
-[; ;RF.c: 198: SendRF_wait(Conf2_ChannelD_OFF,2,16,4);
+[; ;RF.c: 198: SendRF_wait(Conf2_ChannelD_OFF,2,16,5);
 "198
-[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelD_OFF -> -> 2 `i `uc -> -> 16 `i `uc -> -> 4 `i `uc ]
+[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelD_OFF -> -> 2 `i `uc -> -> 16 `i `uc -> -> 5 `i `uc ]
 [; ;RF.c: 199: Conf2_ChannelD_Status = 0;
 "199
 [e = _Conf2_ChannelD_Status -> -> 0 `i `uc ]
@@ -4940,9 +4944,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;RF.c: 202: {
 "202
 {
-[; ;RF.c: 203: SendRF_wait(Conf2_ChannelD_ON,2,16,4);
+[; ;RF.c: 203: SendRF_wait(Conf2_ChannelD_ON,2,16,5);
 "203
-[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelD_ON -> -> 2 `i `uc -> -> 16 `i `uc -> -> 4 `i `uc ]
+[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelD_ON -> -> 2 `i `uc -> -> 16 `i `uc -> -> 5 `i `uc ]
 [; ;RF.c: 204: Conf2_ChannelD_Status = 1;
 "204
 [e = _Conf2_ChannelD_Status -> -> 1 `i `uc ]
@@ -4962,9 +4966,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;RF.c: 210: {
 "210
 {
-[; ;RF.c: 211: SendRF_wait(Conf2_ChannelH_1_OFF,2,16,4);
+[; ;RF.c: 211: SendRF_wait(Conf2_ChannelH_1_OFF,2,16,5);
 "211
-[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_1_OFF -> -> 2 `i `uc -> -> 16 `i `uc -> -> 4 `i `uc ]
+[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_1_OFF -> -> 2 `i `uc -> -> 16 `i `uc -> -> 5 `i `uc ]
 [; ;RF.c: 212: Conf2_ChannelH_1_Status = 0;
 "212
 [e = _Conf2_ChannelH_1_Status -> -> 0 `i `uc ]
@@ -4978,9 +4982,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;RF.c: 215: {
 "215
 {
-[; ;RF.c: 216: SendRF_wait(Conf2_ChannelH_1_ON,2,16,4);
+[; ;RF.c: 216: SendRF_wait(Conf2_ChannelH_1_ON,2,16,5);
 "216
-[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_1_ON -> -> 2 `i `uc -> -> 16 `i `uc -> -> 4 `i `uc ]
+[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_1_ON -> -> 2 `i `uc -> -> 16 `i `uc -> -> 5 `i `uc ]
 [; ;RF.c: 217: Conf2_ChannelH_1_Status = 1;
 "217
 [e = _Conf2_ChannelH_1_Status -> -> 1 `i `uc ]
@@ -5000,9 +5004,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;RF.c: 223: {
 "223
 {
-[; ;RF.c: 224: SendRF_wait(Conf2_ChannelH_2_OFF,2,16,4);
+[; ;RF.c: 224: SendRF_wait(Conf2_ChannelH_2_OFF,2,16,5);
 "224
-[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_2_OFF -> -> 2 `i `uc -> -> 16 `i `uc -> -> 4 `i `uc ]
+[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_2_OFF -> -> 2 `i `uc -> -> 16 `i `uc -> -> 5 `i `uc ]
 [; ;RF.c: 225: Conf2_ChannelH_2_Status = 0;
 "225
 [e = _Conf2_ChannelH_2_Status -> -> 0 `i `uc ]
@@ -5016,9 +5020,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;RF.c: 228: {
 "228
 {
-[; ;RF.c: 229: SendRF_wait(Conf2_ChannelH_2_ON,2,16,4);
+[; ;RF.c: 229: SendRF_wait(Conf2_ChannelH_2_ON,2,16,5);
 "229
-[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_2_ON -> -> 2 `i `uc -> -> 16 `i `uc -> -> 4 `i `uc ]
+[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_2_ON -> -> 2 `i `uc -> -> 16 `i `uc -> -> 5 `i `uc ]
 [; ;RF.c: 230: Conf2_ChannelH_2_Status = 1;
 "230
 [e = _Conf2_ChannelH_2_Status -> -> 1 `i `uc ]
@@ -5038,9 +5042,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;RF.c: 236: {
 "236
 {
-[; ;RF.c: 237: SendRF_wait(Conf2_ChannelH_3_OFF,2,16,4);
+[; ;RF.c: 237: SendRF_wait(Conf2_ChannelH_3_OFF,2,16,5);
 "237
-[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_3_OFF -> -> 2 `i `uc -> -> 16 `i `uc -> -> 4 `i `uc ]
+[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_3_OFF -> -> 2 `i `uc -> -> 16 `i `uc -> -> 5 `i `uc ]
 [; ;RF.c: 238: Conf2_ChannelH_3_Status = 0;
 "238
 [e = _Conf2_ChannelH_3_Status -> -> 0 `i `uc ]
@@ -5054,9 +5058,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;RF.c: 241: {
 "241
 {
-[; ;RF.c: 242: SendRF_wait(Conf2_ChannelH_3_ON,2,16,4);
+[; ;RF.c: 242: SendRF_wait(Conf2_ChannelH_3_ON,2,16,5);
 "242
-[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_3_ON -> -> 2 `i `uc -> -> 16 `i `uc -> -> 4 `i `uc ]
+[e ( _SendRF_wait (4 , , , &U _Conf2_ChannelH_3_ON -> -> 2 `i `uc -> -> 16 `i `uc -> -> 5 `i `uc ]
 [; ;RF.c: 243: Conf2_ChannelH_3_Status = 1;
 "243
 [e = _Conf2_ChannelH_3_Status -> -> 1 `i `uc ]

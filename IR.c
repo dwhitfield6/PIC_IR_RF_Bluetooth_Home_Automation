@@ -279,7 +279,7 @@ void UseIRCode(unsigned char* Code, unsigned long NEC)
         DecodeNEC(NEC, &IRaddress, &IRcommand);
         if(ReadPushButton())
         {
-            Global.SWNECcode = NEC;
+            Global1.SWNECcode = NEC;
             if(SyncGlobalToEEPROM())
             {
                 /* Successful EEPROM burn */
@@ -305,7 +305,7 @@ void UseIRCode(unsigned char* Code, unsigned long NEC)
         }
         else
         {
-            if(NEC == Global.SWNECcode)
+            if(NEC == Global1.SWNECcode)
             {
                 if(*Code == 2)
                 {
@@ -315,15 +315,15 @@ void UseIRCode(unsigned char* Code, unsigned long NEC)
                 SendRF_Channel(ReadCodeButtons());
                 found = TRUE;
             }
-#ifdef BLUETOOTH
+#ifdef BLUETOOTHMODULE
             for(j=0; j < MirrorButtonsAmount; j++)
             {
                 for(i=0; i < RFcodesAmount; i++)
                 {
 
-                    if(IRaddress == Global.RemoteButtonRF[i][j][0])
+                    if(IRaddress == Global2.RemoteButtonRF[i][j][0])
                     {
-                        if(IRcommand == Global.RemoteButtonRF[i][j][1])
+                        if(IRcommand == Global2.RemoteButtonRF[i][j][1])
                         {
                             if(*Code == 2)
                             {

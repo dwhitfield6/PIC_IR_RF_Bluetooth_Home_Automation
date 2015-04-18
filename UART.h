@@ -38,6 +38,13 @@
 #include "RF.h"          /* User funct/params, such as InitApp */
 
 /******************************************************************************/
+/* TimeBetweenChars
+ *
+ * MicroSeconds between printing characters.
+/******************************************************************************/
+#define TimeBetweenChars 100
+
+/******************************************************************************/
 /* MaxCommandLen
  *
  * This is the Maximum commmand length.
@@ -58,28 +65,29 @@
  *   words when printing over the UART.
 /******************************************************************************/
 
-#define Character_Spacing   5000
+#define Character_Spacing   5000L
 
 /*
  * A typical Character_Spacing value for fast printing is 5000. For slow
  *   printing 200,000 is common.
  */
 
-#define Word_Spacing        15000
+#define Word_Spacing        15000L
 
 /******************************************************************************/
 /* RXbufsize
  *
- * This parameter is the size of the received array. Must be less than 256
+ * This parameter is the size of the received array. Must be small so that the
+ *  program gets built correctly.
 /******************************************************************************/
-#define RXbufsize 255
+#define RXbufsize 100
 
 /******************************************************************************/
 /* RXCommandsize
  *
  * This parameter is the size of the received array. Must be less than 256
 /******************************************************************************/
-#define RXCommandsize 255
+#define RXCommandsize 100
 
 /******************************************************************************/
 /* Defines                                                                    */
@@ -113,13 +121,14 @@
 /******************************************************************************/
 /* Global Variables                                                           */
 /******************************************************************************/
-extern unsigned char ReceivedString[RXbufsize];
-extern unsigned char ReceivedStringPos;
-extern unsigned char CommandString[RXCommandsize];
-extern unsigned char CommandStringPos;
+extern volatile unsigned char ReceivedString[RXbufsize];
+extern volatile unsigned char ReceivedStringPos;
+extern volatile unsigned char CommandString[RXCommandsize];
+extern volatile unsigned char CommandStringPos;
 extern volatile unsigned char NewReceivedString;
 const unsigned char SYNTAX_ERR[] = "Error: Syntax";
 const unsigned char CRLN[] = "\r\n";
+unsigned char BufferOverflow = FALSE;
 
 /******************************************************************************/
 /* Function prototypes                                                        */
@@ -128,11 +137,14 @@ void Local_CloseUSART(void );
 void InitUART(unsigned long Baud);
 void OpenUSART( unsigned char config, unsigned int spbrg);
 void UARTchar(unsigned char data);
+void UARTchar_CONST(const unsigned char data);
 void UARTstring(unsigned char *data);
+void UARTstring_CONST(const unsigned char *data);
 unsigned char ReadUSART(void);
 void UART_send_break(void);
 void UARTstringCRLN(unsigned char *data);
-void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
+void UARTstringCRLN_CONST(const unsigned char *data);
+void UARTcommandMenu(const unsigned char *Command,const unsigned char *Desc);
 void EraseScreen(unsigned char characters);
 void ClearUSART(void);
 

@@ -69,11 +69,11 @@ unsigned int ReadEEPROM_1Byte(unsigned int address)
     NOP();
     if(GIEstatus)
     {
-        INTCONbits.GIE =1;//enable global interrupts
+        INTCONbits.GIE = TRUE;//enable global interrupts
     }
     if(PEIEstatus)
     {
-        PEIEstatus = INTCONbits.PEIE;//read GIE setting
+        INTCONbits.PEIE = TRUE;//enable low priority interrupts
     }
     return (EEDATA);
 }
@@ -118,20 +118,20 @@ void WriteEEPROM_1Byte(unsigned int address, unsigned char data)
     EECON1bits.WREN =0;
     if(GIEstatus)
     {
-        INTCONbits.GIE =1;//enable global interrupts
+        INTCONbits.GIE = TRUE;//enable global interrupts
     }
     if(PEIEstatus)
     {
-        PEIEstatus = INTCONbits.PEIE;//read GIE setting
+        INTCONbits.PEIE = TRUE;//enable low priority interrupts
     }
 }
 
 /******************************************************************************/
-/* GetEEPROM
+/* GetEEPROM1
  *
- * The function gets the EEdata struct from memory.
+ * The function gets the EEdata1 struct from memory.
 /******************************************************************************/
-void GetEEPROM(GBLdata *Temp)
+void GetEEPROM1(GBLdata1 *Temp)
 {
     unsigned char i,j,k;
     unsigned char Arrayspot=EE_RemoteButtonNEC;
@@ -146,7 +146,18 @@ void GetEEPROM(GBLdata *Temp)
         }
     }
     Temp->EEPROMinitFlag         = GetMemoryChar(EE_EEPROMinitFlag);
-    Arrayspot=EE_RemoteButtonRF;
+}
+
+/******************************************************************************/
+/* GetEEPROM2
+ *
+ * The function gets the EEdata2 struct from memory.
+/******************************************************************************/
+void GetEEPROM2(GBLdata2 *Temp)
+{
+    unsigned char i,j,k;
+    unsigned char Arrayspot=EE_RemoteButtonRF;
+
     for(i=0; i< RFcodesAmount; i++)
     {
         for(j=0; j < MirrorButtonsAmount; j++)
@@ -156,15 +167,16 @@ void GetEEPROM(GBLdata *Temp)
                 Temp->RemoteButtonRF[i][j][k] = GetMemoryChar(Arrayspot++);
             }
         }
-    }    
+    }
+    Temp->SerialNumber          = GetMemoryLong(EE_SerialNumberBYTE1);
 }
 
 /******************************************************************************/
-/* SetEEPROM
+/* SetEEPROM1
  *
- * The function burns the EEdata struct to memory.
+ * The function burns the EEdata1 struct to memory.
 /******************************************************************************/
-unsigned long SetEEPROM(GBLdata Temp,unsigned long burn)
+unsigned long SetEEPROM1(GBLdata1 Temp,unsigned long burn)
 {
     unsigned long fail = 0;
     unsigned char i,j,k,temp;
@@ -209,7 +221,21 @@ unsigned long SetEEPROM(GBLdata Temp,unsigned long burn)
             fail |= 0x00000008;
         }
     }
-    if(burn & 0x00000010)
+    return fail;
+}
+
+/******************************************************************************/
+/* SetEEPROM2
+ *
+ * The function burns the EEdata2 struct to memory.
+/******************************************************************************/
+unsigned long SetEEPROM2(GBLdata2 Temp,unsigned long burn)
+{
+    unsigned long fail = 0;
+    unsigned char i,j,k,temp;
+    unsigned char Arrayspot=EE_RemoteButtonNEC;
+    
+    if(burn & 0x00000001)
     {
         Arrayspot=EE_RemoteButtonRF;
         for(i=0; i< RFcodesAmount; i++)
@@ -222,10 +248,18 @@ unsigned long SetEEPROM(GBLdata Temp,unsigned long burn)
                     if(!SetMemoryChar(temp,Arrayspot++))
                     {
                         /* Failed to burn RemoteButtonRF */
-                        fail |= 0x00000010;
+                        fail |= 0x00000001;
                     }
                 }
             }
+        }
+    }
+    if(burn & 0x00000002)
+    {
+        if(!SetMemoryLong(Temp.SerialNumber,EE_SerialNumberBYTE1))
+        {
+            /* Failed to burn NECcode */
+            fail |= 0x00000002;
         }
     }
     return fail;
@@ -238,8 +272,18 @@ unsigned long SetEEPROM(GBLdata Temp,unsigned long burn)
 /******************************************************************************/
 unsigned char SyncGlobalToEEPROM(void)
 {
-    /* Burn all memory */
-    if(!SetEEPROM(Global,0xFFFFFFFF))
+    unsigned char ok = TRUE;
+
+    /* Burn all memory except serial number */
+    if(SetEEPROM1(Global1,0xFFFFFFFF))
+    {
+        ok = FALSE;
+    }
+    if(SetEEPROM2(Global2,0xFFFFFFFD))
+    {
+        ok = FALSE;
+    }
+    if(ok)
     {
         return PASS;
     }
@@ -256,14 +300,14 @@ void SetEEPROMdefault(void)
 {
     unsigned char i,j,k;
 
-    Global.BlueToothFlag = 0;
-    Global.SWNECcode = 0x00FF00FF; // address is 0 and command is 0
-    Global.EEPROMinitFlag = 0;
+    Global1.BlueToothFlag = 0;
+    Global1.SWNECcode = 0x00FF00FF; // address is 0 and command is 0
+    Global1.EEPROMinitFlag = 0;
     for(i=0; i< ButtonAmount; i++)
     {
         for(j=0; j < 2; j++)
         {
-            Global.RemoteButtonNEC[i][j] = 0x00;
+            Global1.RemoteButtonNEC[i][j] = 0x00;
         }
     }
     for(i=0; i< RFcodesAmount; i++)
@@ -272,7 +316,7 @@ void SetEEPROMdefault(void)
         {
             for(k=0; k < 2; k++)
             {
-                Global.RemoteButtonRF[i][j][k] = 0x00;
+                Global2.RemoteButtonRF[i][j][k] = 0x00;
             }
         }
     }
@@ -287,7 +331,7 @@ void SetEEPROMdefault(void)
 /******************************************************************************/
 unsigned char EEPROMinitialized(void)
 {
-    if(Global.EEPROMinitFlag == EEPROMinitilized)
+    if(Global1.EEPROMinitFlag == EEPROMinitilized)
     {
         return TRUE;
     }
@@ -302,31 +346,34 @@ unsigned char EEPROMinitialized(void)
 void SyncEEPROMToGlobal(void)
 {
     unsigned char i,j,k;
-    GBLdata Temp;
+    GBLdata1 Temp1;
+    GBLdata2 Temp2;
 
-    GetEEPROM(&Temp);
+    GetEEPROM1(&Temp1);
+    GetEEPROM2(&Temp2);
 
-    Global.BlueToothFlag            = Temp.BlueToothFlag;
-    Global.SWNECcode                = Temp.SWNECcode;
-    Global.EEPROMinitFlag           = Temp.EEPROMinitFlag;
+    Global1.BlueToothFlag            = Temp1.BlueToothFlag;
+    Global1.SWNECcode                = Temp1.SWNECcode;
+    Global1.EEPROMinitFlag           = Temp1.EEPROMinitFlag;
     for(i=0; i< ButtonAmount; i++)
     {
         for(j=0; j < 2; j++)
         {
-            Global.RemoteButtonNEC[i][j] = Temp.RemoteButtonNEC[i][j];
+            Global1.RemoteButtonNEC[i][j] = Temp1.RemoteButtonNEC[i][j];
         }
     }
-    Global.EEPROMinitFlag           = Temp.EEPROMinitFlag;
+    Global1.EEPROMinitFlag           = Temp1.EEPROMinitFlag;
     for(i=0; i< RFcodesAmount; i++)
     {
         for(j=0; j < MirrorButtonsAmount; j++)
         {
             for(k=0; k < 2; k++)
             {
-                Global.RemoteButtonRF[i][j][k] = Temp.RemoteButtonRF[i][j][k];
+                Global2.RemoteButtonRF[i][j][k] = Temp2.RemoteButtonRF[i][j][k];
             }
         }
     }
+    Global2.SerialNumber             = Temp2.SerialNumber;
 }
 
 /******************************************************************************/

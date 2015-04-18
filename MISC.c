@@ -187,7 +187,7 @@ void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsi
  *
  * This function returns TRUE if the array 'This' matches the array 'That'.
 /******************************************************************************/
-unsigned char StringMatch(unsigned char* This,const unsigned char* That)
+unsigned char StringMatch(const unsigned char* This, const unsigned char* That)
 {
     while(*This != 0)
     {
@@ -214,7 +214,7 @@ unsigned char StringMatch(unsigned char* This,const unsigned char* That)
  * This function returns TRUE if the array 'This' matches the array 'That' and
  *  it is not case sensitive.
 /******************************************************************************/
-unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That)
+unsigned char StringMatchCaseInsensitive(const unsigned char* This, const unsigned char* That)
 {
     unsigned char   tempThis,
                     tempThat;
@@ -249,33 +249,45 @@ unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char
  * This function returns TRUE if the array 'That' is contained in the array
  *   'This'.
 /******************************************************************************/
-unsigned char StringContains(unsigned char* This, const unsigned char* That)
+unsigned char StringContains(const unsigned char* This, const unsigned char* That)
 {
-    unsigned char begin = FALSE;
+    unsigned char   MatchCount = 0;
+    unsigned char   MatchAmount = 0;
+    unsigned char i = 0;
 
+    for(i=0;i<254;i++)
+    {
+        if(That[i] == 0)
+        {
+            MatchAmount = i;
+            break;
+        }
+    }
     while(*This != 0)
     {
-       if(*This == *That)
-       {
-           begin = TRUE;
+        if(*This == *That)
+        {
+           MatchCount++;
            That++;
            if(*That == 0)
            {
-               return TRUE;
+                if(MatchAmount == MatchCount)
+                {
+                    return TRUE;
+                }
+                return FALSE;
            }
            if(*This == 0)
            {
                return FALSE;
            }
-       }
-       else
-       {
-           if(begin == TRUE)
-           {
-               return FALSE;
-           }
-       }
-       This++;
+        }
+        else
+        {
+            That -= MatchCount;
+            MatchCount = 0;
+        }
+        This++;
     }
     return FALSE;
 }
@@ -286,40 +298,52 @@ unsigned char StringContains(unsigned char* This, const unsigned char* That)
  * This function returns TRUE if the array 'That' is contained in the array
  *   'This' and it is not case sensitive.
 /******************************************************************************/
-unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That)
+unsigned char StringContainsCaseInsensitive(const unsigned char* This,const unsigned char* That)
 {
     unsigned char   tempThis,
                     tempThat;
-    unsigned char   begin = FALSE;
+    unsigned char   MatchCount = 0;
+    unsigned char   MatchAmount = 0;
+    unsigned char i = 0;
 
-        while(*This != 0)
+    for(i=0;i<254;i++)
+    {
+        if(That[i] == 0)
         {
-            tempThis = *This;
-            tempThat = *That;
-            lowercaseChar(&tempThis);
-            lowercaseChar(&tempThat);
+            MatchAmount = i;
+            break;
+        }
+    }
+    while(*This != 0)
+    {
+        tempThis = *This;
+        tempThat = *That;
+        lowercaseChar(&tempThis);
+        lowercaseChar(&tempThat);
 
-            if(tempThis == tempThat)
-            {
-               begin = TRUE;
-               That++;
-               if(*That == 0)
-               {
-                   return TRUE;
-               }
-               if(*This == 0)
-               {
-                   return FALSE;
-               }
-            }
-            else
-            {
-                if(begin == TRUE)
+        if(tempThis == tempThat)
+        {
+           MatchCount++;
+           That++;
+           if(*That == 0)
+           {
+                if(MatchAmount == MatchCount)
                 {
-                    return FALSE;
+                    return TRUE;
                 }
-            }
-            This++;
+                return FALSE;
+           }
+           if(*This == 0)
+           {
+               return FALSE;
+           }
+        }
+        else
+        {
+            That -= MatchCount;
+            MatchCount = 0;
+        }
+        This++;
     }
     return FALSE;
 }
@@ -454,7 +478,7 @@ unsigned long Reverse_4Byte(unsigned long This)
  *
  * This function resembles scanf. Use 0x...for hex number.
 /******************************************************************************/
-unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result)
+unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, long* result)
 {
     unsigned char i =0;
     long temp =0;
@@ -578,6 +602,133 @@ unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned
     if(negative)
     {
         temp = (temp * -1);
+    }
+    *result = temp;
+    return NoError;
+}
+
+/******************************************************************************/
+/* GetNumberUnsigned
+ *
+ * This function resembles scanf. Use 0x...for hex number.
+/******************************************************************************/
+unsigned char GetNumberUnsigned(unsigned char* This, unsigned char CommaNumber, unsigned long* result)
+{
+    unsigned char i =0;
+    long temp =0;
+    unsigned char tempCommaNumber = 1;
+    unsigned char count =0;
+    unsigned char Hex = FALSE;
+    unsigned char tempThis;
+
+    while(*This != 0)
+    {
+        if(*This == '0')
+        {
+            count++;
+            This++;
+            if(*This == 'x' || *This == 'X')
+            {
+                This++;
+                if(*This >='0' && *This <='9')
+                {
+                    Hex = TRUE;
+                }
+            }
+        }
+        count++;
+        This++;
+    }
+    This-=count;
+
+    SCAN:while(*This != '=' && *This != ',' && *This != 0)
+    {
+        /* go all the way to the first comma */
+        This++;
+    }
+    if(*This == 0)
+    {
+        return NOCOMMA; // there is no equal
+    }
+    else if(*This != '=' || *This != ',')
+    {
+        if(tempCommaNumber < CommaNumber)
+        {
+            tempCommaNumber++;
+            This++;
+            goto SCAN;
+        }
+    }
+    if(*This == 0)
+    {
+        return NOCOMMA; // there is no equal
+    }
+    This++;
+    if(*This == ' ')
+    {
+      This++;
+      //move past the space
+    }
+    else if (*This == '=' || *This == ',')
+    {
+         return DOUBLECOMMA; //double equal
+    }
+    else if(*This == '-')
+    {
+        return NEGATIVE; // this is negative
+      //move past the space
+    }
+    else if(*This == 0)
+    {
+        return NOVALUE; // there is no value after the equal
+    }
+    if(Hex)
+    {
+        while(*This != 'x' && *This != 'X')
+        {
+            /* go to first number after the x */
+            This++;
+        }
+        This++;
+    }
+    while(*This != 0 && *This != ' ' && *This != ',' && *This != '=')
+    {
+        if(!Hex)
+        {
+            if(*This >=48 && *This <= 57)
+            {
+                temp = temp * 10;
+                temp += *This - 48;
+                i++;
+                if(i>32)
+                {
+                    return TOOBIG;//number too big
+                }
+            }
+        }
+        else
+        {
+            if((*This >=48 && *This <= 57) || (*This >=65 && *This <= 70) || (*This >= 97 && *This <= 102))
+            {
+                temp <<= 4;
+                tempThis = *This;
+                if(IsLetter(tempThis))
+                {
+                    lowercaseChar(&tempThis);
+                    temp += (tempThis - 87);
+                }
+                else
+                {
+                    temp += (*This - 48);
+                }
+                i++;
+                if(i>32)
+                {
+                    return TOOBIG;//number too big
+                }
+            }
+        }
+        This++;
     }
     *result = temp;
     return NoError;

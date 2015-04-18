@@ -4998,10 +4998,7 @@ extern int printf(const char *, ...);
 # 52 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
 
-# 60
-unsigned long SN = 1;
-
-# 288
+# 280
 void InitApp(void);
 void Init_System (void);
 
@@ -5057,17 +5054,17 @@ void InitTimers(void);
 # 57 "system.h"
 void ConfigureOscillator(void);
 
-# 64 "MISC.h"
+# 65 "MISC.h"
 void delayUS(long US);
 unsigned char IsCharacter(unsigned char data);
 void cleanBuffer(unsigned char* data, int count);
 void cleanBuffer16bit(unsigned int* data, int count);
 double Round(double input);
 void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
-unsigned char StringMatch(unsigned char* This,const unsigned char* That);
-unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
-unsigned char StringContains(unsigned char* This, const unsigned char* That);
-unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
+unsigned char StringMatch(const unsigned char* This, const unsigned char* That);
+unsigned char StringMatchCaseInsensitive(const unsigned char* This, const unsigned char* That);
+unsigned char StringContains(const unsigned char* This, const unsigned char* That);
+unsigned char StringContainsCaseInsensitive(const unsigned char* This, const unsigned char* That);
 void CalibrateDelay(void);
 void lowercaseChar(unsigned char* Input);
 void lowercaseString(unsigned char* Input);
@@ -5075,9 +5072,10 @@ void delayNOP(unsigned char NOPs);
 unsigned char Reverse_Byte(unsigned char This);
 unsigned int Reverse_2Byte(unsigned int This);
 unsigned long Reverse_4Byte(unsigned long This);
-unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
+unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, long* result);
 unsigned char StringAddEqual(unsigned char* Input);
 unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
+unsigned char GetNumberUnsigned(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
 
 # 128 "RF.h"
 const unsigned char Conf1_Channels[] = "DEF";
@@ -5141,14 +5139,15 @@ void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char 
 void SendRF_Channel(unsigned char channel);
 unsigned char GetRFstatus(void);
 
-# 116 "UART.h"
-extern unsigned char ReceivedString[255];
-extern unsigned char ReceivedStringPos;
-extern unsigned char CommandString[255];
-extern unsigned char CommandStringPos;
+# 124 "UART.h"
+extern volatile unsigned char ReceivedString[100];
+extern volatile unsigned char ReceivedStringPos;
+extern volatile unsigned char CommandString[100];
+extern volatile unsigned char CommandStringPos;
 extern volatile unsigned char NewReceivedString;
 const unsigned char SYNTAX_ERR[] = "Error: Syntax";
 const unsigned char CRLN[] = "\r\n";
+unsigned char BufferOverflow = 0;
 
 
 
@@ -5157,11 +5156,14 @@ void Local_CloseUSART(void );
 void InitUART(unsigned long Baud);
 void OpenUSART( unsigned char config, unsigned int spbrg);
 void UARTchar(unsigned char data);
+void UARTchar_CONST(const unsigned char data);
 void UARTstring(unsigned char *data);
+void UARTstring_CONST(const unsigned char *data);
 unsigned char ReadUSART(void);
 void UART_send_break(void);
 void UARTstringCRLN(unsigned char *data);
-void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
+void UARTstringCRLN_CONST(const unsigned char *data);
+void UARTcommandMenu(const unsigned char *Command,const unsigned char *Desc);
 void EraseScreen(unsigned char characters);
 void ClearUSART(void);
 
@@ -5169,30 +5171,37 @@ void ClearUSART(void);
 unsigned char ReadPushButton(void);
 unsigned char ReadCodeButtons(void);
 
-# 101 "EEPROM.h"
+# 110 "EEPROM.h"
 typedef struct EEdata
 {
 unsigned char BlueToothFlag;
 unsigned long SWNECcode;
-unsigned char RemoteButtonNEC[20][2];
+unsigned char RemoteButtonNEC[12][2];
 unsigned char EEPROMinitFlag;
+}GBLdata1;
 
-# 120
-unsigned char RemoteButtonRF[15][3][2];
+typedef struct EEdata2
+{
 
-}GBLdata;
+# 132
+unsigned char RemoteButtonRF[10][3][2];
+unsigned long SerialNumber;
+}GBLdata2;
 
 
 
 
-GBLdata Global = 0;
+GBLdata1 Global1 = 0;
+GBLdata2 Global2 = 0;
 
-# 133
+# 146
 unsigned int ReadEEPROM_1Byte(unsigned int address);
 void EEPROM_UNLOCK(void);
 void WriteEEPROM_1Byte(unsigned int address, unsigned char data);
-void GetEEPROM(GBLdata *Temp);
-unsigned long SetEEPROM(GBLdata Temp,unsigned long burn);
+void GetEEPROM1(GBLdata1 *Temp);
+unsigned long SetEEPROM1(GBLdata1 Temp,unsigned long burn);
+void GetEEPROM2(GBLdata2 *Temp);
+unsigned long SetEEPROM2(GBLdata2 Temp,unsigned long burn);
 unsigned long GetMemoryLong(unsigned char AddressFirst);
 unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst);
 unsigned long GetMemoryInt(unsigned char AddressFirst);
@@ -5388,7 +5397,7 @@ if(*Code == 2 || *Code == 1)
 DecodeNEC(NEC, &IRaddress, &IRcommand);
 if(ReadPushButton())
 {
-Global.SWNECcode = NEC;
+Global1.SWNECcode = NEC;
 if(SyncGlobalToEEPROM())
 {
 
@@ -5414,7 +5423,7 @@ delayUS(50000);
 }
 else
 {
-if(NEC == Global.SWNECcode)
+if(NEC == Global1.SWNECcode)
 {
 if(*Code == 2)
 {
@@ -5427,12 +5436,12 @@ found = 1;
 
 for(j=0; j < 3; j++)
 {
-for(i=0; i < 15; i++)
+for(i=0; i < 10; i++)
 {
 
-if(IRaddress == Global.RemoteButtonRF[i][j][0])
+if(IRaddress == Global2.RemoteButtonRF[i][j][0])
 {
-if(IRcommand == Global.RemoteButtonRF[i][j][1])
+if(IRcommand == Global2.RemoteButtonRF[i][j][1])
 {
 if(*Code == 2)
 {

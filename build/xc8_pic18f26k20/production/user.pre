@@ -4998,10 +4998,7 @@ extern int printf(const char *, ...);
 # 52 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
 
-# 60
-unsigned long SN = 1;
-
-# 288
+# 280
 void InitApp(void);
 void Init_System (void);
 
@@ -5070,14 +5067,15 @@ void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char 
 void SendRF_Channel(unsigned char channel);
 unsigned char GetRFstatus(void);
 
-# 116 "UART.h"
-extern unsigned char ReceivedString[255];
-extern unsigned char ReceivedStringPos;
-extern unsigned char CommandString[255];
-extern unsigned char CommandStringPos;
+# 124 "UART.h"
+extern volatile unsigned char ReceivedString[100];
+extern volatile unsigned char ReceivedStringPos;
+extern volatile unsigned char CommandString[100];
+extern volatile unsigned char CommandStringPos;
 extern volatile unsigned char NewReceivedString;
 const unsigned char SYNTAX_ERR[] = "Error: Syntax";
 const unsigned char CRLN[] = "\r\n";
+unsigned char BufferOverflow = 0;
 
 
 
@@ -5086,38 +5084,48 @@ void Local_CloseUSART(void );
 void InitUART(unsigned long Baud);
 void OpenUSART( unsigned char config, unsigned int spbrg);
 void UARTchar(unsigned char data);
+void UARTchar_CONST(const unsigned char data);
 void UARTstring(unsigned char *data);
+void UARTstring_CONST(const unsigned char *data);
 unsigned char ReadUSART(void);
 void UART_send_break(void);
 void UARTstringCRLN(unsigned char *data);
-void UARTcommandMenu(unsigned char *Command, unsigned char *Desc);
+void UARTstringCRLN_CONST(const unsigned char *data);
+void UARTcommandMenu(const unsigned char *Command,const unsigned char *Desc);
 void EraseScreen(unsigned char characters);
 void ClearUSART(void);
 
-# 101 "EEPROM.h"
+# 110 "EEPROM.h"
 typedef struct EEdata
 {
 unsigned char BlueToothFlag;
 unsigned long SWNECcode;
-unsigned char RemoteButtonNEC[20][2];
+unsigned char RemoteButtonNEC[12][2];
 unsigned char EEPROMinitFlag;
+}GBLdata1;
 
-# 120
-unsigned char RemoteButtonRF[15][3][2];
+typedef struct EEdata2
+{
 
-}GBLdata;
+# 132
+unsigned char RemoteButtonRF[10][3][2];
+unsigned long SerialNumber;
+}GBLdata2;
 
 
 
 
-GBLdata Global = 0;
+GBLdata1 Global1 = 0;
+GBLdata2 Global2 = 0;
 
-# 133
+# 146
 unsigned int ReadEEPROM_1Byte(unsigned int address);
 void EEPROM_UNLOCK(void);
 void WriteEEPROM_1Byte(unsigned int address, unsigned char data);
-void GetEEPROM(GBLdata *Temp);
-unsigned long SetEEPROM(GBLdata Temp,unsigned long burn);
+void GetEEPROM1(GBLdata1 *Temp);
+unsigned long SetEEPROM1(GBLdata1 Temp,unsigned long burn);
+void GetEEPROM2(GBLdata2 *Temp);
+unsigned long SetEEPROM2(GBLdata2 Temp,unsigned long burn);
 unsigned long GetMemoryLong(unsigned char AddressFirst);
 unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst);
 unsigned long GetMemoryInt(unsigned char AddressFirst);
@@ -5129,17 +5137,17 @@ void SyncEEPROMToGlobal(void);
 void SetEEPROMdefault(void);
 unsigned char EEPROMinitialized(void);
 
-# 64 "MISC.h"
+# 65 "MISC.h"
 void delayUS(long US);
 unsigned char IsCharacter(unsigned char data);
 void cleanBuffer(unsigned char* data, int count);
 void cleanBuffer16bit(unsigned int* data, int count);
 double Round(double input);
 void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
-unsigned char StringMatch(unsigned char* This,const unsigned char* That);
-unsigned char StringMatchCaseInsensitive(unsigned char* This,const unsigned char* That);
-unsigned char StringContains(unsigned char* This, const unsigned char* That);
-unsigned char StringContainsCaseInsensitive(unsigned char* This, const unsigned char* That);
+unsigned char StringMatch(const unsigned char* This, const unsigned char* That);
+unsigned char StringMatchCaseInsensitive(const unsigned char* This, const unsigned char* That);
+unsigned char StringContains(const unsigned char* This, const unsigned char* That);
+unsigned char StringContainsCaseInsensitive(const unsigned char* This, const unsigned char* That);
 void CalibrateDelay(void);
 void lowercaseChar(unsigned char* Input);
 void lowercaseString(unsigned char* Input);
@@ -5147,9 +5155,10 @@ void delayNOP(unsigned char NOPs);
 unsigned char Reverse_Byte(unsigned char This);
 unsigned int Reverse_2Byte(unsigned int This);
 unsigned long Reverse_4Byte(unsigned long This);
-unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
+unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, long* result);
 unsigned char StringAddEqual(unsigned char* Input);
 unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
+unsigned char GetNumberUnsigned(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
 
 # 39 "Timer.h"
 extern unsigned char Timer1_Postscaler;
@@ -5176,7 +5185,7 @@ void InitADC(void);
 void VoltageDividerON(void);
 void VoltageDividerOFF(void);
 
-# 51 "Bluetooth.h"
+# 59 "Bluetooth.h"
 void InitBluetooth(void);
 unsigned char BlueConnected(void);
 void ResetBlue(void);
@@ -5220,8 +5229,10 @@ unsigned long EncodeNEC(unsigned char address, unsigned char command);
 
 # 51 "user.c"
 extern const unsigned char Version[];
+extern unsigned char BluetoothFirmware1[30];
+extern unsigned char BluetoothFirmware2[30];
 
-# 62
+# 64
 void InitApp(void)
 {
 LATA = 0;
@@ -5260,10 +5271,12 @@ INTCON2bits.RBPU = 0;
 WPUB = 0x0F;
 }
 
-# 105
+# 107
 void Init_System (void)
 {
-cleanBuffer(&ReceivedString, 255);
+unsigned char buf[50];
+
+cleanBuffer(ReceivedString, 100);
 
 
 IPR1bits.RCIP = 0;
@@ -5272,6 +5285,14 @@ INTCON2bits.TMR0IP = 1;
 IPR1bits.TMR2IP = 1;
 IPR1bits.TMR1IP = 0;
 IPR2bits.TMR3IP = 1;
+
+cleanBuffer(BluetoothFirmware1,30);
+cleanBuffer(BluetoothFirmware2,30);
+
+sprintf(buf,"System must be");
+BufferCopy(buf, BluetoothFirmware1, 30, 0);
+sprintf(buf,"RESET to read version!");
+BufferCopy(buf, BluetoothFirmware2, 30, 0);
 
 
 RCONbits.IPEN = 1;
@@ -5282,9 +5303,18 @@ SyncEEPROMToGlobal();
 if(!EEPROMinitialized())
 {
 SetEEPROMdefault();
-Global.EEPROMinitFlag = 59;
+Global1.EEPROMinitFlag = 59;
 SyncGlobalToEEPROM();
 }
+
+if(Global2.SerialNumber == 0xFFFFFFFF)
+{
+
+Global2.SerialNumber = 0;
+SetEEPROM2(Global2,0x00000002);
+SyncEEPROMToGlobal();
+}
+
 InitADC();
 InitIR();
 

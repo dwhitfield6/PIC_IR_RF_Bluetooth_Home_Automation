@@ -597,7 +597,6 @@ void high_isr(void)
         /* We got here by error */
         NOP();
     }
-
     INTCONbits.GIE = ON; //High priority interrupts
 }
 
@@ -614,7 +613,7 @@ void low_isr(void)
 #error "Invalid compiler selection for implemented ISR routines"
 #endif
 {
-        char data = 0;
+    char data = 0;
 
     INTCONbits.PEIE = OFF; //Low priority interrupts
 
@@ -625,7 +624,7 @@ void low_isr(void)
 
         if(!BlueConnected())
         {
-            if(CommandStringPos < RXCommandsize)
+            if(CommandStringPos < (RXCommandsize - 1)) //have to make room for null
             {
                 CommandString[CommandStringPos] = data;
                 CommandStringPos++;
@@ -641,10 +640,10 @@ void low_isr(void)
                     EraseScreen(ReceivedStringPos + 1);
                     ReceivedStringPos--;
                     ReceivedString[ReceivedStringPos] = '\0';
-                    UARTchar('>');
+                    UARTchar_CONST('>');
                     UARTstring(ReceivedString);
                 }
-                else if(ReceivedStringPos < RXbufsize)
+                else if(ReceivedStringPos < (RXbufsize - 2)) //have to make room for optional equal and null
                 {
                     if(!NewReceivedString)
                     {
@@ -658,16 +657,14 @@ void low_isr(void)
                 }
                 else
                 {
-                    cleanBuffer(ReceivedString,RXbufsize);
-                    ReceivedStringPos = 0;
-                    UARTstring(CRLN);
-                    UARTstringCRLN((unsigned char *)"Buffer Overflow");
+                    PIE1bits.RCIE   = FALSE;
+                    BufferOverflow = TRUE;
                 }
             }
             else if(ReceivedStringPos > 0 && (NewReceivedString == FALSE))
             {
                 PIE1bits.RCIE   = FALSE;   // disable RX interrupts
-                UARTstring(CRLN);
+                UARTstring_CONST(CRLN);
                 NewReceivedString = TRUE;
             }
         }
