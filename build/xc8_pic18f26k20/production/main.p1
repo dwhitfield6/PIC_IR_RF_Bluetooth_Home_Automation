@@ -4730,9 +4730,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 111: BatteryVoltage = ReadVoltage();
 "111
 [e = _BatteryVoltage ( _ReadVoltage ..  ]
-[; ;main.c: 112: if(BatteryVoltage < 20.0 )
+[; ;main.c: 112: if(BatteryVoltage < 6.3 )
 "112
-[e $ ! < _BatteryVoltage .20.0 381  ]
+[e $ ! < _BatteryVoltage .6.3 381  ]
 [; ;main.c: 113: {
 "113
 {
@@ -4745,8 +4745,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 382  ]
 "116
 [e :U 381 ]
-[; ;main.c: 116: else if (BatteryVoltage > 30.0)
-[e $ ! > _BatteryVoltage .30.0 383  ]
+[; ;main.c: 116: else if (BatteryVoltage > 16.5)
+[e $ ! > _BatteryVoltage .16.5 383  ]
 [; ;main.c: 117: {
 "117
 {
@@ -4902,8 +4902,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 "162
 [e :U 396 ]
 [; ;main.c: 160: }
-[; ;main.c: 162: if(BatteryVoltage < 20.0 )
-[e $ ! < _BatteryVoltage .20.0 398  ]
+[; ;main.c: 162: if(BatteryVoltage < 6.3 )
+[e $ ! < _BatteryVoltage .6.3 398  ]
 [; ;main.c: 163: {
 "163
 {
@@ -4916,8 +4916,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 399  ]
 "166
 [e :U 398 ]
-[; ;main.c: 166: else if(BatteryVoltage > 30.0)
-[e $ ! > _BatteryVoltage .30.0 400  ]
+[; ;main.c: 166: else if(BatteryVoltage > 16.5)
+[e $ ! > _BatteryVoltage .16.5 400  ]
 [; ;main.c: 167: {
 "167
 {

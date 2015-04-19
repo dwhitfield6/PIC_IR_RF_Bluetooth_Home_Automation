@@ -5209,11 +5209,11 @@ InitApp();
 Init_System();
 
 BatteryVoltage = ReadVoltage();
-if(BatteryVoltage < 20.0 )
+if(BatteryVoltage < 6.3 )
 {
 VoltageStatus = 34;
 }
-else if (BatteryVoltage > 30.0)
+else if (BatteryVoltage > 16.5)
 {
 VoltageStatus = 98;
 }
@@ -5259,11 +5259,11 @@ else if(VoltageStatus == 98)
 BatteryVoltage += 0.5;
 }
 
-if(BatteryVoltage < 20.0 )
+if(BatteryVoltage < 6.3 )
 {
 VoltageStatus = 34;
 }
-else if(BatteryVoltage > 30.0)
+else if(BatteryVoltage > 16.5)
 {
 VoltageStatus = 98;
 }

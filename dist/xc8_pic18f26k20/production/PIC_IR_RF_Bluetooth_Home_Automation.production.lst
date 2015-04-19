@@ -1,7 +1,7 @@
 
 
 Microchip Technology PIC18 LITE Macro Assembler V1.33 build 59893 
-                                                                                               Sun Apr 19 01:06:29 2015
+                                                                                               Sun Apr 19 01:10:02 2015
 
 Microchip Technology Omniscient Code Generator (Lite mode) build 59893
      1                           	processor	18F26K20
@@ -7169,17 +7169,17 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 59893
   7158  0050D8  C08A  F3E6         	movff	?_ReadVoltage+1,_BatteryVoltage+1
   7159  0050DC  C08B  F3E7         	movff	?_ReadVoltage+2,_BatteryVoltage+2
   7160                           
-  7161                           ;main.c: 112: if(BatteryVoltage < 20.0 )
+  7161                           ;main.c: 112: if(BatteryVoltage < 6.3 )
   7162  0050E0  C3E5  F060         	movff	_BatteryVoltage,___ftge@ff1
   7163  0050E4  C3E6  F061         	movff	_BatteryVoltage+1,___ftge@ff1+1
   7164  0050E8  C3E7  F062         	movff	_BatteryVoltage+2,___ftge@ff1+2
-  7165  0050EC  0E00               	movlw	0
+  7165  0050EC  0E9A               	movlw	154
   7166  0050EE  0100               	movlb	0	; () banked
   7167  0050F0  6F63               	movwf	___ftge@ff2& (0+255),b
-  7168  0050F2  0EA0               	movlw	160
+  7168  0050F2  0EC9               	movlw	201
   7169  0050F4  0100               	movlb	0	; () banked
   7170  0050F6  6F64               	movwf	(___ftge@ff2+1)& (0+255),b
-  7171  0050F8  0E41               	movlw	65
+  7171  0050F8  0E40               	movlw	64
   7172  0050FA  0100               	movlb	0	; () banked
   7173  0050FC  6F65               	movwf	(___ftge@ff2+2)& (0+255),b
   7174  0050FE  EC30  F04E         	call	___ftge	;wreg free
@@ -7192,11 +7192,11 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 59893
   7181  005108  D014               	goto	L1
   7182  00510A                     l13477:
   7183                           
-  7184                           ;main.c: 116: else if (BatteryVoltage > 30.0)
+  7184                           ;main.c: 116: else if (BatteryVoltage > 16.5)
   7185  00510A  0E00               	movlw	0
   7186  00510C  0100               	movlb	0	; () banked
   7187  00510E  6F60               	movwf	___ftge@ff1& (0+255),b
-  7188  005110  0EF0               	movlw	240
+  7188  005110  0E84               	movlw	132
   7189  005112  0100               	movlb	0	; () banked
   7190  005114  6F61               	movwf	(___ftge@ff1+1)& (0+255),b
   7191  005116  0E41               	movlw	65
@@ -7452,17 +7452,17 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 59893
   7441  005282                     l160:
   7442                           
   7443                           ;main.c: 160: }
-  7444                           ;main.c: 162: if(BatteryVoltage < 20.0 )
+  7444                           ;main.c: 162: if(BatteryVoltage < 6.3 )
   7445  005282  C3E5  F060         	movff	_BatteryVoltage,___ftge@ff1
   7446  005286  C3E6  F061         	movff	_BatteryVoltage+1,___ftge@ff1+1
   7447  00528A  C3E7  F062         	movff	_BatteryVoltage+2,___ftge@ff1+2
-  7448  00528E  0E00               	movlw	0
+  7448  00528E  0E9A               	movlw	154
   7449  005290  0100               	movlb	0	; () banked
   7450  005292  6F63               	movwf	___ftge@ff2& (0+255),b
-  7451  005294  0EA0               	movlw	160
+  7451  005294  0EC9               	movlw	201
   7452  005296  0100               	movlb	0	; () banked
   7453  005298  6F64               	movwf	(___ftge@ff2+1)& (0+255),b
-  7454  00529A  0E41               	movlw	65
+  7454  00529A  0E40               	movlw	64
   7455  00529C  0100               	movlb	0	; () banked
   7456  00529E  6F65               	movwf	(___ftge@ff2+2)& (0+255),b
   7457  0052A0  EC30  F04E         	call	___ftge	;wreg free
@@ -7475,11 +7475,11 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 59893
   7464  0052AA  D016               	goto	L4
   7465  0052AC                     l13541:
   7466                           
-  7467                           ;main.c: 166: else if(BatteryVoltage > 30.0)
+  7467                           ;main.c: 166: else if(BatteryVoltage > 16.5)
   7468  0052AC  0E00               	movlw	0
   7469  0052AE  0100               	movlb	0	; () banked
   7470  0052B0  6F60               	movwf	___ftge@ff1& (0+255),b
-  7471  0052B2  0EF0               	movlw	240
+  7471  0052B2  0E84               	movlw	132
   7472  0052B4  0100               	movlb	0	; () banked
   7473  0052B6  6F61               	movwf	(___ftge@ff1+1)& (0+255),b
   7474  0052B8  0E41               	movlw	65
@@ -48415,7 +48415,7 @@ CODE                 0      0       0       0        0.0%
 
 
 Microchip Technology PIC18 Macro Assembler V1.33 build 59893 
-Symbol Table                                                                                   Sun Apr 19 01:06:29 2015
+Symbol Table                                                                                   Sun Apr 19 01:10:02 2015
 
                            BufferCopy@shift 006D                          UARTstringCRLN@data 0064  
                     __end_of_Conf1_ChannelD F01F                      __end_of_Conf1_ChannelE F02B  
