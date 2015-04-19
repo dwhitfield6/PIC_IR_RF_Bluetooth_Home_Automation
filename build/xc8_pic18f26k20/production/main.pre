@@ -5105,18 +5105,18 @@ unsigned char BluetoothConfigured(void);
 unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos);
 unsigned char WaitForIRsignal(void);
 
-# 58 "main.c"
-const unsigned char FirmVersion[] = {"1.0_DW0b"};
+# 64 "main.c"
+const unsigned char FirmVersion[] = {"1.0_DW0c"};
 const unsigned char PCBVersion[] = {"RevA"};
 const unsigned char Frequency[] = {"315"};
 const unsigned char ProjectName[] = {"Home Automation IR/RF Hub"};
 unsigned char BluetoothFirmware1[30];
 unsigned char BluetoothFirmware2[30];
 
-# 72
+# 78
 double BatteryVoltage = 0.0;
 
-# 78
+# 84
 void main(void)
 {
 unsigned char i=0;

@@ -16,6 +16,12 @@
  *                            connected.
  *                          Fixed bug in conf2 channel H parsing.
  *                          Check bluetooth status in initiation.
+ * 04/18/15     1.0_DW0c    Added a header to be printed when bluetooth is
+ *                            is connected.
+ *                          Dont allow full duplex UART. (It caused eratic
+ *                            behavior)
+ *                          Fix several high priority bugs.
+ *                          Add Serial number algorithem and command.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -55,7 +61,7 @@
 /* Version number                                                             */
 /******************************************************************************/
 
-const unsigned char FirmVersion[] = {"1.0_DW0b"};
+const unsigned char FirmVersion[] = {"1.0_DW0c"};
 const unsigned char PCBVersion[] = {"RevA"};
 const unsigned char Frequency[] = {"315"};
 const unsigned char ProjectName[] = {"Home Automation IR/RF Hub"};

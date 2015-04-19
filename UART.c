@@ -10,6 +10,7 @@
  *                          Derived from project 'PIC_PS2_to_UART'.
  * 04/09/15     1.0_DW0b    Fixed bugs.
  *                          Added features.
+ * 04/18/15     1.0_DW0c    Don't allow full duplex. Causes eratic behavior.
 /******************************************************************************/
 
 /******************************************************************************/

@@ -1,7 +1,7 @@
 
 
 Microchip Technology PIC18 LITE Macro Assembler V1.34 build -361300703 
-                                                                                               Fri Apr 17 21:43:38 2015
+                                                                                               Sat Apr 18 19:08:50 2015
 
 Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
      1                           	processor	18F26K20
@@ -980,7 +980,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
    974  00F1EF  44                 	db	68
    975  00F1F0  57                 	db	87
    976  00F1F1  30                 	db	48
-   977  00F1F2  62                 	db	98
+   977  00F1F2  63                 	db	99
    978  00F1F3  00                 	db	0
    979  00F1F4                     __end_of_FirmVersion:
    980                           	opt stack 0
@@ -6537,7 +6537,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   6531 ;;
   6532 ;; *************** function _main *****************
   6533 ;; Defined at:
-  6534 ;;		line 78 in file "main.c"
+  6534 ;;		line 84 in file "main.c"
   6535 ;; Parameters:    Size  Location     Type
   6536 ;;		None
   6537 ;; Auto vars:     Size  Location     Type
@@ -6600,37 +6600,37 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   6589  0052DA                     _main:
   6590                           	opt stack 17
   6591                           
-  6592                           ;main.c: 80: unsigned char i=0;
+  6592                           ;main.c: 86: unsigned char i=0;
   6593                           
   6594                           ;incstack = 0
   6595  0052DA  0E00               	movlw	0
   6596  0052DC  0102               	movlb	2	; () banked
   6597  0052DE  6FFE               	movwf	main@i& (0+255),b
   6598                           
-  6599                           ;main.c: 81: unsigned char IRtask = 0;
+  6599                           ;main.c: 87: unsigned char IRtask = 0;
   6600  0052E0  0E00               	movlw	0
   6601  0052E2  0102               	movlb	2	; () banked
   6602  0052E4  6FF8               	movwf	main@IRtask& (0+255),b
   6603                           
-  6604                           ;main.c: 82: unsigned char Bluetoothtask = 0;
+  6604                           ;main.c: 88: unsigned char Bluetoothtask = 0;
   6605  0052E6  0E00               	movlw	0
   6606  0052E8  0102               	movlb	2	; () banked
   6607  0052EA  6FF9               	movwf	main@Bluetoothtask& (0+255),b
   6608                           
-  6609                           ;main.c: 83: unsigned char VoltageStatus = 1;
+  6609                           ;main.c: 89: unsigned char VoltageStatus = 1;
   6610  0052EC  0E01               	movlw	1
   6611  0052EE  0102               	movlb	2	; () banked
   6612  0052F0  6FFC               	movwf	main@VoltageStatus& (0+255),b
   6613                           
-  6614                           ;main.c: 84: unsigned char BluetoothString[100];
-  6615                           ;main.c: 85: unsigned char BluetoothStringPos = 0;
+  6614                           ;main.c: 90: unsigned char BluetoothString[100];
+  6615                           ;main.c: 91: unsigned char BluetoothStringPos = 0;
   6616  0052F2  0E00               	movlw	0
   6617  0052F4  0102               	movlb	2	; () banked
   6618  0052F6  6FFA               	movwf	main@BluetoothStringPos& (0+255),b
   6619                           
   6620                           ; BSR set to: 2
-  6621                           ;main.c: 86: unsigned char Connected, ConnectedOLD;
-  6622                           ;main.c: 88: cleanBuffer(BluetoothString, 100);
+  6621                           ;main.c: 92: unsigned char Connected, ConnectedOLD;
+  6622                           ;main.c: 94: cleanBuffer(BluetoothString, 100);
   6623  0052F8  0E94               	movlw	low main@BluetoothString
   6624  0052FA  0100               	movlb	0	; () banked
   6625  0052FC  6F63               	movwf	cleanBuffer@data& (0+255),b
@@ -6644,22 +6644,22 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   6633  00530C  6F65               	movwf	cleanBuffer@count& (0+255),b
   6634  00530E  EC47  F04E         	call	_cleanBuffer	;wreg free
   6635                           
-  6636                           ;main.c: 90: ConfigureOscillator();
+  6636                           ;main.c: 96: ConfigureOscillator();
   6637  005312  ECA2  F052         	call	_ConfigureOscillator	;wreg free
   6638                           
-  6639                           ;main.c: 91: InitApp();
+  6639                           ;main.c: 97: InitApp();
   6640  005316  EC40  F04F         	call	_InitApp	;wreg free
   6641                           
-  6642                           ;main.c: 92: Init_System();
+  6642                           ;main.c: 98: Init_System();
   6643  00531A  EC48  F03B         	call	_Init_System	;wreg free
   6644                           
-  6645                           ;main.c: 94: BatteryVoltage = ReadVoltage();
+  6645                           ;main.c: 100: BatteryVoltage = ReadVoltage();
   6646  00531E  EC72  F048         	call	_ReadVoltage	;wreg free
   6647  005322  C08C  F040         	movff	?_ReadVoltage,_BatteryVoltage
   6648  005326  C08D  F041         	movff	?_ReadVoltage+1,_BatteryVoltage+1
   6649  00532A  C08E  F042         	movff	?_ReadVoltage+2,_BatteryVoltage+2
   6650                           
-  6651                           ;main.c: 95: if(BatteryVoltage < 3.7 )
+  6651                           ;main.c: 101: if(BatteryVoltage < 3.7 )
   6652  00532E  C040  F063         	movff	_BatteryVoltage,___ftge@ff1
   6653  005332  C041  F064         	movff	_BatteryVoltage+1,___ftge@ff1+1
   6654  005336  C042  F065         	movff	_BatteryVoltage+2,___ftge@ff1+2
@@ -6678,13 +6678,13 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   6667  005354  D002               	goto	l13024
   6668                           
   6669                           ; BSR set to: 0
-  6670                           ;main.c: 96: {
-  6671                           ;main.c: 97: VoltageStatus = 34;
+  6670                           ;main.c: 102: {
+  6671                           ;main.c: 103: VoltageStatus = 34;
   6672  005356  0E22               	movlw	34
   6673  005358  D015               	goto	L1
   6674  00535A                     l13024:
   6675                           
-  6676                           ;main.c: 99: else if (BatteryVoltage > 30.0)
+  6676                           ;main.c: 105: else if (BatteryVoltage > 30.0)
   6677  00535A  0E00               	movlw	0
   6678  00535C  0100               	movlb	0	; () banked
   6679  00535E  6F63               	movwf	___ftge@ff1& (0+255),b
@@ -6703,8 +6703,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   6692  005380  D004               	goto	l13028
   6693                           
   6694                           ; BSR set to: 0
-  6695                           ;main.c: 100: {
-  6696                           ;main.c: 101: VoltageStatus = 98;
+  6695                           ;main.c: 106: {
+  6696                           ;main.c: 107: VoltageStatus = 98;
   6697  005382  0E62               	movlw	98
   6698  005384                     L1:
   6699  005384  0102               	movlb	2	; () banked
@@ -6714,16 +6714,16 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   6703  005388  D000               	goto	l13028
   6704  00538A                     l13028:
   6705                           
-  6706                           ;main.c: 102: }
-  6707                           ;main.c: 103: if(VoltageStatus == 1)
+  6706                           ;main.c: 108: }
+  6707                           ;main.c: 109: if(VoltageStatus == 1)
   6708  00538A  0102               	movlb	2	; () banked
   6709  00538C  05FC               	decf	main@VoltageStatus& (0+255),w,b
   6710  00538E  A4D8               	btfss	status,2,c
   6711  005390  D027               	goto	l13050
   6712                           
   6713                           ; BSR set to: 2
-  6714                           ;main.c: 104: {
-  6715                           ;main.c: 106: for(i =0;i<10;i++)
+  6714                           ;main.c: 110: {
+  6715                           ;main.c: 112: for(i =0;i<10;i++)
   6716  005392  0E00               	movlw	0
   6717  005394  0102               	movlb	2	; () banked
   6718  005396  6FFE               	movwf	main@i& (0+255),b
@@ -6740,15 +6740,15 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   6729  0053A2                     l13036:
   6730                           
   6731                           ; BSR set to: 2
-  6732                           ;main.c: 107: {
-  6733                           ;main.c: 108: (LATC |= 0x02);
+  6732                           ;main.c: 113: {
+  6733                           ;main.c: 114: (LATC |= 0x02);
   6734  0053A2  828B               	bsf	3979,1,c	;volatile
   6735                           
-  6736                           ;main.c: 109: (LATC &= ~0x04);
+  6736                           ;main.c: 115: (LATC &= ~0x04);
   6737  0053A4  948B               	bcf	3979,2,c	;volatile
   6738                           
   6739                           ; BSR set to: 2
-  6740                           ;main.c: 110: delayUS(50000);
+  6740                           ;main.c: 116: delayUS(50000);
   6741  0053A6  0E50               	movlw	80
   6742  0053A8  0100               	movlb	0	; () banked
   6743  0053AA  6F63               	movwf	delayUS@US& (0+255),b
@@ -6760,13 +6760,13 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   6749  0053B6  6F66               	movwf	(delayUS@US+3)& (0+255),b
   6750  0053B8  ECA0  F04E         	call	_delayUS	;wreg free
   6751                           
-  6752                           ;main.c: 111: (LATC &= ~0x02);
+  6752                           ;main.c: 117: (LATC &= ~0x02);
   6753  0053BC  928B               	bcf	3979,1,c	;volatile
   6754                           
-  6755                           ;main.c: 112: (LATC |= 0x04);
+  6755                           ;main.c: 118: (LATC |= 0x04);
   6756  0053BE  848B               	bsf	3979,2,c	;volatile
   6757                           
-  6758                           ;main.c: 113: delayUS(50000);
+  6758                           ;main.c: 119: delayUS(50000);
   6759  0053C0  0E50               	movlw	80
   6760  0053C2  0100               	movlb	0	; () banked
   6761  0053C4  6F63               	movwf	delayUS@US& (0+255),b
@@ -6783,18 +6783,18 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   6772  0053DC                     l13048:
   6773                           
   6774                           ; BSR set to: 2
-  6775                           ;main.c: 114: }
-  6776                           ;main.c: 115: (LATC &= ~0x04);
+  6775                           ;main.c: 120: }
+  6776                           ;main.c: 121: (LATC &= ~0x04);
   6777  0053DC  948B               	bcf	3979,2,c	;volatile
   6778                           
-  6779                           ;main.c: 116: }
+  6779                           ;main.c: 122: }
   6780  0053DE  D024               	goto	l13066
   6781  0053E0                     l13050:
   6782                           
   6783                           ; BSR set to: 2
-  6784                           ;main.c: 117: else
-  6785                           ;main.c: 118: {
-  6786                           ;main.c: 119: for(i =0;i<10;i++)
+  6784                           ;main.c: 123: else
+  6785                           ;main.c: 124: {
+  6786                           ;main.c: 125: for(i =0;i<10;i++)
   6787  0053E0  0E00               	movlw	0
   6788  0053E2  0102               	movlb	2	; () banked
   6789  0053E4  6FFE               	movwf	main@i& (0+255),b
@@ -6811,12 +6811,12 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   6800  0053F0                     l13056:
   6801                           
   6802                           ; BSR set to: 2
-  6803                           ;main.c: 120: {
-  6804                           ;main.c: 121: (LATC |= 0x02);
+  6803                           ;main.c: 126: {
+  6804                           ;main.c: 127: (LATC |= 0x02);
   6805  0053F0  828B               	bsf	3979,1,c	;volatile
   6806                           
   6807                           ; BSR set to: 2
-  6808                           ;main.c: 122: delayUS(100000);
+  6808                           ;main.c: 128: delayUS(100000);
   6809  0053F2  0EA0               	movlw	160
   6810  0053F4  0100               	movlb	0	; () banked
   6811  0053F6  6F63               	movwf	delayUS@US& (0+255),b
@@ -6828,10 +6828,10 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   6817  005402  6F66               	movwf	(delayUS@US+3)& (0+255),b
   6818  005404  ECA0  F04E         	call	_delayUS	;wreg free
   6819                           
-  6820                           ;main.c: 123: (LATC &= ~0x02);
+  6820                           ;main.c: 129: (LATC &= ~0x02);
   6821  005408  928B               	bcf	3979,1,c	;volatile
   6822                           
-  6823                           ;main.c: 124: delayUS(100000);
+  6823                           ;main.c: 130: delayUS(100000);
   6824  00540A  0EA0               	movlw	160
   6825  00540C  0100               	movlb	0	; () banked
   6826  00540E  6F63               	movwf	delayUS@US& (0+255),b
@@ -6853,35 +6853,35 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   6842  005428                     l13066:
   6843                           
   6844                           ; BSR set to: 2
-  6845                           ;main.c: 125: }
-  6846                           ;main.c: 126: }
-  6847                           ;main.c: 127: Connected = BlueConnected();
+  6845                           ;main.c: 131: }
+  6846                           ;main.c: 132: }
+  6847                           ;main.c: 133: Connected = BlueConnected();
   6848  005428  EC5E  F052         	call	_BlueConnected	;wreg free
   6849  00542C  0102               	movlb	2	; () banked
   6850  00542E  6FFD               	movwf	main@Connected& (0+255),b
   6851                           
   6852                           ; BSR set to: 2
-  6853                           ;main.c: 128: ConnectedOLD = 0;
+  6853                           ;main.c: 134: ConnectedOLD = 0;
   6854  005430  0E00               	movlw	0
   6855  005432  0102               	movlb	2	; () banked
   6856  005434  6FFB               	movwf	main@ConnectedOLD& (0+255),b
   6857  005436  D000               	goto	l13070
   6858  005438                     l13070:
   6859                           
-  6860                           ;main.c: 130: {
-  6861                           ;main.c: 131: IRtask = IR_New_Code;
+  6860                           ;main.c: 136: {
+  6861                           ;main.c: 137: IRtask = IR_New_Code;
   6862  005438  C0FD  F2F8         	movff	_IR_New_Code,main@IRtask
   6863                           
-  6864                           ;main.c: 132: Bluetoothtask = NewReceivedString;
+  6864                           ;main.c: 138: Bluetoothtask = NewReceivedString;
   6865  00543C  C0F9  F2F9         	movff	_NewReceivedString,main@Bluetoothtask	;volatile
   6866                           
-  6867                           ;main.c: 134: BatteryVoltage = ReadVoltage();
+  6867                           ;main.c: 140: BatteryVoltage = ReadVoltage();
   6868  005440  EC72  F048         	call	_ReadVoltage	;wreg free
   6869  005444  C08C  F040         	movff	?_ReadVoltage,_BatteryVoltage
   6870  005448  C08D  F041         	movff	?_ReadVoltage+1,_BatteryVoltage+1
   6871  00544C  C08E  F042         	movff	?_ReadVoltage+2,_BatteryVoltage+2
   6872                           
-  6873                           ;main.c: 136: if(VoltageStatus == 34)
+  6873                           ;main.c: 142: if(VoltageStatus == 34)
   6874  005450  0E22               	movlw	34
   6875  005452  0102               	movlb	2	; () banked
   6876  005454  19FC               	xorwf	main@VoltageStatus& (0+255),w,b
@@ -6889,8 +6889,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   6878  005458  D018               	goto	l13080
   6879                           
   6880                           ; BSR set to: 2
-  6881                           ;main.c: 137: {
-  6882                           ;main.c: 138: BatteryVoltage -= 0.5;
+  6881                           ;main.c: 143: {
+  6882                           ;main.c: 144: BatteryVoltage -= 0.5;
   6883  00545A  C040  F0A2         	movff	_BatteryVoltage,___ftsub@f1
   6884  00545E  C041  F0A3         	movff	_BatteryVoltage+1,___ftsub@f1+1
   6885  005462  C042  F0A4         	movff	_BatteryVoltage+2,___ftsub@f1+2
@@ -6908,11 +6908,11 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   6897  005480  C0A3  F041         	movff	?___ftsub+1,_BatteryVoltage+1
   6898  005484  C0A4  F042         	movff	?___ftsub+2,_BatteryVoltage+2
   6899                           
-  6900                           ;main.c: 139: }
+  6900                           ;main.c: 145: }
   6901  005488  D01D               	goto	l150
   6902  00548A                     l13080:
   6903                           
-  6904                           ;main.c: 140: else if(VoltageStatus == 98)
+  6904                           ;main.c: 146: else if(VoltageStatus == 98)
   6905  00548A  0E62               	movlw	98
   6906  00548C  0102               	movlb	2	; () banked
   6907  00548E  19FC               	xorwf	main@VoltageStatus& (0+255),w,b
@@ -6920,8 +6920,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   6909  005492  D018               	goto	l150
   6910                           
   6911                           ; BSR set to: 2
-  6912                           ;main.c: 141: {
-  6913                           ;main.c: 142: BatteryVoltage += 0.5;
+  6912                           ;main.c: 147: {
+  6913                           ;main.c: 148: BatteryVoltage += 0.5;
   6914  005494  C040  F096         	movff	_BatteryVoltage,___ftadd@f1
   6915  005498  C041  F097         	movff	_BatteryVoltage+1,___ftadd@f1+1
   6916  00549C  C042  F098         	movff	_BatteryVoltage+2,___ftadd@f1+2
@@ -6941,8 +6941,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   6930  0054C2  D000               	goto	l150
   6931  0054C4                     l150:
   6932                           
-  6933                           ;main.c: 143: }
-  6934                           ;main.c: 145: if(BatteryVoltage < 3.7 )
+  6933                           ;main.c: 149: }
+  6934                           ;main.c: 151: if(BatteryVoltage < 3.7 )
   6935  0054C4  C040  F063         	movff	_BatteryVoltage,___ftge@ff1
   6936  0054C8  C041  F064         	movff	_BatteryVoltage+1,___ftge@ff1+1
   6937  0054CC  C042  F065         	movff	_BatteryVoltage+2,___ftge@ff1+2
@@ -6961,13 +6961,13 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   6950  0054EA  D002               	goto	l13086
   6951                           
   6952                           ; BSR set to: 0
-  6953                           ;main.c: 146: {
-  6954                           ;main.c: 147: VoltageStatus = 34;
+  6953                           ;main.c: 152: {
+  6954                           ;main.c: 153: VoltageStatus = 34;
   6955  0054EC  0E22               	movlw	34
   6956  0054EE  D017               	goto	L3
   6957  0054F0                     l13086:
   6958                           
-  6959                           ;main.c: 149: else if(BatteryVoltage > 30.0)
+  6959                           ;main.c: 155: else if(BatteryVoltage > 30.0)
   6960  0054F0  0E00               	movlw	0
   6961  0054F2  0100               	movlb	0	; () banked
   6962  0054F4  6F63               	movwf	___ftge@ff1& (0+255),b
@@ -6986,15 +6986,15 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   6975  005516  D002               	goto	l13090
   6976                           
   6977                           ; BSR set to: 0
-  6978                           ;main.c: 150: {
-  6979                           ;main.c: 151: VoltageStatus = 98;
+  6978                           ;main.c: 156: {
+  6979                           ;main.c: 157: VoltageStatus = 98;
   6980  005518  0E62               	movlw	98
   6981  00551A  D001               	goto	L3
   6982  00551C                     l13090:
   6983                           
-  6984                           ;main.c: 153: else
-  6985                           ;main.c: 154: {
-  6986                           ;main.c: 155: VoltageStatus = 1;
+  6984                           ;main.c: 159: else
+  6985                           ;main.c: 160: {
+  6986                           ;main.c: 161: VoltageStatus = 1;
   6987  00551C  0E01               	movlw	1
   6988  00551E                     L3:
   6989  00551E  0102               	movlb	2	; () banked
@@ -7003,8 +7003,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   6992  005524                     l153:
   6993                           
   6994                           ; BSR set to: 2
-  6995                           ;main.c: 156: }
-  6996                           ;main.c: 159: if(IRtask && IR_NEC)
+  6995                           ;main.c: 162: }
+  6996                           ;main.c: 165: if(IRtask && IR_NEC)
   6997  005524  0102               	movlb	2	; () banked
   6998  005526  51F8               	movf	main@IRtask& (0+255),w,b
   6999  005528  0102               	movlb	2	; () banked
@@ -7020,8 +7020,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7009  005538  D011               	goto	l13096
   7010                           
   7011                           ; BSR set to: 2
-  7012                           ;main.c: 160: {
-  7013                           ;main.c: 161: UseIRCode(&IR_New_Code, IR_NEC);
+  7012                           ;main.c: 166: {
+  7013                           ;main.c: 167: UseIRCode(&IR_New_Code, IR_NEC);
   7014  00553A  0EFD               	movlw	low _IR_New_Code
   7015  00553C  0100               	movlb	0	; () banked
   7016  00553E  6FE9               	movwf	UseIRCode@Code& (0+255),b
@@ -7036,14 +7036,14 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7025  00555A  D000               	goto	l13096
   7026  00555C                     l13096:
   7027                           
-  7028                           ;main.c: 162: }
-  7029                           ;main.c: 166: Connected = BlueConnected();
+  7028                           ;main.c: 168: }
+  7029                           ;main.c: 172: Connected = BlueConnected();
   7030  00555C  EC5E  F052         	call	_BlueConnected	;wreg free
   7031  005560  0102               	movlb	2	; () banked
   7032  005562  6FFD               	movwf	main@Connected& (0+255),b
   7033                           
   7034                           ; BSR set to: 2
-  7035                           ;main.c: 168: if(Connected != ConnectedOLD)
+  7035                           ;main.c: 174: if(Connected != ConnectedOLD)
   7036  005564  0102               	movlb	2	; () banked
   7037  005566  51FB               	movf	main@ConnectedOLD& (0+255),w,b
   7038  005568  0102               	movlb	2	; () banked
@@ -7052,8 +7052,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7041  00556E  D039               	goto	l13120
   7042                           
   7043                           ; BSR set to: 2
-  7044                           ;main.c: 169: {
-  7045                           ;main.c: 170: if(Connected)
+  7044                           ;main.c: 175: {
+  7045                           ;main.c: 176: if(Connected)
   7046  005570  0102               	movlb	2	; () banked
   7047  005572  51FD               	movf	main@Connected& (0+255),w,b
   7048  005574  0102               	movlb	2	; () banked
@@ -7061,8 +7061,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7050  005578  D032               	goto	l158
   7051                           
   7052                           ; BSR set to: 2
-  7053                           ;main.c: 171: {
-  7054                           ;main.c: 172: cleanBuffer(ReceivedString, ReceivedStringPos);
+  7053                           ;main.c: 177: {
+  7054                           ;main.c: 178: cleanBuffer(ReceivedString, ReceivedStringPos);
   7055  00557A  0E00               	movlw	low _ReceivedString
   7056  00557C  0100               	movlb	0	; () banked
   7057  00557E  6F63               	movwf	cleanBuffer@data& (0+255),b
@@ -7074,13 +7074,13 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7063  00558C  6B66               	clrf	(cleanBuffer@count+1)& (0+255),b
   7064  00558E  EC47  F04E         	call	_cleanBuffer	;wreg free
   7065                           
-  7066                           ;main.c: 173: ReceivedStringPos = 0;
+  7066                           ;main.c: 179: ReceivedStringPos = 0;
   7067  005592  0E00               	movlw	0
   7068  005594  0102               	movlb	2	; () banked
   7069  005596  6FFF               	movwf	_ReceivedStringPos& (0+255),b	;volatile
   7070                           
   7071                           ; BSR set to: 2
-  7072                           ;main.c: 174: delayUS(1000000);
+  7072                           ;main.c: 180: delayUS(1000000);
   7073  005598  0E40               	movlw	64
   7074  00559A  0100               	movlb	0	; () banked
   7075  00559C  6F63               	movwf	delayUS@US& (0+255),b
@@ -7092,7 +7092,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7081  0055A8  6F66               	movwf	(delayUS@US+3)& (0+255),b
   7082  0055AA  ECA0  F04E         	call	_delayUS	;wreg free
   7083                           
-  7084                           ;main.c: 175: UARTstringCRLN_CONST(ProjectName);
+  7084                           ;main.c: 181: UARTstringCRLN_CONST(ProjectName);
   7085  0055AE  0E0D               	movlw	low _ProjectName
   7086  0055B0  0100               	movlb	0	; () banked
   7087  0055B2  6F70               	movwf	UARTstringCRLN_CONST@data& (0+255),b
@@ -7101,7 +7101,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7090  0055B8  6F71               	movwf	(UARTstringCRLN_CONST@data+1)& (0+255),b
   7091  0055BA  EC85  F04F         	call	_UARTstringCRLN_CONST	;wreg free
   7092                           
-  7093                           ;main.c: 176: UARTstring_CONST(CRLN);
+  7093                           ;main.c: 182: UARTstring_CONST(CRLN);
   7094  0055BE  0E05               	movlw	low _CRLN
   7095  0055C0  0100               	movlb	0	; () banked
   7096  0055C2  6F6E               	movwf	UARTstring_CONST@data& (0+255),b
@@ -7110,36 +7110,36 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7099  0055C8  6F6F               	movwf	(UARTstring_CONST@data+1)& (0+255),b
   7100  0055CA  ECA9  F050         	call	_UARTstring_CONST	;wreg free
   7101                           
-  7102                           ;main.c: 177: UARTchar_CONST('>');
+  7102                           ;main.c: 183: UARTchar_CONST('>');
   7103  0055CE  0E3E               	movlw	62
   7104  0055D0  EC5A  F050         	call	_UARTchar_CONST
   7105                           
-  7106                           ;main.c: 178: ClearUSART();
+  7106                           ;main.c: 184: ClearUSART();
   7107  0055D4  EC21  F052         	call	_ClearUSART	;wreg free
   7108                           
-  7109                           ;main.c: 179: PIR1bits.RCIF = 0;
+  7109                           ;main.c: 185: PIR1bits.RCIF = 0;
   7110  0055D8  9A9E               	bcf	3998,5,c	;volatile
   7111                           
-  7112                           ;main.c: 180: PIE1bits.RCIE = 1;
+  7112                           ;main.c: 186: PIE1bits.RCIE = 1;
   7113  0055DA  8A9D               	bsf	3997,5,c	;volatile
   7114                           
-  7115                           ;main.c: 181: }
+  7115                           ;main.c: 187: }
   7116  0055DC  D002               	goto	l13120
   7117  0055DE                     l158:
   7118                           
   7119                           ; BSR set to: 2
-  7120                           ;main.c: 182: else
-  7121                           ;main.c: 183: {
-  7122                           ;main.c: 184: PIE1bits.RCIE = 0;
+  7120                           ;main.c: 188: else
+  7121                           ;main.c: 189: {
+  7122                           ;main.c: 190: PIE1bits.RCIE = 0;
   7123  0055DE  9A9D               	bcf	3997,5,c	;volatile
   7124                           
   7125                           ; BSR set to: 2
   7126  0055E0  D000               	goto	l13120
   7127  0055E2                     l13120:
   7128                           
-  7129                           ;main.c: 185: }
-  7130                           ;main.c: 186: }
-  7131                           ;main.c: 187: if(Bluetoothtask >= 1 && Connected)
+  7129                           ;main.c: 191: }
+  7130                           ;main.c: 192: }
+  7131                           ;main.c: 193: if(Bluetoothtask >= 1 && Connected)
   7132  0055E2  0102               	movlb	2	; () banked
   7133  0055E4  51F9               	movf	main@Bluetoothtask& (0+255),w,b
   7134  0055E6  0102               	movlb	2	; () banked
@@ -7154,8 +7154,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7143  0055F4  D074               	goto	l13168
   7144                           
   7145                           ; BSR set to: 2
-  7146                           ;main.c: 188: {
-  7147                           ;main.c: 189: cleanBuffer(BluetoothString, 100);
+  7146                           ;main.c: 194: {
+  7147                           ;main.c: 195: cleanBuffer(BluetoothString, 100);
   7148  0055F6  0E94               	movlw	low main@BluetoothString
   7149  0055F8  0100               	movlb	0	; () banked
   7150  0055FA  6F63               	movwf	cleanBuffer@data& (0+255),b
@@ -7169,7 +7169,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7158  00560A  6F65               	movwf	cleanBuffer@count& (0+255),b
   7159  00560C  EC47  F04E         	call	_cleanBuffer	;wreg free
   7160                           
-  7161                           ;main.c: 190: BufferCopy(ReceivedString,BluetoothString, ReceivedStringPos, 0);
+  7161                           ;main.c: 196: BufferCopy(ReceivedString,BluetoothString, ReceivedStringPos, 0);
   7162  005610  0E00               	movlw	low _ReceivedString
   7163  005612  0100               	movlb	0	; () banked
   7164  005614  6F6B               	movwf	BufferCopy@from& (0+255),b
@@ -7188,10 +7188,10 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7177  005630  6F70               	movwf	BufferCopy@shift& (0+255),b
   7178  005632  ECFE  F04B         	call	_BufferCopy	;wreg free
   7179                           
-  7180                           ;main.c: 191: BluetoothStringPos = ReceivedStringPos;
+  7180                           ;main.c: 197: BluetoothStringPos = ReceivedStringPos;
   7181  005636  C2FF  F2FA         	movff	_ReceivedStringPos,main@BluetoothStringPos	;volatile
   7182                           
-  7183                           ;main.c: 192: cleanBuffer(ReceivedString, ReceivedStringPos);
+  7183                           ;main.c: 198: cleanBuffer(ReceivedString, ReceivedStringPos);
   7184  00563A  0E00               	movlw	low _ReceivedString
   7185  00563C  0100               	movlb	0	; () banked
   7186  00563E  6F63               	movwf	cleanBuffer@data& (0+255),b
@@ -7203,19 +7203,19 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7192  00564C  6B66               	clrf	(cleanBuffer@count+1)& (0+255),b
   7193  00564E  EC47  F04E         	call	_cleanBuffer	;wreg free
   7194                           
-  7195                           ;main.c: 193: ReceivedStringPos = 0;
+  7195                           ;main.c: 199: ReceivedStringPos = 0;
   7196  005652  0E00               	movlw	0
   7197  005654  0102               	movlb	2	; () banked
   7198  005656  6FFF               	movwf	_ReceivedStringPos& (0+255),b	;volatile
   7199                           
   7200                           ; BSR set to: 2
-  7201                           ;main.c: 194: NewReceivedString = 0;
+  7201                           ;main.c: 200: NewReceivedString = 0;
   7202  005658  0E00               	movlw	0
   7203  00565A  0100               	movlb	0	; () banked
   7204  00565C  6FF9               	movwf	_NewReceivedString& (0+255),b	;volatile
   7205                           
   7206                           ; BSR set to: 0
-  7207                           ;main.c: 195: if(BluetoothString[0] != 0)
+  7207                           ;main.c: 201: if(BluetoothString[0] != 0)
   7208  00565E  0102               	movlb	2	; () banked
   7209  005660  5194               	movf	main@BluetoothString& (0+255),w,b
   7210  005662  0102               	movlb	2	; () banked
@@ -7223,8 +7223,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7212  005666  D00B               	goto	l13140
   7213                           
   7214                           ; BSR set to: 2
-  7215                           ;main.c: 196: {
-  7216                           ;main.c: 197: UseBluetooth(BluetoothString, BluetoothStringPos);
+  7215                           ;main.c: 202: {
+  7216                           ;main.c: 203: UseBluetooth(BluetoothString, BluetoothStringPos);
   7217  005668  0E94               	movlw	low main@BluetoothString
   7218  00566A  0100               	movlb	0	; () banked
   7219  00566C  6FF5               	movwf	UseBluetooth@String& (0+255),b
@@ -7236,8 +7236,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7225  00567C  D000               	goto	l13140
   7226  00567E                     l13140:
   7227                           
-  7228                           ;main.c: 198: }
-  7229                           ;main.c: 199: cleanBuffer(ReceivedString, ReceivedStringPos);
+  7228                           ;main.c: 204: }
+  7229                           ;main.c: 205: cleanBuffer(ReceivedString, ReceivedStringPos);
   7230  00567E  0E00               	movlw	low _ReceivedString
   7231  005680  0100               	movlb	0	; () banked
   7232  005682  6F63               	movwf	cleanBuffer@data& (0+255),b
@@ -7249,19 +7249,19 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7238  005690  6B66               	clrf	(cleanBuffer@count+1)& (0+255),b
   7239  005692  EC47  F04E         	call	_cleanBuffer	;wreg free
   7240                           
-  7241                           ;main.c: 200: ReceivedStringPos = 0;
+  7241                           ;main.c: 206: ReceivedStringPos = 0;
   7242  005696  0E00               	movlw	0
   7243  005698  0102               	movlb	2	; () banked
   7244  00569A  6FFF               	movwf	_ReceivedStringPos& (0+255),b	;volatile
   7245                           
   7246                           ; BSR set to: 2
-  7247                           ;main.c: 201: NewReceivedString = 0;
+  7247                           ;main.c: 207: NewReceivedString = 0;
   7248  00569C  0E00               	movlw	0
   7249  00569E  0100               	movlb	0	; () banked
   7250  0056A0  6FF9               	movwf	_NewReceivedString& (0+255),b	;volatile
   7251                           
   7252                           ; BSR set to: 0
-  7253                           ;main.c: 202: UARTstring_CONST(CRLN);
+  7253                           ;main.c: 208: UARTstring_CONST(CRLN);
   7254  0056A2  0E05               	movlw	low _CRLN
   7255  0056A4  0100               	movlb	0	; () banked
   7256  0056A6  6F6E               	movwf	UARTstring_CONST@data& (0+255),b
@@ -7270,19 +7270,19 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7259  0056AC  6F6F               	movwf	(UARTstring_CONST@data+1)& (0+255),b
   7260  0056AE  ECA9  F050         	call	_UARTstring_CONST	;wreg free
   7261                           
-  7262                           ;main.c: 203: UARTchar_CONST('>');
+  7262                           ;main.c: 209: UARTchar_CONST('>');
   7263  0056B2  0E3E               	movlw	62
   7264  0056B4  EC5A  F050         	call	_UARTchar_CONST
   7265                           
-  7266                           ;main.c: 204: if(IR_New_Code)
+  7266                           ;main.c: 210: if(IR_New_Code)
   7267  0056B8  0100               	movlb	0	; () banked
   7268  0056BA  51FD               	movf	_IR_New_Code& (0+255),w,b
   7269  0056BC  B4D8               	btfsc	status,2,c
   7270  0056BE  D004               	goto	l13154
   7271                           
   7272                           ; BSR set to: 0
-  7273                           ;main.c: 205: {
-  7274                           ;main.c: 206: IR_New_Code = 0;
+  7273                           ;main.c: 211: {
+  7274                           ;main.c: 212: IR_New_Code = 0;
   7275  0056C0  0E00               	movlw	0
   7276  0056C2  0100               	movlb	0	; () banked
   7277  0056C4  6FFD               	movwf	_IR_New_Code& (0+255),b
@@ -7290,33 +7290,33 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7279  0056C8                     l13154:
   7280                           
   7281                           ; BSR set to: 0
-  7282                           ;main.c: 207: }
-  7283                           ;main.c: 209: IRpinOLD = ReadIRpin();
+  7282                           ;main.c: 213: }
+  7283                           ;main.c: 215: IRpinOLD = ReadIRpin();
   7284  0056C8  EC57  F052         	call	_ReadIRpin	;wreg free
   7285  0056CC  6E4C               	movwf	_IRpinOLD,c
   7286                           
-  7287                           ;main.c: 210: INTCONbits.RBIF = 0;
+  7287                           ;main.c: 216: INTCONbits.RBIF = 0;
   7288  0056CE  90F2               	bcf	intcon,0,c	;volatile
   7289                           
-  7290                           ;main.c: 211: (IOCBbits.IOCB4 = 1);
+  7290                           ;main.c: 217: (IOCBbits.IOCB4 = 1);
   7291  0056D0  887D               	bsf	3965,4,c	;volatile
   7292                           
-  7293                           ;main.c: 212: INTCONbits.RBIE = 1;
+  7293                           ;main.c: 218: INTCONbits.RBIE = 1;
   7294  0056D2  86F2               	bsf	intcon,3,c	;volatile
   7295                           
-  7296                           ;main.c: 213: ClearUSART();
+  7296                           ;main.c: 219: ClearUSART();
   7297  0056D4  EC21  F052         	call	_ClearUSART	;wreg free
   7298                           
-  7299                           ;main.c: 214: PIR1bits.RCIF = 0;
+  7299                           ;main.c: 220: PIR1bits.RCIF = 0;
   7300  0056D8  9A9E               	bcf	3998,5,c	;volatile
   7301                           
-  7302                           ;main.c: 215: PIE1bits.RCIE = 1;
+  7302                           ;main.c: 221: PIE1bits.RCIE = 1;
   7303  0056DA  8A9D               	bsf	3997,5,c	;volatile
   7304  0056DC  D000               	goto	l13168
   7305  0056DE                     l13168:
   7306                           
-  7307                           ;main.c: 216: }
-  7308                           ;main.c: 219: if(IRtimeout < 5000)
+  7307                           ;main.c: 222: }
+  7308                           ;main.c: 225: if(IRtimeout < 5000)
   7309  0056DE  0103               	movlb	3	; () banked
   7310  0056E0  51FB               	movf	(_IRtimeout+3)& (0+255),w,b
   7311  0056E2  0103               	movlb	3	; () banked
@@ -7332,8 +7332,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7321  0056F6  D008               	goto	l13172
   7322                           
   7323                           ; BSR set to: 3
-  7324                           ;main.c: 220: {
-  7325                           ;main.c: 221: IRtimeout++;
+  7324                           ;main.c: 226: {
+  7325                           ;main.c: 227: IRtimeout++;
   7326  0056F8  0E01               	movlw	1
   7327  0056FA  0103               	movlb	3	; () banked
   7328  0056FC  27F8               	addwf	_IRtimeout& (0+255),f,b
@@ -7342,12 +7342,12 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7331  005702  23FA               	addwfc	(_IRtimeout+2)& (0+255),f,b
   7332  005704  23FB               	addwfc	(_IRtimeout+3)& (0+255),f,b
   7333                           
-  7334                           ;main.c: 222: }
+  7334                           ;main.c: 228: }
   7335  005706  D026               	goto	l13188
   7336  005708                     l13172:
   7337                           
   7338                           ; BSR set to: 3
-  7339                           ;main.c: 223: else if(IRtimeout == 5000)
+  7339                           ;main.c: 229: else if(IRtimeout == 5000)
   7340  005708  0E88               	movlw	136
   7341  00570A  0103               	movlb	3	; () banked
   7342  00570C  19F8               	xorwf	_IRtimeout& (0+255),w,b
@@ -7363,8 +7363,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7352  005720  D019               	goto	l13188
   7353                           
   7354                           ; BSR set to: 3
-  7355                           ;main.c: 224: {
-  7356                           ;main.c: 225: IRtimeout++;
+  7355                           ;main.c: 230: {
+  7356                           ;main.c: 231: IRtimeout++;
   7357  005722  0E01               	movlw	1
   7358  005724  0103               	movlb	3	; () banked
   7359  005726  27F8               	addwf	_IRtimeout& (0+255),f,b
@@ -7374,7 +7374,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7363  00572E  23FB               	addwfc	(_IRtimeout+3)& (0+255),f,b
   7364                           
   7365                           ; BSR set to: 3
-  7366                           ;main.c: 226: IR_NEC = 0;
+  7366                           ;main.c: 232: IR_NEC = 0;
   7367  005730  0E00               	movlw	0
   7368  005732  6E55               	movwf	_IR_NEC,c
   7369  005734  0E00               	movlw	0
@@ -7385,37 +7385,37 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7374  00573E  6E58               	movwf	_IR_NEC+3,c
   7375                           
   7376                           ; BSR set to: 3
-  7377                           ;main.c: 227: IR_New_Code = 0;
+  7377                           ;main.c: 233: IR_New_Code = 0;
   7378  005740  0E00               	movlw	0
   7379  005742  0100               	movlb	0	; () banked
   7380  005744  6FFD               	movwf	_IR_New_Code& (0+255),b
   7381                           
   7382                           ; BSR set to: 0
-  7383                           ;main.c: 228: IRpinOLD = ReadIRpin();
+  7383                           ;main.c: 234: IRpinOLD = ReadIRpin();
   7384  005746  EC57  F052         	call	_ReadIRpin	;wreg free
   7385  00574A  6E4C               	movwf	_IRpinOLD,c
   7386                           
-  7387                           ;main.c: 229: INTCONbits.RBIF = 0;
+  7387                           ;main.c: 235: INTCONbits.RBIF = 0;
   7388  00574C  90F2               	bcf	intcon,0,c	;volatile
   7389                           
-  7390                           ;main.c: 230: (IOCBbits.IOCB4 = 1);
+  7390                           ;main.c: 236: (IOCBbits.IOCB4 = 1);
   7391  00574E  887D               	bsf	3965,4,c	;volatile
   7392                           
-  7393                           ;main.c: 231: INTCONbits.RBIE = 1;
+  7393                           ;main.c: 237: INTCONbits.RBIE = 1;
   7394  005750  86F2               	bsf	intcon,3,c	;volatile
   7395  005752  D000               	goto	l13188
   7396  005754                     l13188:
   7397                           
-  7398                           ;main.c: 232: }
-  7399                           ;main.c: 233: if(BufferOverflow)
+  7398                           ;main.c: 238: }
+  7399                           ;main.c: 239: if(BufferOverflow)
   7400  005754  0101               	movlb	1	; () banked
   7401  005756  51FF               	movf	_BufferOverflow& (0+255),w,b
   7402  005758  B4D8               	btfsc	status,2,c
   7403  00575A  D033               	goto	l13210
   7404                           
   7405                           ; BSR set to: 1
-  7406                           ;main.c: 234: {
-  7407                           ;main.c: 236: cleanBuffer(ReceivedString,100);
+  7406                           ;main.c: 240: {
+  7407                           ;main.c: 242: cleanBuffer(ReceivedString,100);
   7408  00575C  0E00               	movlw	low _ReceivedString
   7409  00575E  0100               	movlb	0	; () banked
   7410  005760  6F63               	movwf	cleanBuffer@data& (0+255),b
@@ -7429,13 +7429,13 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7418  005770  6F65               	movwf	cleanBuffer@count& (0+255),b
   7419  005772  EC47  F04E         	call	_cleanBuffer	;wreg free
   7420                           
-  7421                           ;main.c: 237: ReceivedStringPos = 0;
+  7421                           ;main.c: 243: ReceivedStringPos = 0;
   7422  005776  0E00               	movlw	0
   7423  005778  0102               	movlb	2	; () banked
   7424  00577A  6FFF               	movwf	_ReceivedStringPos& (0+255),b	;volatile
   7425                           
   7426                           ; BSR set to: 2
-  7427                           ;main.c: 238: UARTstring_CONST(CRLN);
+  7427                           ;main.c: 244: UARTstring_CONST(CRLN);
   7428  00577C  0E05               	movlw	low _CRLN
   7429  00577E  0100               	movlb	0	; () banked
   7430  005780  6F6E               	movwf	UARTstring_CONST@data& (0+255),b
@@ -7444,7 +7444,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7433  005786  6F6F               	movwf	(UARTstring_CONST@data+1)& (0+255),b
   7434  005788  ECA9  F050         	call	_UARTstring_CONST	;wreg free
   7435                           
-  7436                           ;main.c: 239: UARTstringCRLN_CONST("Buffer Overflow");
+  7436                           ;main.c: 245: UARTstringCRLN_CONST("Buffer Overflow");
   7437  00578C  0E54               	movlw	low STR_1
   7438  00578E  0100               	movlb	0	; () banked
   7439  005790  6F70               	movwf	UARTstringCRLN_CONST@data& (0+255),b
@@ -7453,7 +7453,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7442  005796  6F71               	movwf	(UARTstringCRLN_CONST@data+1)& (0+255),b
   7443  005798  EC85  F04F         	call	_UARTstringCRLN_CONST	;wreg free
   7444                           
-  7445                           ;main.c: 240: UARTstring_CONST(CRLN);
+  7445                           ;main.c: 246: UARTstring_CONST(CRLN);
   7446  00579C  0E05               	movlw	low _CRLN
   7447  00579E  0100               	movlb	0	; () banked
   7448  0057A0  6F6E               	movwf	UARTstring_CONST@data& (0+255),b
@@ -7462,29 +7462,29 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   7451  0057A6  6F6F               	movwf	(UARTstring_CONST@data+1)& (0+255),b
   7452  0057A8  ECA9  F050         	call	_UARTstring_CONST	;wreg free
   7453                           
-  7454                           ;main.c: 241: UARTchar('>');
+  7454                           ;main.c: 247: UARTchar('>');
   7455  0057AC  0E3E               	movlw	62
   7456  0057AE  EC76  F050         	call	_UARTchar
   7457                           
-  7458                           ;main.c: 242: BufferOverflow = 0;
+  7458                           ;main.c: 248: BufferOverflow = 0;
   7459  0057B2  0E00               	movlw	0
   7460  0057B4  0101               	movlb	1	; () banked
   7461  0057B6  6FFF               	movwf	_BufferOverflow& (0+255),b
   7462                           
   7463                           ; BSR set to: 1
-  7464                           ;main.c: 243: ClearUSART();
+  7464                           ;main.c: 249: ClearUSART();
   7465  0057B8  EC21  F052         	call	_ClearUSART	;wreg free
   7466                           
-  7467                           ;main.c: 244: PIR1bits.RCIF = 0;
+  7467                           ;main.c: 250: PIR1bits.RCIF = 0;
   7468  0057BC  9A9E               	bcf	3998,5,c	;volatile
   7469                           
-  7470                           ;main.c: 245: PIE1bits.RCIE = 1;
+  7470                           ;main.c: 251: PIE1bits.RCIE = 1;
   7471  0057BE  8A9D               	bsf	3997,5,c	;volatile
   7472  0057C0  D000               	goto	l13210
   7473  0057C2                     l13210:
   7474                           
-  7475                           ;main.c: 246: }
-  7476                           ;main.c: 247: ConnectedOLD = Connected;
+  7475                           ;main.c: 252: }
+  7476                           ;main.c: 253: ConnectedOLD = Connected;
   7477  0057C2  C2FD  F2FB         	movff	main@Connected,main@ConnectedOLD
   7478  0057C6  D638               	goto	l13070
   7479  0057C8  EFE5  F000         	goto	start
@@ -14787,7 +14787,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  14705                           
  14706 ;; *************** function _UARTstringCRLN_CONST *****************
  14707 ;; Defined at:
- 14708 ;;		line 315 in file "UART.c"
+ 14708 ;;		line 316 in file "UART.c"
  14709 ;; Parameters:    Size  Location     Type
  14710 ;;  data            2   16[BANK0 ] PTR const unsigned char 
  14711 ;;		 -> STR_163(36), STR_161(27), STR_147(13), STR_116(13), 
@@ -14843,14 +14843,14 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  14756  009F0A                     _UARTstringCRLN_CONST:
  14757                           	opt stack 19
  14758                           
- 14759                           ;UART.c: 317: while(*data != 0)
+ 14759                           ;UART.c: 318: while(*data != 0)
  14760                           
  14761                           ;incstack = 0
  14762  009F0A  D00D               	goto	l10076
  14763  009F0C                     l10072:
  14764                           
- 14765                           ;UART.c: 318: {
- 14766                           ;UART.c: 319: UARTchar_CONST(*data);
+ 14765                           ;UART.c: 319: {
+ 14766                           ;UART.c: 320: UARTchar_CONST(*data);
  14767  009F0C  C070  FFF6         	movff	UARTstringCRLN_CONST@data,tblptrl
  14768  009F10  C071  FFF7         	movff	UARTstringCRLN_CONST@data+1,tblptrh
  14769  009F14                     	if	1	;Program memory is < 0x10000, tblptru is always zero
@@ -14862,7 +14862,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  14775  009F18  50F5               	movf	tablat,w,c
  14776  009F1A  EC5A  F050         	call	_UARTchar_CONST
  14777                           
- 14778                           ;UART.c: 320: *data++;
+ 14778                           ;UART.c: 321: *data++;
  14779  009F1E  0100               	movlb	0	; () banked
  14780  009F20  4B70               	infsnz	UARTstringCRLN_CONST@data& (0+255),f,b
  14781  009F22  2B71               	incf	(UARTstringCRLN_CONST@data+1)& (0+255),f,b
@@ -14881,8 +14881,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  14794  009F36  A4D8               	btfss	status,2,c
  14795  009F38  D7E9               	goto	l10072
  14796                           
- 14797                           ;UART.c: 321: }
- 14798                           ;UART.c: 322: UARTstring_CONST(CRLN);
+ 14797                           ;UART.c: 322: }
+ 14798                           ;UART.c: 323: UARTstring_CONST(CRLN);
  14799  009F3A  0E05               	movlw	low _CRLN
  14800  009F3C  0100               	movlb	0	; () banked
  14801  009F3E  6F6E               	movwf	UARTstring_CONST@data& (0+255),b
@@ -14914,7 +14914,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  14827                           
  14828 ;; *************** function _UARTstringCRLN *****************
  14829 ;; Defined at:
- 14830 ;;		line 299 in file "UART.c"
+ 14830 ;;		line 300 in file "UART.c"
  14831 ;; Parameters:    Size  Location     Type
  14832 ;;  data            2   16[BANK0 ] PTR unsigned char 
  14833 ;;		 -> UseBluetooth@buf(100), BluetoothFirmware2(30), BluetoothFirmware1(30), 
@@ -14955,20 +14955,20 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  14863  00A044                     _UARTstringCRLN:
  14864                           	opt stack 20
  14865                           
- 14866                           ;UART.c: 301: while(*data != 0)
+ 14866                           ;UART.c: 302: while(*data != 0)
  14867                           
  14868                           ;incstack = 0
  14869  00A044  D00B               	goto	l11470
  14870  00A046                     l11466:
  14871                           
- 14872                           ;UART.c: 302: {
- 14873                           ;UART.c: 303: UARTchar(*data);
+ 14872                           ;UART.c: 303: {
+ 14873                           ;UART.c: 304: UARTchar(*data);
  14874  00A046  C070  FFD9         	movff	UARTstringCRLN@data,fsr2l
  14875  00A04A  C071  FFDA         	movff	UARTstringCRLN@data+1,fsr2h
  14876  00A04E  50DF               	movf	indf2,w,c
  14877  00A050  EC76  F050         	call	_UARTchar
  14878                           
- 14879                           ;UART.c: 304: *data++;
+ 14879                           ;UART.c: 305: *data++;
  14880  00A054  0100               	movlb	0	; () banked
  14881  00A056  4B70               	infsnz	UARTstringCRLN@data& (0+255),f,b
  14882  00A058  2B71               	incf	(UARTstringCRLN@data+1)& (0+255),f,b
@@ -14980,8 +14980,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  14888  00A066  A4D8               	btfss	status,2,c
  14889  00A068  D7EE               	goto	l11466
  14890                           
- 14891                           ;UART.c: 305: }
- 14892                           ;UART.c: 306: UARTstring_CONST(CRLN);
+ 14891                           ;UART.c: 306: }
+ 14892                           ;UART.c: 307: UARTstring_CONST(CRLN);
  14893  00A06A  0E05               	movlw	low _CRLN
  14894  00A06C  0100               	movlb	0	; () banked
  14895  00A06E  6F6E               	movwf	UARTstring_CONST@data& (0+255),b
@@ -15013,7 +15013,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  14921                           
  14922 ;; *************** function _UARTcommandMenu *****************
  14923 ;; Defined at:
- 14924 ;;		line 331 in file "UART.c"
+ 14924 ;;		line 332 in file "UART.c"
  14925 ;; Parameters:    Size  Location     Type
  14926 ;;  Command         2   16[BANK0 ] PTR const unsigned char 
  14927 ;;		 -> STR_145(5), STR_143(13), STR_141(13), STR_139(13), 
@@ -15073,21 +15073,21 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  14975  0083C8                     _UARTcommandMenu:
  14976                           	opt stack 20
  14977                           
- 14978                           ;UART.c: 333: unsigned char place = 0;
+ 14978                           ;UART.c: 334: unsigned char place = 0;
  14979                           
  14980                           ;incstack = 0
  14981  0083C8  0E00               	movlw	0
  14982  0083CA  0100               	movlb	0	; () banked
  14983  0083CC  6F7A               	movwf	UARTcommandMenu@place& (0+255),b
  14984                           
- 14985                           ;UART.c: 334: unsigned char i;
- 14986                           ;UART.c: 336: while((*Command != 0) && (place < 30))
+ 14985                           ;UART.c: 335: unsigned char i;
+ 14986                           ;UART.c: 337: while((*Command != 0) && (place < 30))
  14987  0083CE  D019               	goto	l11482
  14988  0083D0                     l11476:
  14989                           
  14990                           ; BSR set to: 0
- 14991                           ;UART.c: 337: {
- 14992                           ;UART.c: 338: UARTchar(*Command);
+ 14991                           ;UART.c: 338: {
+ 14992                           ;UART.c: 339: UARTchar(*Command);
  14993  0083D0  C070  FFF6         	movff	UARTcommandMenu@Command,tblptrl
  14994  0083D4  C071  FFF7         	movff	UARTcommandMenu@Command+1,tblptrh
  14995  0083D8  0E00               	movlw	low (__mediumconst shr (0+16))
@@ -15105,13 +15105,13 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  15007  0083F2                     u12930:
  15008  0083F2  EC76  F050         	call	_UARTchar
  15009                           
- 15010                           ;UART.c: 339: *Command++;
+ 15010                           ;UART.c: 340: *Command++;
  15011  0083F6  0100               	movlb	0	; () banked
  15012  0083F8  4B70               	infsnz	UARTcommandMenu@Command& (0+255),f,b
  15013  0083FA  2B71               	incf	(UARTcommandMenu@Command+1)& (0+255),f,b
  15014                           
  15015                           ; BSR set to: 0
- 15016                           ;UART.c: 340: place++;
+ 15016                           ;UART.c: 341: place++;
  15017  0083FC  0100               	movlb	0	; () banked
  15018  0083FE  2B7A               	incf	UARTcommandMenu@place& (0+255),f,b
  15019  008400  D000               	goto	l11482
@@ -15145,8 +15145,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  15047  008432  D000               	goto	l11486
  15048  008434                     l11486:
  15049                           
- 15050                           ;UART.c: 341: }
- 15051                           ;UART.c: 342: for(i =0; i < ((30 - place) + 1); i++)
+ 15050                           ;UART.c: 342: }
+ 15051                           ;UART.c: 343: for(i =0; i < ((30 - place) + 1); i++)
  15052  008434  0E00               	movlw	0
  15053  008436  0100               	movlb	0	; () banked
  15054  008438  6F79               	movwf	UARTcommandMenu@i& (0+255),b
@@ -15154,8 +15154,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  15056  00843C                     l11488:
  15057                           
  15058                           ; BSR set to: 0
- 15059                           ;UART.c: 343: {
- 15060                           ;UART.c: 344: UARTchar('-');
+ 15059                           ;UART.c: 344: {
+ 15060                           ;UART.c: 345: UARTchar('-');
  15061  00843C  0E2D               	movlw	45
  15062  00843E  EC76  F050         	call	_UARTchar
  15063  008442  0100               	movlb	0	; () banked
@@ -15202,21 +15202,21 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  15104  00848E  D7D6               	goto	l11488
  15105                           
  15106                           ; BSR set to: 0
- 15107                           ;UART.c: 345: }
- 15108                           ;UART.c: 346: place = 0;
+ 15107                           ;UART.c: 346: }
+ 15108                           ;UART.c: 347: place = 0;
  15109                           
  15110                           ; BSR set to: 0
  15111  008490  0E00               	movlw	0
  15112  008492  0100               	movlb	0	; () banked
  15113  008494  6F7A               	movwf	UARTcommandMenu@place& (0+255),b
  15114                           
- 15115                           ;UART.c: 347: while((*Desc != 0) && (place < (50 - 1)))
+ 15115                           ;UART.c: 348: while((*Desc != 0) && (place < (50 - 1)))
  15116  008496  D00F               	goto	l11502
  15117  008498                     l11496:
  15118                           
  15119                           ; BSR set to: 0
- 15120                           ;UART.c: 348: {
- 15121                           ;UART.c: 349: UARTchar(*Desc);
+ 15120                           ;UART.c: 349: {
+ 15121                           ;UART.c: 350: UARTchar(*Desc);
  15122  008498  C072  FFF6         	movff	UARTcommandMenu@Desc,tblptrl
  15123  00849C  C073  FFF7         	movff	UARTcommandMenu@Desc+1,tblptrh
  15124  0084A0                     	if	1	;Program memory is < 0x10000, tblptru is always zero
@@ -15228,13 +15228,13 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  15130  0084A4  50F5               	movf	tablat,w,c
  15131  0084A6  EC76  F050         	call	_UARTchar
  15132                           
- 15133                           ;UART.c: 350: *Desc++;
+ 15133                           ;UART.c: 351: *Desc++;
  15134  0084AA  0100               	movlb	0	; () banked
  15135  0084AC  4B72               	infsnz	UARTcommandMenu@Desc& (0+255),f,b
  15136  0084AE  2B73               	incf	(UARTcommandMenu@Desc+1)& (0+255),f,b
  15137                           
  15138                           ; BSR set to: 0
- 15139                           ;UART.c: 351: place++;
+ 15139                           ;UART.c: 352: place++;
  15140  0084B0  0100               	movlb	0	; () banked
  15141  0084B2  2B7A               	incf	UARTcommandMenu@place& (0+255),f,b
  15142  0084B4  D000               	goto	l11502
@@ -15265,8 +15265,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  15167  0084D4                     l11506:
  15168                           
  15169                           ; BSR set to: 0
- 15170                           ;UART.c: 352: }
- 15171                           ;UART.c: 353: UARTstring_CONST(CRLN);
+ 15170                           ;UART.c: 353: }
+ 15171                           ;UART.c: 354: UARTstring_CONST(CRLN);
  15172  0084D4  0E05               	movlw	low _CRLN
  15173  0084D6  0100               	movlb	0	; () banked
  15174  0084D8  6F6E               	movwf	UARTstring_CONST@data& (0+255),b
@@ -24398,7 +24398,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  24146                           
  24147 ;; *************** function _InitUART *****************
  24148 ;; Defined at:
- 24149 ;;		line 80 in file "UART.c"
+ 24149 ;;		line 81 in file "UART.c"
  24150 ;; Parameters:    Size  Location     Type
  24151 ;;  Baud            4   88[BANK0 ] unsigned long 
  24152 ;; Auto vars:     Size  Location     Type
@@ -24445,8 +24445,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  24188  008722                     _InitUART:
  24189                           	opt stack 20
  24190                           
- 24191                           ;UART.c: 82: unsigned long temp;
- 24192                           ;UART.c: 83: unsigned char config = 0;
+ 24191                           ;UART.c: 83: unsigned long temp;
+ 24192                           ;UART.c: 84: unsigned char config = 0;
  24193                           
  24194                           ;incstack = 0
  24195  008722  0E00               	movlw	0
@@ -24454,26 +24454,26 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  24197  008726  6FC5               	movwf	InitUART@config& (0+255),b
  24198                           
  24199                           ; BSR set to: 0
- 24200                           ;UART.c: 84: unsigned int spbrg;
- 24201                           ;UART.c: 86: Local_CloseUSART();
+ 24200                           ;UART.c: 85: unsigned int spbrg;
+ 24201                           ;UART.c: 87: Local_CloseUSART();
  24202  008728  EC42  F052         	call	_Local_CloseUSART	;wreg free
  24203                           
- 24204                           ;UART.c: 91: config |= 0b00001000;
+ 24204                           ;UART.c: 92: config |= 0b00001000;
  24205  00872C  0100               	movlb	0	; () banked
  24206  00872E  87C5               	bsf	InitUART@config& (0+255),3,b
  24207                           
  24208                           ; BSR set to: 0
- 24209                           ;UART.c: 92: config |= 0b00010000;
+ 24209                           ;UART.c: 93: config |= 0b00010000;
  24210  008730  0100               	movlb	0	; () banked
  24211  008732  89C5               	bsf	InitUART@config& (0+255),4,b
  24212                           
  24213                           ; BSR set to: 0
- 24214                           ;UART.c: 93: config &= ~0b00000010;
+ 24214                           ;UART.c: 94: config &= ~0b00000010;
  24215  008734  0100               	movlb	0	; () banked
  24216  008736  93C5               	bcf	InitUART@config& (0+255),1,b
  24217                           
  24218                           ; BSR set to: 0
- 24219                           ;UART.c: 96: temp = (64000000L / Baud) - 1;
+ 24219                           ;UART.c: 97: temp = (64000000L / Baud) - 1;
  24220  008738  0E00               	movlw	0
  24221  00873A  0100               	movlb	0	; () banked
  24222  00873C  6F63               	movwf	___lldiv@dividend& (0+255),b
@@ -24510,7 +24510,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  24253  008784  6FC9               	movwf	(InitUART@temp+3)& (0+255),b
  24254                           
  24255                           ; BSR set to: 0
- 24256                           ;UART.c: 97: temp = (temp >> 2) - 1;
+ 24256                           ;UART.c: 98: temp = (temp >> 2) - 1;
  24257  008786  C0C6  F0BC         	movff	InitUART@temp,??_InitUART
  24258  00878A  C0C7  F0BD         	movff	InitUART@temp+1,??_InitUART+1
  24259  00878E  C0C8  F0BE         	movff	InitUART@temp+2,??_InitUART+2
@@ -24549,7 +24549,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  24292  0087D0  6FC9               	movwf	(InitUART@temp+3)& (0+255),b
  24293                           
  24294                           ; BSR set to: 0
- 24295                           ;UART.c: 98: spbrg = (unsigned int) Round(temp);
+ 24295                           ;UART.c: 99: spbrg = (unsigned int) Round(temp);
  24296  0087D2  C0C6  F06B         	movff	InitUART@temp,___lltoft@c
  24297  0087D6  C0C7  F06C         	movff	InitUART@temp+1,___lltoft@c+1
  24298  0087DA  C0C8  F06D         	movff	InitUART@temp+2,___lltoft@c+2
@@ -24563,7 +24563,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  24306  0087FA  C0B2  F0C1         	movff	?_Round+1,_InitUART$3916+1
  24307  0087FE  C0B3  F0C2         	movff	?_Round+2,_InitUART$3916+2
  24308                           
- 24309                           ;UART.c: 98: spbrg = (unsigned int) Round(temp);
+ 24309                           ;UART.c: 99: spbrg = (unsigned int) Round(temp);
  24310  008802  C0C0  F0A2         	movff	_InitUART$3916,___fttol@f1
  24311  008806  C0C1  F0A3         	movff	_InitUART$3916+1,___fttol@f1+1
  24312  00880A  C0C2  F0A4         	movff	_InitUART$3916+2,___fttol@f1+2
@@ -24571,26 +24571,26 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  24314  008812  C0A2  F0C3         	movff	?___fttol,InitUART@spbrg
  24315  008816  C0A3  F0C4         	movff	?___fttol+1,InitUART@spbrg+1
  24316                           
- 24317                           ;UART.c: 100: BAUDCONbits.BRG16 = 1;
+ 24317                           ;UART.c: 101: BAUDCONbits.BRG16 = 1;
  24318  00881A  86B8               	bsf	4024,3,c	;volatile
  24319                           
- 24320                           ;UART.c: 102: ClearUSART();
+ 24320                           ;UART.c: 103: ClearUSART();
  24321  00881C  EC21  F052         	call	_ClearUSART	;wreg free
  24322                           
- 24323                           ;UART.c: 103: OpenUSART(config, spbrg);
+ 24323                           ;UART.c: 104: OpenUSART(config, spbrg);
  24324  008820  C0C3  F063         	movff	InitUART@spbrg,OpenUSART@spbrg
  24325  008824  C0C4  F064         	movff	InitUART@spbrg+1,OpenUSART@spbrg+1
  24326  008828  0100               	movlb	0	; () banked
  24327  00882A  51C5               	movf	InitUART@config& (0+255),w,b
  24328  00882C  ECC6  F04C         	call	_OpenUSART
  24329                           
- 24330                           ;UART.c: 105: PIR1bits.RCIF = 0;
+ 24330                           ;UART.c: 106: PIR1bits.RCIF = 0;
  24331  008830  9A9E               	bcf	3998,5,c	;volatile
  24332                           
- 24333                           ;UART.c: 106: PIE1bits.RCIE = 0;
+ 24333                           ;UART.c: 107: PIE1bits.RCIE = 0;
  24334  008832  9A9D               	bcf	3997,5,c	;volatile
  24335                           
- 24336                           ;UART.c: 107: INTCONbits.PEIE = 1;
+ 24336                           ;UART.c: 108: INTCONbits.PEIE = 1;
  24337  008834  8CF2               	bsf	intcon,6,c	;volatile
  24338  008836  0012               	return		;funcret
  24339  008838                     __end_of_InitUART:
@@ -24891,7 +24891,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  24624                           
  24625 ;; *************** function _OpenUSART *****************
  24626 ;; Defined at:
- 24627 ;;		line 115 in file "UART.c"
+ 24627 ;;		line 116 in file "UART.c"
  24628 ;; Parameters:    Size  Location     Type
  24629 ;;  config          1    wreg     unsigned char 
  24630 ;;  spbrg           2    3[BANK0 ] unsigned int 
@@ -24937,180 +24937,180 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  24665  00998E  6F65               	movwf	OpenUSART@config& (0+255),b
  24666                           
  24667                           ; BSR set to: 0
- 24668                           ;UART.c: 117: TXSTA = 0;
+ 24668                           ;UART.c: 118: TXSTA = 0;
  24669  009990  0E00               	movlw	0
  24670  009992  6EAC               	movwf	4012,c	;volatile
  24671                           
- 24672                           ;UART.c: 118: RCSTA = 0;
+ 24672                           ;UART.c: 119: RCSTA = 0;
  24673  009994  0E00               	movlw	0
  24674  009996  6EAB               	movwf	4011,c	;volatile
  24675                           
  24676                           ; BSR set to: 0
- 24677                           ;UART.c: 120: if(config&0x01)
+ 24677                           ;UART.c: 121: if(config&0x01)
  24678  009998  0100               	movlb	0	; () banked
  24679  00999A  A165               	btfss	OpenUSART@config& (0+255),0,b
  24680  00999C  D002               	goto	l10152
  24681                           
  24682                           ; BSR set to: 0
- 24683                           ;UART.c: 121: {
- 24684                           ;UART.c: 122: TXSTAbits.SYNC = 1;
+ 24683                           ;UART.c: 122: {
+ 24684                           ;UART.c: 123: TXSTAbits.SYNC = 1;
  24685  00999E  88AC               	bsf	4012,4,c	;volatile
  24686  0099A0  D000               	goto	l10152
  24687  0099A2                     l10152:
  24688                           
  24689                           ; BSR set to: 0
- 24690                           ;UART.c: 123: }
- 24691                           ;UART.c: 125: if(config&0x02)
+ 24690                           ;UART.c: 124: }
+ 24691                           ;UART.c: 126: if(config&0x02)
  24692  0099A2  0100               	movlb	0	; () banked
  24693  0099A4  A365               	btfss	OpenUSART@config& (0+255),1,b
  24694  0099A6  D003               	goto	l10156
  24695                           
  24696                           ; BSR set to: 0
- 24697                           ;UART.c: 126: {
- 24698                           ;UART.c: 127: TXSTAbits.TX9 = 1;
+ 24697                           ;UART.c: 127: {
+ 24698                           ;UART.c: 128: TXSTAbits.TX9 = 1;
  24699  0099A8  8CAC               	bsf	4012,6,c	;volatile
  24700                           
- 24701                           ;UART.c: 128: RCSTAbits.RX9 = 1;
+ 24701                           ;UART.c: 129: RCSTAbits.RX9 = 1;
  24702  0099AA  8CAB               	bsf	4011,6,c	;volatile
  24703  0099AC  D000               	goto	l10156
  24704  0099AE                     l10156:
  24705                           
  24706                           ; BSR set to: 0
- 24707                           ;UART.c: 129: }
- 24708                           ;UART.c: 131: if(config&0x04)
+ 24707                           ;UART.c: 130: }
+ 24708                           ;UART.c: 132: if(config&0x04)
  24709  0099AE  0100               	movlb	0	; () banked
  24710  0099B0  A565               	btfss	OpenUSART@config& (0+255),2,b
  24711  0099B2  D002               	goto	l10160
  24712                           
  24713                           ; BSR set to: 0
- 24714                           ;UART.c: 132: {
- 24715                           ;UART.c: 133: TXSTAbits.CSRC = 1;
+ 24714                           ;UART.c: 133: {
+ 24715                           ;UART.c: 134: TXSTAbits.CSRC = 1;
  24716  0099B4  8EAC               	bsf	4012,7,c	;volatile
  24717  0099B6  D000               	goto	l10160
  24718  0099B8                     l10160:
  24719                           
  24720                           ; BSR set to: 0
- 24721                           ;UART.c: 134: }
- 24722                           ;UART.c: 136: if(config&0x08)
+ 24721                           ;UART.c: 135: }
+ 24722                           ;UART.c: 137: if(config&0x08)
  24723  0099B8  0100               	movlb	0	; () banked
  24724  0099BA  A765               	btfss	OpenUSART@config& (0+255),3,b
  24725  0099BC  D002               	goto	l725
  24726                           
  24727                           ; BSR set to: 0
- 24728                           ;UART.c: 137: {
- 24729                           ;UART.c: 138: RCSTAbits.CREN = 1;
+ 24728                           ;UART.c: 138: {
+ 24729                           ;UART.c: 139: RCSTAbits.CREN = 1;
  24730  0099BE  88AB               	bsf	4011,4,c	;volatile
  24731                           
- 24732                           ;UART.c: 139: }
+ 24732                           ;UART.c: 140: }
  24733  0099C0  D002               	goto	l10164
  24734  0099C2                     l725:
  24735                           
  24736                           ; BSR set to: 0
- 24737                           ;UART.c: 140: else
- 24738                           ;UART.c: 141: {
- 24739                           ;UART.c: 142: RCSTAbits.SREN = 1;
+ 24737                           ;UART.c: 141: else
+ 24738                           ;UART.c: 142: {
+ 24739                           ;UART.c: 143: RCSTAbits.SREN = 1;
  24740  0099C2  8AAB               	bsf	4011,5,c	;volatile
  24741  0099C4  D000               	goto	l10164
  24742  0099C6                     l10164:
  24743                           
  24744                           ; BSR set to: 0
- 24745                           ;UART.c: 143: }
- 24746                           ;UART.c: 145: if(config&0x10)
+ 24745                           ;UART.c: 144: }
+ 24746                           ;UART.c: 146: if(config&0x10)
  24747  0099C6  0100               	movlb	0	; () banked
  24748  0099C8  A965               	btfss	OpenUSART@config& (0+255),4,b
  24749  0099CA  D002               	goto	l10168
  24750                           
  24751                           ; BSR set to: 0
- 24752                           ;UART.c: 146: {
- 24753                           ;UART.c: 147: TXSTAbits.BRGH = 1;
+ 24752                           ;UART.c: 147: {
+ 24753                           ;UART.c: 148: TXSTAbits.BRGH = 1;
  24754  0099CC  84AC               	bsf	4012,2,c	;volatile
  24755  0099CE  D000               	goto	l10168
  24756  0099D0                     l10168:
  24757                           
  24758                           ; BSR set to: 0
- 24759                           ;UART.c: 148: }
- 24760                           ;UART.c: 150: if(config&0x20)
+ 24759                           ;UART.c: 149: }
+ 24760                           ;UART.c: 151: if(config&0x20)
  24761  0099D0  0100               	movlb	0	; () banked
  24762  0099D2  AB65               	btfss	OpenUSART@config& (0+255),5,b
  24763  0099D4  D002               	goto	l10172
  24764                           
  24765                           ; BSR set to: 0
- 24766                           ;UART.c: 151: {
- 24767                           ;UART.c: 152: RCSTAbits.ADEN = 1;
+ 24766                           ;UART.c: 152: {
+ 24767                           ;UART.c: 153: RCSTAbits.ADEN = 1;
  24768  0099D6  86AB               	bsf	4011,3,c	;volatile
  24769  0099D8  D000               	goto	l10172
  24770  0099DA                     l10172:
  24771                           
  24772                           ; BSR set to: 0
- 24773                           ;UART.c: 153: }
- 24774                           ;UART.c: 155: if(config&0x40)
+ 24773                           ;UART.c: 154: }
+ 24774                           ;UART.c: 156: if(config&0x40)
  24775  0099DA  0100               	movlb	0	; () banked
  24776  0099DC  AD65               	btfss	OpenUSART@config& (0+255),6,b
  24777  0099DE  D003               	goto	l729
  24778                           
  24779                           ; BSR set to: 0
- 24780                           ;UART.c: 156: {
- 24781                           ;UART.c: 157: PIR1bits.RCIF = 0;
+ 24780                           ;UART.c: 157: {
+ 24781                           ;UART.c: 158: PIR1bits.RCIF = 0;
  24782  0099E0  9A9E               	bcf	3998,5,c	;volatile
  24783                           
- 24784                           ;UART.c: 158: PIE1bits.RCIE = 1;
+ 24784                           ;UART.c: 159: PIE1bits.RCIE = 1;
  24785  0099E2  8A9D               	bsf	3997,5,c	;volatile
  24786                           
- 24787                           ;UART.c: 160: }
+ 24787                           ;UART.c: 161: }
  24788  0099E4  D002               	goto	l10176
  24789  0099E6                     l729:
  24790                           
  24791                           ; BSR set to: 0
- 24792                           ;UART.c: 161: else
- 24793                           ;UART.c: 162: {
- 24794                           ;UART.c: 163: PIE1bits.RCIE = 0;
+ 24792                           ;UART.c: 162: else
+ 24793                           ;UART.c: 163: {
+ 24794                           ;UART.c: 164: PIE1bits.RCIE = 0;
  24795  0099E6  9A9D               	bcf	3997,5,c	;volatile
  24796  0099E8  D000               	goto	l10176
  24797  0099EA                     l10176:
  24798                           
  24799                           ; BSR set to: 0
- 24800                           ;UART.c: 164: }
- 24801                           ;UART.c: 166: if(config&0x80)
+ 24800                           ;UART.c: 165: }
+ 24801                           ;UART.c: 167: if(config&0x80)
  24802  0099EA  0100               	movlb	0	; () banked
  24803  0099EC  AF65               	btfss	OpenUSART@config& (0+255),7,b
  24804  0099EE  D003               	goto	l731
  24805                           
  24806                           ; BSR set to: 0
- 24807                           ;UART.c: 167: {
- 24808                           ;UART.c: 168: PIR1bits.TXIF = 0;
+ 24807                           ;UART.c: 168: {
+ 24808                           ;UART.c: 169: PIR1bits.TXIF = 0;
  24809  0099F0  989E               	bcf	3998,4,c	;volatile
  24810                           
- 24811                           ;UART.c: 169: PIE1bits.TXIE = 1;
+ 24811                           ;UART.c: 170: PIE1bits.TXIE = 1;
  24812  0099F2  889D               	bsf	3997,4,c	;volatile
  24813                           
- 24814                           ;UART.c: 170: }
+ 24814                           ;UART.c: 171: }
  24815  0099F4  D001               	goto	l732
  24816  0099F6                     l731:
  24817                           
  24818                           ; BSR set to: 0
- 24819                           ;UART.c: 171: else
- 24820                           ;UART.c: 172: {
- 24821                           ;UART.c: 173: PIE1bits.TXIE = 0;
+ 24819                           ;UART.c: 172: else
+ 24820                           ;UART.c: 173: {
+ 24821                           ;UART.c: 174: PIE1bits.TXIE = 0;
  24822  0099F6  989D               	bcf	3997,4,c	;volatile
  24823  0099F8                     l732:
  24824                           
  24825                           ; BSR set to: 0
- 24826                           ;UART.c: 174: }
- 24827                           ;UART.c: 176: SPBRG = spbrg;
+ 24826                           ;UART.c: 175: }
+ 24827                           ;UART.c: 177: SPBRG = spbrg;
  24828  0099F8  C063  FFAF         	movff	OpenUSART@spbrg,4015	;volatile
  24829                           
  24830                           ; BSR set to: 0
- 24831                           ;UART.c: 177: SPBRGH = spbrg >> 8;
+ 24831                           ;UART.c: 178: SPBRGH = spbrg >> 8;
  24832  0099FC  0100               	movlb	0	; () banked
  24833  0099FE  5164               	movf	(OpenUSART@spbrg+1)& (0+255),w,b
  24834  009A00  6EB0               	movwf	4016,c	;volatile
  24835                           
  24836                           ; BSR set to: 0
- 24837                           ;UART.c: 179: TXSTAbits.TXEN = 1;
+ 24837                           ;UART.c: 180: TXSTAbits.TXEN = 1;
  24838  009A02  8AAC               	bsf	4012,5,c	;volatile
  24839                           
  24840                           ; BSR set to: 0
- 24841                           ;UART.c: 180: RCSTAbits.SPEN = 1;
+ 24841                           ;UART.c: 181: RCSTAbits.SPEN = 1;
  24842  009A04  8EAB               	bsf	4011,7,c	;volatile
  24843                           
  24844                           ; BSR set to: 0
@@ -25145,7 +25145,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  24873                           
  24874 ;; *************** function _Local_CloseUSART *****************
  24875 ;; Defined at:
- 24876 ;;		line 64 in file "UART.c"
+ 24876 ;;		line 65 in file "UART.c"
  24877 ;; Parameters:    Size  Location     Type
  24878 ;;		None
  24879 ;; Auto vars:     Size  Location     Type
@@ -25184,25 +25184,25 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  24907  00A484                     _Local_CloseUSART:
  24908                           	opt stack 22
  24909                           
- 24910                           ;UART.c: 66: PIE1bits.RCIE = 0;
+ 24910                           ;UART.c: 67: PIE1bits.RCIE = 0;
  24911                           
  24912                           ; BSR set to: 0
  24913                           ;incstack = 0
  24914  00A484  9A9D               	bcf	3997,5,c	;volatile
  24915                           
- 24916                           ;UART.c: 67: PIE1bits.TXIE = 0;
+ 24916                           ;UART.c: 68: PIE1bits.TXIE = 0;
  24917  00A486  989D               	bcf	3997,4,c	;volatile
  24918                           
- 24919                           ;UART.c: 68: RCSTAbits.SPEN = 0;
+ 24919                           ;UART.c: 69: RCSTAbits.SPEN = 0;
  24920  00A488  9EAB               	bcf	4011,7,c	;volatile
  24921                           
- 24922                           ;UART.c: 69: RCSTAbits.CREN = 0;
+ 24922                           ;UART.c: 70: RCSTAbits.CREN = 0;
  24923  00A48A  98AB               	bcf	4011,4,c	;volatile
  24924                           
- 24925                           ;UART.c: 70: RCSTAbits.FERR = 0;
+ 24925                           ;UART.c: 71: RCSTAbits.FERR = 0;
  24926  00A48C  94AB               	bcf	4011,2,c	;volatile
  24927                           
- 24928                           ;UART.c: 71: TXSTAbits.TXEN = 0;
+ 24928                           ;UART.c: 72: TXSTAbits.TXEN = 0;
  24929  00A48E  9AAC               	bcf	4012,5,c	;volatile
  24930  00A490  0012               	return		;funcret
  24931  00A492                     __end_of_Local_CloseUSART:
@@ -29467,7 +29467,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  29085                           
  29086 ;; *************** function _UARTstring *****************
  29087 ;; Defined at:
- 29088 ;;		line 223 in file "UART.c"
+ 29088 ;;		line 224 in file "UART.c"
  29089 ;; Parameters:    Size  Location     Type
  29090 ;;  data            2   13[BANK0 ] PTR unsigned char 
  29091 ;;		 -> UseBluetooth@buf(100), BluetoothInitialSetup@buf(50), ReceivedString(100), 
@@ -29508,20 +29508,20 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  29121  00A2F0                     _UARTstring:
  29122                           	opt stack 21
  29123                           
- 29124                           ;UART.c: 225: while(*data != 0)
+ 29124                           ;UART.c: 226: while(*data != 0)
  29125                           
  29126                           ;incstack = 0
  29127  00A2F0  D00B               	goto	l9902
  29128  00A2F2                     l9898:
  29129                           
- 29130                           ;UART.c: 226: {
- 29131                           ;UART.c: 227: UARTchar(*data);
+ 29130                           ;UART.c: 227: {
+ 29131                           ;UART.c: 228: UARTchar(*data);
  29132  00A2F2  C06D  FFD9         	movff	UARTstring@data,fsr2l
  29133  00A2F6  C06E  FFDA         	movff	UARTstring@data+1,fsr2h
  29134  00A2FA  50DF               	movf	indf2,w,c
  29135  00A2FC  EC76  F050         	call	_UARTchar
  29136                           
- 29137                           ;UART.c: 228: *data++;
+ 29137                           ;UART.c: 229: *data++;
  29138  00A300  0100               	movlb	0	; () banked
  29139  00A302  4B6D               	infsnz	UARTstring@data& (0+255),f,b
  29140  00A304  2B6E               	incf	(UARTstring@data+1)& (0+255),f,b
@@ -29563,7 +29563,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  29176                           
  29177 ;; *************** function _UARTchar *****************
  29178 ;; Defined at:
- 29179 ;;		line 188 in file "UART.c"
+ 29179 ;;		line 189 in file "UART.c"
  29180 ;; Parameters:    Size  Location     Type
  29181 ;;  data            1    wreg     unsigned char 
  29182 ;; Auto vars:     Size  Location     Type
@@ -29612,11 +29612,11 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  29220  00A0EE  6F6C               	movwf	UARTchar@data& (0+255),b
  29221                           
  29222                           ; BSR set to: 0
- 29223                           ;UART.c: 190: RCSTAbits.CREN = 0;
+ 29223                           ;UART.c: 191: RCSTAbits.CREN = 0;
  29224  00A0F0  98AB               	bcf	4011,4,c	;volatile
  29225                           
  29226                           ; BSR set to: 0
- 29227                           ;UART.c: 191: if(data != 0)
+ 29227                           ;UART.c: 192: if(data != 0)
  29228  00A0F2  0100               	movlb	0	; () banked
  29229  00A0F4  516C               	movf	UARTchar@data& (0+255),w,b
  29230  00A0F6  0100               	movlb	0	; () banked
@@ -29624,12 +29624,12 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  29232  00A0FA  D010               	goto	l736
  29233                           
  29234                           ; BSR set to: 0
- 29235                           ;UART.c: 192: {
- 29236                           ;UART.c: 193: TXREG = data;
+ 29235                           ;UART.c: 193: {
+ 29236                           ;UART.c: 194: TXREG = data;
  29237  00A0FC  C06C  FFAD         	movff	UARTchar@data,4013	;volatile
  29238                           
  29239                           ; BSR set to: 0
- 29240                           ;UART.c: 194: delayUS(100);
+ 29240                           ;UART.c: 195: delayUS(100);
  29241  00A100  0E64               	movlw	100
  29242  00A102  0100               	movlb	0	; () banked
  29243  00A104  6F63               	movwf	delayUS@US& (0+255),b
@@ -29641,15 +29641,15 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  29249  00A110  6F66               	movwf	(delayUS@US+3)& (0+255),b
  29250  00A112  ECA0  F04E         	call	_delayUS	;wreg free
  29251                           
- 29252                           ;UART.c: 195: while(!TXSTAbits.TRMT);
+ 29252                           ;UART.c: 196: while(!TXSTAbits.TRMT);
  29253  00A116  D000               	goto	l737
  29254  00A118                     l737:
  29255  00A118  A2AC               	btfss	4012,1,c	;volatile
  29256  00A11A  D7FE               	goto	l737
  29257  00A11C                     l736:
  29258                           
- 29259                           ;UART.c: 196: }
- 29260                           ;UART.c: 197: RCSTAbits.CREN = 1;
+ 29259                           ;UART.c: 197: }
+ 29260                           ;UART.c: 198: RCSTAbits.CREN = 1;
  29261  00A11C  88AB               	bsf	4011,4,c	;volatile
  29262  00A11E  0012               	return		;funcret
  29263  00A120                     __end_of_UARTchar:
@@ -37813,7 +37813,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  37300                           
  37301 ;; *************** function _UARTstring_CONST *****************
  37302 ;; Defined at:
- 37303 ;;		line 237 in file "UART.c"
+ 37303 ;;		line 238 in file "UART.c"
  37304 ;; Parameters:    Size  Location     Type
  37305 ;;  data            2   14[BANK0 ] PTR const unsigned char 
  37306 ;;		 -> STR_162(28), STR_103(13), STR_84(24), STR_81(60), 
@@ -37863,15 +37863,15 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  37345  00A152                     _UARTstring_CONST:
  37346                           	opt stack 20
  37347                           
- 37348                           ;UART.c: 239: while(*data != 0)
+ 37348                           ;UART.c: 240: while(*data != 0)
  37349                           
  37350                           ; BSR set to: 0
  37351                           ;incstack = 0
  37352  00A152  D00D               	goto	l9176
  37353  00A154                     l9172:
  37354                           
- 37355                           ;UART.c: 240: {
- 37356                           ;UART.c: 241: UARTchar_CONST(*data);
+ 37355                           ;UART.c: 241: {
+ 37356                           ;UART.c: 242: UARTchar_CONST(*data);
  37357  00A154  C06E  FFF6         	movff	UARTstring_CONST@data,tblptrl
  37358  00A158  C06F  FFF7         	movff	UARTstring_CONST@data+1,tblptrh
  37359  00A15C                     	if	1	;Program memory is < 0x10000, tblptru is always zero
@@ -37883,7 +37883,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  37365  00A160  50F5               	movf	tablat,w,c
  37366  00A162  EC5A  F050         	call	_UARTchar_CONST
  37367                           
- 37368                           ;UART.c: 242: *data++;
+ 37368                           ;UART.c: 243: *data++;
  37369  00A166  0100               	movlb	0	; () banked
  37370  00A168  4B6E               	infsnz	UARTstring_CONST@data& (0+255),f,b
  37371  00A16A  2B6F               	incf	(UARTstring_CONST@data+1)& (0+255),f,b
@@ -37932,7 +37932,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  37414                           
  37415 ;; *************** function _UARTchar_CONST *****************
  37416 ;; Defined at:
- 37417 ;;		line 205 in file "UART.c"
+ 37417 ;;		line 206 in file "UART.c"
  37418 ;; Parameters:    Size  Location     Type
  37419 ;;  data            1    wreg     const unsigned char 
  37420 ;; Auto vars:     Size  Location     Type
@@ -37982,15 +37982,15 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  37459  00A0B6  6F6C               	movwf	UARTchar_CONST@data& (0+255),b
  37460                           
  37461                           ; BSR set to: 0
- 37462                           ;UART.c: 207: unsigned char temp = data;
+ 37462                           ;UART.c: 208: unsigned char temp = data;
  37463  00A0B8  C06C  F06D         	movff	UARTchar_CONST@data,UARTchar_CONST@temp
  37464                           
  37465                           ; BSR set to: 0
- 37466                           ;UART.c: 208: RCSTAbits.CREN = 0;
+ 37466                           ;UART.c: 209: RCSTAbits.CREN = 0;
  37467  00A0BC  98AB               	bcf	4011,4,c	;volatile
  37468                           
  37469                           ; BSR set to: 0
- 37470                           ;UART.c: 209: if(temp != 0)
+ 37470                           ;UART.c: 210: if(temp != 0)
  37471  00A0BE  0100               	movlb	0	; () banked
  37472  00A0C0  516D               	movf	UARTchar_CONST@temp& (0+255),w,b
  37473  00A0C2  0100               	movlb	0	; () banked
@@ -37998,12 +37998,12 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  37475  00A0C6  D010               	goto	l743
  37476                           
  37477                           ; BSR set to: 0
- 37478                           ;UART.c: 210: {
- 37479                           ;UART.c: 211: TXREG = temp;
+ 37478                           ;UART.c: 211: {
+ 37479                           ;UART.c: 212: TXREG = temp;
  37480  00A0C8  C06D  FFAD         	movff	UARTchar_CONST@temp,4013	;volatile
  37481                           
  37482                           ; BSR set to: 0
- 37483                           ;UART.c: 212: delayUS(100);
+ 37483                           ;UART.c: 213: delayUS(100);
  37484  00A0CC  0E64               	movlw	100
  37485  00A0CE  0100               	movlb	0	; () banked
  37486  00A0D0  6F63               	movwf	delayUS@US& (0+255),b
@@ -38015,15 +38015,15 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  37492  00A0DC  6F66               	movwf	(delayUS@US+3)& (0+255),b
  37493  00A0DE  ECA0  F04E         	call	_delayUS	;wreg free
  37494                           
- 37495                           ;UART.c: 213: while(!TXSTAbits.TRMT);
+ 37495                           ;UART.c: 214: while(!TXSTAbits.TRMT);
  37496  00A0E2  D000               	goto	l744
  37497  00A0E4                     l744:
  37498  00A0E4  A2AC               	btfss	4012,1,c	;volatile
  37499  00A0E6  D7FE               	goto	l744
  37500  00A0E8                     l743:
  37501                           
- 37502                           ;UART.c: 214: }
- 37503                           ;UART.c: 215: RCSTAbits.CREN = 1;
+ 37502                           ;UART.c: 215: }
+ 37503                           ;UART.c: 216: RCSTAbits.CREN = 1;
  37504  00A0E8  88AB               	bsf	4011,4,c	;volatile
  37505  00A0EA  0012               	return		;funcret
  37506  00A0EC                     __end_of_UARTchar_CONST:
@@ -38700,7 +38700,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  38162                           
  38163 ;; *************** function _ClearUSART *****************
  38164 ;; Defined at:
- 38165 ;;		line 251 in file "UART.c"
+ 38165 ;;		line 252 in file "UART.c"
  38166 ;; Parameters:    Size  Location     Type
  38167 ;;		None
  38168 ;; Auto vars:     Size  Location     Type
@@ -38744,22 +38744,22 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  38201  00A442                     _ClearUSART:
  38202                           	opt stack 22
  38203                           
- 38204                           ;UART.c: 253: RCSTAbits.CREN = 0;
+ 38204                           ;UART.c: 254: RCSTAbits.CREN = 0;
  38205                           
  38206                           ; BSR set to: 0
  38207                           ;incstack = 0
  38208  00A442  98AB               	bcf	4011,4,c	;volatile
  38209                           
- 38210                           ;UART.c: 254: RCSTAbits.CREN = 1;
+ 38210                           ;UART.c: 255: RCSTAbits.CREN = 1;
  38211  00A444  88AB               	bsf	4011,4,c	;volatile
  38212                           
- 38213                           ;UART.c: 255: ReadUSART();
+ 38213                           ;UART.c: 256: ReadUSART();
  38214  00A446  ECC2  F051         	call	_ReadUSART	;wreg free
  38215                           
- 38216                           ;UART.c: 256: ReadUSART();
+ 38216                           ;UART.c: 257: ReadUSART();
  38217  00A44A  ECC2  F051         	call	_ReadUSART	;wreg free
  38218                           
- 38219                           ;UART.c: 257: ReadUSART();
+ 38219                           ;UART.c: 258: ReadUSART();
  38220  00A44E  ECC2  F051         	call	_ReadUSART	;wreg free
  38221  00A452  0012               	return		;funcret
  38222  00A454                     __end_of_ClearUSART:
@@ -38792,7 +38792,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  38249                           
  38250 ;; *************** function _ReadUSART *****************
  38251 ;; Defined at:
- 38252 ;;		line 264 in file "UART.c"
+ 38252 ;;		line 265 in file "UART.c"
  38253 ;; Parameters:    Size  Location     Type
  38254 ;;		None
  38255 ;; Auto vars:     Size  Location     Type
@@ -38831,30 +38831,30 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  38283  00A384                     _ReadUSART:
  38284                           	opt stack 22
  38285                           
- 38286                           ;UART.c: 266: unsigned char data;
- 38287                           ;UART.c: 268: if(RCSTAbits.OERR)
+ 38286                           ;UART.c: 267: unsigned char data;
+ 38287                           ;UART.c: 269: if(RCSTAbits.OERR)
  38288                           
  38289                           ;incstack = 0
  38290  00A384  A2AB               	btfss	4011,1,c	;volatile
  38291  00A386  D004               	goto	l765
  38292                           
- 38293                           ;UART.c: 269: {
- 38294                           ;UART.c: 271: RCSTAbits.CREN = 0;
+ 38293                           ;UART.c: 270: {
+ 38294                           ;UART.c: 272: RCSTAbits.CREN = 0;
  38295  00A388  98AB               	bcf	4011,4,c	;volatile
  38296                           
- 38297                           ;UART.c: 272: RCSTAbits.CREN = 1;
+ 38297                           ;UART.c: 273: RCSTAbits.CREN = 1;
  38298  00A38A  88AB               	bsf	4011,4,c	;volatile
  38299                           
- 38300                           ;UART.c: 273: return 0;
+ 38300                           ;UART.c: 274: return 0;
  38301  00A38C  0E00               	movlw	0
  38302  00A38E  0012               	return	
  38303  00A390                     l765:
  38304                           
- 38305                           ;UART.c: 274: }
- 38306                           ;UART.c: 276: data = RCREG;
+ 38305                           ;UART.c: 275: }
+ 38306                           ;UART.c: 277: data = RCREG;
  38307  00A390  CFAE F063          	movff	4014,ReadUSART@data	;volatile
  38308                           
- 38309                           ;UART.c: 277: return (data);
+ 38309                           ;UART.c: 278: return (data);
  38310  00A394  0100               	movlb	0	; () banked
  38311  00A396  5163               	movf	ReadUSART@data& (0+255),w,b
  38312  00A398  0012               	return	
@@ -40305,7 +40305,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  39705                           
  39706 ;; *************** function i1_UARTstring_CONST *****************
  39707 ;; Defined at:
- 39708 ;;		line 237 in file "UART.c"
+ 39708 ;;		line 238 in file "UART.c"
  39709 ;; Parameters:    Size  Location     Type
  39710 ;;  data            2   11[COMRAM] PTR const unsigned char 
  39711 ;;		 -> STR_162(28), STR_103(13), STR_84(24), STR_81(60), 
@@ -40348,14 +40348,14 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  39743  00A1B4                     i1_UARTstring_CONST:
  39744                           	opt stack 17
  39745                           
- 39746                           ;UART.c: 239: while(*data != 0)
+ 39746                           ;UART.c: 240: while(*data != 0)
  39747                           
  39748                           ;incstack = 0
  39749  00A1B4  D00C               	goto	i1l12970
  39750  00A1B6                     i1l12966:
  39751                           
- 39752                           ;UART.c: 240: {
- 39753                           ;UART.c: 241: UARTchar_CONST(*data);
+ 39752                           ;UART.c: 241: {
+ 39753                           ;UART.c: 242: UARTchar_CONST(*data);
  39754  00A1B6  C00C  FFF6         	movff	i1UARTstring_CONST@data,tblptrl
  39755  00A1BA  C00D  FFF7         	movff	i1UARTstring_CONST@data+1,tblptrh
  39756  00A1BE                     	if	1	;Program memory is < 0x10000, tblptru is always zero
@@ -40367,7 +40367,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  39762  00A1C2  50F5               	movf	tablat,w,c
  39763  00A1C4  ECF2  F050         	call	i1_UARTchar_CONST
  39764                           
- 39765                           ;UART.c: 242: *data++;
+ 39765                           ;UART.c: 243: *data++;
  39766  00A1C8  4A0C               	infsnz	i1UARTstring_CONST@data,f,c
  39767  00A1CA  2A0D               	incf	i1UARTstring_CONST@data+1,f,c
  39768  00A1CC  D000               	goto	i1l12970
@@ -40418,7 +40418,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  39813                           
  39814 ;; *************** function i1_UARTchar_CONST *****************
  39815 ;; Defined at:
- 39816 ;;		line 205 in file "UART.c"
+ 39816 ;;		line 206 in file "UART.c"
  39817 ;; Parameters:    Size  Location     Type
  39818 ;;  data            1    wreg     const unsigned char 
  39819 ;; Auto vars:     Size  Location     Type
@@ -40463,22 +40463,22 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  39853                           ;i1UARTchar_CONST@data stored from wreg
  39854  00A1E4  6E0A               	movwf	i1UARTchar_CONST@data,c
  39855                           
- 39856                           ;UART.c: 207: unsigned char temp = data;
+ 39856                           ;UART.c: 208: unsigned char temp = data;
  39857  00A1E6  C00A  F00B         	movff	i1UARTchar_CONST@data,i1UARTchar_CONST@temp
  39858                           
- 39859                           ;UART.c: 208: RCSTAbits.CREN = 0;
+ 39859                           ;UART.c: 209: RCSTAbits.CREN = 0;
  39860  00A1EA  98AB               	bcf	4011,4,c	;volatile
  39861                           
- 39862                           ;UART.c: 209: if(temp != 0)
+ 39862                           ;UART.c: 210: if(temp != 0)
  39863  00A1EC  500B               	movf	i1UARTchar_CONST@temp,w,c
  39864  00A1EE  B4D8               	btfsc	status,2,c
  39865  00A1F0  D00F               	goto	i1l743
  39866                           
- 39867                           ;UART.c: 210: {
- 39868                           ;UART.c: 211: TXREG = temp;
+ 39867                           ;UART.c: 211: {
+ 39868                           ;UART.c: 212: TXREG = temp;
  39869  00A1F2  C00B  FFAD         	movff	i1UARTchar_CONST@temp,4013	;volatile
  39870                           
- 39871                           ;UART.c: 212: delayUS(100);
+ 39871                           ;UART.c: 213: delayUS(100);
  39872  00A1F6  0E64               	movlw	100
  39873  00A1F8  6E01               	movwf	i1delayUS@US,c
  39874  00A1FA  0E00               	movlw	0
@@ -40489,15 +40489,15 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  39879  00A204  6E04               	movwf	i1delayUS@US+3,c
  39880  00A206  ECE6  F04F         	call	i1_delayUS	;wreg free
  39881                           
- 39882                           ;UART.c: 213: while(!TXSTAbits.TRMT);
+ 39882                           ;UART.c: 214: while(!TXSTAbits.TRMT);
  39883  00A20A  D000               	goto	i1l744
  39884  00A20C                     i1l744:
  39885  00A20C  A2AC               	btfss	4012,1,c	;volatile
  39886  00A20E  D7FE               	goto	i1l744
  39887  00A210                     i1l743:
  39888                           
- 39889                           ;UART.c: 214: }
- 39890                           ;UART.c: 215: RCSTAbits.CREN = 1;
+ 39889                           ;UART.c: 215: }
+ 39890                           ;UART.c: 216: RCSTAbits.CREN = 1;
  39891  00A210  88AB               	bsf	4011,4,c	;volatile
  39892  00A212  0012               	return		;funcret
  39893  00A214                     __end_ofi1_UARTchar_CONST:
@@ -40533,7 +40533,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  39923                           
  39924 ;; *************** function i1_UARTstring *****************
  39925 ;; Defined at:
- 39926 ;;		line 223 in file "UART.c"
+ 39926 ;;		line 224 in file "UART.c"
  39927 ;; Parameters:    Size  Location     Type
  39928 ;;  data            2   10[COMRAM] PTR unsigned char 
  39929 ;;		 -> UseBluetooth@buf(100), BluetoothInitialSetup@buf(50), ReceivedString(100), 
@@ -40573,20 +40573,20 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  39958  00A340                     i1_UARTstring:
  39959                           	opt stack 17
  39960                           
- 39961                           ;UART.c: 225: while(*data != 0)
+ 39961                           ;UART.c: 226: while(*data != 0)
  39962                           
  39963                           ;incstack = 0
  39964  00A340  D00A               	goto	i1l12962
  39965  00A342                     i1l12958:
  39966                           
- 39967                           ;UART.c: 226: {
- 39968                           ;UART.c: 227: UARTchar(*data);
+ 39967                           ;UART.c: 227: {
+ 39968                           ;UART.c: 228: UARTchar(*data);
  39969  00A342  C00B  FFD9         	movff	i1UARTstring@data,fsr2l
  39970  00A346  C00C  FFDA         	movff	i1UARTstring@data+1,fsr2h
  39971  00A34A  50DF               	movf	indf2,w,c
  39972  00A34C  EC4D  F051         	call	i1_UARTchar
  39973                           
- 39974                           ;UART.c: 228: *data++;
+ 39974                           ;UART.c: 229: *data++;
  39975  00A350  4A0B               	infsnz	i1UARTstring@data,f,c
  39976  00A352  2A0C               	incf	i1UARTstring@data+1,f,c
  39977  00A354  D000               	goto	i1l12962
@@ -40630,7 +40630,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  40015                           
  40016 ;; *************** function i1_ReadUSART *****************
  40017 ;; Defined at:
- 40018 ;;		line 264 in file "UART.c"
+ 40018 ;;		line 265 in file "UART.c"
  40019 ;; Parameters:    Size  Location     Type
  40020 ;;		None
  40021 ;; Auto vars:     Size  Location     Type
@@ -40669,30 +40669,30 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  40049  00A3E0                     i1_ReadUSART:
  40050                           	opt stack 19
  40051                           
- 40052                           ;UART.c: 266: unsigned char data;
- 40053                           ;UART.c: 268: if(RCSTAbits.OERR)
+ 40052                           ;UART.c: 267: unsigned char data;
+ 40053                           ;UART.c: 269: if(RCSTAbits.OERR)
  40054                           
  40055                           ;incstack = 0
  40056  00A3E0  A2AB               	btfss	4011,1,c	;volatile
  40057  00A3E2  D004               	goto	i1l765
  40058                           
- 40059                           ;UART.c: 269: {
- 40060                           ;UART.c: 271: RCSTAbits.CREN = 0;
+ 40059                           ;UART.c: 270: {
+ 40060                           ;UART.c: 272: RCSTAbits.CREN = 0;
  40061  00A3E4  98AB               	bcf	4011,4,c	;volatile
  40062                           
- 40063                           ;UART.c: 272: RCSTAbits.CREN = 1;
+ 40063                           ;UART.c: 273: RCSTAbits.CREN = 1;
  40064  00A3E6  88AB               	bsf	4011,4,c	;volatile
  40065                           
- 40066                           ;UART.c: 273: return 0;
+ 40066                           ;UART.c: 274: return 0;
  40067  00A3E8  0E00               	movlw	0
  40068  00A3EA  0012               	return	
  40069  00A3EC                     i1l765:
  40070                           
- 40071                           ;UART.c: 274: }
- 40072                           ;UART.c: 276: data = RCREG;
+ 40071                           ;UART.c: 275: }
+ 40072                           ;UART.c: 277: data = RCREG;
  40073  00A3EC  CFAE F001          	movff	4014,i1ReadUSART@data	;volatile
  40074                           
- 40075                           ;UART.c: 277: return (data);
+ 40075                           ;UART.c: 278: return (data);
  40076  00A3F0  5001               	movf	i1ReadUSART@data,w,c
  40077  00A3F2  0012               	return	
  40078  00A3F4  0012               	return		;funcret
@@ -40913,7 +40913,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  40283                           
  40284 ;; *************** function _EraseScreen *****************
  40285 ;; Defined at:
- 40286 ;;		line 362 in file "UART.c"
+ 40286 ;;		line 363 in file "UART.c"
  40287 ;; Parameters:    Size  Location     Type
  40288 ;;  characters      1    wreg     unsigned char 
  40289 ;; Auto vars:     Size  Location     Type
@@ -40957,19 +40957,19 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  40322                           ;EraseScreen@characters stored from wreg
  40323  00A318  6E0B               	movwf	EraseScreen@characters,c
  40324                           
- 40325                           ;UART.c: 364: unsigned char i;
- 40326                           ;UART.c: 366: UARTchar('\r');
+ 40325                           ;UART.c: 365: unsigned char i;
+ 40326                           ;UART.c: 367: UARTchar('\r');
  40327  00A31A  0E0D               	movlw	13
  40328  00A31C  EC4D  F051         	call	i1_UARTchar
  40329                           
- 40330                           ;UART.c: 367: for (i = 0; i < characters; i++)
+ 40330                           ;UART.c: 368: for (i = 0; i < characters; i++)
  40331  00A320  0E00               	movlw	0
  40332  00A322  6E0C               	movwf	EraseScreen@i,c
  40333  00A324  D005               	goto	i1l12786
  40334  00A326                     i1l12782:
  40335                           
- 40336                           ;UART.c: 368: {
- 40337                           ;UART.c: 369: UARTchar(' ');
+ 40336                           ;UART.c: 369: {
+ 40337                           ;UART.c: 370: UARTchar(' ');
  40338  00A326  0E20               	movlw	32
  40339  00A328  EC4D  F051         	call	i1_UARTchar
  40340  00A32C  2A0C               	incf	EraseScreen@i,f,c
@@ -40980,8 +40980,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  40345  00A334  A0D8               	btfss	status,0,c
  40346  00A336  D7F7               	goto	i1l12782
  40347                           
- 40348                           ;UART.c: 370: }
- 40349                           ;UART.c: 371: UARTchar('\r');
+ 40348                           ;UART.c: 371: }
+ 40349                           ;UART.c: 372: UARTchar('\r');
  40350  00A338  0E0D               	movlw	13
  40351  00A33A  EC4D  F051         	call	i1_UARTchar
  40352  00A33E  0012               	return		;funcret
@@ -41018,7 +41018,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  40383                           
  40384 ;; *************** function i1_UARTchar *****************
  40385 ;; Defined at:
- 40386 ;;		line 188 in file "UART.c"
+ 40386 ;;		line 189 in file "UART.c"
  40387 ;; Parameters:    Size  Location     Type
  40388 ;;  data            1    wreg     unsigned char 
  40389 ;; Auto vars:     Size  Location     Type
@@ -41063,19 +41063,19 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  40423                           ;i1UARTchar@data stored from wreg
  40424  00A29A  6E0A               	movwf	i1UARTchar@data,c
  40425                           
- 40426                           ;UART.c: 190: RCSTAbits.CREN = 0;
+ 40426                           ;UART.c: 191: RCSTAbits.CREN = 0;
  40427  00A29C  98AB               	bcf	4011,4,c	;volatile
  40428                           
- 40429                           ;UART.c: 191: if(data != 0)
+ 40429                           ;UART.c: 192: if(data != 0)
  40430  00A29E  500A               	movf	i1UARTchar@data,w,c
  40431  00A2A0  B4D8               	btfsc	status,2,c
  40432  00A2A2  D00F               	goto	i1l736
  40433                           
- 40434                           ;UART.c: 192: {
- 40435                           ;UART.c: 193: TXREG = data;
+ 40434                           ;UART.c: 193: {
+ 40435                           ;UART.c: 194: TXREG = data;
  40436  00A2A4  C00A  FFAD         	movff	i1UARTchar@data,4013	;volatile
  40437                           
- 40438                           ;UART.c: 194: delayUS(100);
+ 40438                           ;UART.c: 195: delayUS(100);
  40439  00A2A8  0E64               	movlw	100
  40440  00A2AA  6E01               	movwf	i1delayUS@US,c
  40441  00A2AC  0E00               	movlw	0
@@ -41086,15 +41086,15 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
  40446  00A2B6  6E04               	movwf	i1delayUS@US+3,c
  40447  00A2B8  ECE6  F04F         	call	i1_delayUS	;wreg free
  40448                           
- 40449                           ;UART.c: 195: while(!TXSTAbits.TRMT);
+ 40449                           ;UART.c: 196: while(!TXSTAbits.TRMT);
  40450  00A2BC  D000               	goto	i1l737
  40451  00A2BE                     i1l737:
  40452  00A2BE  A2AC               	btfss	4012,1,c	;volatile
  40453  00A2C0  D7FE               	goto	i1l737
  40454  00A2C2                     i1l736:
  40455                           
- 40456                           ;UART.c: 196: }
- 40457                           ;UART.c: 197: RCSTAbits.CREN = 1;
+ 40456                           ;UART.c: 197: }
+ 40457                           ;UART.c: 198: RCSTAbits.CREN = 1;
  40458  00A2C2  88AB               	bsf	4011,4,c	;volatile
  40459  00A2C4  0012               	return		;funcret
  40460  00A2C6                     __end_ofi1_UARTchar:
@@ -46978,7 +46978,7 @@ CODE                 0      0       0       0        0.0%
 
 
 Microchip Technology PIC18 Macro Assembler V1.34 build -361300703 
-Symbol Table                                                                                   Fri Apr 17 21:43:38 2015
+Symbol Table                                                                                   Sat Apr 18 19:08:50 2015
 
                            BufferCopy@shift 0070                          UARTstringCRLN@data 0070  
                     __end_of_Conf1_ChannelD F1D3                      __end_of_Conf1_ChannelE F1DF  

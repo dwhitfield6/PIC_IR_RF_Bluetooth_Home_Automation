@@ -5118,14 +5118,14 @@ unsigned char StringAddEqual(unsigned char* Input);
 unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
 unsigned char GetNumberUnsigned(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
 
-# 49 "UART.c"
+# 50 "UART.c"
 volatile unsigned char ReceivedString[100];
 volatile unsigned char ReceivedStringPos = 0;
 volatile unsigned char CommandString[100];
 volatile unsigned char CommandStringPos = 0;
 volatile unsigned char NewReceivedString = 0;
 
-# 64
+# 65
 void Local_CloseUSART(void )
 {
 PIE1bits.RCIE = 0;
@@ -5136,7 +5136,7 @@ RCSTAbits.FERR = 0;
 TXSTAbits.TXEN = 0;
 }
 
-# 80
+# 81
 void InitUART(unsigned long Baud)
 {
 unsigned long temp;
@@ -5167,7 +5167,7 @@ PIE1bits.RCIE = 0;
 INTCONbits.PEIE = 1;
 }
 
-# 115
+# 116
 void OpenUSART( unsigned char config, unsigned int spbrg)
 {
 TXSTA = 0;
@@ -5236,7 +5236,7 @@ TXSTAbits.TXEN = 1;
 RCSTAbits.SPEN = 1;
 }
 
-# 188
+# 189
 void UARTchar(unsigned char data)
 {
 RCSTAbits.CREN = 0;
@@ -5249,7 +5249,7 @@ while(!TXSTAbits.TRMT);
 RCSTAbits.CREN = 1;
 }
 
-# 205
+# 206
 void UARTchar_CONST(const unsigned char data)
 {
 unsigned char temp = data;
@@ -5263,7 +5263,7 @@ while(!TXSTAbits.TRMT);
 RCSTAbits.CREN = 1;
 }
 
-# 223
+# 224
 void UARTstring(unsigned char *data)
 {
 while(*data != 0)
@@ -5273,7 +5273,7 @@ UARTchar(*data);
 }
 }
 
-# 237
+# 238
 void UARTstring_CONST(const unsigned char *data)
 {
 while(*data != 0)
@@ -5283,7 +5283,7 @@ UARTchar_CONST(*data);
 }
 }
 
-# 251
+# 252
 void ClearUSART(void)
 {
 RCSTAbits.CREN = 0;
@@ -5293,7 +5293,7 @@ ReadUSART();
 ReadUSART();
 }
 
-# 264
+# 265
 unsigned char ReadUSART(void)
 {
 unsigned char data;
@@ -5310,7 +5310,7 @@ data = RCREG;
 return (data);
 }
 
-# 286
+# 287
 void UART_send_break(void)
 {
 TXSTAbits.SENDB = 1;
@@ -5318,7 +5318,7 @@ TXREG = 'd';
 while(TXSTAbits.SENDB);
 }
 
-# 299
+# 300
 void UARTstringCRLN(unsigned char *data)
 {
 while(*data != 0)
@@ -5329,7 +5329,7 @@ UARTchar(*data);
 UARTstring_CONST(CRLN);
 }
 
-# 315
+# 316
 void UARTstringCRLN_CONST(const unsigned char *data)
 {
 while(*data != 0)
@@ -5340,7 +5340,7 @@ UARTchar_CONST(*data);
 UARTstring_CONST(CRLN);
 }
 
-# 331
+# 332
 void UARTcommandMenu(const unsigned char *Command,const unsigned char *Desc)
 {
 unsigned char place = 0;
@@ -5366,7 +5366,7 @@ place++;
 UARTstring_CONST(CRLN);
 }
 
-# 362
+# 363
 void EraseScreen(unsigned char characters)
 {
 unsigned char i;

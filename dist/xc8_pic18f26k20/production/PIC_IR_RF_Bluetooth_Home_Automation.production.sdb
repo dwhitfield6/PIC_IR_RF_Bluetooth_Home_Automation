@@ -152,7 +152,7 @@ TRUE 1
 [v _EncodeNEC EncodeNEC `(ul  1 e 4 0 ]
 "548
 [v _DecodeNEC DecodeNEC `(uc  1 e 1 0 ]
-"78 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\main.c
+"84 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\main.c
 [v _main main `(v  1 e 0 0 ]
 "51 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
 [v _delayUS delayUS `(v  1 e 0 0 ]
@@ -223,36 +223,36 @@ TRUE 1
 [v _InitTimer3 InitTimer3 `(v  1 e 0 0 ]
 "175
 [v _ResetTimer3 ResetTimer3 `(v  1 e 0 0 ]
-"64 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
+"65 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
 [v _Local_CloseUSART Local_CloseUSART `(v  1 e 0 0 ]
-"80
+"81
 [v _InitUART InitUART `(v  1 e 0 0 ]
-"115
+"116
 [v _OpenUSART OpenUSART `(v  1 e 0 0 ]
-"188
+"189
 [v _UARTchar UARTchar `(v  1 e 0 0 ]
 [v i1_UARTchar UARTchar `(v  1 e 0 0 ]
-"205
+"206
 [v _UARTchar_CONST UARTchar_CONST `(v  1 e 0 0 ]
 [v i1_UARTchar_CONST UARTchar_CONST `(v  1 e 0 0 ]
-"223
+"224
 [v _UARTstring UARTstring `(v  1 e 0 0 ]
 [v i1_UARTstring UARTstring `(v  1 e 0 0 ]
-"237
+"238
 [v _UARTstring_CONST UARTstring_CONST `(v  1 e 0 0 ]
 [v i1_UARTstring_CONST UARTstring_CONST `(v  1 e 0 0 ]
-"251
+"252
 [v _ClearUSART ClearUSART `(v  1 e 0 0 ]
-"264
+"265
 [v _ReadUSART ReadUSART `(uc  1 e 1 0 ]
 [v i1_ReadUSART ReadUSART `(uc  1 e 1 0 ]
-"299
+"300
 [v _UARTstringCRLN UARTstringCRLN `(v  1 e 0 0 ]
-"315
+"316
 [v _UARTstringCRLN_CONST UARTstringCRLN_CONST `(v  1 e 0 0 ]
-"331
+"332
 [v _UARTcommandMenu UARTcommandMenu `(v  1 e 0 0 ]
-"362
+"363
 [v _EraseScreen EraseScreen `(v  1 e 0 0 ]
 "64 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\user.c
 [v _InitApp InitApp `(v  1 e 0 0 ]
@@ -891,19 +891,19 @@ TRUE 1
 [v _IRcommand IRcommand `uc  1 e 1 0 ]
 "69
 [v _IRtimeout IRtimeout `ul  1 e 4 0 ]
-"58 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\main.c
+"64 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\main.c
 [v _FirmVersion FirmVersion `C[9]uc  1 e 9 0 ]
-"59
+"65
 [v _PCBVersion PCBVersion `C[5]uc  1 e 5 0 ]
-"60
+"66
 [v _Frequency Frequency `C[4]uc  1 e 4 0 ]
-"61
+"67
 [v _ProjectName ProjectName `C[26]uc  1 e 26 0 ]
-"62
+"68
 [v _BluetoothFirmware1 BluetoothFirmware1 `[30]uc  1 e 30 0 ]
-"63
+"69
 [v _BluetoothFirmware2 BluetoothFirmware2 `[30]uc  1 e 30 0 ]
-"72
+"78
 [v _BatteryVoltage BatteryVoltage `d  1 e 3 0 ]
 "43 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\RF.c
 [v _RFsendCode RFsendCode `[20]uc  1 e 20 0 ]
@@ -995,15 +995,15 @@ TRUE 1
 [v _Timer2_Postscaler Timer2_Postscaler `uc  1 e 1 0 ]
 "39
 [v _Timer3_Postscaler Timer3_Postscaler `uc  1 e 1 0 ]
-"49 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
+"50 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
 [v _ReceivedString ReceivedString `VE[100]uc  1 e 100 0 ]
-"50
-[v _ReceivedStringPos ReceivedStringPos `VEuc  1 e 1 0 ]
 "51
-[v _CommandString CommandString `VE[100]uc  1 e 100 0 ]
+[v _ReceivedStringPos ReceivedStringPos `VEuc  1 e 1 0 ]
 "52
-[v _CommandStringPos CommandStringPos `VEuc  1 e 1 0 ]
+[v _CommandString CommandString `VE[100]uc  1 e 100 0 ]
 "53
+[v _CommandStringPos CommandStringPos `VEuc  1 e 1 0 ]
+"54
 [v _NewReceivedString NewReceivedString `VEuc  1 e 1 0 ]
 "129 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.h
 [v _SYNTAX_ERR SYNTAX_ERR `C[14]uc  1 e 14 0 ]
@@ -1011,26 +1011,26 @@ TRUE 1
 [v _CRLN CRLN `C[3]uc  1 e 3 0 ]
 "131
 [v _BufferOverflow BufferOverflow `uc  1 e 1 0 ]
-"78 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\main.c
+"84 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\main.c
 [v _main main `(v  1 e 0 0 ]
 {
-"84
+"90
 [v main@BluetoothString BluetoothString `[100]uc  1 a 100 148 ]
-"80
+"86
 [v main@i i `uc  1 a 1 254 ]
-"86
+"92
 [v main@Connected Connected `uc  1 a 1 253 ]
-"83
+"89
 [v main@VoltageStatus VoltageStatus `uc  1 a 1 252 ]
-"86
+"92
 [v main@ConnectedOLD ConnectedOLD `uc  1 a 1 251 ]
-"85
+"91
 [v main@BluetoothStringPos BluetoothStringPos `uc  1 a 1 250 ]
-"82
+"88
 [v main@Bluetoothtask Bluetoothtask `uc  1 a 1 249 ]
-"81
+"87
 [v main@IRtask IRtask `uc  1 a 1 248 ]
-"249
+"255
 } 0
 "271 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\IR.c
 [v _UseIRCode UseIRCode `(v  1 e 0 0 ]
@@ -1117,29 +1117,29 @@ TRUE 1
 [v WaitForIRsignal@timeout timeout `uc  1 a 1 18 ]
 "1194
 } 0
-"315 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
+"316 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
 [v _UARTstringCRLN_CONST UARTstringCRLN_CONST `(v  1 e 0 0 ]
 {
 [v UARTstringCRLN_CONST@data data `*.32Cuc  1 p 2 16 ]
-"323
+"324
 } 0
-"299
+"300
 [v _UARTstringCRLN UARTstringCRLN `(v  1 e 0 0 ]
 {
 [v UARTstringCRLN@data data `*.39uc  1 p 2 16 ]
-"307
+"308
 } 0
-"331
+"332
 [v _UARTcommandMenu UARTcommandMenu `(v  1 e 0 0 ]
 {
-"333
-[v UARTcommandMenu@place place `uc  1 a 1 26 ]
 "334
+[v UARTcommandMenu@place place `uc  1 a 1 26 ]
+"335
 [v UARTcommandMenu@i i `uc  1 a 1 25 ]
-"331
+"332
 [v UARTcommandMenu@Command Command `*.34Cuc  1 p 2 16 ]
 [v UARTcommandMenu@Desc Desc `*.32Cuc  1 p 2 18 ]
-"354
+"355
 } 0
 "217 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
 [v _StringMatchCaseInsensitive StringMatchCaseInsensitive `(uc  1 e 1 0 ]
@@ -1471,18 +1471,18 @@ TRUE 1
 [v SetEEPROMdefault@k k `uc  1 a 1 139 ]
 "324
 } 0
-"80 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
+"81 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
 [v _InitUART InitUART `(v  1 e 0 0 ]
 {
-"82
-[v InitUART@temp temp `ul  1 a 4 102 ]
-"84
-[v InitUART@spbrg spbrg `ui  1 a 2 99 ]
 "83
+[v InitUART@temp temp `ul  1 a 4 102 ]
+"85
+[v InitUART@spbrg spbrg `ui  1 a 2 99 ]
+"84
 [v InitUART@config config `uc  1 a 1 101 ]
-"80
+"81
 [v InitUART@Baud Baud `ul  1 p 4 88 ]
-"108
+"109
 } 0
 "155 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
 [v _Round Round `(d  1 e 3 0 ]
@@ -1503,20 +1503,20 @@ TRUE 1
 [v ___altoft@c c `l  1 p 4 11 ]
 "57
 } 0
-"115 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
+"116 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
 [v _OpenUSART OpenUSART `(v  1 e 0 0 ]
 {
 [v OpenUSART@config config `uc  1 a 1 wreg ]
 [v OpenUSART@config config `uc  1 a 1 wreg ]
 [v OpenUSART@spbrg spbrg `ui  1 p 2 3 ]
-"117
+"118
 [v OpenUSART@config config `uc  1 a 1 5 ]
-"181
+"182
 } 0
-"64
+"65
 [v _Local_CloseUSART Local_CloseUSART `(v  1 e 0 0 ]
 {
-"72
+"73
 } 0
 "51 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Timer.c
 [v _InitTimers InitTimers `(v  1 e 0 0 ]
@@ -1727,20 +1727,20 @@ TRUE 1
 [v BluetoothInitialSetup@first first `uc  1 a 1 161 ]
 "380
 } 0
-"223 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
+"224 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
 [v _UARTstring UARTstring `(v  1 e 0 0 ]
 {
 [v UARTstring@data data `*.39uc  1 p 2 13 ]
-"230
+"231
 } 0
-"188
+"189
 [v _UARTchar UARTchar `(v  1 e 0 0 ]
 {
 [v UARTchar@data data `uc  1 a 1 wreg ]
 [v UARTchar@data data `uc  1 a 1 wreg ]
-"190
+"191
 [v UARTchar@data data `uc  1 a 1 12 ]
-"198
+"199
 } 0
 "301 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
 [v _StringContainsCaseInsensitive StringContainsCaseInsensitive `(uc  1 e 1 0 ]
@@ -1992,23 +1992,23 @@ TRUE 1
 [v ___ftge@ff2 ff2 `f  1 p 3 6 ]
 "13
 } 0
-"237 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
+"238 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
 [v _UARTstring_CONST UARTstring_CONST `(v  1 e 0 0 ]
 {
 [v UARTstring_CONST@data data `*.32Cuc  1 p 2 14 ]
-"244
+"245
 } 0
-"205
+"206
 [v _UARTchar_CONST UARTchar_CONST `(v  1 e 0 0 ]
 {
 [v UARTchar_CONST@data data `Cuc  1 a 1 wreg ]
-"207
+"208
 [v UARTchar_CONST@temp temp `uc  1 a 1 13 ]
-"205
+"206
 [v UARTchar_CONST@data data `Cuc  1 a 1 wreg ]
-"207
+"208
 [v UARTchar_CONST@data data `Cuc  1 a 1 12 ]
-"216
+"217
 } 0
 "252 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
 [v _StringContains StringContains `(uc  1 e 1 0 ]
@@ -2038,17 +2038,17 @@ TRUE 1
 [v delayUS@US US `l  1 p 4 3 ]
 "58
 } 0
-"251 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
+"252 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
 [v _ClearUSART ClearUSART `(v  1 e 0 0 ]
 {
-"258
+"259
 } 0
-"264
+"265
 [v _ReadUSART ReadUSART `(uc  1 e 1 0 ]
 {
-"266
+"267
 [v ReadUSART@data data `uc  1 a 1 3 ]
-"278
+"279
 } 0
 "103 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
 [v _BlueConnected BlueConnected `(uc  1 e 1 0 ]
@@ -2114,33 +2114,33 @@ TRUE 1
 [v low_isr@data data `uc  1 a 1 30 ]
 "691
 } 0
-"237 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
+"238 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
 [v i1_UARTstring_CONST UARTstring_CONST `(v  1 e 0 0 ]
 {
 [v i1UARTstring_CONST@data data `*.32Cuc  1 p 2 11 ]
-"244
+"245
 } 0
-"205
+"206
 [v i1_UARTchar_CONST UARTchar_CONST `(v  1 e 0 0 ]
 {
 [v i1UARTchar_CONST@data data `Cuc  1 a 1 wreg ]
 [v i1UARTchar_CONST@temp UARTchar_CONST `uc  1 a 1 10 ]
 [v i1UARTchar_CONST@data data `Cuc  1 a 1 wreg ]
-"207
+"208
 [v i1UARTchar_CONST@data data `Cuc  1 a 1 9 ]
-"216
+"217
 } 0
-"223
+"224
 [v i1_UARTstring UARTstring `(v  1 e 0 0 ]
 {
 [v i1UARTstring@data data `*.39uc  1 p 2 10 ]
-"230
+"231
 } 0
-"264
+"265
 [v i1_ReadUSART ReadUSART `(uc  1 e 1 0 ]
 {
 [v i1ReadUSART@data ReadUSART `uc  1 a 1 0 ]
-"278
+"279
 } 0
 "103 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\Bluetooth.c
 [v i1_BlueConnected BlueConnected `(uc  1 e 1 0 ]
@@ -2156,26 +2156,26 @@ TRUE 1
 [v IsCharacter@data data `uc  1 a 1 0 ]
 "120
 } 0
-"362 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
+"363 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\UART.c
 [v _EraseScreen EraseScreen `(v  1 e 0 0 ]
 {
 [v EraseScreen@characters characters `uc  1 a 1 wreg ]
-"364
+"365
 [v EraseScreen@i i `uc  1 a 1 11 ]
-"362
+"363
 [v EraseScreen@characters characters `uc  1 a 1 wreg ]
-"366
+"367
 [v EraseScreen@characters characters `uc  1 a 1 10 ]
-"372
+"373
 } 0
-"188
+"189
 [v i1_UARTchar UARTchar `(v  1 e 0 0 ]
 {
 [v i1UARTchar@data data `uc  1 a 1 wreg ]
 [v i1UARTchar@data data `uc  1 a 1 wreg ]
-"190
+"191
 [v i1UARTchar@data data `uc  1 a 1 9 ]
-"198
+"199
 } 0
 "51 C:\Users\dwhitfield.TDY\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\MISC.c
 [v i1_delayUS delayUS `(v  1 e 0 0 ]
