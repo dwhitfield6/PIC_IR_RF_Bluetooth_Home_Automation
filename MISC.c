@@ -10,6 +10,8 @@
  *                          Derived from project 'PIC_PS2_to_UART'.
  * 04/09/15     1.0_DW0b    Fixed bugs.
  *                          Added features.
+ * 04/18/15     1.0_DW0d    Add new function to check for alphanumeric and
+ *                            number.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -98,7 +100,21 @@ void CalibrateDelay(void)
 /******************************************************************************/
 unsigned char IsLetter(unsigned char data)
 {
-    if(data >= 65 && data <= 90)
+    if((data >= 65 && data <= 90) || (data >= 97 && data <= 122))
+    {
+        return TRUE;
+    }
+    return FALSE;
+}
+
+/******************************************************************************/
+/* IsNumber
+ *
+ * The function returns true if the data is a number.
+/******************************************************************************/
+unsigned char IsNumber(unsigned char data)
+{
+    if(data >= '0' && data <= '9')
     {
         return TRUE;
     }
@@ -117,6 +133,40 @@ unsigned char IsCharacter(unsigned char data)
         return TRUE;
     }
     return FALSE;
+}
+
+/******************************************************************************/
+/* IsAlphaNumeric
+ *
+ * The function returns true if the data is either a letter or a number or
+ *  a space.
+/******************************************************************************/
+unsigned char IsAlphaNumeric(unsigned char data)
+{
+    if(IsLetter(data) || IsNumber(data) || data == ' ')
+    {
+        return TRUE;
+    }
+    return FALSE;
+}
+
+/******************************************************************************/
+/* IsAlphaNumericString
+ *
+ * The function returns true if the string contains only letters and numbers
+ *  and spaces.
+/******************************************************************************/
+unsigned char IsAlphaNumericString(unsigned char* data)
+{
+    while(*data != 0)
+    {
+        if(!IsAlphaNumeric(*data))
+        {
+            return FALSE;
+        }
+        data++;
+    }
+    return TRUE;
 }
 
 /******************************************************************************/

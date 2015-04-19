@@ -61,6 +61,8 @@ extern const unsigned char PCBVersion[];
 extern const unsigned char Frequency[];
 extern unsigned char BluetoothFirmware1[BlueFWbuf];
 extern unsigned char BluetoothFirmware2[BlueFWbuf];
+extern unsigned char BluetoothBroadcast[BroadcastSize];
+unsigned char BluetoothChangeStatus = FALSE;
 
 /******************************************************************************/
 /* Functions                                                                  */
@@ -83,7 +85,7 @@ void InitBluetooth(void)
     LATA &= ~BLUE_AutoMaster; //turn off auto master
     if(!BluetoothConfigured())
     {
-        if(BluetoothInitialSetup())
+        if(BluetoothInitialSetup(TRUE))
         {
             Global1.BlueToothFlag = TRUE;
             SyncGlobalToEEPROM();
@@ -180,7 +182,7 @@ unsigned char EnterCommandMode(void)
  *
  * The function configures up the bluetooth module.
 /******************************************************************************/
-unsigned char BluetoothInitialSetup(void)
+unsigned char BluetoothInitialSetup(unsigned char Default)
 {
     unsigned char buf[50];
     unsigned char ok = TRUE;
@@ -189,8 +191,10 @@ unsigned char BluetoothInitialSetup(void)
     unsigned char i = 0;
     unsigned char j = 0;
     unsigned char first = TRUE;
+    unsigned char BroadcastTEMP[BroadcastSize];
 
     cleanBuffer(buf,50);
+    cleanBuffer(BroadcastTEMP,BroadcastSize);
     cleanBuffer(BluetoothVersionLine1,BlueFWbuf);
     cleanBuffer(BluetoothVersionLine2,BlueFWbuf);
 
@@ -199,6 +203,8 @@ unsigned char BluetoothInitialSetup(void)
         return FAIL;
     }
 
+    cleanBuffer(CommandString,CommandStringPos);
+    CommandStringPos = 0;
     ClearUSART();
     PIR1bits.RCIF = FALSE;
     PIE1bits.RCIE   = TRUE;
@@ -255,20 +261,49 @@ unsigned char BluetoothInitialSetup(void)
     }
     cleanBuffer(CommandString,CommandStringPos);
     CommandStringPos = 0;
-    
-    if(ok)
+
+    if(Default)
     {
-        sprintf(buf,"SN,Home Automation %lu\r",Global2.SerialNumber);
-        ClearUSART();
-        PIR1bits.RCIF = FALSE;
-        PIE1bits.RCIE   = TRUE;
-        UARTstring(buf); // Service name to home automation and serial number
-        delayUS(CommandWait);
-        PIE1bits.RCIE   = FALSE;
-        sprintf(buf,"AOK");
-        if(!StringContains(CommandString,buf))
+        if(ok)
         {
-            ok = FALSE;
+            sprintf(buf,"SN,Home Automation %lu\r",Global2.SerialNumber);
+            ClearUSART();
+            PIR1bits.RCIF = FALSE;
+            PIE1bits.RCIE   = TRUE;
+            UARTstring(buf); // Service name to home automation and serial number
+            delayUS(CommandWait);
+            PIE1bits.RCIE   = FALSE;
+            sprintf(buf,"AOK");
+            if(!StringContains(CommandString,buf))
+            {
+                ok = FALSE;
+            }
+        }
+    }
+    else
+    {
+        if(ok)
+        {
+            if(BluetoothBroadcast[BroadcastSize-1] == 0 )
+            {
+                BufferCopy(BluetoothBroadcast,BroadcastTEMP, BroadcastSize, 0);
+                sprintf(buf,"SN,%s\r",BroadcastTEMP);
+                ClearUSART();
+                PIR1bits.RCIF = FALSE;
+                PIE1bits.RCIE   = TRUE;
+                UARTstring(buf); // Service name to home automation and serial number
+                delayUS(CommandWait);
+                PIE1bits.RCIE   = FALSE;
+                sprintf(buf,"AOK");
+                if(!StringContains(CommandString,buf))
+                {
+                    ok = FALSE;
+                }
+            }
+            else
+            {
+                ok = FALSE;
+            }
         }
     }
     cleanBuffer(CommandString,CommandStringPos);
@@ -346,7 +381,14 @@ unsigned char BluetoothInitialSetup(void)
         UARTstring_CONST("D\r"); // Check for name
         delayUS(CommandWait);
         PIE1bits.RCIE   = FALSE;
-        sprintf(buf,"BTName=Home Automation %lu\r",Global2.SerialNumber);
+        if(Default)
+        {
+            sprintf(buf,"BTName=Home Automation %lu\r",Global2.SerialNumber);
+        }
+        else
+        {
+            sprintf(buf,"BTName=%s\r",BroadcastTEMP);
+        }
         if(!StringContainsCaseInsensitive(CommandString, buf))
         {
             if(Global2.SerialNumber != 0xFFFFFFFF)
@@ -415,6 +457,7 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
     unsigned char EmptyPlace = 0;
     unsigned char set = FALSE;
     long SerialNumberTEMP = 0;
+    unsigned char ReceivedStringPosOLD = FALSE;
 
     cleanBuffer(buf,100);
     cleanBuffer(rfchannelSTR,10);
@@ -1001,12 +1044,17 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
             {
                 delayUS(300000);
                 timeout++;
+                if(ReceivedStringPos != ReceivedStringPosOLD)
+                {
+                    timeout = 0;
+                }
                 if(timeout > 25)
                 {
                     UARTstring_CONST(CRLN);
                     UARTstringCRLN_CONST("Device resumes without changing serial number");
                     return FAIL;
                 }
+                ReceivedStringPosOLD = ReceivedStringPos;
             }
             if(StringAddEqual(ReceivedString))
             {
@@ -1048,6 +1096,100 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
         else
         {
             UARTstringCRLN_CONST("The 'Code' was wrong!!!");
+            UARTstring_CONST(CRLN);
+        }
+        return FAIL;
+    }
+    else if(StringMatchCaseInsensitive(String,"Change Bluetooth Name"))
+    {
+        cleanBuffer(ReceivedString, ReceivedStringPos);
+        ReceivedStringPos = 0;
+        NewReceivedString = FALSE;
+        UARTstring_CONST(CRLN);
+        UARTstring_CONST("Enter Y to change Name or N to cancel");
+        UARTstring_CONST(CRLN);
+        UARTchar('>');
+        timeout = 0;
+        ClearUSART();
+        PIR1bits.RCIF = FALSE;
+        PIE1bits.RCIE   = TRUE;
+        while(!NewReceivedString)
+        {
+            delayUS(300000);
+            timeout++;
+            if(timeout > 25)
+            {
+                UARTstring_CONST(CRLN);
+                UARTstringCRLN_CONST("Device resumes without changing Bluetooth Broadcast Name");
+                return FAIL;
+            }
+        }
+        PIE1bits.RCIE   = FALSE;
+        if(ReceivedString[0] == 'Y' || ReceivedString[0] == 'y' && ReceivedString[1] == 0)
+        {
+            cleanBuffer(ReceivedString, ReceivedStringPos);
+            ReceivedStringPos = 0;
+            NewReceivedString = FALSE;
+            UARTstring_CONST(CRLN);
+            UARTstring_CONST("Enter new Bluetooth Broadcast Name");
+            UARTstring_CONST(CRLN);
+            UARTchar_CONST('>');
+            timeout = 0;
+            ClearUSART();
+            PIR1bits.RCIF = FALSE;
+            PIE1bits.RCIE   = TRUE;
+            while(!NewReceivedString)
+            {
+                delayUS(300000);
+                timeout++;
+                if(ReceivedStringPos != ReceivedStringPosOLD)
+                {
+                    timeout = 0;
+                }
+                if(timeout > 25)
+                {
+                    UARTstringCRLN_CONST("Device resumes without changing Bluetooth Broadcast Name");
+                    return FAIL;
+                }
+                ReceivedStringPosOLD = ReceivedStringPos;
+            }
+            PIE1bits.RCIE   = FALSE;
+            UARTstring_CONST(CRLN);
+            UARTstring_CONST(CRLN);
+            if(ReceivedString[0] != 0 && ReceivedString[BroadcastSize-1] == 0)
+            {
+                if(IsAlphaNumericString(ReceivedString))
+                {
+                    UARTstringCRLN_CONST("Bluetooth Module will Reset. Please reconnect device");
+                    UARTstring_CONST(CRLN);
+                    BufferCopy(ReceivedString,BluetoothBroadcast, BroadcastSize, 0);
+                    delayUS(CommandWait);
+                    if(BluetoothInitialSetup(FALSE))
+                    {
+                        BluetoothChangeStatus = TRUE;
+                        return PASS;
+                    }
+                    else
+                    {
+                        BluetoothChangeStatus = FALSE;
+                        return FAIL;
+                    }
+                }
+                else
+                {
+                    UARTstringCRLN_CONST("Name has to be Alphanumeric. No symbols!");
+                    UARTstring_CONST(CRLN);
+                }
+            }
+            else
+            {
+                UARTstringCRLN_CONST("Entered Name is too long. Name must be less than 21 characters!");
+                UARTstring_CONST(CRLN);
+            }
+        }
+        else
+        {
+            UARTstringCRLN_CONST("Device resumes without changing Bluetooth Broadcast Name");
             UARTstring_CONST(CRLN);
         }
         return FAIL;
@@ -1106,6 +1248,7 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
         UARTcommandMenu("Reset", "Clears memory and resets device");
         UARTcommandMenu("Version", "Displays Firmware/Hardware Version");
         UARTcommandMenu("Change SN", "Changes Serial Number");
+        UARTcommandMenu("Change Bluetooth Name", "Changes Bluetooth Broadcast Name");
         UARTstring_CONST(CRLN);
         UARTstringCRLN_CONST("Diagnostic Commands:");
         UARTcommandMenu("Voltage", "Displays the supply voltage");

@@ -10,6 +10,8 @@
  *                          Derived from project 'PIC_PS2_to_UART'.
  * 04/09/15     1.0_DW0b    Fixed bugs.
  *                          Added features.
+ * 04/18/15     1.0_DW0d    Add new function to check for alphanumeric and
+ *                            number.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -83,5 +85,8 @@ unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, long* re
 unsigned char StringAddEqual(unsigned char* Input);
 unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result);
 unsigned char GetNumberUnsigned(unsigned char* This, unsigned char CommaNumber, unsigned long* result);
+unsigned char IsAlphaNumericString(unsigned char* data);
+unsigned char IsAlphaNumeric(unsigned char data);
+unsigned char IsNumber(unsigned char data);
 
 #endif	/* MISC_H */

@@ -11,6 +11,10 @@
  * 04/09/15     1.0_DW0b    Fixed bugs.
  *                          Added features.
  * 04/18/15     1.0_DW0c    Don't allow full duplex. Causes eratic behavior.
+ * 04/18/15     1.0_DW0d    Reestablish full duplex workaround.
+ *                          Add command to change Bluetooth Broadcast name.
+ *                          Modify Bluetooth Initialize function to allow for
+ *                            module name change.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -188,14 +192,11 @@ void OpenUSART( unsigned char config, unsigned int spbrg)
 /******************************************************************************/
 void UARTchar(unsigned char data)
 {
-    RCSTAbits.CREN = 0;
     if(data != 0)
     {
-        TXREG = data;      // Write the data byte to the USART
-        delayUS(TimeBetweenChars);
         while(!TXSTAbits.TRMT); //Wait for previous character to be output
+        TXREG = data;      // Write the data byte to the USART
     }
-    RCSTAbits.CREN = 1;
 }
 
 /******************************************************************************/
@@ -206,14 +207,11 @@ void UARTchar(unsigned char data)
 void UARTchar_CONST(const unsigned char data)
 {
     unsigned char temp = data;
-    RCSTAbits.CREN = 0;
     if(temp != 0)
     {
-        TXREG = temp;      // Write the data byte to the USART
-        delayUS(TimeBetweenChars);
         while(!TXSTAbits.TRMT); //Wait for previous character to be output
+        TXREG = temp;      // Write the data byte to the USART
     }
-    RCSTAbits.CREN = 1;
 }
 
 /******************************************************************************/

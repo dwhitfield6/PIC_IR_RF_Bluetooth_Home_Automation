@@ -78,7 +78,7 @@ unsigned char ProductName[50] = {"Home Automation"};
  *
 /******************************************************************************/
 #define NominalVDD 3.3
-#define VoltageLow 3.7
+#define VoltageLow 20.0
 #define VoltageHigh 30.0
 
 /******************************************************************************/

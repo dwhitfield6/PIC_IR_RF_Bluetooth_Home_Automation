@@ -1,20 +1,5 @@
-### HEXMate logfile and output summary ###
-### Memory Usage ###
- Unused memory ranges:
-  4h - 7h
-  B28Ch - EDC1h
-  10000h - 1FFFFFh
-  200008h - 2FFFFFh
-  30000Eh - 30003Fh
-  
- dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.hex ranges:
-  0h - 3h
-  8h - B28Bh
-  EDC2h - FFFFh
-  200000h - 200007h
-  300000h - 30000Dh
-  
-### Hex Memory Map ###
+HEX File Usage Map:
+
  Legend:
   - = Unused memory
   F = Filled ROM
@@ -816,3 +801,5 @@
 0000FFC0: 1111111111111111111111111111111111111111111111111111111111111111
 00200000: 11111111--------------------------------------------------------
 00300000: 11111111111111--------------------------------------------------
+
+

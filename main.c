@@ -22,6 +22,10 @@
  *                            behavior)
  *                          Fix several high priority bugs.
  *                          Add Serial number algorithem and command.
+ * 04/18/15     1.0_DW0d    Reestablish full duplex workaround.
+ *                          Add command to change Bluetooth Broadcast name.
+ *                          Turn on RedLed when voltage is out of range.
+ *                          Print a warning when voltage is out of range.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -48,6 +52,7 @@
 
 #include <stdint.h>        /* For uint8_t definition */
 #include <stdbool.h>       /* For true/false definition */
+#include <stdio.h>       /* For true/false definition */
 
 #include "system.h"
 #include "user.h"
@@ -61,12 +66,13 @@
 /* Version number                                                             */
 /******************************************************************************/
 
-const unsigned char FirmVersion[] = {"1.0_DW0c"};
+const unsigned char FirmVersion[] = {"1.0_DW0d"};
 const unsigned char PCBVersion[] = {"RevA"};
 const unsigned char Frequency[] = {"315"};
 const unsigned char ProjectName[] = {"Home Automation IR/RF Hub"};
 unsigned char BluetoothFirmware1[BlueFWbuf];
 unsigned char BluetoothFirmware2[BlueFWbuf];
+unsigned char BluetoothBroadcast[BroadcastSize];
 
 /******************************************************************************/
 /* Defines                                                                    */
@@ -87,11 +93,16 @@ void main(void)
     unsigned char IRtask        = FALSE;
     unsigned char Bluetoothtask = FALSE;
     unsigned char VoltageStatus = PASS;
+    unsigned char VoltageStatusOLD;
     unsigned char BluetoothString[RXbufsize];
     unsigned char BluetoothStringPos = 0;
     unsigned char Connected, ConnectedOLD;
+    unsigned char BroadcastTEMP[BroadcastSize];
+    unsigned char buf[100];
 
+    cleanBuffer(buf, 100);
     cleanBuffer(BluetoothString, RXbufsize);
+    cleanBuffer(BroadcastTEMP, BroadcastSize);
 
     ConfigureOscillator();
     InitApp();
@@ -132,13 +143,13 @@ void main(void)
     }
     Connected = BlueConnected();
     ConnectedOLD = FALSE;
+    VoltageStatusOLD = VoltageStatus;
     while(1)
     {
         IRtask          = IR_New_Code;
         Bluetoothtask   = NewReceivedString;
         /* read voltage */
         BatteryVoltage = ReadVoltage();
-
         if(VoltageStatus == FAILlow)
         {            
             BatteryVoltage -= 0.5;
@@ -160,6 +171,14 @@ void main(void)
         {
             VoltageStatus = PASS;
         }
+        if(VoltageStatus != PASS)
+        {
+            RedLEDON();
+        }
+        if(VoltageStatus == PASS && VoltageStatusOLD != PASS)
+        {
+            LEDTimerON();
+        }
 
         /* IR */
         if(IRtask && IR_NEC)
@@ -180,10 +199,23 @@ void main(void)
                 delayUS(1000000);
                 UARTstringCRLN_CONST(ProjectName);
                 UARTstring_CONST(CRLN);
-                UARTchar_CONST('>');
+                if(BluetoothChangeStatus)
+                {
+                    UARTstring_CONST(CRLN);
+                    BufferCopy(BluetoothBroadcast,BroadcastTEMP, BroadcastSize, 0);
+                    sprintf(buf,"Bluetooth Name was successfully changed to \" %s \"",BroadcastTEMP);
+                    UARTstringCRLN(buf);
+                    UARTstring_CONST(CRLN);
+                }
+                if(VoltageStatus != PASS && VoltageStatusOLD != PASS)
+                {
+                    UARTstringCRLN_CONST("Voltage out of Range!!!");
+                    UARTstring_CONST(CRLN);
+                }
                 ClearUSART();
                 PIR1bits.RCIF = FALSE;
                 PIE1bits.RCIE   = TRUE;
+                UARTchar_CONST('>');
             }
             else
             {
@@ -251,6 +283,7 @@ void main(void)
             PIE1bits.RCIE   = TRUE;
         }
         ConnectedOLD = Connected;
+        VoltageStatusOLD = VoltageStatus;
     }
 }
 /*-----------------------------------------------------------------------------/

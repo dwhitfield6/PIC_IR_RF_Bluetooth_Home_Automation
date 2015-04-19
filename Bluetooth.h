@@ -50,8 +50,21 @@
 #define BlueFWbuf 30
 
 /******************************************************************************/
+/* BroadcastSize
+ *
+ * This is the size of the array that holds the Bluetooth broadcast name.
+ * Maximum size is 20 plus a NULL. (Stated in RN41 datasheet under SN command)
+/******************************************************************************/
+#define BroadcastSize 21
+
+/******************************************************************************/
 /* Defines                                                                    */
 /******************************************************************************/
+
+/******************************************************************************/
+/* User Global Variable Declaration                                           */
+/******************************************************************************/
+extern unsigned char BluetoothChangeStatus;
 
 /******************************************************************************/
 /* Function prototypes                                                        */
@@ -60,7 +73,7 @@ void InitBluetooth(void);
 unsigned char BlueConnected(void);
 void ResetBlue(void);
 unsigned char EnterCommandMode(void);
-unsigned char BluetoothInitialSetup(void);
+unsigned char BluetoothInitialSetup(unsigned char Default);
 unsigned char BluetoothConfigured(void);
 unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos);
 unsigned char WaitForIRsignal(void);
