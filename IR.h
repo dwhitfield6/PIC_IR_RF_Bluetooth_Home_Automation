@@ -15,6 +15,8 @@
 /******************************************************************************/
 /* Files to Include                                                           */
 /******************************************************************************/
+#ifndef IR_H
+#define	IR_H
 
 #if defined(__XC)
     #include <xc.h>        /* XC8 General Include File */
@@ -229,6 +231,8 @@ void CalibrateIR(void);
 unsigned char CheckReceivingIR(void);
 unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
 unsigned long EncodeNEC(unsigned char address, unsigned char command);
+
+#endif	/* IR_H */
 
 /*-----------------------------------------------------------------------------/
  End of File

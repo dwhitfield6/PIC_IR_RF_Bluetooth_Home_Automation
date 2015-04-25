@@ -15,6 +15,8 @@
 /******************************************************************************/
 /* Files to Include                                                           */
 /******************************************************************************/
+#ifndef EEPROM_H
+#define	EEPROM_H
 
 #if defined(__XC)
     #include <xc.h>        /* XC8 General Include File */
@@ -160,6 +162,9 @@ unsigned char SyncGlobalToEEPROM(void);
 void SyncEEPROMToGlobal(void);
 void SetEEPROMdefault(void);
 unsigned char EEPROMinitialized(void);
+
+#endif	/* EEPROM_H */
+
 /*-----------------------------------------------------------------------------/
  End of File
 /-----------------------------------------------------------------------------*/

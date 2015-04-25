@@ -22,10 +22,12 @@
  *                            behavior)
  *                          Fix several high priority bugs.
  *                          Add Serial number algorithem and command.
- * 04/18/15     1.0_DW0d    Reestablish full duplex workaround.
+ * 04/24/15     1.0_DW0d    Reestablish full duplex workaround.
  *                          Add command to change Bluetooth Broadcast name.
  *                          Turn on RedLed when voltage is out of range.
  *                          Print a warning when voltage is out of range.
+ *                          Added Flash.c/.h to program and read the flash
+ *                            memory.
 /******************************************************************************/
 
 /******************************************************************************/

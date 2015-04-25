@@ -6,17 +6,14 @@
  * Date         Revision    Comments
  * MM/DD/YY
  * --------     ---------   ----------------------------------------------------
- * 04/02/15     1.0_DW0a    Initial project make.
- *                          Derived from project 'PIC_PS2_to_UART'.
- * 04/09/15     1.0_DW0b    Fixed bugs.
- *                          Added features.
+ * 04/24/15     1.0_DW0d    Initial Coding.
 /******************************************************************************/
 
 /******************************************************************************/
 /* Files to Include                                                           */
 /******************************************************************************/
-#ifndef Button_H
-#define	Button_H
+#ifndef Flash_H
+#define	Flash_H
 
 #if defined(__XC)
     #include <xc.h>        /* XC8 General Include File */
@@ -33,13 +30,30 @@
 
 #endif
 
+#include "user.h"          /* User funct/params, such as InitApp */
+
+/******************************************************************************/
+/* Defines                                                                    */
+/******************************************************************************/
+#define ERASE   1
+#define WRITE   2
+#define READ    4
+#define PROGRAM    8
+#define CONFIG    16
+/******************************************************************************/
+/* Global Variables                                                           */
+/******************************************************************************/
+
 /******************************************************************************/
 /* Function prototypes                                                        */
 /******************************************************************************/
-unsigned char ReadPushButton(void);
-unsigned char ReadCodeButtons(void);
+void FLASH_Row_Erase(unsigned long address, unsigned char Prog__nConfig);
+void FLASH_Row_Write(unsigned long address, unsigned char* data64, unsigned char Prog__nConfig);
+void FLASH_Row_Read(unsigned long address, unsigned char* data64, unsigned char Prog__nConfig);
+void FLASH_UNLOCK(void);
+void Write_HEX_Row(void);
 
-#endif	/* Button_H */
+#endif	/* Flash_H */
 
 /*-----------------------------------------------------------------------------/
  End of File

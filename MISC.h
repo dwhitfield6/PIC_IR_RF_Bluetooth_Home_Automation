@@ -90,3 +90,7 @@ unsigned char IsAlphaNumeric(unsigned char data);
 unsigned char IsNumber(unsigned char data);
 
 #endif	/* MISC_H */
+
+/*-----------------------------------------------------------------------------/
+ End of File
+/-----------------------------------------------------------------------------*/

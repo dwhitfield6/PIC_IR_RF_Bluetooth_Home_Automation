@@ -15,6 +15,7 @@
       <itemPath>Button.h</itemPath>
       <itemPath>Bluetooth.h</itemPath>
       <itemPath>RF.h</itemPath>
+      <itemPath>Flash.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -37,6 +38,7 @@
       <itemPath>Button.c</itemPath>
       <itemPath>Bluetooth.c</itemPath>
       <itemPath>RF.c</itemPath>
+      <itemPath>Flash.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -56,7 +58,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
         <languageToolchain>XC8</languageToolchain>
-        <languageToolchainVersion>1.33</languageToolchainVersion>
+        <languageToolchainVersion>1.34</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <compileType>
@@ -123,24 +125,24 @@
         <property key="data-model-ram" value=""/>
         <property key="data-model-size-of-double" value="24"/>
         <property key="data-model-size-of-float" value="24"/>
-        <property key="display-class-usage" value="true"/>
-        <property key="display-hex-usage" value="true"/>
+        <property key="display-class-usage" value="false"/>
+        <property key="display-hex-usage" value="false"/>
         <property key="display-overall-usage" value="true"/>
         <property key="display-psect-usage" value="false"/>
         <property key="fill-flash-options-addr" value=""/>
         <property key="fill-flash-options-const" value=""/>
-        <property key="fill-flash-options-how" value="0"/>
+        <property key="fill-flash-options-how" value="1"/>
         <property key="fill-flash-options-inc-const" value="1"/>
         <property key="fill-flash-options-increment" value=""/>
         <property key="fill-flash-options-seq" value=""/>
-        <property key="fill-flash-options-what" value="0"/>
+        <property key="fill-flash-options-what" value="1"/>
         <property key="format-hex-file-for-download" value="false"/>
         <property key="initialize-data" value="true"/>
         <property key="keep-generated-startup.as" value="false"/>
         <property key="link-in-c-library" value="true"/>
         <property key="link-in-peripheral-library" value="true"/>
         <property key="managed-stack" value="false"/>
-        <property key="opt-xc8-linker-file" value="true"/>
+        <property key="opt-xc8-linker-file" value="false"/>
         <property key="opt-xc8-linker-link_startup" value="false"/>
         <property key="opt-xc8-linker-serial" value=""/>
         <property key="program-the-device-with-default-config-words" value="true"/>
