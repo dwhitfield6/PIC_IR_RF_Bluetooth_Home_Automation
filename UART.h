@@ -56,7 +56,7 @@
  *
  * This is the Maximum commmand description length.
 /******************************************************************************/
-#define MaxDescLen   50
+#define MaxDescLen   70
 
 /******************************************************************************/
 /* Uart character and word spacing

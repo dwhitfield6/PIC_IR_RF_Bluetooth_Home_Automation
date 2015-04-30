@@ -4935,7 +4935,7 @@ typedef unsigned char bool;
 # 52 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
 
-# 280
+# 284
 void InitApp(void);
 void Init_System (void);
 
@@ -4982,8 +4982,7 @@ double ReadVoltage(void)
 unsigned int temp;
 double voltage;
 
-VoltageDividerON();
-delayUS(5);
+# 69
 if(InternalADC_Read(0, &temp))
 {
 voltage = ((double)temp / 1024.0) * 11 * 3.3;
@@ -4996,7 +4995,7 @@ VoltageDividerOFF();
 return voltage;
 }
 
-# 84
+# 86
 unsigned char InternalADC_Read(unsigned char channel, unsigned int *ADCcounts)
 {
 unsigned char AnaChanSel = 1;
@@ -5020,7 +5019,7 @@ ADCON1bits.VCFG0 = 0;
 ADCON1bits.VCFG1 = 0;
 
 (ADCON0bits.ADON = 1);
-delayUS(50);
+delayUS(75);
 
 ADCON0bits.GO = 1;
 while(ADCON0bits.GO);
@@ -5030,7 +5029,7 @@ while(ADCON0bits.GO);
 return 1;
 }
 
-# 123
+# 125
 void ResetADC(void)
 {
 ADCON0 =0;
@@ -5038,7 +5037,7 @@ ADCON1 =0;
 ADCON2 =0;
 }
 
-# 135
+# 137
 void InitADC(void)
 {
 ResetADC();
@@ -5047,16 +5046,17 @@ ADCON2bits.ACQT = 0x7;
 ADCON2bits.ADCS = 0x4;
 }
 
-# 148
+# 150
 void VoltageDividerON(void)
 {
-TRISBbits.TRISB5 = 0;
-LATB &= ~0x20;
+
+# 156
 }
 
-# 159
+# 163
 void VoltageDividerOFF(void)
 {
-TRISBbits.TRISB5 = 1;
+
+# 168
 }
 

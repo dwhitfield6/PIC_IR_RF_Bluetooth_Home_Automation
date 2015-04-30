@@ -158,7 +158,7 @@ void GetEEPROM2(GBLdata2 *Temp)
     unsigned char i,j,k;
     unsigned char Arrayspot=EE_RemoteButtonRF;
 
-    for(i=0; i< RFcodesAmount; i++)
+    for(i=0; i< RFnumberOfSavedCodes; i++)
     {
         for(j=0; j < MirrorButtonsAmount; j++)
         {
@@ -238,7 +238,7 @@ unsigned long SetEEPROM2(GBLdata2 Temp,unsigned long burn)
     if(burn & 0x00000001)
     {
         Arrayspot=EE_RemoteButtonRF;
-        for(i=0; i< RFcodesAmount; i++)
+        for(i=0; i< RFnumberOfSavedCodes; i++)
         {
             for(j=0; j < MirrorButtonsAmount; j++)
             {
@@ -310,7 +310,7 @@ void SetEEPROMdefault(void)
             Global1.RemoteButtonNEC[i][j] = 0x00;
         }
     }
-    for(i=0; i< RFcodesAmount; i++)
+    for(i=0; i< RFnumberOfSavedCodes; i++)
     {
         for(j=0; j < MirrorButtonsAmount; j++)
         {
@@ -363,7 +363,7 @@ void SyncEEPROMToGlobal(void)
         }
     }
     Global1.EEPROMinitFlag           = Temp1.EEPROMinitFlag;
-    for(i=0; i< RFcodesAmount; i++)
+    for(i=0; i< RFnumberOfSavedCodes; i++)
     {
         for(j=0; j < MirrorButtonsAmount; j++)
         {

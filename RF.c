@@ -164,6 +164,10 @@ void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char 
 /******************************************************************************/
 void SendRF_Channel(unsigned char channel)
 {
+    /* 
+     * RF codes amount macro (RFnumberOfSavedCodes) needs to be one greater than
+     * the last value.
+     */
     switch (channel)
     {
         case 0:
@@ -242,6 +246,44 @@ void SendRF_Channel(unsigned char channel)
                 SendRF_wait(Conf2_ChannelH_3_ON,2,16,RFrepeatAmount);
                 Conf2_ChannelH_3_Status = ON;
             }
+            break;
+        default:
+            break;
+    }
+}
+
+/******************************************************************************/
+/* DisplayRF_Channel
+ *
+ * Prints the code associated with the RF channel.
+/******************************************************************************/
+void DisplayRF_Channel(unsigned char channel)
+{
+    switch(channel)
+    {
+        case 0:
+            UARTstring_CONST(Conf1_ChannelD_STR);
+            break;
+        case 1:
+            UARTstring_CONST(Conf1_ChannelE_STR);
+            break;
+        case 2:
+            UARTstring_CONST(Conf1_ChannelF_STR);
+            break;
+        case 3:
+            UARTstring_CONST(Conf2_ChannelB_STR);
+            break;
+        case 4:
+            UARTstring_CONST(Conf2_ChannelD_STR);
+            break;
+        case 5:
+            UARTstring_CONST(Conf2_ChannelH_1_STR);
+            break;
+        case 6:
+            UARTstring_CONST(Conf2_ChannelH_2_STR);
+            break;
+        case 7:
+            UARTstring_CONST(Conf2_ChannelH_3_STR);
             break;
         default:
             break;

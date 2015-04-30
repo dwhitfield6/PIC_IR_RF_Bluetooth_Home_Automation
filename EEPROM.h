@@ -34,7 +34,7 @@
 #endif
 
 #include "user.h"          /* User funct/params, such as InitApp */
-
+#include "RF.h"          /* User funct/params, such as InitApp */
 
 /******************************************************************************/
 /* Defines                                                                    */
@@ -48,14 +48,6 @@
  * able to be saved.
 /******************************************************************************/
 #define ButtonAmount 12
-
-/******************************************************************************/
-/* RFcodesAmount
- *
- * This parameter hold the amount of remote control buttons that are
- * able to be saved.
-/******************************************************************************/
-#define RFcodesAmount 10
 
 /******************************************************************************/
 /* RFcodesAmount
@@ -94,17 +86,17 @@
 /* RF associated with each NEC code
 /***********************************/
 /* Stores the first button that will cause each RF code to get sent */
-/* the amount of data needed (2 * MirrorButtonsAmount * RFcodesAmount) */
+/* the amount of data needed (2 * MirrorButtonsAmount * RFnumberOfSavedCodes) */
 #define EE_RemoteButtonRF (2*ButtonAmount + 6)
 
 /******************************/
 /* Serial Number
 /******************************/
 /* unsigned long SerialNumber */
-#define EE_SerialNumberBYTE1 (2*ButtonAmount + 2*MirrorButtonsAmount*RFcodesAmount + 6)
-#define EE_SerialNumberBYTE2 (2*ButtonAmount + 2*MirrorButtonsAmount*RFcodesAmount + 7)
-#define EE_SerialNumberBYTE3 (2*ButtonAmount + 2*MirrorButtonsAmount*RFcodesAmount + 8)
-#define EE_SerialNumberBYTE4 (2*ButtonAmount + 2*MirrorButtonsAmount*RFcodesAmount + 9)
+#define EE_SerialNumberBYTE1 (2*ButtonAmount + 2*MirrorButtonsAmount*RFnumberOfSavedCodes + 6)
+#define EE_SerialNumberBYTE2 (2*ButtonAmount + 2*MirrorButtonsAmount*RFnumberOfSavedCodes + 7)
+#define EE_SerialNumberBYTE3 (2*ButtonAmount + 2*MirrorButtonsAmount*RFnumberOfSavedCodes + 8)
+#define EE_SerialNumberBYTE4 (2*ButtonAmount + 2*MirrorButtonsAmount*RFnumberOfSavedCodes + 9)
 
 /******************************************************************************/
 /* Structures                                                                 */
@@ -113,7 +105,10 @@ typedef struct EEdata
 {
     unsigned char BlueToothFlag;
     unsigned long SWNECcode;
+
     unsigned char RemoteButtonNEC[ButtonAmount][2];
+    /* RemoteButtonNEC[amount of availabe buttons][Address,Command] */
+
     unsigned char EEPROMinitFlag;
 }GBLdata1;
 
@@ -131,7 +126,12 @@ typedef struct EEdata2
      * rfnum 6 is for config 2 channel H device 2
      * rfnum 7 is for config 2 channel H device 3
      */
-    unsigned char RemoteButtonRF[RFcodesAmount][MirrorButtonsAmount][2];
+    unsigned char RemoteButtonRF[RFnumberOfSavedCodes][MirrorButtonsAmount][2];
+    /* 
+     * RemoteButtonRF[amount of Rf codes]
+     * [amount of buttons that can control that code][Address,Command]
+     */
+
     unsigned long SerialNumber;
 }GBLdata2;
 

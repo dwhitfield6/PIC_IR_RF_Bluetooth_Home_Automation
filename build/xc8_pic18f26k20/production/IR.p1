@@ -1,12 +1,12 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F4293 `uc ~T0 @X0 -> 2 `i t ]
-"112 EEPROM.h
-[s S380 `uc 1 `ul 1 `F4293 -> 12 `i `uc 1 ]
+[v F4300 `uc ~T0 @X0 -> 2 `i t ]
+"104 EEPROM.h
+[s S380 `uc 1 `ul 1 `F4300 -> 12 `i `uc 1 ]
 [n S380 EEdata BlueToothFlag SWNECcode RemoteButtonNEC EEPROMinitFlag ]
-[v F4299 `uc ~T0 @X0 -> 2 `i t ]
-[v F4298 `F4299 ~T0 @X0 -> 3 `i t ]
-"120
-[s S381 `F4298 -> 10 `i `ul 1 ]
+[v F4306 `uc ~T0 @X0 -> 2 `i t ]
+[v F4305 `F4306 ~T0 @X0 -> 3 `i t ]
+"115
+[s S381 `F4305 -> 8 `i `ul 1 ]
 [n S381 EEdata2 RemoteButtonRF SerialNumber ]
 "384 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [s S16 :4 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -57,8 +57,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _INTCONbits `VS334 ~T0 @X0 0 e@4082 ]
 "739
 [v _PORTB `Vuc ~T0 @X0 0 e@3969 ]
-"182 Timer.h
-[v _LEDTimerON `(v ~T0 @X0 0 ef ]
 "232 IR.h
 [v _DecodeNEC `(uc ~T0 @X0 0 ef3`ul`*uc`*uc ]
 "39 Button.h
@@ -69,11 +67,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _LATC `Vuc ~T0 @X0 0 e@3979 ]
 "67 MISC.h
 [v _delayUS `(v ~T0 @X0 0 ef1`l ]
-"200 RF.h
+"216 RF.h
 [v _SendRF_Channel `(v ~T0 @X0 0 ef1`uc ]
 "40 Button.h
 [v _ReadCodeButtons `(uc ~T0 @X0 0 ef ]
-"192 RF.h
+"182 Timer.h
+[v _LEDTimerON `(v ~T0 @X0 0 ef ]
+"208 RF.h
 [v _RF_IR `uc ~T0 @X0 0 e ]
 "83 MISC.h
 [v _Reverse_4Byte `(ul ~T0 @X0 0 ef1`ul ]
@@ -81,7 +81,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _TMR2 `Vuc ~T0 @X0 0 e@4044 ]
 "5191
 [v _PR2 `Vuc ~T0 @X0 0 e@4043 ]
-"191 RF.h
+"207 RF.h
 [v _RF_IR_Postscaler `Vuc ~T0 @X0 0 e ]
 "5127 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [s S274 :2 `uc 1 :1 `uc 1 :4 `uc 1 ]
@@ -3786,8 +3786,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [; ;user.h: 52: unsigned char ProductName[50] = {"Home Automation"};
-[; ;user.h: 280: void InitApp(void);
-[; ;user.h: 281: void Init_System (void);
+[; ;user.h: 284: void InitApp(void);
+[; ;user.h: 285: void Init_System (void);
 [; ;IR.h: 204: extern unsigned char IRpinOLD;
 [; ;IR.h: 205: extern unsigned int IRRawCode[100];
 [; ;IR.h: 206: extern unsigned long IR_NEC;
@@ -3852,7 +3852,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;MISC.h: 88: unsigned char IsAlphaNumericString(unsigned char* data);
 [; ;MISC.h: 89: unsigned char IsAlphaNumeric(unsigned char data);
 [; ;MISC.h: 90: unsigned char IsNumber(unsigned char data);
-"128 RF.h
+"137 RF.h
 [v _Conf1_Channels `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_Channels
 :U ..
@@ -3862,8 +3862,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 128: const unsigned char Conf1_Channels[] = "DEF";
-"131
+[; ;RF.h: 137: const unsigned char Conf1_Channels[] = "DEF";
+"140
 [v _Conf1_ChannelD `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelD
 :U ..
@@ -3881,8 +3881,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 131: const unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
-"132
+[; ;RF.h: 140: const unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
+"141
 [v _Conf1_ChannelD_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelD_STR
 :U ..
@@ -3903,8 +3903,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 132: const unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
-"135
+[; ;RF.h: 141: const unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
+"144
 [v _Conf1_ChannelE `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelE
 :U ..
@@ -3922,8 +3922,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 135: const unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
-"136
+[; ;RF.h: 144: const unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
+"145
 [v _Conf1_ChannelE_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelE_STR
 :U ..
@@ -3944,8 +3944,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 136: const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
-"139
+[; ;RF.h: 145: const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
+"148
 [v _Conf1_ChannelF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelF
 :U ..
@@ -3963,8 +3963,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 139: const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
-"140
+[; ;RF.h: 148: const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
+"149
 [v _Conf1_ChannelF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelF_STR
 :U ..
@@ -3985,8 +3985,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 140: const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
-"154
+[; ;RF.h: 149: const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
+"163
 [v _Conf2_Channels `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_Channels
 :U ..
@@ -3996,8 +3996,30 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 154: const unsigned char Conf2_Channels[] = "BDH";
-"156
+[; ;RF.h: 163: const unsigned char Conf2_Channels[] = "BDH";
+"165
+[v _Conf2_ChannelB_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelB_STR
+:U ..
+-> 67 `c
+-> 111 `c
+-> 110 `c
+-> 102 `c
+-> 50 `c
+-> 95 `c
+-> 67 `c
+-> 104 `c
+-> 97 `c
+-> 110 `c
+-> 110 `c
+-> 101 `c
+-> 108 `c
+-> 66 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 165: const unsigned char Conf2_ChannelB_STR[] = "Conf2_ChannelB";
+"166
 [v _Conf2_ChannelB_ON `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_ON
 :U ..
@@ -4019,8 +4041,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 156: const unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
-"157
+[; ;RF.h: 166: const unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
+"167
 [v _Conf2_ChannelB_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_ON_STR
 :U ..
@@ -4044,8 +4066,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 157: const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
-"158
+[; ;RF.h: 167: const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
+"168
 [v _Conf2_ChannelB_OFF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_OFF
 :U ..
@@ -4067,8 +4089,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 158: const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
-"159
+[; ;RF.h: 168: const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
+"169
 [v _Conf2_ChannelB_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_OFF_STR
 :U ..
@@ -4093,8 +4115,30 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 159: const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
-"162
+[; ;RF.h: 169: const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
+"172
+[v _Conf2_ChannelD_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelD_STR
+:U ..
+-> 67 `c
+-> 111 `c
+-> 110 `c
+-> 102 `c
+-> 50 `c
+-> 95 `c
+-> 67 `c
+-> 104 `c
+-> 97 `c
+-> 110 `c
+-> 110 `c
+-> 101 `c
+-> 108 `c
+-> 68 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 172: const unsigned char Conf2_ChannelD_STR[] = "Conf2_ChannelD";
+"173
 [v _Conf2_ChannelD_ON `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_ON
 :U ..
@@ -4116,8 +4160,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 1 `i `uc
 ..
 ]
-[; ;RF.h: 162: const unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
-"163
+[; ;RF.h: 173: const unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
+"174
 [v _Conf2_ChannelD_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_ON_STR
 :U ..
@@ -4141,8 +4185,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 163: const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
-"164
+[; ;RF.h: 174: const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
+"175
 [v _Conf2_ChannelD_OFF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_OFF
 :U ..
@@ -4164,8 +4208,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 1 `i `uc
 ..
 ]
-[; ;RF.h: 164: const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
-"165
+[; ;RF.h: 175: const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
+"176
 [v _Conf2_ChannelD_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_OFF_STR
 :U ..
@@ -4190,8 +4234,32 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 165: const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
-"168
+[; ;RF.h: 176: const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
+"179
+[v _Conf2_ChannelH_1_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelH_1_STR
+:U ..
+-> 67 `c
+-> 111 `c
+-> 110 `c
+-> 102 `c
+-> 50 `c
+-> 95 `c
+-> 67 `c
+-> 104 `c
+-> 97 `c
+-> 110 `c
+-> 110 `c
+-> 101 `c
+-> 108 `c
+-> 72 `c
+-> 95 `c
+-> 49 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 179: const unsigned char Conf2_ChannelH_1_STR[] = "Conf2_ChannelH_1";
+"180
 [v _Conf2_ChannelH_1_ON `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_ON
 :U ..
@@ -4213,8 +4281,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 168: const unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
-"169
+[; ;RF.h: 180: const unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
+"181
 [v _Conf2_ChannelH_1_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_ON_STR
 :U ..
@@ -4240,8 +4308,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 169: const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
-"170
+[; ;RF.h: 181: const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
+"182
 [v _Conf2_ChannelH_1_OFF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_OFF
 :U ..
@@ -4263,8 +4331,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 170: const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
-"171
+[; ;RF.h: 182: const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
+"183
 [v _Conf2_ChannelH_1_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_OFF_STR
 :U ..
@@ -4291,8 +4359,32 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 171: const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
-"172
+[; ;RF.h: 183: const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
+"185
+[v _Conf2_ChannelH_2_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelH_2_STR
+:U ..
+-> 67 `c
+-> 111 `c
+-> 110 `c
+-> 102 `c
+-> 50 `c
+-> 95 `c
+-> 67 `c
+-> 104 `c
+-> 97 `c
+-> 110 `c
+-> 110 `c
+-> 101 `c
+-> 108 `c
+-> 72 `c
+-> 95 `c
+-> 50 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 185: const unsigned char Conf2_ChannelH_2_STR[] = "Conf2_ChannelH_2";
+"186
 [v _Conf2_ChannelH_2_ON `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_ON
 :U ..
@@ -4314,8 +4406,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 172: const unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
-"173
+[; ;RF.h: 186: const unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
+"187
 [v _Conf2_ChannelH_2_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_ON_STR
 :U ..
@@ -4341,8 +4433,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 173: const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
-"174
+[; ;RF.h: 187: const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
+"188
 [v _Conf2_ChannelH_2_OFF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_OFF
 :U ..
@@ -4364,8 +4456,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 174: const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
-"175
+[; ;RF.h: 188: const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
+"189
 [v _Conf2_ChannelH_2_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_OFF_STR
 :U ..
@@ -4392,8 +4484,32 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 175: const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
-"176
+[; ;RF.h: 189: const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
+"191
+[v _Conf2_ChannelH_3_STR `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Conf2_ChannelH_3_STR
+:U ..
+-> 67 `c
+-> 111 `c
+-> 110 `c
+-> 102 `c
+-> 50 `c
+-> 95 `c
+-> 67 `c
+-> 104 `c
+-> 97 `c
+-> 110 `c
+-> 110 `c
+-> 101 `c
+-> 108 `c
+-> 72 `c
+-> 95 `c
+-> 51 `c
+-> 0 `c
+..
+]
+[; ;RF.h: 191: const unsigned char Conf2_ChannelH_3_STR[] = "Conf2_ChannelH_3";
+"192
 [v _Conf2_ChannelH_3_ON `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_ON
 :U ..
@@ -4415,8 +4531,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 176: const unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
-"177
+[; ;RF.h: 192: const unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
+"193
 [v _Conf2_ChannelH_3_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_ON_STR
 :U ..
@@ -4442,8 +4558,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 177: const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
-"178
+[; ;RF.h: 193: const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
+"194
 [v _Conf2_ChannelH_3_OFF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_OFF
 :U ..
@@ -4465,8 +4581,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 178: const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
-"179
+[; ;RF.h: 194: const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
+"195
 [v _Conf2_ChannelH_3_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_OFF_STR
 :U ..
@@ -4493,22 +4609,23 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 179: const unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
-[; ;RF.h: 184: extern unsigned char RFsendCode[20];
-[; ;RF.h: 185: extern volatile unsigned char RFsendFlag;
-[; ;RF.h: 186: extern unsigned char RFcodePlace;
-[; ;RF.h: 187: extern unsigned char RFcodeBit;
-[; ;RF.h: 188: extern volatile unsigned char Sendcount;
-[; ;RF.h: 189: extern unsigned char RFConfig;
-"190
+[; ;RF.h: 195: const unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
+[; ;RF.h: 200: extern unsigned char RFsendCode[20];
+[; ;RF.h: 201: extern volatile unsigned char RFsendFlag;
+[; ;RF.h: 202: extern unsigned char RFcodePlace;
+[; ;RF.h: 203: extern unsigned char RFcodeBit;
+[; ;RF.h: 204: extern volatile unsigned char Sendcount;
+[; ;RF.h: 205: extern unsigned char RFConfig;
+"206
 [v _Sent `Vuc ~T0 @X0 1 e ]
-[; ;RF.h: 190: volatile unsigned char Sent;
-[; ;RF.h: 191: extern volatile unsigned char RF_IR_Postscaler;
-[; ;RF.h: 192: extern unsigned char RF_IR;
-[; ;RF.h: 198: unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
-[; ;RF.h: 199: void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
-[; ;RF.h: 200: void SendRF_Channel(unsigned char channel);
-[; ;RF.h: 201: unsigned char GetRFstatus(void);
+[; ;RF.h: 206: volatile unsigned char Sent;
+[; ;RF.h: 207: extern volatile unsigned char RF_IR_Postscaler;
+[; ;RF.h: 208: extern unsigned char RF_IR;
+[; ;RF.h: 214: unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
+[; ;RF.h: 215: void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
+[; ;RF.h: 216: void SendRF_Channel(unsigned char channel);
+[; ;RF.h: 217: unsigned char GetRFstatus(void);
+[; ;RF.h: 218: void DisplayRF_Channel(unsigned char channel);
 [; ;UART.h: 124: extern volatile unsigned char ReceivedString[100];
 [; ;UART.h: 125: extern volatile unsigned char ReceivedStringPos;
 [; ;UART.h: 126: extern volatile unsigned char CommandString[100];
@@ -4567,16 +4684,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;UART.h: 149: void ClearUSART(void);
 [; ;Button.h: 39: unsigned char ReadPushButton(void);
 [; ;Button.h: 40: unsigned char ReadCodeButtons(void);
-[; ;EEPROM.h: 112: typedef struct EEdata
-[; ;EEPROM.h: 113: {
-[; ;EEPROM.h: 114: unsigned char BlueToothFlag;
-[; ;EEPROM.h: 115: unsigned long SWNECcode;
-[; ;EEPROM.h: 116: unsigned char RemoteButtonNEC[12][2];
-[; ;EEPROM.h: 117: unsigned char EEPROMinitFlag;
-[; ;EEPROM.h: 118: }GBLdata1;
-[; ;EEPROM.h: 120: typedef struct EEdata2
-[; ;EEPROM.h: 121: {
-[; ;EEPROM.h: 134: unsigned char RemoteButtonRF[10][3][2];
+[; ;EEPROM.h: 104: typedef struct EEdata
+[; ;EEPROM.h: 105: {
+[; ;EEPROM.h: 106: unsigned char BlueToothFlag;
+[; ;EEPROM.h: 107: unsigned long SWNECcode;
+[; ;EEPROM.h: 109: unsigned char RemoteButtonNEC[12][2];
+[; ;EEPROM.h: 112: unsigned char EEPROMinitFlag;
+[; ;EEPROM.h: 113: }GBLdata1;
+[; ;EEPROM.h: 115: typedef struct EEdata2
+[; ;EEPROM.h: 116: {
+[; ;EEPROM.h: 129: unsigned char RemoteButtonRF[8][3][2];
 [; ;EEPROM.h: 135: unsigned long SerialNumber;
 [; ;EEPROM.h: 136: }GBLdata2;
 "141 EEPROM.h
@@ -5170,228 +5287,230 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;IR.c: 273: unsigned char i,j;
 [; ;IR.c: 274: unsigned char found = 0;
 [e = _found -> -> 0 `i `uc ]
-[; ;IR.c: 276: LEDTimerON();
+[; ;IR.c: 276: if(*Code == 2 || *Code == 1)
 "276
-[e ( _LEDTimerON ..  ]
-[; ;IR.c: 277: if(*Code == 2 || *Code == 1)
-"277
 [e $ ! || == -> *U _Code `i -> 2 `i == -> *U _Code `i -> 1 `i 417  ]
-[; ;IR.c: 278: {
+[; ;IR.c: 277: {
+"277
+{
+[; ;IR.c: 278: DecodeNEC(NEC, &IRaddress, &IRcommand);
 "278
-{
-[; ;IR.c: 279: DecodeNEC(NEC, &IRaddress, &IRcommand);
-"279
 [e ( _DecodeNEC (3 , , _NEC &U _IRaddress &U _IRcommand ]
-[; ;IR.c: 280: if(ReadPushButton())
-"280
+[; ;IR.c: 279: if(ReadPushButton())
+"279
 [e $ ! != -> ( _ReadPushButton ..  `i -> -> -> 0 `i `uc `i 418  ]
-[; ;IR.c: 281: {
+[; ;IR.c: 280: {
+"280
+{
+[; ;IR.c: 281: Global1.SWNECcode = NEC;
 "281
-{
-[; ;IR.c: 282: Global1.SWNECcode = NEC;
-"282
 [e = . _Global1 1 _NEC ]
-[; ;IR.c: 283: if(SyncGlobalToEEPROM())
-"283
+[; ;IR.c: 282: if(SyncGlobalToEEPROM())
+"282
 [e $ ! != -> ( _SyncGlobalToEEPROM ..  `i -> -> -> 0 `i `uc `i 419  ]
-[; ;IR.c: 284: {
-"284
+[; ;IR.c: 283: {
+"283
 {
-[; ;IR.c: 286: for(i =0;i<10;i++)
-"286
+[; ;IR.c: 285: for(i =0;i<10;i++)
+"285
 {
 [e = _i -> -> 0 `i `uc ]
 [e $ < -> _i `i -> 10 `i 420  ]
 [e $U 421  ]
-"287
-[e :U 420 ]
-[; ;IR.c: 287: {
-{
-[; ;IR.c: 288: (LATC |= 0x04);
-"288
-[e =| _LATC -> -> 4 `i `uc ]
-[; ;IR.c: 289: delayUS(50000);
-"289
-[e ( _delayUS (1 -> 50000 `l ]
-[; ;IR.c: 290: (LATC &= ~0x04);
-"290
-[e =& _LATC -> ~ -> 4 `i `uc ]
-[; ;IR.c: 291: delayUS(50000);
-"291
-[e ( _delayUS (1 -> 50000 `l ]
-"292
-}
 "286
+[e :U 420 ]
+[; ;IR.c: 286: {
+{
+[; ;IR.c: 287: (LATC |= 0x04);
+"287
+[e =| _LATC -> -> 4 `i `uc ]
+[; ;IR.c: 288: delayUS(50000);
+"288
+[e ( _delayUS (1 -> 50000 `l ]
+[; ;IR.c: 289: (LATC &= ~0x04);
+"289
+[e =& _LATC -> ~ -> 4 `i `uc ]
+[; ;IR.c: 290: delayUS(50000);
+"290
+[e ( _delayUS (1 -> 50000 `l ]
+"291
+}
+"285
 [e ++ _i -> -> 1 `i `uc ]
 [e $ < -> _i `i -> 10 `i 420  ]
 [e :U 421 ]
+"291
+}
 "292
 }
-"293
-}
+[; ;IR.c: 291: }
 [; ;IR.c: 292: }
-[; ;IR.c: 293: }
 [e $U 423  ]
-"294
+"293
 [e :U 419 ]
-[; ;IR.c: 294: else
-[; ;IR.c: 295: {
-"295
+[; ;IR.c: 293: else
+[; ;IR.c: 294: {
+"294
 {
-[; ;IR.c: 297: for(i =0;i<10;i++)
-"297
+[; ;IR.c: 296: for(i =0;i<10;i++)
+"296
 {
 [e = _i -> -> 0 `i `uc ]
 [e $ < -> _i `i -> 10 `i 424  ]
 [e $U 425  ]
-"298
-[e :U 424 ]
-[; ;IR.c: 298: {
-{
-[; ;IR.c: 299: (LATC |= 0x02);
-"299
-[e =| _LATC -> -> 2 `i `uc ]
-[; ;IR.c: 300: delayUS(50000);
-"300
-[e ( _delayUS (1 -> 50000 `l ]
-[; ;IR.c: 301: (LATC &= ~0x02);
-"301
-[e =& _LATC -> ~ -> 2 `i `uc ]
-[; ;IR.c: 302: delayUS(50000);
-"302
-[e ( _delayUS (1 -> 50000 `l ]
-"303
-}
 "297
+[e :U 424 ]
+[; ;IR.c: 297: {
+{
+[; ;IR.c: 298: (LATC |= 0x02);
+"298
+[e =| _LATC -> -> 2 `i `uc ]
+[; ;IR.c: 299: delayUS(50000);
+"299
+[e ( _delayUS (1 -> 50000 `l ]
+[; ;IR.c: 300: (LATC &= ~0x02);
+"300
+[e =& _LATC -> ~ -> 2 `i `uc ]
+[; ;IR.c: 301: delayUS(50000);
+"301
+[e ( _delayUS (1 -> 50000 `l ]
+"302
+}
+"296
 [e ++ _i -> -> 1 `i `uc ]
 [e $ < -> _i `i -> 10 `i 424  ]
 [e :U 425 ]
+"302
+}
 "303
 }
+[e :U 423 ]
 "304
 }
-[e :U 423 ]
-"305
-}
+[; ;IR.c: 302: }
 [; ;IR.c: 303: }
 [; ;IR.c: 304: }
-[; ;IR.c: 305: }
 [e $U 427  ]
-"306
+"305
 [e :U 418 ]
-[; ;IR.c: 306: else
-[; ;IR.c: 307: {
+[; ;IR.c: 305: else
+[; ;IR.c: 306: {
+"306
+{
+[; ;IR.c: 307: if(NEC == Global1.SWNECcode)
 "307
-{
-[; ;IR.c: 308: if(NEC == Global1.SWNECcode)
-"308
 [e $ ! == _NEC . _Global1 1 428  ]
-[; ;IR.c: 309: {
+[; ;IR.c: 308: {
+"308
+{
+[; ;IR.c: 309: if(*Code == 2)
 "309
-{
-[; ;IR.c: 310: if(*Code == 2)
-"310
 [e $ ! == -> *U _Code `i -> 2 `i 429  ]
-[; ;IR.c: 311: {
-"311
+[; ;IR.c: 310: {
+"310
 {
-[; ;IR.c: 312: (LATC |= 0x02);
-"312
+[; ;IR.c: 311: (LATC |= 0x02);
+"311
 [e =| _LATC -> -> 2 `i `uc ]
-"313
+"312
 }
 [e :U 429 ]
-[; ;IR.c: 313: }
-[; ;IR.c: 314: (LATC |= 0x04);
-"314
-[e =| _LATC -> -> 4 `i `uc ]
-[; ;IR.c: 315: SendRF_Channel(ReadCodeButtons());
-"315
+[; ;IR.c: 312: }
+[; ;IR.c: 313: SendRF_Channel(ReadCodeButtons());
+"313
 [e ( _SendRF_Channel (1 ( _ReadCodeButtons ..  ]
-[; ;IR.c: 316: found = 1;
-"316
+[; ;IR.c: 314: found = 1;
+"314
 [e = _found -> -> 1 `i `uc ]
-"317
+"315
 }
 [e :U 428 ]
-[; ;IR.c: 317: }
-[; ;IR.c: 319: for(j=0; j < 3; j++)
-"319
+[; ;IR.c: 315: }
+[; ;IR.c: 317: for(j=0; j < 3; j++)
+"317
 {
 [e = _j -> -> 0 `i `uc ]
 [e $ < -> _j `i -> 3 `i 430  ]
 [e $U 431  ]
-"320
+"318
 [e :U 430 ]
-[; ;IR.c: 320: {
+[; ;IR.c: 318: {
 {
-[; ;IR.c: 321: for(i=0; i < 10; i++)
-"321
+[; ;IR.c: 319: for(i=0; i < 8; i++)
+"319
 {
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 10 `i 433  ]
+[e $ < -> _i `i -> 8 `i 433  ]
 [e $U 434  ]
-"322
+"320
 [e :U 433 ]
-[; ;IR.c: 322: {
+[; ;IR.c: 320: {
 {
-[; ;IR.c: 324: if(IRaddress == Global2.RemoteButtonRF[i][j][0])
-"324
+[; ;IR.c: 322: if(IRaddress == Global2.RemoteButtonRF[i][j][0])
+"322
 [e $ ! == -> _IRaddress `i -> *U + &U *U + &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux `ui `ux `i 436  ]
+[; ;IR.c: 323: {
+"323
+{
+[; ;IR.c: 324: if(IRcommand == Global2.RemoteButtonRF[i][j][1])
+"324
+[e $ ! == -> _IRcommand `i -> *U + &U *U + &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux `ui `ux `i 437  ]
 [; ;IR.c: 325: {
 "325
 {
-[; ;IR.c: 326: if(IRcommand == Global2.RemoteButtonRF[i][j][1])
+[; ;IR.c: 326: if(*Code == 2)
 "326
-[e $ ! == -> _IRcommand `i -> *U + &U *U + &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> 3 `i `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux `ui `ux `i 437  ]
+[e $ ! == -> *U _Code `i -> 2 `i 438  ]
 [; ;IR.c: 327: {
 "327
 {
-[; ;IR.c: 328: if(*Code == 2)
+[; ;IR.c: 328: (LATC |= 0x02);
 "328
-[e $ ! == -> *U _Code `i -> 2 `i 438  ]
-[; ;IR.c: 329: {
-"329
-{
-[; ;IR.c: 330: (LATC |= 0x02);
-"330
 [e =| _LATC -> -> 2 `i `uc ]
-"331
+"329
 }
 [e :U 438 ]
-[; ;IR.c: 331: }
-[; ;IR.c: 332: SendRF_Channel(i);
-"332
+[; ;IR.c: 329: }
+[; ;IR.c: 330: SendRF_Channel(i);
+"330
 [e ( _SendRF_Channel (1 _i ]
-[; ;IR.c: 333: found = 1;
-"333
+[; ;IR.c: 331: found = 1;
+"331
 [e = _found -> -> 1 `i `uc ]
-"334
+"332
 }
 [e :U 437 ]
-"335
+"333
 }
 [e :U 436 ]
-"336
-}
-"321
-[e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 10 `i 433  ]
-[e :U 434 ]
-"336
-}
-"337
+"334
 }
 "319
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 8 `i 433  ]
+[e :U 434 ]
+"334
+}
+"335
+}
+"317
 [e ++ _j -> -> 1 `i `uc ]
 [e $ < -> _j `i -> 3 `i 430  ]
 [e :U 431 ]
+"335
+}
 "337
 }
+[e :U 427 ]
+"338
+}
+[e :U 417 ]
+[; ;IR.c: 332: }
+[; ;IR.c: 333: }
 [; ;IR.c: 334: }
 [; ;IR.c: 335: }
-[; ;IR.c: 336: }
 [; ;IR.c: 337: }
+[; ;IR.c: 338: }
 [; ;IR.c: 339: if(found == 0)
 "339
 [e $ ! == -> _found `i -> 0 `i 439  ]
@@ -5401,520 +5520,515 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;IR.c: 341: (LATC |= 0x02);
 "341
 [e =| _LATC -> -> 2 `i `uc ]
+[; ;IR.c: 342: LEDTimerON();
 "342
-}
-[e :U 439 ]
+[e ( _LEDTimerON ..  ]
 "343
 }
-[e :U 427 ]
-"344
-}
-[e :U 417 ]
-[; ;IR.c: 342: }
+[e :U 439 ]
 [; ;IR.c: 343: }
-[; ;IR.c: 344: }
-[; ;IR.c: 345: *Code = 0;
-"345
+[; ;IR.c: 344: *Code = 0;
+"344
 [e = *U _Code -> -> 0 `i `uc ]
-[; ;IR.c: 346: IRpinOLD = ReadIRpin();
-"346
+[; ;IR.c: 345: IRpinOLD = ReadIRpin();
+"345
 [e = _IRpinOLD ( _ReadIRpin ..  ]
-[; ;IR.c: 347: INTCONbits.RBIF = 0;
-"347
+[; ;IR.c: 346: INTCONbits.RBIF = 0;
+"346
 [e = . . _INTCONbits 0 0 -> -> 0 `i `uc ]
-[; ;IR.c: 348: (IOCBbits.IOCB4 = 1);
-"348
+[; ;IR.c: 347: (IOCBbits.IOCB4 = 1);
+"347
 [e = . . _IOCBbits 0 1 -> -> 1 `i `uc ]
-[; ;IR.c: 349: INTCONbits.RBIE = 1;
-"349
+[; ;IR.c: 348: INTCONbits.RBIE = 1;
+"348
 [e = . . _INTCONbits 0 3 -> -> 1 `i `uc ]
-[; ;IR.c: 350: }
-"350
+[; ;IR.c: 349: }
+"349
 [e :UE 416 ]
 }
-"356
+"355
 [v _SendNEC_bytes `(uc ~T0 @X0 1 ef2`ul`uc ]
-"357
-{
-[; ;IR.c: 356: unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount)
-[; ;IR.c: 357: {
-[e :U _SendNEC_bytes ]
 "356
+{
+[; ;IR.c: 355: unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount)
+[; ;IR.c: 356: {
+[e :U _SendNEC_bytes ]
+"355
 [v _code `ul ~T0 @X0 1 r1 ]
 [v _RepeatAmount `uc ~T0 @X0 1 r2 ]
-"357
+"356
 [f ]
-[; ;IR.c: 385: if(Sent)
-"385
+[; ;IR.c: 384: if(Sent)
+"384
 [e $ ! != -> _Sent `i -> -> -> 0 `i `Vuc `i 441  ]
-[; ;IR.c: 386: {
-"386
+[; ;IR.c: 385: {
+"385
 {
-[; ;IR.c: 388: if(!code)
-"388
+[; ;IR.c: 387: if(!code)
+"387
 [e $ ! ! != _code -> -> 0 `i `ul 442  ]
-[; ;IR.c: 389: {
-"389
+[; ;IR.c: 388: {
+"388
 {
-[; ;IR.c: 390: return 0;
-"390
+[; ;IR.c: 389: return 0;
+"389
 [e ) -> -> 0 `i `uc ]
 [e $UE 440  ]
-"391
+"390
 }
 [e :U 442 ]
-[; ;IR.c: 391: }
-[; ;IR.c: 392: RF_IR = 66;
-"392
+[; ;IR.c: 390: }
+[; ;IR.c: 391: RF_IR = 66;
+"391
 [e = _RF_IR -> -> 66 `i `uc ]
-[; ;IR.c: 393: Sent = 0;
-"393
+[; ;IR.c: 392: Sent = 0;
+"392
 [e = _Sent -> -> 0 `i `uc ]
-[; ;IR.c: 394: IRsendFlag = 1;
-"394
+[; ;IR.c: 393: IRsendFlag = 1;
+"393
 [e = _IRsendFlag -> -> 1 `i `uc ]
-[; ;IR.c: 395: IRcodeBit = 0;
-"395
+[; ;IR.c: 394: IRcodeBit = 0;
+"394
 [e = _IRcodeBit -> -> 0 `i `uc ]
-[; ;IR.c: 396: IRcodePlace = 7;
-"396
+[; ;IR.c: 395: IRcodePlace = 7;
+"395
 [e = _IRcodePlace -> -> 7 `i `uc ]
-[; ;IR.c: 397: IRsendCode = Reverse_4Byte(code);
-"397
+[; ;IR.c: 396: IRsendCode = Reverse_4Byte(code);
+"396
 [e = _IRsendCode ( _Reverse_4Byte (1 _code ]
-[; ;IR.c: 398: if(RepeatAmount)
-"398
+[; ;IR.c: 397: if(RepeatAmount)
+"397
 [e $ ! != -> _RepeatAmount `i -> -> -> 0 `i `uc `i 443  ]
-[; ;IR.c: 399: {
-"399
+[; ;IR.c: 398: {
+"398
 {
-[; ;IR.c: 400: IRrepeatflag = 1;
-"400
+[; ;IR.c: 399: IRrepeatflag = 1;
+"399
 [e = _IRrepeatflag -> -> 1 `i `uc ]
-"401
+"400
 }
 [e :U 443 ]
-[; ;IR.c: 401: }
-[; ;IR.c: 402: IRrepeatAmount = RepeatAmount;
-"402
+[; ;IR.c: 400: }
+[; ;IR.c: 401: IRrepeatAmount = RepeatAmount;
+"401
 [e = _IRrepeatAmount _RepeatAmount ]
-[; ;IR.c: 403: (TMR2 = 0);
-"403
+[; ;IR.c: 402: (TMR2 = 0);
+"402
 [e = _TMR2 -> -> 0 `i `uc ]
-[; ;IR.c: 404: (PR2 = 150);
-"404
+[; ;IR.c: 403: (PR2 = 150);
+"403
 [e = _PR2 -> -> 150 `i `uc ]
-[; ;IR.c: 405: RF_IR_Postscaler = 4;
-"405
+[; ;IR.c: 404: RF_IR_Postscaler = 4;
+"404
 [e = _RF_IR_Postscaler -> -> 4 `i `uc ]
-[; ;IR.c: 406: (IRmod = 1);
-"406
+[; ;IR.c: 405: (IRmod = 1);
+"405
 [e = _IRmod -> -> 1 `i `uc ]
-[; ;IR.c: 407: (T2CONbits.TMR2ON = 1);
-"407
+[; ;IR.c: 406: (T2CONbits.TMR2ON = 1);
+"406
 [e = . . _T2CONbits 0 1 -> -> 1 `i `uc ]
-[; ;IR.c: 408: return 1;
-"408
+[; ;IR.c: 407: return 1;
+"407
 [e ) -> -> 1 `i `uc ]
 [e $UE 440  ]
-"409
+"408
 }
 [e :U 441 ]
-[; ;IR.c: 409: }
-[; ;IR.c: 410: return 2;
-"410
+[; ;IR.c: 408: }
+[; ;IR.c: 409: return 2;
+"409
 [e ) -> -> 2 `i `uc ]
 [e $UE 440  ]
-[; ;IR.c: 411: }
-"411
+[; ;IR.c: 410: }
+"410
 [e :UE 440 ]
 }
-"419
+"418
 [v _SendNEC_wait `(v ~T0 @X0 1 ef2`ul`uc ]
-"420
-{
-[; ;IR.c: 419: void SendNEC_wait(unsigned long code, unsigned char RepeatAmount)
-[; ;IR.c: 420: {
-[e :U _SendNEC_wait ]
 "419
+{
+[; ;IR.c: 418: void SendNEC_wait(unsigned long code, unsigned char RepeatAmount)
+[; ;IR.c: 419: {
+[e :U _SendNEC_wait ]
+"418
 [v _code `ul ~T0 @X0 1 r1 ]
 [v _RepeatAmount `uc ~T0 @X0 1 r2 ]
-"420
+"419
 [f ]
-"421
+"420
 [v _toggle `uc ~T0 @X0 1 a ]
-[; ;IR.c: 421: unsigned char toggle = 0;
+[; ;IR.c: 420: unsigned char toggle = 0;
 [e = _toggle -> -> 0 `i `uc ]
-[; ;IR.c: 422: while(CheckReceivingIR());
-"422
+[; ;IR.c: 421: while(CheckReceivingIR());
+"421
 [e $U 445  ]
 [e :U 446 ]
 [e :U 445 ]
 [e $ != -> ( _CheckReceivingIR ..  `i -> -> -> 0 `i `uc `i 446  ]
 [e :U 447 ]
-[; ;IR.c: 424: (IOCBbits.IOCB4 = 0);
-"424
+[; ;IR.c: 423: (IOCBbits.IOCB4 = 0);
+"423
 [e = . . _IOCBbits 0 1 -> -> 0 `i `uc ]
-[; ;IR.c: 425: INTCONbits.RBIE = 0;
-"425
+[; ;IR.c: 424: INTCONbits.RBIE = 0;
+"424
 [e = . . _INTCONbits 0 3 -> -> 0 `i `uc ]
-[; ;IR.c: 426: INTCONbits.PEIE = 0;
-"426
+[; ;IR.c: 425: INTCONbits.PEIE = 0;
+"425
 [e = . . _INTCONbits 1 6 -> -> 0 `i `uc ]
-[; ;IR.c: 428: SendNEC_bytes(code, RepeatAmount);
-"428
+[; ;IR.c: 427: SendNEC_bytes(code, RepeatAmount);
+"427
 [e ( _SendNEC_bytes (2 , _code _RepeatAmount ]
-[; ;IR.c: 429: while(!Sent)
-"429
+[; ;IR.c: 428: while(!Sent)
+"428
 [e $U 448  ]
 [e :U 449 ]
-[; ;IR.c: 430: {
+[; ;IR.c: 429: {
+"429
+{
+[; ;IR.c: 430: if(IRmod)
 "430
-{
-[; ;IR.c: 431: if(IRmod)
-"431
 [e $ ! != -> _IRmod `i -> -> -> 0 `i `Vuc `i 451  ]
-[; ;IR.c: 432: {
-"432
+[; ;IR.c: 431: {
+"431
 {
-[; ;IR.c: 434: if(toggle < 9)
-"434
+[; ;IR.c: 433: if(toggle < 9)
+"433
 [e $ ! < -> _toggle `i -> 9 `i 452  ]
-[; ;IR.c: 435: {
+[; ;IR.c: 434: {
+"434
+{
+[; ;IR.c: 435: (LATC |= 0x08);
 "435
-{
-[; ;IR.c: 436: (LATC |= 0x08);
-"436
 [e =| _LATC -> -> 8 `i `uc ]
-"437
+"436
 }
-[; ;IR.c: 437: }
+[; ;IR.c: 436: }
 [e $U 453  ]
-"438
+"437
 [e :U 452 ]
-[; ;IR.c: 438: else if(toggle < 17)
+[; ;IR.c: 437: else if(toggle < 17)
 [e $ ! < -> _toggle `i -> 17 `i 454  ]
-[; ;IR.c: 439: {
+[; ;IR.c: 438: {
+"438
+{
+[; ;IR.c: 439: (LATC &= ~0x08);
 "439
-{
-[; ;IR.c: 440: (LATC &= ~0x08);
-"440
 [e =& _LATC -> ~ -> 8 `i `uc ]
-"441
+"440
 }
-[; ;IR.c: 441: }
+[; ;IR.c: 440: }
 [e $U 455  ]
-"442
+"441
 [e :U 454 ]
-[; ;IR.c: 442: else
-[; ;IR.c: 443: {
-"443
+[; ;IR.c: 441: else
+[; ;IR.c: 442: {
+"442
 {
-[; ;IR.c: 444: toggle = 0;
-"444
+[; ;IR.c: 443: toggle = 0;
+"443
 [e = _toggle -> -> 0 `i `uc ]
-"445
+"444
 }
 [e :U 455 ]
 [e :U 453 ]
-[; ;IR.c: 445: }
-[; ;IR.c: 446: toggle++;
-"446
+[; ;IR.c: 444: }
+[; ;IR.c: 445: toggle++;
+"445
 [e ++ _toggle -> -> 1 `i `uc ]
-"447
+"446
 }
-[; ;IR.c: 447: }
+[; ;IR.c: 446: }
 [e $U 456  ]
-"448
+"447
 [e :U 451 ]
-[; ;IR.c: 448: else
-[; ;IR.c: 449: {
-"449
+[; ;IR.c: 447: else
+[; ;IR.c: 448: {
+"448
 {
-[; ;IR.c: 450: (LATC &= ~0x08);
-"450
+[; ;IR.c: 449: (LATC &= ~0x08);
+"449
 [e =& _LATC -> ~ -> 8 `i `uc ]
-[; ;IR.c: 451: toggle = 0;
-"451
+[; ;IR.c: 450: toggle = 0;
+"450
 [e = _toggle -> -> 0 `i `uc ]
-"452
+"451
 }
 [e :U 456 ]
-"453
+"452
 }
 [e :U 448 ]
-"429
+"428
 [e $ ! != -> _Sent `i -> -> -> 0 `i `Vuc `i 449  ]
 [e :U 450 ]
+[; ;IR.c: 451: }
 [; ;IR.c: 452: }
-[; ;IR.c: 453: }
-[; ;IR.c: 455: if(IRbitPosition)
-"455
+[; ;IR.c: 454: if(IRbitPosition)
+"454
 [e $ ! != -> _IRbitPosition `i -> -> -> 0 `i `Vuc `i 457  ]
-[; ;IR.c: 456: {
-"456
+[; ;IR.c: 455: {
+"455
 {
-[; ;IR.c: 458: __nop();
-"458
+[; ;IR.c: 457: __nop();
+"457
 [e ( ___nop ..  ]
-"459
+"458
 }
 [e :U 457 ]
-[; ;IR.c: 459: }
-[; ;IR.c: 461: INTCONbits.PEIE = 1;
-"461
+[; ;IR.c: 458: }
+[; ;IR.c: 460: INTCONbits.PEIE = 1;
+"460
 [e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
-[; ;IR.c: 462: delayUS(8000);
-"462
+[; ;IR.c: 461: delayUS(8000);
+"461
 [e ( _delayUS (1 -> -> 8000 `i `l ]
-[; ;IR.c: 463: IRpinOLD = ReadIRpin();
-"463
+[; ;IR.c: 462: IRpinOLD = ReadIRpin();
+"462
 [e = _IRpinOLD ( _ReadIRpin ..  ]
-[; ;IR.c: 464: INTCONbits.RBIF = 0;
-"464
+[; ;IR.c: 463: INTCONbits.RBIF = 0;
+"463
 [e = . . _INTCONbits 0 0 -> -> 0 `i `uc ]
-[; ;IR.c: 465: (IOCBbits.IOCB4 = 1);
-"465
+[; ;IR.c: 464: (IOCBbits.IOCB4 = 1);
+"464
 [e = . . _IOCBbits 0 1 -> -> 1 `i `uc ]
-[; ;IR.c: 466: INTCONbits.RBIE = 1;
-"466
+[; ;IR.c: 465: INTCONbits.RBIE = 1;
+"465
 [e = . . _INTCONbits 0 3 -> -> 1 `i `uc ]
-[; ;IR.c: 467: }
-"467
+[; ;IR.c: 466: }
+"466
 [e :UE 444 ]
 }
-"475
+"474
 [v _CalibrateIR `(v ~T0 @X0 1 ef ]
-"476
+"475
 {
-[; ;IR.c: 475: void CalibrateIR(void)
-[; ;IR.c: 476: {
+[; ;IR.c: 474: void CalibrateIR(void)
+[; ;IR.c: 475: {
 [e :U _CalibrateIR ]
 [f ]
-"477
+"476
 [v _toggle `uc ~T0 @X0 1 a ]
-[; ;IR.c: 477: unsigned char toggle = 0;
+[; ;IR.c: 476: unsigned char toggle = 0;
 [e = _toggle -> -> 0 `i `uc ]
-[; ;IR.c: 478: INTCONbits.GIE = 0;
-"478
+[; ;IR.c: 477: INTCONbits.GIE = 0;
+"477
 [e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
-[; ;IR.c: 479: INTCONbits.RBIE = 0;
-"479
+[; ;IR.c: 478: INTCONbits.RBIE = 0;
+"478
 [e = . . _INTCONbits 0 3 -> -> 0 `i `uc ]
-[; ;IR.c: 480: (IOCBbits.IOCB4 = 0);
-"480
+[; ;IR.c: 479: (IOCBbits.IOCB4 = 0);
+"479
 [e = . . _IOCBbits 0 1 -> -> 0 `i `uc ]
-[; ;IR.c: 481: INTCONbits.PEIE = 0;
-"481
+[; ;IR.c: 480: INTCONbits.PEIE = 0;
+"480
 [e = . . _INTCONbits 1 6 -> -> 0 `i `uc ]
-[; ;IR.c: 483: while(1)
-"483
+[; ;IR.c: 482: while(1)
+"482
 [e :U 460 ]
-[; ;IR.c: 484: {
-"484
+[; ;IR.c: 483: {
+"483
 {
-[; ;IR.c: 486: if(toggle < 9)
-"486
+[; ;IR.c: 485: if(toggle < 9)
+"485
 [e $ ! < -> _toggle `i -> 9 `i 462  ]
-[; ;IR.c: 487: {
+[; ;IR.c: 486: {
+"486
+{
+[; ;IR.c: 487: (LATC |= 0x08);
 "487
-{
-[; ;IR.c: 488: (LATC |= 0x08);
-"488
 [e =| _LATC -> -> 8 `i `uc ]
-"489
+"488
 }
-[; ;IR.c: 489: }
+[; ;IR.c: 488: }
 [e $U 463  ]
-"490
+"489
 [e :U 462 ]
-[; ;IR.c: 490: else if(toggle < 17)
+[; ;IR.c: 489: else if(toggle < 17)
 [e $ ! < -> _toggle `i -> 17 `i 464  ]
-[; ;IR.c: 491: {
+[; ;IR.c: 490: {
+"490
+{
+[; ;IR.c: 491: (LATC &= ~0x08);
 "491
-{
-[; ;IR.c: 492: (LATC &= ~0x08);
-"492
 [e =& _LATC -> ~ -> 8 `i `uc ]
-"493
+"492
 }
-[; ;IR.c: 493: }
+[; ;IR.c: 492: }
 [e $U 465  ]
-"494
+"493
 [e :U 464 ]
-[; ;IR.c: 494: else
-[; ;IR.c: 495: {
-"495
+[; ;IR.c: 493: else
+[; ;IR.c: 494: {
+"494
 {
-[; ;IR.c: 496: toggle = 0;
-"496
+[; ;IR.c: 495: toggle = 0;
+"495
 [e = _toggle -> -> 0 `i `uc ]
-"497
+"496
 }
 [e :U 465 ]
 [e :U 463 ]
-[; ;IR.c: 497: }
-[; ;IR.c: 498: toggle++;
-"498
+[; ;IR.c: 496: }
+[; ;IR.c: 497: toggle++;
+"497
 [e ++ _toggle -> -> 1 `i `uc ]
-"499
+"498
 }
 [e :U 459 ]
-"483
+"482
 [e $U 460  ]
 [e :U 461 ]
+[; ;IR.c: 498: }
 [; ;IR.c: 499: }
-[; ;IR.c: 500: }
-"500
+"499
 [e :UE 458 ]
 }
-"508
+"507
 [v _CheckReceivingIR `(uc ~T0 @X0 1 ef ]
-"509
+"508
 {
-[; ;IR.c: 508: unsigned char CheckReceivingIR(void)
-[; ;IR.c: 509: {
+[; ;IR.c: 507: unsigned char CheckReceivingIR(void)
+[; ;IR.c: 508: {
 [e :U _CheckReceivingIR ]
 [f ]
-[; ;IR.c: 510: if(ReceivingIR == 13)
-"510
+[; ;IR.c: 509: if(ReceivingIR == 13)
+"509
 [e $ ! == -> _ReceivingIR `i -> 13 `i 467  ]
-[; ;IR.c: 511: {
-"511
+[; ;IR.c: 510: {
+"510
 {
-[; ;IR.c: 512: return 0;
-"512
+[; ;IR.c: 511: return 0;
+"511
 [e ) -> -> 0 `i `uc ]
 [e $UE 466  ]
-"513
+"512
 }
 [e :U 467 ]
-[; ;IR.c: 513: }
-[; ;IR.c: 514: return 1;
-"514
+[; ;IR.c: 512: }
+[; ;IR.c: 513: return 1;
+"513
 [e ) -> -> 1 `i `uc ]
 [e $UE 466  ]
-[; ;IR.c: 515: }
-"515
+[; ;IR.c: 514: }
+"514
 [e :UE 466 ]
 }
-"522
+"521
 [v _EncodeNEC `(ul ~T0 @X0 1 ef2`uc`uc ]
-"523
-{
-[; ;IR.c: 522: unsigned long EncodeNEC(unsigned char address, unsigned char command)
-[; ;IR.c: 523: {
-[e :U _EncodeNEC ]
 "522
+{
+[; ;IR.c: 521: unsigned long EncodeNEC(unsigned char address, unsigned char command)
+[; ;IR.c: 522: {
+[e :U _EncodeNEC ]
+"521
 [v _address `uc ~T0 @X0 1 r1 ]
 [v _command `uc ~T0 @X0 1 r2 ]
-"523
+"522
 [f ]
-"524
+"523
 [v _temp1 `ul ~T0 @X0 1 a ]
-"525
+"524
 [v _temp2 `ul ~T0 @X0 1 a ]
-"526
+"525
 [v _temp3 `ul ~T0 @X0 1 a ]
-"527
+"526
 [v _temp4 `ul ~T0 @X0 1 a ]
-[; ;IR.c: 524: unsigned long temp1,
-[; ;IR.c: 525: temp2,
-[; ;IR.c: 526: temp3,
-[; ;IR.c: 527: temp4;
-[; ;IR.c: 535: temp1 = (unsigned long) Reverse_Byte(address);
-"535
+[; ;IR.c: 523: unsigned long temp1,
+[; ;IR.c: 524: temp2,
+[; ;IR.c: 525: temp3,
+[; ;IR.c: 526: temp4;
+[; ;IR.c: 534: temp1 = (unsigned long) Reverse_Byte(address);
+"534
 [e = _temp1 -> ( _Reverse_Byte (1 _address `ul ]
-[; ;IR.c: 536: temp2 = (unsigned long) Reverse_Byte(~address);
-"536
+[; ;IR.c: 535: temp2 = (unsigned long) Reverse_Byte(~address);
+"535
 [e = _temp2 -> ( _Reverse_Byte (1 -> ~ -> _address `i `uc `ul ]
-[; ;IR.c: 537: temp3 = (unsigned long) Reverse_Byte(command);
-"537
+[; ;IR.c: 536: temp3 = (unsigned long) Reverse_Byte(command);
+"536
 [e = _temp3 -> ( _Reverse_Byte (1 _command `ul ]
-[; ;IR.c: 538: temp4 = (unsigned long) Reverse_Byte(~command);
-"538
+[; ;IR.c: 537: temp4 = (unsigned long) Reverse_Byte(~command);
+"537
 [e = _temp4 -> ( _Reverse_Byte (1 -> ~ -> _command `i `uc `ul ]
-[; ;IR.c: 540: return ((temp1 << 24) + (temp2 << 16) + (temp3 << 8) + temp4);
-"540
+[; ;IR.c: 539: return ((temp1 << 24) + (temp2 << 16) + (temp3 << 8) + temp4);
+"539
 [e ) + + + << _temp1 -> 24 `i << _temp2 -> 16 `i << _temp3 -> 8 `i _temp4 ]
 [e $UE 468  ]
-[; ;IR.c: 541: }
-"541
+[; ;IR.c: 540: }
+"540
 [e :UE 468 ]
 }
-"548
+"547
 [v _DecodeNEC `(uc ~T0 @X0 1 ef3`ul`*uc`*uc ]
-"549
-{
-[; ;IR.c: 548: unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command)
-[; ;IR.c: 549: {
-[e :U _DecodeNEC ]
 "548
+{
+[; ;IR.c: 547: unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command)
+[; ;IR.c: 548: {
+[e :U _DecodeNEC ]
+"547
 [v _Nec `ul ~T0 @X0 1 r1 ]
 [v _address `*uc ~T0 @X0 1 r2 ]
 [v _command `*uc ~T0 @X0 1 r3 ]
-"549
+"548
 [f ]
-"550
+"549
 [v _temp1 `uc ~T0 @X0 1 a ]
-"551
+"550
 [v _temp2 `uc ~T0 @X0 1 a ]
-"552
+"551
 [v _temp3 `uc ~T0 @X0 1 a ]
-[; ;IR.c: 550: unsigned char temp1,
-[; ;IR.c: 551: temp2,
-[; ;IR.c: 552: temp3;
-[; ;IR.c: 554: temp1 = ~Reverse_Byte((unsigned char) (Nec & 0x00FF));
-"554
+[; ;IR.c: 549: unsigned char temp1,
+[; ;IR.c: 550: temp2,
+[; ;IR.c: 551: temp3;
+[; ;IR.c: 553: temp1 = ~Reverse_Byte((unsigned char) (Nec & 0x00FF));
+"553
 [e = _temp1 -> ~ -> ( _Reverse_Byte (1 -> & _Nec -> -> -> 255 `i `l `ul `uc `i `uc ]
-[; ;IR.c: 555: temp2 = Reverse_Byte((unsigned char) ((Nec & 0xFF00)>> 8));
-"555
+[; ;IR.c: 554: temp2 = Reverse_Byte((unsigned char) ((Nec & 0xFF00)>> 8));
+"554
 [e = _temp2 ( _Reverse_Byte (1 -> >> & _Nec -> -> 65280 `ui `ul -> 8 `i `uc ]
-[; ;IR.c: 556: if(temp1 != temp2)
-"556
+[; ;IR.c: 555: if(temp1 != temp2)
+"555
 [e $ ! != -> _temp1 `i -> _temp2 `i 470  ]
-[; ;IR.c: 557: {
-"557
+[; ;IR.c: 556: {
+"556
 {
-[; ;IR.c: 559: return 0;
-"559
+[; ;IR.c: 558: return 0;
+"558
 [e ) -> -> 0 `i `uc ]
 [e $UE 469  ]
-"560
+"559
 }
 [e :U 470 ]
-[; ;IR.c: 560: }
-[; ;IR.c: 561: temp1 = ~Reverse_Byte((unsigned char) ((Nec & 0x00FF0000) >> 16));
-"561
+[; ;IR.c: 559: }
+[; ;IR.c: 560: temp1 = ~Reverse_Byte((unsigned char) ((Nec & 0x00FF0000) >> 16));
+"560
 [e = _temp1 -> ~ -> ( _Reverse_Byte (1 -> >> & _Nec -> -> 16711680 `l `ul -> 16 `i `uc `i `uc ]
-[; ;IR.c: 562: temp3 = Reverse_Byte((unsigned char) ((Nec & 0xFF000000) >> 24));
-"562
+[; ;IR.c: 561: temp3 = Reverse_Byte((unsigned char) ((Nec & 0xFF000000) >> 24));
+"561
 [e = _temp3 ( _Reverse_Byte (1 -> >> & _Nec -> -16777216 `ul -> 24 `i `uc ]
-[; ;IR.c: 563: if(temp1 != temp3)
-"563
+[; ;IR.c: 562: if(temp1 != temp3)
+"562
 [e $ ! != -> _temp1 `i -> _temp3 `i 471  ]
-[; ;IR.c: 564: {
-"564
+[; ;IR.c: 563: {
+"563
 {
-[; ;IR.c: 566: return 0;
-"566
+[; ;IR.c: 565: return 0;
+"565
 [e ) -> -> 0 `i `uc ]
 [e $UE 469  ]
-"567
+"566
 }
 [e :U 471 ]
-[; ;IR.c: 567: }
-[; ;IR.c: 568: *command = temp2;
-"568
+[; ;IR.c: 566: }
+[; ;IR.c: 567: *command = temp2;
+"567
 [e = *U _command _temp2 ]
-[; ;IR.c: 569: *address = temp3;
-"569
+[; ;IR.c: 568: *address = temp3;
+"568
 [e = *U _address _temp3 ]
-[; ;IR.c: 570: return 1;
-"570
+[; ;IR.c: 569: return 1;
+"569
 [e ) -> -> 1 `i `uc ]
 [e $UE 469  ]
-[; ;IR.c: 571: }
-"571
+[; ;IR.c: 570: }
+"570
 [e :UE 469 ]
 }

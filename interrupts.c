@@ -673,11 +673,12 @@ void low_isr(void)
     else if(PIR1bits.TMR1IF)
     {
         Timer1_Postscaler++;
-        if(Timer1_Postscaler == LEDPostscaler)
+        if(Timer1_Postscaler >= LEDPostscaler)
         {
             GreenLEDOFF();
             RedLEDOFF();
             Timer1OFF();
+            Timer1_Postscaler = 0;
         }
         PIR1bits.TMR1IF = FALSE;
     }

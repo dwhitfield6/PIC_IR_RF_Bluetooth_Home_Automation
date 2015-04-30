@@ -10,6 +10,7 @@
  *                          Derived from project 'PIC_IR_to_RF_MICRF113_test'.
  * 04/09/15     1.0_DW0b    Fixed bugs.
  *                          Added features.
+ * 04/29/15     1.0_DW0d    Create new macro for holding the number of rf codes.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -42,7 +43,15 @@
  *
  * This contains the number times to repeat an RF code.
 /******************************************************************************/
-#define RFrepeatAmount 5
+#define RFrepeatAmount 7
+
+/******************************************************************************/
+/* RFnumberOfSavedCodes
+ *
+ * This contains the number of RF codes/channels.
+ * (See amount used in SendRF_Channel).
+/******************************************************************************/
+#define RFnumberOfSavedCodes 8
 
 /******************************************************************************/
 /* NumRfConfigs
@@ -153,26 +162,33 @@ const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
 
 const unsigned char Conf2_Channels[] = "BDH";
 /* channel B */
+const unsigned char Conf2_ChannelB_STR[] = "Conf2_ChannelB";
 const unsigned char Conf2_ChannelB_ON[] =  {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
 const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
 const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
 const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
 
 /* channel D */
+const unsigned char Conf2_ChannelD_STR[] = "Conf2_ChannelD";
 const unsigned char Conf2_ChannelD_ON[] =  {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
 const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
 const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
 const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
 
 /* channel H */
+const unsigned char Conf2_ChannelH_1_STR[] = "Conf2_ChannelH_1";
 const unsigned char Conf2_ChannelH_1_ON[] =  {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
 const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
 const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
 const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
+
+const unsigned char Conf2_ChannelH_2_STR[] = "Conf2_ChannelH_2";
 const unsigned char Conf2_ChannelH_2_ON[] =  {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
 const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
 const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
 const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
+
+const unsigned char Conf2_ChannelH_3_STR[] = "Conf2_ChannelH_3";
 const unsigned char Conf2_ChannelH_3_ON[] =  {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
 const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
 const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
@@ -199,6 +215,7 @@ unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned c
 void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
 void SendRF_Channel(unsigned char channel);
 unsigned char GetRFstatus(void);
+void DisplayRF_Channel(unsigned char channel);
 
 #endif	/* RF_H */
 

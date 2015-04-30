@@ -5001,7 +5001,7 @@ void ConfigureOscillator(void);
 # 52 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
 
-# 280
+# 284
 void InitApp(void);
 void Init_System (void);
 
@@ -5031,7 +5031,7 @@ unsigned char IsAlphaNumericString(unsigned char* data);
 unsigned char IsAlphaNumeric(unsigned char data);
 unsigned char IsNumber(unsigned char data);
 
-# 128 "RF.h"
+# 137 "RF.h"
 const unsigned char Conf1_Channels[] = "DEF";
 
 
@@ -5046,29 +5046,36 @@ const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
 const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
 const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
 
-# 154
+# 163
 const unsigned char Conf2_Channels[] = "BDH";
 
+const unsigned char Conf2_ChannelB_STR[] = "Conf2_ChannelB";
 const unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
 const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
 const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
 const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
 
 
+const unsigned char Conf2_ChannelD_STR[] = "Conf2_ChannelD";
 const unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
 const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
 const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
 const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
 
 
+const unsigned char Conf2_ChannelH_1_STR[] = "Conf2_ChannelH_1";
 const unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
 const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
 const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
 const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
+
+const unsigned char Conf2_ChannelH_2_STR[] = "Conf2_ChannelH_2";
 const unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
 const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
 const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
 const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
+
+const unsigned char Conf2_ChannelH_3_STR[] = "Conf2_ChannelH_3";
 const unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
 const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
 const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
@@ -5087,11 +5094,12 @@ volatile unsigned char Sent;
 extern volatile unsigned char RF_IR_Postscaler;
 extern unsigned char RF_IR;
 
-# 198
+# 214
 unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
 void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
 void SendRF_Channel(unsigned char channel);
 unsigned char GetRFstatus(void);
+void DisplayRF_Channel(unsigned char channel);
 
 # 124 "UART.h"
 extern volatile unsigned char ReceivedString[100];
@@ -5176,7 +5184,24 @@ unsigned char BluetoothConfigured(void);
 unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos);
 unsigned char WaitForIRsignal(void);
 
-# 71 "main.c"
+# 39 "Timer.h"
+extern unsigned char Timer1_Postscaler;
+extern unsigned char Timer2_Postscaler;
+extern unsigned char Timer3_Postscaler;
+
+# 176
+void InitTimer0(void);
+void ResetTimer0(void);
+void SetTimer0(unsigned int temp);
+void InitTimer1(void);
+void ResetTimer1(void);
+void InitTimer2(void);
+void LEDTimerON(void);
+void InitTimer3(void);
+void ResetTimer3(void);
+void InitTimers(void);
+
+# 73 "main.c"
 const unsigned char FirmVersion[] = {"1.0_DW0d"};
 const unsigned char PCBVersion[] = {"RevA"};
 const unsigned char Frequency[] = {"315"};
@@ -5185,10 +5210,10 @@ unsigned char BluetoothFirmware1[30];
 unsigned char BluetoothFirmware2[30];
 unsigned char BluetoothBroadcast[21];
 
-# 86
+# 88
 double BatteryVoltage = 0.0;
 
-# 92
+# 94
 void main(void)
 {
 unsigned char i=0;
@@ -5211,11 +5236,11 @@ InitApp();
 Init_System();
 
 BatteryVoltage = ReadVoltage();
-if(BatteryVoltage < 6.3 )
+if(BatteryVoltage < 4.4 )
 {
 VoltageStatus = 34;
 }
-else if (BatteryVoltage > 16.5)
+else if (BatteryVoltage > 18.6)
 {
 VoltageStatus = 98;
 }
@@ -5261,11 +5286,11 @@ else if(VoltageStatus == 98)
 BatteryVoltage += 0.5;
 }
 
-if(BatteryVoltage < 6.3 )
+if(BatteryVoltage < 4.4 )
 {
 VoltageStatus = 34;
 }
-else if(BatteryVoltage > 16.5)
+else if(BatteryVoltage > 18.6)
 {
 VoltageStatus = 98;
 }

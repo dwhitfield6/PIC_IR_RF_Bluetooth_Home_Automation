@@ -62,8 +62,10 @@ double ReadVoltage(void)
     unsigned int temp;
     double voltage;
 
+#ifdef IR_to_RF_w_bluetooth_revA
     VoltageDividerON();
-    delayUS(5); // wait for the voltage divider to settle
+    delayUS(10); // wait for the voltage divider to settle
+#endif
     if(InternalADC_Read(0, &temp))
     {
         voltage = ((double)temp / 1024.0) * ratio * NominalVDD;
@@ -147,8 +149,10 @@ void InitADC(void)
 /******************************************************************************/
 void VoltageDividerON(void)
 {
+#ifdef IR_to_RF_w_bluetooth_revA
     VoltageDividerTris  = OUTPUT;
     LATB &= ~VoltageDivider;
+#endif
 }
 
 /******************************************************************************/
@@ -158,7 +162,9 @@ void VoltageDividerON(void)
 /******************************************************************************/
 void VoltageDividerOFF(void)
 {
+#ifdef IR_to_RF_w_bluetooth_revA
     VoltageDividerTris  = INPUT;
+#endif
 }
 
 /*-----------------------------------------------------------------------------/

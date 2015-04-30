@@ -47,7 +47,7 @@
  *
  * Set this parameter is the required settling time for an ADC measurement
 /******************************************************************************/
-#define ACQtime 50
+#define ACQtime 75
 
 /******************************************************************************/
 /* Defines                                                                    */

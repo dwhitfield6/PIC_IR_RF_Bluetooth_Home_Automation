@@ -87,7 +87,9 @@ void InitApp(void)
     Swcode2Tris             = INPUT;
     Swcode1Tris             = INPUT;
     IRreceiverTris          = INPUT;
+#ifdef IR_to_RF_w_bluetooth_revA
     VoltageDividerTris      = INPUT;
+#endif
 
     /* set all pins to digital except pin RA0 which is the voltage input */
     ANSEL = 0x01;

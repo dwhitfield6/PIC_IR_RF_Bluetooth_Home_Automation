@@ -4964,11 +4964,11 @@ unsigned char IsNumber(unsigned char data);
 # 52 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
 
-# 280
+# 284
 void InitApp(void);
 void Init_System (void);
 
-# 128 "RF.h"
+# 137 "RF.h"
 const unsigned char Conf1_Channels[] = "DEF";
 
 
@@ -4983,29 +4983,36 @@ const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
 const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
 const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
 
-# 154
+# 163
 const unsigned char Conf2_Channels[] = "BDH";
 
+const unsigned char Conf2_ChannelB_STR[] = "Conf2_ChannelB";
 const unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
 const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
 const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
 const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
 
 
+const unsigned char Conf2_ChannelD_STR[] = "Conf2_ChannelD";
 const unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
 const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
 const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
 const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
 
 
+const unsigned char Conf2_ChannelH_1_STR[] = "Conf2_ChannelH_1";
 const unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
 const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
 const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
 const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
+
+const unsigned char Conf2_ChannelH_2_STR[] = "Conf2_ChannelH_2";
 const unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
 const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
 const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
 const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
+
+const unsigned char Conf2_ChannelH_3_STR[] = "Conf2_ChannelH_3";
 const unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
 const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
 const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
@@ -5024,11 +5031,12 @@ volatile unsigned char Sent;
 extern volatile unsigned char RF_IR_Postscaler;
 extern unsigned char RF_IR;
 
-# 198
+# 214
 unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
 void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
 void SendRF_Channel(unsigned char channel);
 unsigned char GetRFstatus(void);
+void DisplayRF_Channel(unsigned char channel);
 
 # 124 "UART.h"
 extern volatile unsigned char ReceivedString[100];
@@ -5725,11 +5733,12 @@ PIR1bits.RCIF = 0;
 else if(PIR1bits.TMR1IF)
 {
 Timer1_Postscaler++;
-if(Timer1_Postscaler == 3)
+if(Timer1_Postscaler >= 3)
 {
 (LATC &= ~0x04);
 (LATC &= ~0x02);
 (T1CONbits.TMR1ON = 0);
+Timer1_Postscaler = 0;
 }
 PIR1bits.TMR1IF = 0;
 }

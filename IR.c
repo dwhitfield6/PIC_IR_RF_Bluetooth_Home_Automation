@@ -273,7 +273,6 @@ void UseIRCode(unsigned char* Code, unsigned long NEC)
     unsigned char   i,j;
     unsigned char found = FALSE;
 
-    LEDTimerON();
     if(*Code == 2 || *Code == 1)
     {
         DecodeNEC(NEC, &IRaddress, &IRcommand);
@@ -311,14 +310,13 @@ void UseIRCode(unsigned char* Code, unsigned long NEC)
                 {
                     RedLEDON();
                 }
-                GreenLEDON();
                 SendRF_Channel(ReadCodeButtons());
                 found = TRUE;
             }
 #ifdef BLUETOOTHMODULE
             for(j=0; j < MirrorButtonsAmount; j++)
             {
-                for(i=0; i < RFcodesAmount; i++)
+                for(i=0; i < RFnumberOfSavedCodes; i++)
                 {
 
                     if(IRaddress == Global2.RemoteButtonRF[i][j][0])
@@ -336,11 +334,12 @@ void UseIRCode(unsigned char* Code, unsigned long NEC)
                 }
             }
 #endif
-            if(found == FALSE)
-            {
-                RedLEDON();                
-            }
         }
+    }
+    if(found == FALSE)
+    {
+        RedLEDON();
+        LEDTimerON();
     }
     *Code = 0;
     IRpinOLD = ReadIRpin();

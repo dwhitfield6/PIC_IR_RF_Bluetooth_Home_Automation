@@ -452,7 +452,7 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
     unsigned char buf[100];
     unsigned char timeout =0;
     unsigned char rfchannelSTR[10];
-    unsigned char rfconf, i, tempRFArray;
+    unsigned char rfconf, i, j, tempRFArray;
     unsigned char device = 0;
     unsigned char EmptyPlace = 0;
     unsigned char set = FALSE;
@@ -462,7 +462,18 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
     cleanBuffer(buf,100);
     cleanBuffer(rfchannelSTR,10);
 
-    if(StringContainsCaseInsensitive(String,"Conf1"))
+    if(StringMatchCaseInsensitive(String,"Rf All"))
+    {
+        for(i=0; i < RFnumberOfSavedCodes; i++)
+        {
+            SendRF_Channel(i);
+            UARTstring_CONST("Sent ");
+            DisplayRF_Channel(i);
+            UARTstring_CONST(CRLN);
+        }
+        return PASS;
+    }
+    else if(StringContainsCaseInsensitive(String,"Conf1"))
     {
         if(StringMatchCaseInsensitive(String,Conf1_ChannelD_STR))
         {
@@ -486,11 +497,8 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
             UARTstring_CONST(CRLN);
             return FAIL;
         }
-        if(ok)
-        {
-            UARTstringCRLN_CONST("Configuration 1 RF code sent");
-            return PASS;
-        }
+        UARTstringCRLN_CONST("Configuration 1 RF code sent");
+        return PASS;
     }
     else if(StringContainsCaseInsensitive(String,"Conf2"))
     {
@@ -551,11 +559,8 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
             UARTstring_CONST(CRLN);
             return FAIL;
         }
-        if(ok)
-        {
-            UARTstringCRLN_CONST("Configuration 2 RF code sent");
-            return PASS;
-        }
+        UARTstringCRLN_CONST("Configuration 2 RF code sent");
+        return PASS;
     }
     else if(StringContainsCaseInsensitive(String,"NEC"))
     {
@@ -586,10 +591,13 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
                 sprintf(buf,"Sent NEC code = 0x%lX ", EnteredNEC);
                 UARTstringCRLN(buf);
                 UARTstring_CONST(CRLN);
+                return PASS;
             }
             else
             {
                 UARTstringCRLN_CONST("Error: could not decode Address");
+                UARTstring_CONST(CRLN);
+                return FAIL;
             }
         }
         else if(!GetNumberUnsigned(String, 1, &EnteredNEC))
@@ -607,6 +615,8 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
             else
             {
                 UARTstringCRLN_CONST("Error: could not decode NEC code");
+                UARTstring_CONST(CRLN);
+                return FAIL;
             }
             UARTstring_CONST(CRLN);
             return PASS;
@@ -615,8 +625,8 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
         {
             if(!StringContains(String,"?"))
             {
-            UARTstring_CONST(CRLN);
-            UARTstringCRLN_CONST("NEC code not entered correctly");
+                UARTstring_CONST(CRLN);
+                UARTstringCRLN_CONST("NEC code not entered correctly");
             }
             UARTstring_CONST(CRLN);
             UARTstringCRLN_CONST("Usage:");
@@ -714,6 +724,76 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
         if(StringContainsCaseInsensitive(String,"RF set"))
         {
             set = TRUE;
+            if(!WaitForIRsignal())
+            {
+                return FAIL;
+            }
+            UARTstring_CONST(CRLN);
+            DecodeNEC(IR_NEC, &NecAddress, &NecCommand);
+            for(j=0; j < RFnumberOfSavedCodes; j++)
+            {
+                ok = FALSE;
+                for(i=0; i < MirrorButtonsAmount; i++)
+                {
+                    if(Global2.RemoteButtonRF[j][i][0] == 0 && Global2.RemoteButtonRF[j][i][1] == 0)
+                    {
+                        EmptyPlace = i;
+                        ok = TRUE;
+                        break;
+                    }
+                }
+                if(!ok)
+                {
+                    UARTstring_CONST("Error: No space available to save ");
+                    DisplayRF_Channel(j);
+                    UARTstring_CONST(CRLN);
+                }
+                else
+                {
+                    if(EmptyPlace)
+                    {
+                        /* Check to see if this NEC is already saved */
+                        for(i=0; i < EmptyPlace; i++)
+                        {
+                            if(NecAddress == Global2.RemoteButtonRF[j][i][0])
+                            {
+                                if(NecCommand == Global2.RemoteButtonRF[j][i][1])
+                                {
+                                    ok = FALSE;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if(!ok)
+                    {
+                        UARTstring_CONST("Error: NEC code already saved to ");
+                        DisplayRF_Channel(j);
+                        UARTstring_CONST(CRLN);
+                    }
+                    else
+                    {
+                        /* Update Globals to prepare for EEPROM burning */
+                        Global2.RemoteButtonRF[j][EmptyPlace][0] = NecAddress;
+                        Global2.RemoteButtonRF[j][EmptyPlace][1] = NecCommand;
+                    }
+                }
+            }
+            /* save new code to eeprom */
+            SyncGlobalToEEPROM();
+
+            /* successful EEPROM burn */
+            for(i =0;i<10;i++)
+            {
+               GreenLEDON();
+               delayUS(50000);
+               GreenLEDOFF();
+               delayUS(50000);
+            }
+            sprintf(buf,"NEC code 0x%lX now transmits all RF codes",IR_NEC);
+            UARTstringCRLN(buf);
+            UARTstring_CONST(CRLN);
+            return PASS;
         }
         else
         {
@@ -872,10 +952,9 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
                     }
                     if(!ok)
                     {
-                        UARTstringCRLN_CONST("Error: No space available to this RF code");
+                        UARTstringCRLN_CONST("Error: No space available to save this RF code");
                         return FAIL;
                     }
-                    ok = TRUE;
                     if(EmptyPlace)
                     {
                         /* Check to see if this NEC is already saved */
@@ -1227,7 +1306,7 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
         sprintf(buf,"Serial Number: %lu", Global2.SerialNumber);
         UARTstring(buf);
         UARTstring_CONST(CRLN);
-
+        return PASS;
     }
     else if(StringMatch(String,"???"))
     {
@@ -1266,6 +1345,7 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
             sprintf(buf,"RemoteButton%d set",i);
             UARTcommandMenu(buf,"Allows saving NEC codes");
         }
+        UARTcommandMenu("RF set all", "Sets Remote button to send all of the RF codes as stated below");
         UARTcommandMenu("RF set 1,D", "Sets Remote button to send RF Config 1 channel D");
         UARTcommandMenu("RF set 1,E", "Sets Remote button to send RF Config 1 channel E");
         UARTcommandMenu("RF set 1,F", "Sets Remote button to send RF Config 1 channel F");
@@ -1281,6 +1361,7 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
         UARTcommandMenu("NEC?", "NEC description for Arbitrary code send");
         UARTstring_CONST(CRLN);
         UARTstringCRLN_CONST("RF commands:");
+        UARTcommandMenu("RF all", "Send all Rf codes as stated below");
         UARTcommandMenu(Conf1_ChannelD_STR, "RFK100LC Channel D");
         UARTcommandMenu(Conf1_ChannelE_STR, "RFK100LC Channel E");
         UARTcommandMenu(Conf1_ChannelF_STR, "RFK100LC Channel F");
@@ -1303,7 +1384,6 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
         UARTstring_CONST(CRLN);
         return FAIL;
     }
-
     return FAIL;
 }
 

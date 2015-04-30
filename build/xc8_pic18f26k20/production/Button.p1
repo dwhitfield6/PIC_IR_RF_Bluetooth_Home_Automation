@@ -3692,8 +3692,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [; ;user.h: 52: unsigned char ProductName[50] = {"Home Automation"};
-[; ;user.h: 280: void InitApp(void);
-[; ;user.h: 281: void Init_System (void);
+[; ;user.h: 284: void InitApp(void);
+[; ;user.h: 285: void Init_System (void);
 [; ;system.h: 56: void ConfigureOscillator(void);
 [; ;MISC.h: 67: void delayUS(long US);
 [; ;MISC.h: 68: unsigned char IsCharacter(unsigned char data);

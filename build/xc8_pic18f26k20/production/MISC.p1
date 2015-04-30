@@ -3706,8 +3706,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [; ;user.h: 52: unsigned char ProductName[50] = {"Home Automation"};
-[; ;user.h: 280: void InitApp(void);
-[; ;user.h: 281: void Init_System (void);
+[; ;user.h: 284: void InitApp(void);
+[; ;user.h: 285: void Init_System (void);
 "53 MISC.c
 [v _delayUS `(v ~T0 @X0 1 ef1`l ]
 "54

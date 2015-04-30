@@ -64,7 +64,9 @@ unsigned char ProductName[50] = {"Home Automation"};
  *
  * This code is used with boards:
  * 1. IR_to_RF_w_bluetooth_revA
+ * 1. IR_to_RF_w_bluetooth_revB
 /******************************************************************************/
+#define IR_to_RF_w_bluetooth_revB
 
 /******************************************************************************/
 /* Important parameters.
@@ -77,9 +79,9 @@ unsigned char ProductName[50] = {"Home Automation"};
  * VoltageHigh is the high voltage threshold.
  *
 /******************************************************************************/
-#define NominalVDD 3.3
-#define VoltageLow 6.3
-#define VoltageHigh 16.5
+#define NominalVDD  3.3
+#define VoltageLow  4.4
+#define VoltageHigh 18.6
 
 /******************************************************************************/
 /* BAUD
@@ -182,9 +184,11 @@ unsigned char ProductName[50] = {"Home Automation"};
 #define IRreceiverTris	TRISBbits.TRISB4
 #define IRreceiver 0x10//RB4
 
+#ifdef IR_to_RF_w_bluetooth_revA
 /* Connected to the Voltage divider */
 #define VoltageDividerTris	TRISBbits.TRISB5
 #define VoltageDivider 0x20//RB5
+#endif
 
 /******************************************************************************/
 /* Macro Functions                                                            */

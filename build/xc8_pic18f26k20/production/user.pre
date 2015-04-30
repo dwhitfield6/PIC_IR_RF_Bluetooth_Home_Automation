@@ -4998,14 +4998,14 @@ extern int printf(const char *, ...);
 # 52 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
 
-# 280
+# 284
 void InitApp(void);
 void Init_System (void);
 
 # 56 "system.h"
 void ConfigureOscillator(void);
 
-# 128 "RF.h"
+# 137 "RF.h"
 const unsigned char Conf1_Channels[] = "DEF";
 
 
@@ -5020,29 +5020,36 @@ const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
 const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
 const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
 
-# 154
+# 163
 const unsigned char Conf2_Channels[] = "BDH";
 
+const unsigned char Conf2_ChannelB_STR[] = "Conf2_ChannelB";
 const unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
 const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
 const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
 const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
 
 
+const unsigned char Conf2_ChannelD_STR[] = "Conf2_ChannelD";
 const unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
 const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
 const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
 const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
 
 
+const unsigned char Conf2_ChannelH_1_STR[] = "Conf2_ChannelH_1";
 const unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
 const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
 const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
 const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
+
+const unsigned char Conf2_ChannelH_2_STR[] = "Conf2_ChannelH_2";
 const unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
 const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
 const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
 const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
+
+const unsigned char Conf2_ChannelH_3_STR[] = "Conf2_ChannelH_3";
 const unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
 const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
 const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
@@ -5061,11 +5068,12 @@ volatile unsigned char Sent;
 extern volatile unsigned char RF_IR_Postscaler;
 extern unsigned char RF_IR;
 
-# 198
+# 214
 unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
 void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
 void SendRF_Channel(unsigned char channel);
 unsigned char GetRFstatus(void);
+void DisplayRF_Channel(unsigned char channel);
 
 # 124 "UART.h"
 extern volatile unsigned char ReceivedString[100];
@@ -5095,20 +5103,25 @@ void UARTcommandMenu(const unsigned char *Command,const unsigned char *Desc);
 void EraseScreen(unsigned char characters);
 void ClearUSART(void);
 
-# 112 "EEPROM.h"
+# 104 "EEPROM.h"
 typedef struct EEdata
 {
 unsigned char BlueToothFlag;
 unsigned long SWNECcode;
+
 unsigned char RemoteButtonNEC[12][2];
+
+
 unsigned char EEPROMinitFlag;
 }GBLdata1;
 
 typedef struct EEdata2
 {
 
-# 134
-unsigned char RemoteButtonRF[10][3][2];
+# 129
+unsigned char RemoteButtonRF[8][3][2];
+
+# 135
 unsigned long SerialNumber;
 }GBLdata2;
 
@@ -5267,9 +5280,8 @@ TRISBbits.TRISB1 = 1;
 TRISBbits.TRISB2 = 1;
 TRISBbits.TRISB3 = 1;
 TRISBbits.TRISB4 = 1;
-TRISBbits.TRISB5 = 1;
 
-
+# 95
 ANSEL = 0x01;
 ANSELH = 0x00;
 
@@ -5279,7 +5291,7 @@ INTCON2bits.RBPU = 0;
 WPUB = 0x0F;
 }
 
-# 107
+# 109
 void Init_System (void)
 {
 unsigned char buf[50];

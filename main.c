@@ -28,6 +28,7 @@
  *                          Print a warning when voltage is out of range.
  *                          Added Flash.c/.h to program and read the flash
  *                            memory.
+ *                          Added commands to send/save all rf codes.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -63,6 +64,7 @@
 #include "ADC.h"
 #include "IR.h"
 #include "Bluetooth.h"
+#include "Timer.h"
 
 /******************************************************************************/
 /* Version number                                                             */
