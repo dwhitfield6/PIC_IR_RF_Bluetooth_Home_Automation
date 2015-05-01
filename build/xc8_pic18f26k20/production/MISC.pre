@@ -5361,7 +5361,7 @@ unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, long* re
 unsigned char i =0;
 long temp =0;
 unsigned char negative =0;
-unsigned char tempCommaNumber = 1;
+unsigned char tempCommaNumber = 0;
 unsigned char count =0;
 unsigned char Hex = 0;
 unsigned char tempThis;
@@ -5490,7 +5490,7 @@ unsigned char GetNumberUnsigned(unsigned char* This, unsigned char CommaNumber, 
 {
 unsigned char i =0;
 long temp =0;
-unsigned char tempCommaNumber = 1;
+unsigned char tempCommaNumber = 0;
 unsigned char count =0;
 unsigned char Hex = 0;
 unsigned char tempThis;
@@ -5662,7 +5662,7 @@ return 1;
 # 847
 unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result)
 {
-unsigned char tempCommaNumber = 1;
+unsigned char tempCommaNumber = 0;
 unsigned char count = 0;
 
 SCAN:while(*This != ',' && *This != 0)

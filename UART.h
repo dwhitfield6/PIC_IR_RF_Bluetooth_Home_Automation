@@ -42,7 +42,7 @@
  *
  * MicroSeconds between printing characters.
 /******************************************************************************/
-#define TimeBetweenChars 100
+#define TimeBetweenChars 10
 
 /******************************************************************************/
 /* MaxCommandLen

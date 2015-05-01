@@ -29,6 +29,8 @@
  *                          Added Flash.c/.h to program and read the flash
  *                            memory.
  *                          Added commands to send/save all rf codes.
+ *                          Add new command rf set all, rf clear all,
+ *                            rf clear system.
 /******************************************************************************/
 
 /******************************************************************************/

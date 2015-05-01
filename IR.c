@@ -10,6 +10,8 @@
  *                          Derived from project 'PIC_Smart_Rf'.
  * 04/09/15     1.0_DW0b    Fixed bugs.
  *                          Added features.
+ * 05/01/15     1.0_DW0d    Changed algorithm for how it is determined that the
+ *                            IR code matches to a saved value.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -314,11 +316,18 @@ void UseIRCode(unsigned char* Code, unsigned long NEC)
                 found = TRUE;
             }
 #ifdef BLUETOOTHMODULE
-            for(j=0; j < MirrorButtonsAmount; j++)
+            for(i=0; i < RFnumberOfSavedCodes; i++)
             {
-                for(i=0; i < RFnumberOfSavedCodes; i++)
+                for(j=0; j < MirrorButtonsAmount; j++)
                 {
-
+                    if(Global2.RemoteButtonRF[i][j][0] == 0)
+                    {
+                        if(Global2.RemoteButtonRF[i][j][1] == 0)
+                        {
+                            /* There are no more codes saved for this button */
+                            break;
+                        }
+                    }
                     if(IRaddress == Global2.RemoteButtonRF[i][j][0])
                     {
                         if(IRcommand == Global2.RemoteButtonRF[i][j][1])

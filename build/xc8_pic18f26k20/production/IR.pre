@@ -5229,7 +5229,7 @@ void SyncEEPROMToGlobal(void);
 void SetEEPROMdefault(void);
 unsigned char EEPROMinitialized(void);
 
-# 52 "IR.c"
+# 54 "IR.c"
 unsigned char IRpinOLD;
 unsigned int IRRawCode[100];
 unsigned long IR_NEC;
@@ -5249,7 +5249,7 @@ unsigned char IRaddress = 0;
 unsigned char IRcommand = 0;
 unsigned long IRtimeout = 5000 + 1;
 
-# 80
+# 82
 void InitIR(void)
 {
 
@@ -5272,7 +5272,7 @@ INTCONbits.RBIF = 0;
 INTCONbits.RBIE = 1;
 }
 
-# 107
+# 109
 unsigned char ReadIRpin(void)
 {
 
@@ -5286,11 +5286,11 @@ return 0;
 }
 }
 
-# 125
+# 127
 unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char Invert)
 {
 
-# 153
+# 155
 unsigned char i;
 unsigned char first =0;
 unsigned char StartBit=100;
@@ -5376,7 +5376,7 @@ return 0;
 else if(Raw[StartBit] == 0 && first == 1)
 {
 
-# 241
+# 243
 *NEC = NECtemp;
 return 1;
 }
@@ -5401,7 +5401,7 @@ StartBit++;
 return 0;
 }
 
-# 271
+# 273
 void UseIRCode(unsigned char* Code, unsigned long NEC)
 {
 unsigned char i,j;
@@ -5448,11 +5448,18 @@ SendRF_Channel(ReadCodeButtons());
 found = 1;
 }
 
-for(j=0; j < 3; j++)
-{
 for(i=0; i < 8; i++)
 {
+for(j=0; j < 3; j++)
+{
+if(Global2.RemoteButtonRF[i][j][0] == 0)
+{
+if(Global2.RemoteButtonRF[i][j][1] == 0)
+{
 
+break;
+}
+}
 if(IRaddress == Global2.RemoteButtonRF[i][j][0])
 {
 if(IRcommand == Global2.RemoteButtonRF[i][j][1])
@@ -5482,11 +5489,11 @@ INTCONbits.RBIF = 0;
 INTCONbits.RBIE = 1;
 }
 
-# 355
+# 364
 unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount)
 {
 
-# 384
+# 393
 if(Sent)
 {
 
@@ -5515,7 +5522,7 @@ return 1;
 return 2;
 }
 
-# 418
+# 427
 void SendNEC_wait(unsigned long code, unsigned char RepeatAmount)
 {
 unsigned char toggle = 0;
@@ -5566,7 +5573,7 @@ INTCONbits.RBIF = 0;
 INTCONbits.RBIE = 1;
 }
 
-# 474
+# 483
 void CalibrateIR(void)
 {
 unsigned char toggle = 0;
@@ -5594,7 +5601,7 @@ toggle++;
 }
 }
 
-# 507
+# 516
 unsigned char CheckReceivingIR(void)
 {
 if(ReceivingIR == 13)
@@ -5604,7 +5611,7 @@ return 0;
 return 1;
 }
 
-# 521
+# 530
 unsigned long EncodeNEC(unsigned char address, unsigned char command)
 {
 unsigned long temp1,
@@ -5612,7 +5619,7 @@ temp2,
 temp3,
 temp4;
 
-# 534
+# 543
 temp1 = (unsigned long) Reverse_Byte(address);
 temp2 = (unsigned long) Reverse_Byte(~address);
 temp3 = (unsigned long) Reverse_Byte(command);
@@ -5621,7 +5628,7 @@ temp4 = (unsigned long) Reverse_Byte(~command);
 return ((temp1 << 24) + (temp2 << 16) + (temp3 << 8) + temp4);
 }
 
-# 547
+# 556
 unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command)
 {
 unsigned char temp1,

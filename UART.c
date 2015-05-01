@@ -15,6 +15,7 @@
  *                          Add command to change Bluetooth Broadcast name.
  *                          Modify Bluetooth Initialize function to allow for
  *                            module name change.
+ *                          Added delay between printing characters.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -194,6 +195,10 @@ void UARTchar(unsigned char data)
 {
     if(data != 0)
     {
+        if(!TXSTAbits.TRMT)
+        {
+            delayUS(TimeBetweenChars);
+        }
         while(!TXSTAbits.TRMT); //Wait for previous character to be output
         TXREG = data;      // Write the data byte to the USART
     }
@@ -209,6 +214,10 @@ void UARTchar_CONST(const unsigned char data)
     unsigned char temp = data;
     if(temp != 0)
     {
+        if(!TXSTAbits.TRMT)
+        {
+            delayUS(TimeBetweenChars);
+        }
         while(!TXSTAbits.TRMT); //Wait for previous character to be output
         TXREG = temp;      // Write the data byte to the USART
     }

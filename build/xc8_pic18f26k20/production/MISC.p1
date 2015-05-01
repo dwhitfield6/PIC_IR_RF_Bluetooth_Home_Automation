@@ -5041,8 +5041,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _negative -> -> 0 `i `uc ]
 "536
 [v _tempCommaNumber `uc ~T0 @X0 1 a ]
-[; ;MISC.c: 536: unsigned char tempCommaNumber = 1;
-[e = _tempCommaNumber -> -> 1 `i `uc ]
+[; ;MISC.c: 536: unsigned char tempCommaNumber = 0;
+[e = _tempCommaNumber -> -> 0 `i `uc ]
 "537
 [v _count `uc ~T0 @X0 1 a ]
 [; ;MISC.c: 537: unsigned char count =0;
@@ -5474,8 +5474,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _temp -> -> 0 `i `l ]
 "669
 [v _tempCommaNumber `uc ~T0 @X0 1 a ]
-[; ;MISC.c: 669: unsigned char tempCommaNumber = 1;
-[e = _tempCommaNumber -> -> 1 `i `uc ]
+[; ;MISC.c: 669: unsigned char tempCommaNumber = 0;
+[e = _tempCommaNumber -> -> 0 `i `uc ]
 "670
 [v _count `uc ~T0 @X0 1 a ]
 [; ;MISC.c: 670: unsigned char count =0;
@@ -6074,8 +6074,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 "849
 [v _tempCommaNumber `uc ~T0 @X0 1 a ]
-[; ;MISC.c: 849: unsigned char tempCommaNumber = 1;
-[e = _tempCommaNumber -> -> 1 `i `uc ]
+[; ;MISC.c: 849: unsigned char tempCommaNumber = 0;
+[e = _tempCommaNumber -> -> 0 `i `uc ]
 "850
 [v _count `uc ~T0 @X0 1 a ]
 [; ;MISC.c: 850: unsigned char count = 0;

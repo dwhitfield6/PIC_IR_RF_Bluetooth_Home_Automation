@@ -12,6 +12,8 @@
  *                          Fixed bug in conf2 channel H parsing.
  *                          Only set bluetooth configured flag if it is indeed
  *                            configured.
+ *                          Add new command rf set all, rf clear all,
+ *                            rf clear system.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -452,12 +454,13 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
     unsigned char buf[100];
     unsigned char timeout =0;
     unsigned char rfchannelSTR[10];
-    unsigned char rfconf, i, j, tempRFArray;
+    unsigned char rfconf, i, j, k, tempRFArray;
     unsigned char device = 0;
     unsigned char EmptyPlace = 0;
     unsigned char set = FALSE;
     long SerialNumberTEMP = 0;
     unsigned char ReceivedStringPosOLD = FALSE;
+    unsigned char system;
 
     cleanBuffer(buf,100);
     cleanBuffer(rfchannelSTR,10);
@@ -721,9 +724,21 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
     }
     else if(StringContainsCaseInsensitive(String,"RF set") || StringContainsCaseInsensitive(String,"RF clear"))
     {
+        system = FALSE;
         if(StringContainsCaseInsensitive(String,"RF set"))
         {
             set = TRUE;
+        }
+        else
+        {
+            set = FALSE;
+            if(StringContainsCaseInsensitive(String,"system"))
+            {
+                system = TRUE;
+            }
+        }
+        if(StringContainsCaseInsensitive(String,"All"))
+        {
             if(!WaitForIRsignal())
             {
                 return FAIL;
@@ -742,11 +757,44 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
                         break;
                     }
                 }
-                if(!ok)
+                if(set == TRUE)
                 {
-                    UARTstring_CONST("Error: No space available to save ");
-                    DisplayRF_Channel(j);
-                    UARTstring_CONST(CRLN);
+                    if(!ok)
+                    {
+                        UARTstring_CONST("Error: No space available to save ");
+                        DisplayRF_Channel(j);
+                        UARTstring_CONST(CRLN);
+                    }
+                    else
+                    {
+                        if(EmptyPlace)
+                        {
+                            /* Check to see if this NEC is already saved */
+                            for(i=0; i < EmptyPlace; i++)
+                            {
+                                if(NecAddress == Global2.RemoteButtonRF[j][i][0])
+                                {
+                                    if(NecCommand == Global2.RemoteButtonRF[j][i][1])
+                                    {
+                                        ok = FALSE;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        if(!ok)
+                        {
+                            UARTstring_CONST("Error: NEC code already saved to ");
+                            DisplayRF_Channel(j);
+                            UARTstring_CONST(CRLN);
+                        }
+                        else
+                        {
+                            /* Update Globals to prepare for EEPROM burning */
+                            Global2.RemoteButtonRF[j][EmptyPlace][0] = NecAddress;
+                            Global2.RemoteButtonRF[j][EmptyPlace][1] = NecCommand;
+                        }
+                    }
                 }
                 else
                 {
@@ -759,23 +807,19 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
                             {
                                 if(NecCommand == Global2.RemoteButtonRF[j][i][1])
                                 {
-                                    ok = FALSE;
+                                    /* Clear the IR code */
+                                    Global2.RemoteButtonRF[j][i][0] = 0;
+                                    Global2.RemoteButtonRF[j][i][1] = 0;
+                                    for(k=i; k < (MirrorButtonsAmount -1); k++)
+                                    {
+                                        /* back fill the array until there is no more null before data */
+                                        Global2.RemoteButtonRF[j][k][0] = Global2.RemoteButtonRF[j][k+1][0];
+                                        Global2.RemoteButtonRF[j][k][1] = Global2.RemoteButtonRF[j][k+1][1];
+                                    }
                                     break;
                                 }
                             }
                         }
-                    }
-                    if(!ok)
-                    {
-                        UARTstring_CONST("Error: NEC code already saved to ");
-                        DisplayRF_Channel(j);
-                        UARTstring_CONST(CRLN);
-                    }
-                    else
-                    {
-                        /* Update Globals to prepare for EEPROM burning */
-                        Global2.RemoteButtonRF[j][EmptyPlace][0] = NecAddress;
-                        Global2.RemoteButtonRF[j][EmptyPlace][1] = NecCommand;
                     }
                 }
             }
@@ -785,259 +829,301 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
             /* successful EEPROM burn */
             for(i =0;i<10;i++)
             {
+                if(set == TRUE)
+                {
+                    GreenLEDON();
+                }
+                else
+                {
+                    RedLEDON();
+                }
+                delayUS(50000);
+                if(set == TRUE)
+                {
+                    GreenLEDOFF();
+                }
+                else
+                {
+                    RedLEDOFF();
+                }
+                delayUS(50000);
+            }
+            if(set == TRUE)
+            {
+                sprintf(buf,"NEC code 0x%lX now transmits all RF codes",IR_NEC);
+            }
+            else
+            {
+                sprintf(buf,"NEC code 0x%lX will no longer transmit any RF codes",IR_NEC);
+            }
+            UARTstringCRLN(buf);
+            UARTstring_CONST(CRLN);
+            return PASS;
+        }
+        if(system != TRUE)
+        {
+            if(!StringAddEqual(String))
+            {
+                UARTstringCRLN_CONST("Error: No RF configuration specified");
+                UARTstring_CONST(CRLN);
+                return FAIL;
+            }
+            StringPos++; // we added one place by adding an equal sine
+            UARTstring_CONST(CRLN);
+            if(!GetNumberUnsigned(String, 0, &temp))
+            {
+                rfconf = (unsigned char) temp;
+            }
+            else
+            {
+                UARTstringCRLN_CONST("Error: RF configuration Syntax not understood");
+                UARTstring_CONST(CRLN);
+                return FAIL;
+            }
+            if(rfconf <= 0 || rfconf > NumRfConfigs)
+            {
+                UARTstringCRLN_CONST("Error: RF configuration out of range");
+                UARTstring_CONST(CRLN);
+                return FAIL;
+            }
+            if(GetStringAfterComma(String, 1, rfchannelSTR))
+            {
+                UARTstringCRLN_CONST("Error: RF Channel Syntax not understood");
+                UARTstring_CONST(CRLN);
+                return FAIL;
+            }
+            else
+            {
+                lowercaseString(rfchannelSTR);
+                if(rfchannelSTR[1] == 0 || rfchannelSTR[1] == ' ')
+                {
+                    rfchannelSTR[1] = 0; // this is needed for function 'StringContainsCaseInsensitive'
+                    if(rfconf == 1)
+                    {
+                        if(!StringContainsCaseInsensitive(Conf1_Channels, rfchannelSTR))
+                        {
+                            ok = FALSE;
+                        }
+                    }
+                    else if(rfconf == 2)
+                    {
+                        if(!StringContainsCaseInsensitive(Conf2_Channels, rfchannelSTR))
+                        {
+                            ok = FALSE;
+                        }
+                    }
+                    if(!ok)
+                    {
+                        UARTstringCRLN_CONST("Error: RF channel out of range");
+                        UARTstring_CONST(CRLN);
+                        return FAIL;
+                    }
+
+                    if(rfconf == 1)
+                    {
+                        if(rfchannelSTR[0] == 'd')
+                        {
+                            tempRFArray = 0;
+                        }
+                        else if(rfchannelSTR[0] == 'e')
+                        {
+                            tempRFArray = 1;
+                        }
+                        else if(rfchannelSTR[0] == 'f')
+                        {
+                            tempRFArray = 2;
+                        }
+                        else
+                        {
+                            // Got here by mistake
+                            return FAIL;
+                        }
+                    }
+                    else if(rfconf ==2)
+                    {
+                        if(rfchannelSTR[0] == 'b')
+                        {
+                            tempRFArray = 3;
+                        }
+                        else if(rfchannelSTR[0] == 'd')
+                        {
+                            tempRFArray = 4;
+                        }
+                        else if(rfchannelSTR[0] == 'h')
+                        {
+                            cleanBuffer(ReceivedString, ReceivedStringPos);
+                            ReceivedStringPos = 0;
+                            NewReceivedString = FALSE;
+                            UARTstring_CONST("Which device?");
+                            UARTstring_CONST(CRLN);
+                            UARTchar('>');
+                            timeout = 0;
+                            ClearUSART();
+                            PIR1bits.RCIF = FALSE;
+                            PIE1bits.RCIE   = TRUE;
+                            while(!NewReceivedString)
+                            {
+                                delayUS(300000);
+                                timeout++;
+                                if(timeout > 25)
+                                {
+                                    UARTstring_CONST(CRLN);
+                                    UARTstringCRLN_CONST("Error: No RF config 2, channel H device specified");
+                                    return FAIL;
+                                }
+                            }
+                            PIE1bits.RCIE   = FALSE;
+                            ok = TRUE;
+                            if(ReceivedString[0] < '1' || ReceivedString[0] > '3')
+                            {
+                                UARTstringCRLN_CONST("Error: RF config 2, channel H device out of range");
+                                ok = FALSE;
+                            }
+                            device = ReceivedString[0] - '0';
+                            tempRFArray = device + 4;
+                            cleanBuffer(ReceivedString, ReceivedStringPos);
+                            ReceivedStringPos = 0;
+                            NewReceivedString = FALSE;
+                            if(!ok)
+                            {
+                                return FAIL;
+                            }
+                        }
+                        else
+                        {
+                            // Got here by mistake
+                            return FAIL;
+                        }
+                    }
+                }
+                else
+                {
+                    UARTstringCRLN_CONST("Error: RF channel needs to be one character");
+                    UARTstring_CONST(CRLN);
+                    return FAIL;
+                }
+            }
+        }
+        if(set)
+        {
+            if(!WaitForIRsignal())
+            {
+                return FAIL;
+            }
+            UARTstring_CONST(CRLN);
+            DecodeNEC(IR_NEC, &NecAddress, &NecCommand);
+            ok = FALSE;
+            for(i=0; i < MirrorButtonsAmount; i++)
+            {
+                if(Global2.RemoteButtonRF[tempRFArray][i][0] == 0 && Global2.RemoteButtonRF[tempRFArray][i][1] == 0)
+                {
+                    EmptyPlace = i;
+                    ok = TRUE;
+                    break;
+                }
+            }
+            if(!ok)
+            {
+                UARTstringCRLN_CONST("Error: No space available to save this RF code");
+                return FAIL;
+            }
+            if(EmptyPlace)
+            {
+                /* Check to see if this NEC is already saved */
+                for(i=0; i < EmptyPlace; i++)
+                {
+                    if(NecAddress == Global2.RemoteButtonRF[tempRFArray][i][0])
+                    {
+                        if(NecCommand == Global2.RemoteButtonRF[tempRFArray][i][1])
+                        {
+                            ok = FALSE;
+                            break;
+                        }
+                    }
+                }
+            }
+            if(!ok)
+            {
+                UARTstringCRLN_CONST("Error: NEC code already saved to this RF code");
+                return FAIL;
+            }
+
+            /* save new code to eeprom */
+            Global2.RemoteButtonRF[tempRFArray][EmptyPlace][0] = NecAddress;
+            Global2.RemoteButtonRF[tempRFArray][EmptyPlace][1] = NecCommand;
+            SyncGlobalToEEPROM();
+
+            if(device)
+            {
+                sprintf(buf,"NEC code 0x%lX now transmits RF config %d channel %c device %d",IR_NEC, rfconf, rfchannelSTR[0], device);
+            }
+            else
+            {
+                sprintf(buf,"NEC code 0x%lX now transmits RF config %d channel %c ",IR_NEC, rfconf, rfchannelSTR[0]);
+            }
+            UARTstringCRLN(buf);
+            UARTstring_CONST(CRLN);
+            /* successful EEPROM burn */
+            for(i =0;i<10;i++)
+            {
                GreenLEDON();
                delayUS(50000);
                GreenLEDOFF();
                delayUS(50000);
             }
-            sprintf(buf,"NEC code 0x%lX now transmits all RF codes",IR_NEC);
-            UARTstringCRLN(buf);
-            UARTstring_CONST(CRLN);
             return PASS;
         }
         else
         {
-            set = FALSE;
-        }
-        if(!StringAddEqual(String))
-        {
-            UARTstringCRLN_CONST("Error: No RF configuration specified");
-            UARTstring_CONST(CRLN);
-            return FAIL;
-        }
-        StringPos++; // we added one place by adding an equal sine
-        UARTstring_CONST(CRLN);
-        if(!GetNumberUnsigned(String, 1, &temp))
-        {
-            rfconf = (unsigned char) temp;
-        }
-        else
-        {
-            UARTstringCRLN_CONST("Error: No RF configuration specified");
-            UARTstring_CONST(CRLN);
-            return FAIL;
-        }
-        if(rfconf <= 0 || rfconf > NumRfConfigs)
-        {
-            UARTstringCRLN_CONST("Error: RF configuration out of range");
-            UARTstring_CONST(CRLN);
-            return FAIL;
-        }
-        if(GetStringAfterComma(String, 1, rfchannelSTR))
-        {
-            UARTstringCRLN_CONST("Error: No RF channel specified");
-            UARTstring_CONST(CRLN);
-            return FAIL;
-        }
-        else
-        {
-            lowercaseString(rfchannelSTR);
-            if(rfchannelSTR[1] == 0 || rfchannelSTR[1] == ' ')
+            /* RF clear */
+            if(system == TRUE)
             {
-                rfchannelSTR[1] = 0; // this is needed for function 'StringContainsCaseInsensitive'
-                if(rfconf == 1)
+                for(i=0; i < MirrorButtonsAmount; i++)
                 {
-                    if(!StringContainsCaseInsensitive(Conf1_Channels, rfchannelSTR))
+                    for(k=0; k < RFnumberOfSavedCodes; k++)
                     {
-                        ok = FALSE;
+                        /* clear all codes from eeprom */
+                        Global2.RemoteButtonRF[k][i][0] = 0;
+                        Global2.RemoteButtonRF[k][i][1] = 0;
                     }
-                }
-                else if(rfconf == 2)
-                {
-                    if(!StringContainsCaseInsensitive(Conf2_Channels, rfchannelSTR))
-                    {
-                        ok = FALSE;
-                    }
-                }
-                if(!ok)
-                {
-                    UARTstringCRLN_CONST("Error: RF channel out of range");
-                    UARTstring_CONST(CRLN);
-                    return FAIL;
-                }
-
-                if(rfconf == 1)
-                {
-                    if(rfchannelSTR[0] == 'd')
-                    {
-                        tempRFArray = 0;
-                    }
-                    else if(rfchannelSTR[0] == 'e')
-                    {
-                        tempRFArray = 1;
-                    }
-                    else if(rfchannelSTR[0] == 'f')
-                    {
-                        tempRFArray = 2;
-                    }
-                    else
-                    {
-                        // Got here by mistake
-                        return FAIL;
-                    }
-                }
-                else if(rfconf ==2)
-                {
-                    if(rfchannelSTR[0] == 'b')
-                    {
-                        tempRFArray = 3;
-                    }
-                    else if(rfchannelSTR[0] == 'd')
-                    {
-                        tempRFArray = 4;
-                    }
-                    else if(rfchannelSTR[0] == 'h')
-                    {
-                        cleanBuffer(ReceivedString, ReceivedStringPos);
-                        ReceivedStringPos = 0;
-                        NewReceivedString = FALSE;
-                        UARTstring_CONST("Which device?");
-                        UARTstring_CONST(CRLN);
-                        UARTchar('>');
-                        timeout = 0;
-                        ClearUSART();
-                        PIR1bits.RCIF = FALSE;
-                        PIE1bits.RCIE   = TRUE;
-                        while(!NewReceivedString)
-                        {
-                            delayUS(300000);
-                            timeout++;
-                            if(timeout > 25)
-                            {
-                                UARTstring_CONST(CRLN);
-                                UARTstringCRLN_CONST("Error: No RF config 2, channel H device specified");
-                                return FAIL;
-                            }
-                        }
-                        PIE1bits.RCIE   = FALSE;
-                        ok = TRUE;
-                        if(ReceivedString[0] < '1' || ReceivedString[0] > '3')
-                        {
-                            UARTstringCRLN_CONST("Error: RF config 2, channel H device out of range");
-                            ok = FALSE;
-                        }
-                        device = ReceivedString[0] - '0';
-                        tempRFArray = device + 4;
-                        cleanBuffer(ReceivedString, ReceivedStringPos);
-                        ReceivedStringPos = 0;
-                        NewReceivedString = FALSE;
-                        if(!ok)
-                        {
-                            return FAIL;
-                        }
-                    }
-                    else
-                    {
-                        // Got here by mistake
-                        return FAIL;
-                    }
-                }
-                if(set)
-                {
-                    if(!WaitForIRsignal())
-                    {
-                        return FAIL;
-                    }
-                    UARTstring_CONST(CRLN);
-                    DecodeNEC(IR_NEC, &NecAddress, &NecCommand);
-                    ok = FALSE;
-                    for(i=0; i < MirrorButtonsAmount; i++)
-                    {
-                        if(Global2.RemoteButtonRF[tempRFArray][i][0] == 0 && Global2.RemoteButtonRF[tempRFArray][i][1] == 0)
-                        {
-                            EmptyPlace = i;
-                            ok = TRUE;
-                            break;
-                        }
-                    }
-                    if(!ok)
-                    {
-                        UARTstringCRLN_CONST("Error: No space available to save this RF code");
-                        return FAIL;
-                    }
-                    if(EmptyPlace)
-                    {
-                        /* Check to see if this NEC is already saved */
-                        for(i=0; i < EmptyPlace; i++)
-                        {
-                            if(NecAddress == Global2.RemoteButtonRF[tempRFArray][i][0])
-                            {
-                                if(NecCommand == Global2.RemoteButtonRF[tempRFArray][i][1])
-                                {
-                                    ok = FALSE;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    if(!ok)
-                    {
-                        UARTstringCRLN_CONST("Error: NEC code already saved to this RF code");
-                        return FAIL;
-                    }
-
-                    /* save new code to eeprom */
-                    Global2.RemoteButtonRF[tempRFArray][EmptyPlace][0] = NecAddress;
-                    Global2.RemoteButtonRF[tempRFArray][EmptyPlace][1] = NecCommand;
-                    SyncGlobalToEEPROM();
-
-                    if(device)
-                    {
-                        sprintf(buf,"NEC code 0x%lX now transmits RF config %d channel %c device %d",IR_NEC, rfconf, rfchannelSTR[0], device);
-                    }
-                    else
-                    {
-                        sprintf(buf,"NEC code 0x%lX now transmits RF config %d channel %c ",IR_NEC, rfconf, rfchannelSTR[0]);
-                    }
-                    UARTstringCRLN(buf);
-                    UARTstring_CONST(CRLN);
-                    /* successful EEPROM burn */
-                    for(i =0;i<10;i++)
-                    {
-                       GreenLEDON();
-                       delayUS(50000);
-                       GreenLEDOFF();
-                       delayUS(50000);
-                    }
-                    return PASS;
-                }
-                else
-                {
-                    /* RF clear */
-                    for(i=0; i < MirrorButtonsAmount; i++)
-                    {
-                        /* clear codes from eeprom */
-                        Global2.RemoteButtonRF[tempRFArray][i][0] = 0;
-                        Global2.RemoteButtonRF[tempRFArray][i][1] = 0;
-                    }
-                    SyncGlobalToEEPROM();
-                    if(device)
-                    {
-                        sprintf(buf,"RF config %d channel %c device %d successfully erased",rfconf, rfchannelSTR[0], device);
-                    }
-                    else
-                    {
-                        sprintf(buf,"RF config %d channel %c successfully erased",rfconf, rfchannelSTR[0]);
-                    }
-                    UARTstringCRLN(buf);
-                    UARTstring_CONST(CRLN);
-                    /* successful EEPROM burn */
-                    for(i =0;i<10;i++)
-                    {
-                       GreenLEDON();
-                       delayUS(50000);
-                       GreenLEDOFF();
-                       delayUS(50000);
-                    }
-                    return PASS;
                 }
             }
             else
             {
-                UARTstringCRLN_CONST("Error: RF channel needs to be one character");
-                UARTstring_CONST(CRLN);
-                return FAIL;
+                for(i=0; i < MirrorButtonsAmount; i++)
+                {
+                    /* clear specific code from eeprom */
+                    Global2.RemoteButtonRF[tempRFArray][i][0] = 0;
+                    Global2.RemoteButtonRF[tempRFArray][i][1] = 0;
+                }
             }
+            SyncGlobalToEEPROM();
+            if(system == TRUE)
+            {
+                sprintf(buf,"All Remote buttons associated with RF codes successfully erased");
+            }
+            else
+            {
+                if(device)
+                {
+                    sprintf(buf,"RF config %d channel %c device %d successfully erased",rfconf, rfchannelSTR[0], device);
+                }
+                else
+                {
+                    sprintf(buf,"RF config %d channel %c successfully erased",rfconf, rfchannelSTR[0]);
+                }
+            }
+            UARTstringCRLN(buf);
+            UARTstring_CONST(CRLN);
+            /* successful EEPROM burn */
+            for(i =0;i<10;i++)
+            {
+               RedLEDON();
+               delayUS(50000);
+               RedLEDOFF();
+               delayUS(50000);
+            }
+            return PASS;
         }
     }
     else if(StringMatchCaseInsensitive(String,"Reset"))
@@ -1352,12 +1438,14 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
         UARTcommandMenu("RF set 2,B", "Sets Remote button to send RF Config 2 channel B");
         UARTcommandMenu("RF set 2,D", "Sets Remote button to send RF Config 2 channel D");
         UARTcommandMenu("RF set 2,H", "Sets Remote button to send RF Config 2 channel H");
-        UARTcommandMenu("RF clear 1,D", "Clears saved Button for RF Config 1 channel D");
-        UARTcommandMenu("RF clear 1,E", "Clears saved Button for RF Config 1 channel E");
-        UARTcommandMenu("RF clear 1,F", "Clears saved Button for RF Config 1 channel F");
-        UARTcommandMenu("RF clear 2,B", "Clears saved Button for RF Config 2 channel B");
-        UARTcommandMenu("RF clear 2,D", "Clears saved Button for RF Config 2 channel D");
-        UARTcommandMenu("RF clear 2,H", "Clears saved Button for RF Config 2 channel H");
+        UARTcommandMenu("RF clear all", "Clears Remote button from all RF codes");
+        UARTcommandMenu("RF clear system", "Clears all Remote buttons from all RF codes");
+        UARTcommandMenu("RF clear 1,D", "Clears all saved Button for RF Config 1 channel D");
+        UARTcommandMenu("RF clear 1,E", "Clears all saved Button for RF Config 1 channel E");
+        UARTcommandMenu("RF clear 1,F", "Clears all saved Button for RF Config 1 channel F");
+        UARTcommandMenu("RF clear 2,B", "Clears all saved Button for RF Config 2 channel B");
+        UARTcommandMenu("RF clear 2,D", "Clears all saved Button for RF Config 2 channel D");
+        UARTcommandMenu("RF clear 2,H", "Clears all saved Button for RF Config 2 channel H");
         UARTcommandMenu("NEC?", "NEC description for Arbitrary code send");
         UARTstring_CONST(CRLN);
         UARTstringCRLN_CONST("RF commands:");
