@@ -5203,7 +5203,7 @@ void InitTimer3(void);
 void ResetTimer3(void);
 void InitTimers(void);
 
-# 77 "main.c"
+# 78 "main.c"
 const unsigned char FirmVersion[] = {"1.0_DW0e"};
 const unsigned char PCBVersion[] = {"RevA"};
 const unsigned char Frequency[] = {"315"};
@@ -5212,10 +5212,10 @@ unsigned char BluetoothFirmware1[30];
 unsigned char BluetoothFirmware2[30];
 unsigned char BluetoothBroadcast[21];
 
-# 92
+# 93
 double BatteryVoltage = 0.0;
 
-# 98
+# 99
 void main(void)
 {
 unsigned char i=0;

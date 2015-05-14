@@ -33,6 +33,7 @@
  *                            rf clear system.
  * 05/14/15     1.0_DW0e    Fixed "AddEqual" parsing bugs.
  *                          Added support for 433MHz transmitter.
+ *                          Fixed RF timing so that conf2_channeB works.
 /******************************************************************************/
 
 /******************************************************************************/
