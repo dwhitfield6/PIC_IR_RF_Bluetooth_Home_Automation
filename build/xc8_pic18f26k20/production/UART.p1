@@ -3810,7 +3810,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdio.h: 206: extern int sprintf(char *, const char *, ...);
 [; ;stdio.h: 207: extern int printf(const char *, ...);
 [; ;system.h: 56: void ConfigureOscillator(void);
-"52 user.h
+"53 user.h
 [v _ProductName `uc ~T0 @X0 -> 50 `i e ]
 [i _ProductName
 :U ..
@@ -3832,10 +3832,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;user.h: 52: unsigned char ProductName[50] = {"Home Automation"};
-[; ;user.h: 284: void InitApp(void);
-[; ;user.h: 285: void Init_System (void);
-"137 RF.h
+[; ;user.h: 53: unsigned char ProductName[50] = {"Home Automation"};
+[; ;user.h: 283: void InitApp(void);
+[; ;user.h: 284: void Init_System (void);
+"141 RF.h
 [v _Conf1_Channels `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_Channels
 :U ..
@@ -3845,8 +3845,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 137: const unsigned char Conf1_Channels[] = "DEF";
-"140
+[; ;RF.h: 141: const unsigned char Conf1_Channels[] = "DEF";
+"144
 [v _Conf1_ChannelD `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelD
 :U ..
@@ -3864,8 +3864,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 140: const unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
-"141
+[; ;RF.h: 144: const unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
+"145
 [v _Conf1_ChannelD_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelD_STR
 :U ..
@@ -3886,8 +3886,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 141: const unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
-"144
+[; ;RF.h: 145: const unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
+"148
 [v _Conf1_ChannelE `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelE
 :U ..
@@ -3905,8 +3905,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 144: const unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
-"145
+[; ;RF.h: 148: const unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
+"149
 [v _Conf1_ChannelE_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelE_STR
 :U ..
@@ -3927,8 +3927,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 145: const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
-"148
+[; ;RF.h: 149: const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
+"152
 [v _Conf1_ChannelF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelF
 :U ..
@@ -3946,8 +3946,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 148: const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
-"149
+[; ;RF.h: 152: const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
+"153
 [v _Conf1_ChannelF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelF_STR
 :U ..
@@ -3968,8 +3968,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 149: const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
-"163
+[; ;RF.h: 153: const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
+"167
 [v _Conf2_Channels `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_Channels
 :U ..
@@ -3979,8 +3979,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 163: const unsigned char Conf2_Channels[] = "BDH";
-"165
+[; ;RF.h: 167: const unsigned char Conf2_Channels[] = "BDH";
+"169
 [v _Conf2_ChannelB_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_STR
 :U ..
@@ -4001,8 +4001,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 165: const unsigned char Conf2_ChannelB_STR[] = "Conf2_ChannelB";
-"166
+[; ;RF.h: 169: const unsigned char Conf2_ChannelB_STR[] = "Conf2_ChannelB";
+"170
 [v _Conf2_ChannelB_ON `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_ON
 :U ..
@@ -4024,8 +4024,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 166: const unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
-"167
+[; ;RF.h: 170: const unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
+"171
 [v _Conf2_ChannelB_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_ON_STR
 :U ..
@@ -4049,8 +4049,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 167: const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
-"168
+[; ;RF.h: 171: const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
+"172
 [v _Conf2_ChannelB_OFF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_OFF
 :U ..
@@ -4072,8 +4072,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 168: const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
-"169
+[; ;RF.h: 172: const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
+"173
 [v _Conf2_ChannelB_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_OFF_STR
 :U ..
@@ -4098,8 +4098,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 169: const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
-"172
+[; ;RF.h: 173: const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
+"176
 [v _Conf2_ChannelD_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_STR
 :U ..
@@ -4120,8 +4120,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 172: const unsigned char Conf2_ChannelD_STR[] = "Conf2_ChannelD";
-"173
+[; ;RF.h: 176: const unsigned char Conf2_ChannelD_STR[] = "Conf2_ChannelD";
+"177
 [v _Conf2_ChannelD_ON `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_ON
 :U ..
@@ -4143,8 +4143,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 1 `i `uc
 ..
 ]
-[; ;RF.h: 173: const unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
-"174
+[; ;RF.h: 177: const unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
+"178
 [v _Conf2_ChannelD_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_ON_STR
 :U ..
@@ -4168,8 +4168,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 174: const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
-"175
+[; ;RF.h: 178: const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
+"179
 [v _Conf2_ChannelD_OFF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_OFF
 :U ..
@@ -4191,8 +4191,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 1 `i `uc
 ..
 ]
-[; ;RF.h: 175: const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
-"176
+[; ;RF.h: 179: const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
+"180
 [v _Conf2_ChannelD_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_OFF_STR
 :U ..
@@ -4217,8 +4217,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 176: const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
-"179
+[; ;RF.h: 180: const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
+"183
 [v _Conf2_ChannelH_1_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_STR
 :U ..
@@ -4241,8 +4241,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 179: const unsigned char Conf2_ChannelH_1_STR[] = "Conf2_ChannelH_1";
-"180
+[; ;RF.h: 183: const unsigned char Conf2_ChannelH_1_STR[] = "Conf2_ChannelH_1";
+"184
 [v _Conf2_ChannelH_1_ON `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_ON
 :U ..
@@ -4264,8 +4264,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 180: const unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
-"181
+[; ;RF.h: 184: const unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
+"185
 [v _Conf2_ChannelH_1_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_ON_STR
 :U ..
@@ -4291,8 +4291,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 181: const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
-"182
+[; ;RF.h: 185: const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
+"186
 [v _Conf2_ChannelH_1_OFF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_OFF
 :U ..
@@ -4314,8 +4314,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 182: const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
-"183
+[; ;RF.h: 186: const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
+"187
 [v _Conf2_ChannelH_1_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_OFF_STR
 :U ..
@@ -4342,8 +4342,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 183: const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
-"185
+[; ;RF.h: 187: const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
+"189
 [v _Conf2_ChannelH_2_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_STR
 :U ..
@@ -4366,8 +4366,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 185: const unsigned char Conf2_ChannelH_2_STR[] = "Conf2_ChannelH_2";
-"186
+[; ;RF.h: 189: const unsigned char Conf2_ChannelH_2_STR[] = "Conf2_ChannelH_2";
+"190
 [v _Conf2_ChannelH_2_ON `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_ON
 :U ..
@@ -4389,8 +4389,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 186: const unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
-"187
+[; ;RF.h: 190: const unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
+"191
 [v _Conf2_ChannelH_2_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_ON_STR
 :U ..
@@ -4416,8 +4416,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 187: const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
-"188
+[; ;RF.h: 191: const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
+"192
 [v _Conf2_ChannelH_2_OFF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_OFF
 :U ..
@@ -4439,8 +4439,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 188: const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
-"189
+[; ;RF.h: 192: const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
+"193
 [v _Conf2_ChannelH_2_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_OFF_STR
 :U ..
@@ -4467,8 +4467,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 189: const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
-"191
+[; ;RF.h: 193: const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
+"195
 [v _Conf2_ChannelH_3_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_STR
 :U ..
@@ -4491,8 +4491,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 191: const unsigned char Conf2_ChannelH_3_STR[] = "Conf2_ChannelH_3";
-"192
+[; ;RF.h: 195: const unsigned char Conf2_ChannelH_3_STR[] = "Conf2_ChannelH_3";
+"196
 [v _Conf2_ChannelH_3_ON `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_ON
 :U ..
@@ -4514,8 +4514,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 192: const unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
-"193
+[; ;RF.h: 196: const unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
+"197
 [v _Conf2_ChannelH_3_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_ON_STR
 :U ..
@@ -4541,8 +4541,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 193: const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
-"194
+[; ;RF.h: 197: const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
+"198
 [v _Conf2_ChannelH_3_OFF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_OFF
 :U ..
@@ -4564,8 +4564,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 194: const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
-"195
+[; ;RF.h: 198: const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
+"199
 [v _Conf2_ChannelH_3_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_OFF_STR
 :U ..
@@ -4592,23 +4592,25 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 195: const unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
-[; ;RF.h: 200: extern unsigned char RFsendCode[20];
-[; ;RF.h: 201: extern volatile unsigned char RFsendFlag;
-[; ;RF.h: 202: extern unsigned char RFcodePlace;
-[; ;RF.h: 203: extern unsigned char RFcodeBit;
-[; ;RF.h: 204: extern volatile unsigned char Sendcount;
-[; ;RF.h: 205: extern unsigned char RFConfig;
-"206
+[; ;RF.h: 199: const unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
+[; ;RF.h: 204: extern unsigned char RFsendCode[20];
+[; ;RF.h: 205: extern volatile unsigned char RFsendFlag;
+[; ;RF.h: 206: extern unsigned char RFcodePlace;
+[; ;RF.h: 207: extern unsigned char RFcodeBit;
+[; ;RF.h: 208: extern volatile unsigned char Sendcount;
+[; ;RF.h: 209: extern unsigned char RFConfig;
+"210
 [v _Sent `Vuc ~T0 @X0 1 e ]
-[; ;RF.h: 206: volatile unsigned char Sent;
-[; ;RF.h: 207: extern volatile unsigned char RF_IR_Postscaler;
-[; ;RF.h: 208: extern unsigned char RF_IR;
-[; ;RF.h: 214: unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
-[; ;RF.h: 215: void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
-[; ;RF.h: 216: void SendRF_Channel(unsigned char channel);
-[; ;RF.h: 217: unsigned char GetRFstatus(void);
-[; ;RF.h: 218: void DisplayRF_Channel(unsigned char channel);
+[; ;RF.h: 210: volatile unsigned char Sent;
+[; ;RF.h: 211: extern volatile unsigned char RF_IR_Postscaler;
+[; ;RF.h: 212: extern unsigned char RF_IR;
+[; ;RF.h: 218: unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
+[; ;RF.h: 219: void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
+[; ;RF.h: 220: void SendRF_Channel(unsigned char channel);
+[; ;RF.h: 221: unsigned char GetRFstatus(void);
+[; ;RF.h: 222: void DisplayRF_Channel(unsigned char channel);
+[; ;RF.h: 223: inline void RFon();
+[; ;RF.h: 224: inline void RFoff();
 [; ;UART.h: 124: extern volatile unsigned char ReceivedString[100];
 [; ;UART.h: 125: extern volatile unsigned char ReceivedStringPos;
 [; ;UART.h: 126: extern volatile unsigned char CommandString[100];

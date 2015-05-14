@@ -11,6 +11,8 @@
  * 04/09/15     1.0_DW0b    Fixed bugs.
  *                          Added features.
  * 04/29/15     1.0_DW0d    Create new macro for holding the number of rf codes.
+ * 05/14/15     1.0_DW0e    Fixed RF timing so that conf2_channeB works.
+ *                          Added support for 433MHz transmitter.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -92,7 +94,7 @@
 /******************************************************************************/
 /* Short bit/pause */
 /* 650uS*/
-#define Conf2_Short 11 //~660uS
+#define Conf2_Short 9 //~660uS
 
 /* Long bit/pause */
 /* 1.75mS*/
@@ -100,7 +102,7 @@
 
 /* Sync bit/pause */
 /* 11.89mS*/
-#define Conf2_Sync 149 //11220 + 660 = 11880uS
+#define Conf2_Sync 146 //11220 + 660 = 11880uS
 
 /******************************************************************************/
 /* RFmaxSize
@@ -127,6 +129,8 @@
 #define SENDING 2
 #define RF 55
 #define EndofRFcode 99
+#define _315MHz 31
+#define _433MHz 43
 
 /******************************************************************************/
 /* Rf Codes for RFConfig = 1
@@ -216,6 +220,8 @@ void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char 
 void SendRF_Channel(unsigned char channel);
 unsigned char GetRFstatus(void);
 void DisplayRF_Channel(unsigned char channel);
+inline void RFon();
+inline void RFoff();
 
 #endif	/* RF_H */
 

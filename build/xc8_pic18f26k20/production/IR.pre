@@ -4995,10 +4995,10 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 
-# 52 "user.h"
+# 53 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
 
-# 284
+# 283
 void InitApp(void);
 void Init_System (void);
 
@@ -5080,7 +5080,7 @@ unsigned char IsAlphaNumericString(unsigned char* data);
 unsigned char IsAlphaNumeric(unsigned char data);
 unsigned char IsNumber(unsigned char data);
 
-# 137 "RF.h"
+# 141 "RF.h"
 const unsigned char Conf1_Channels[] = "DEF";
 
 
@@ -5095,7 +5095,7 @@ const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
 const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
 const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
 
-# 163
+# 167
 const unsigned char Conf2_Channels[] = "BDH";
 
 const unsigned char Conf2_ChannelB_STR[] = "Conf2_ChannelB";
@@ -5143,12 +5143,14 @@ volatile unsigned char Sent;
 extern volatile unsigned char RF_IR_Postscaler;
 extern unsigned char RF_IR;
 
-# 214
+# 218
 unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
 void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
 void SendRF_Channel(unsigned char channel);
 unsigned char GetRFstatus(void);
 void DisplayRF_Channel(unsigned char channel);
+inline void RFon();
+inline void RFoff();
 
 # 124 "UART.h"
 extern volatile unsigned char ReceivedString[100];

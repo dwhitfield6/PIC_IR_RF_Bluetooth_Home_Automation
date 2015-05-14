@@ -85,27 +85,31 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _PIR1bits `VS133 ~T0 @X0 0 e@3998 ]
 "40 Timer.h
 [v _Timer2_Postscaler `uc ~T0 @X0 0 e ]
-"208 RF.h
+"212 RF.h
 [v _RF_IR `uc ~T0 @X0 0 e ]
-"207
+"211
 [v _RF_IR_Postscaler `Vuc ~T0 @X0 0 e ]
-"200
+"204
 [v _RFsendCode `uc ~T0 @X0 -> 0 `x e ]
-"203
+"207
 [v _RFcodeBit `uc ~T0 @X0 0 e ]
-"201
-[v _RFsendFlag `Vuc ~T0 @X0 0 e ]
 "205
+[v _RFsendFlag `Vuc ~T0 @X0 0 e ]
+"209
 [v _RFConfig `uc ~T0 @X0 0 e ]
-"202
+"206
 [v _RFcodePlace `uc ~T0 @X0 0 e ]
-"1691 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
-[v _LATC `Vuc ~T0 @X0 0 e@3979 ]
-"5191
+[v F4130 `(v ~T0 @X0 1 tf ]
+"223
+[v _RFon `TF4130 ~T0 @X0 0 e ]
+"5191 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [v _PR2 `Vuc ~T0 @X0 0 e@4043 ]
 "5300
 [v _TMR2 `Vuc ~T0 @X0 0 e@4044 ]
-"5127
+[v F4132 `(v ~T0 @X0 1 tf ]
+"224 RF.h
+[v _RFoff `TF4132 ~T0 @X0 0 e ]
+"5127 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [s S274 :2 `uc 1 :1 `uc 1 :4 `uc 1 ]
 [n S274 . T2CKPS TMR2ON T2OUTPS ]
 "5132
@@ -116,7 +120,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S273 . . . ]
 "5142
 [v _T2CONbits `VS273 ~T0 @X0 0 e@4042 ]
-"204 RF.h
+"208 RF.h
 [v _Sendcount `Vuc ~T0 @X0 0 e ]
 "184 Timer.h
 [v _ResetTimer3 `(v ~T0 @X0 0 ef ]
@@ -165,7 +169,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _IRbitPosition `Vuc ~T0 @X0 0 e ]
 "216
 [v _IRmod `Vuc ~T0 @X0 0 e ]
-"209
+"1691 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
+[v _LATC `Vuc ~T0 @X0 0 e@3979 ]
+"209 IR.h
 [v _IRbit `uc ~T0 @X0 0 e ]
 "214
 [v _IRsendCode `ul ~T0 @X0 0 e ]
@@ -3892,7 +3898,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;MISC.h: 88: unsigned char IsAlphaNumericString(unsigned char* data);
 [; ;MISC.h: 89: unsigned char IsAlphaNumeric(unsigned char data);
 [; ;MISC.h: 90: unsigned char IsNumber(unsigned char data);
-"52 user.h
+"53 user.h
 [v _ProductName `uc ~T0 @X0 -> 50 `i e ]
 [i _ProductName
 :U ..
@@ -3914,10 +3920,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;user.h: 52: unsigned char ProductName[50] = {"Home Automation"};
-[; ;user.h: 284: void InitApp(void);
-[; ;user.h: 285: void Init_System (void);
-"137 RF.h
+[; ;user.h: 53: unsigned char ProductName[50] = {"Home Automation"};
+[; ;user.h: 283: void InitApp(void);
+[; ;user.h: 284: void Init_System (void);
+"141 RF.h
 [v _Conf1_Channels `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_Channels
 :U ..
@@ -3927,8 +3933,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 137: const unsigned char Conf1_Channels[] = "DEF";
-"140
+[; ;RF.h: 141: const unsigned char Conf1_Channels[] = "DEF";
+"144
 [v _Conf1_ChannelD `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelD
 :U ..
@@ -3946,8 +3952,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 140: const unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
-"141
+[; ;RF.h: 144: const unsigned char Conf1_ChannelD[] = {3,3,3,3,3,3,0,0,1,0,0,0};
+"145
 [v _Conf1_ChannelD_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelD_STR
 :U ..
@@ -3968,8 +3974,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 141: const unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
-"144
+[; ;RF.h: 145: const unsigned char Conf1_ChannelD_STR[] = "Conf1_ChannelD";
+"148
 [v _Conf1_ChannelE `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelE
 :U ..
@@ -3987,8 +3993,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 144: const unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
-"145
+[; ;RF.h: 148: const unsigned char Conf1_ChannelE[] = {0,3,3,3,3,3,0,0,1,0,0,0};
+"149
 [v _Conf1_ChannelE_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelE_STR
 :U ..
@@ -4009,8 +4015,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 145: const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
-"148
+[; ;RF.h: 149: const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
+"152
 [v _Conf1_ChannelF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelF
 :U ..
@@ -4028,8 +4034,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 148: const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
-"149
+[; ;RF.h: 152: const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
+"153
 [v _Conf1_ChannelF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_ChannelF_STR
 :U ..
@@ -4050,8 +4056,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 149: const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
-"163
+[; ;RF.h: 153: const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
+"167
 [v _Conf2_Channels `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_Channels
 :U ..
@@ -4061,8 +4067,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 163: const unsigned char Conf2_Channels[] = "BDH";
-"165
+[; ;RF.h: 167: const unsigned char Conf2_Channels[] = "BDH";
+"169
 [v _Conf2_ChannelB_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_STR
 :U ..
@@ -4083,8 +4089,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 165: const unsigned char Conf2_ChannelB_STR[] = "Conf2_ChannelB";
-"166
+[; ;RF.h: 169: const unsigned char Conf2_ChannelB_STR[] = "Conf2_ChannelB";
+"170
 [v _Conf2_ChannelB_ON `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_ON
 :U ..
@@ -4106,8 +4112,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 166: const unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
-"167
+[; ;RF.h: 170: const unsigned char Conf2_ChannelB_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0};
+"171
 [v _Conf2_ChannelB_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_ON_STR
 :U ..
@@ -4131,8 +4137,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 167: const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
-"168
+[; ;RF.h: 171: const unsigned char Conf2_ChannelB_ON_STR[] = "Conf2_ChannelB_ON";
+"172
 [v _Conf2_ChannelB_OFF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_OFF
 :U ..
@@ -4154,8 +4160,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 168: const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
-"169
+[; ;RF.h: 172: const unsigned char Conf2_ChannelB_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0};
+"173
 [v _Conf2_ChannelB_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelB_OFF_STR
 :U ..
@@ -4180,8 +4186,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 169: const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
-"172
+[; ;RF.h: 173: const unsigned char Conf2_ChannelB_OFF_STR[] = "Conf2_ChannelB_OFF";
+"176
 [v _Conf2_ChannelD_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_STR
 :U ..
@@ -4202,8 +4208,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 172: const unsigned char Conf2_ChannelD_STR[] = "Conf2_ChannelD";
-"173
+[; ;RF.h: 176: const unsigned char Conf2_ChannelD_STR[] = "Conf2_ChannelD";
+"177
 [v _Conf2_ChannelD_ON `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_ON
 :U ..
@@ -4225,8 +4231,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 1 `i `uc
 ..
 ]
-[; ;RF.h: 173: const unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
-"174
+[; ;RF.h: 177: const unsigned char Conf2_ChannelD_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1};
+"178
 [v _Conf2_ChannelD_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_ON_STR
 :U ..
@@ -4250,8 +4256,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 174: const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
-"175
+[; ;RF.h: 178: const unsigned char Conf2_ChannelD_ON_STR[] = "Conf2_ChannelD_ON";
+"179
 [v _Conf2_ChannelD_OFF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_OFF
 :U ..
@@ -4273,8 +4279,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 1 `i `uc
 ..
 ]
-[; ;RF.h: 175: const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
-"176
+[; ;RF.h: 179: const unsigned char Conf2_ChannelD_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1};
+"180
 [v _Conf2_ChannelD_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelD_OFF_STR
 :U ..
@@ -4299,8 +4305,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 176: const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
-"179
+[; ;RF.h: 180: const unsigned char Conf2_ChannelD_OFF_STR[] = "Conf2_ChannelD_OFF";
+"183
 [v _Conf2_ChannelH_1_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_STR
 :U ..
@@ -4323,8 +4329,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 179: const unsigned char Conf2_ChannelH_1_STR[] = "Conf2_ChannelH_1";
-"180
+[; ;RF.h: 183: const unsigned char Conf2_ChannelH_1_STR[] = "Conf2_ChannelH_1";
+"184
 [v _Conf2_ChannelH_1_ON `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_ON
 :U ..
@@ -4346,8 +4352,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 180: const unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
-"181
+[; ;RF.h: 184: const unsigned char Conf2_ChannelH_1_ON[] = {0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0};
+"185
 [v _Conf2_ChannelH_1_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_ON_STR
 :U ..
@@ -4373,8 +4379,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 181: const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
-"182
+[; ;RF.h: 185: const unsigned char Conf2_ChannelH_1_ON_STR[] = "Conf2_ChannelH_1_ON";
+"186
 [v _Conf2_ChannelH_1_OFF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_OFF
 :U ..
@@ -4396,8 +4402,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 182: const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
-"183
+[; ;RF.h: 186: const unsigned char Conf2_ChannelH_1_OFF[] = {0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0};
+"187
 [v _Conf2_ChannelH_1_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_1_OFF_STR
 :U ..
@@ -4424,8 +4430,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 183: const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
-"185
+[; ;RF.h: 187: const unsigned char Conf2_ChannelH_1_OFF_STR[] = "Conf2_ChannelH_1_OFF";
+"189
 [v _Conf2_ChannelH_2_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_STR
 :U ..
@@ -4448,8 +4454,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 185: const unsigned char Conf2_ChannelH_2_STR[] = "Conf2_ChannelH_2";
-"186
+[; ;RF.h: 189: const unsigned char Conf2_ChannelH_2_STR[] = "Conf2_ChannelH_2";
+"190
 [v _Conf2_ChannelH_2_ON `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_ON
 :U ..
@@ -4471,8 +4477,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 186: const unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
-"187
+[; ;RF.h: 190: const unsigned char Conf2_ChannelH_2_ON[] = {0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0};
+"191
 [v _Conf2_ChannelH_2_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_ON_STR
 :U ..
@@ -4498,8 +4504,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 187: const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
-"188
+[; ;RF.h: 191: const unsigned char Conf2_ChannelH_2_ON_STR[] = "Conf2_ChannelH_2_ON";
+"192
 [v _Conf2_ChannelH_2_OFF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_OFF
 :U ..
@@ -4521,8 +4527,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 188: const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
-"189
+[; ;RF.h: 192: const unsigned char Conf2_ChannelH_2_OFF[] = {0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0};
+"193
 [v _Conf2_ChannelH_2_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_2_OFF_STR
 :U ..
@@ -4549,8 +4555,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 189: const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
-"191
+[; ;RF.h: 193: const unsigned char Conf2_ChannelH_2_OFF_STR[] = "Conf2_ChannelH_2_OFF";
+"195
 [v _Conf2_ChannelH_3_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_STR
 :U ..
@@ -4573,8 +4579,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 191: const unsigned char Conf2_ChannelH_3_STR[] = "Conf2_ChannelH_3";
-"192
+[; ;RF.h: 195: const unsigned char Conf2_ChannelH_3_STR[] = "Conf2_ChannelH_3";
+"196
 [v _Conf2_ChannelH_3_ON `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_ON
 :U ..
@@ -4596,8 +4602,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 192: const unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
-"193
+[; ;RF.h: 196: const unsigned char Conf2_ChannelH_3_ON[] = {0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0};
+"197
 [v _Conf2_ChannelH_3_ON_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_ON_STR
 :U ..
@@ -4623,8 +4629,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 193: const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
-"194
+[; ;RF.h: 197: const unsigned char Conf2_ChannelH_3_ON_STR[] = "Conf2_ChannelH_3_ON";
+"198
 [v _Conf2_ChannelH_3_OFF `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_OFF
 :U ..
@@ -4646,8 +4652,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;RF.h: 194: const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
-"195
+[; ;RF.h: 198: const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
+"199
 [v _Conf2_ChannelH_3_OFF_STR `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf2_ChannelH_3_OFF_STR
 :U ..
@@ -4674,23 +4680,25 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;RF.h: 195: const unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
-[; ;RF.h: 200: extern unsigned char RFsendCode[20];
-[; ;RF.h: 201: extern volatile unsigned char RFsendFlag;
-[; ;RF.h: 202: extern unsigned char RFcodePlace;
-[; ;RF.h: 203: extern unsigned char RFcodeBit;
-[; ;RF.h: 204: extern volatile unsigned char Sendcount;
-[; ;RF.h: 205: extern unsigned char RFConfig;
-"206
+[; ;RF.h: 199: const unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
+[; ;RF.h: 204: extern unsigned char RFsendCode[20];
+[; ;RF.h: 205: extern volatile unsigned char RFsendFlag;
+[; ;RF.h: 206: extern unsigned char RFcodePlace;
+[; ;RF.h: 207: extern unsigned char RFcodeBit;
+[; ;RF.h: 208: extern volatile unsigned char Sendcount;
+[; ;RF.h: 209: extern unsigned char RFConfig;
+"210
 [v _Sent `Vuc ~T0 @X0 1 e ]
-[; ;RF.h: 206: volatile unsigned char Sent;
-[; ;RF.h: 207: extern volatile unsigned char RF_IR_Postscaler;
-[; ;RF.h: 208: extern unsigned char RF_IR;
-[; ;RF.h: 214: unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
-[; ;RF.h: 215: void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
-[; ;RF.h: 216: void SendRF_Channel(unsigned char channel);
-[; ;RF.h: 217: unsigned char GetRFstatus(void);
-[; ;RF.h: 218: void DisplayRF_Channel(unsigned char channel);
+[; ;RF.h: 210: volatile unsigned char Sent;
+[; ;RF.h: 211: extern volatile unsigned char RF_IR_Postscaler;
+[; ;RF.h: 212: extern unsigned char RF_IR;
+[; ;RF.h: 218: unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
+[; ;RF.h: 219: void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
+[; ;RF.h: 220: void SendRF_Channel(unsigned char channel);
+[; ;RF.h: 221: unsigned char GetRFstatus(void);
+[; ;RF.h: 222: void DisplayRF_Channel(unsigned char channel);
+[; ;RF.h: 223: inline void RFon();
+[; ;RF.h: 224: inline void RFoff();
 [; ;UART.h: 124: extern volatile unsigned char ReceivedString[100];
 [; ;UART.h: 125: extern volatile unsigned char ReceivedStringPos;
 [; ;UART.h: 126: extern volatile unsigned char CommandString[100];
@@ -4795,9 +4803,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Bluetooth.h: 77: unsigned char BluetoothConfigured(void);
 [; ;Bluetooth.h: 78: unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos);
 [; ;Bluetooth.h: 79: unsigned char WaitForIRsignal(void);
-[v F4252 `(v ~T0 @X0 1 tf ]
+[v F4256 `(v ~T0 @X0 1 tf ]
 "59 interrupts.c
-[v _high_isr `IF4252 ~T0 @X0 1 e ]
+[v _high_isr `IF4256 ~T0 @X0 1 e ]
 "67
 {
 [; ;interrupts.c: 59: void interrupt high_isr(void)
@@ -5125,9 +5133,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 182: {
 "182
 {
-[; ;interrupts.c: 183: (LATC |= 0x20);
+[; ;interrupts.c: 183: RFon();
 "183
-[e =| _LATC -> -> 32 `i `uc ]
+[e ( _RFon ..  ]
 [; ;interrupts.c: 184: (PR2 = 8);
 "184
 [e = _PR2 -> -> 8 `i `uc ]
@@ -5148,9 +5156,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 189: {
 "189
 {
-[; ;interrupts.c: 190: (LATC &= ~0x20);
+[; ;interrupts.c: 190: RFoff();
 "190
-[e =& _LATC -> ~ -> 32 `i `uc ]
+[e ( _RFoff ..  ]
 [; ;interrupts.c: 191: (PR2 = 24);
 "191
 [e = _PR2 -> -> 24 `i `uc ]
@@ -5168,9 +5176,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 195: {
 "195
 {
-[; ;interrupts.c: 196: (LATC |= 0x20);
+[; ;interrupts.c: 196: RFon();
 "196
-[e =| _LATC -> -> 32 `i `uc ]
+[e ( _RFon ..  ]
 [; ;interrupts.c: 197: (PR2 = 8);
 "197
 [e = _PR2 -> -> 8 `i `uc ]
@@ -5191,9 +5199,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 202: {
 "202
 {
-[; ;interrupts.c: 203: (LATC &= ~0x20);
+[; ;interrupts.c: 203: RFoff();
 "203
-[e =& _LATC -> ~ -> 32 `i `uc ]
+[e ( _RFoff ..  ]
 [; ;interrupts.c: 204: (PR2 = 24);
 "204
 [e = _PR2 -> -> 24 `i `uc ]
@@ -5246,12 +5254,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 220: {
 "220
 {
-[; ;interrupts.c: 221: (LATC |= 0x20);
+[; ;interrupts.c: 221: RFon();
 "221
-[e =| _LATC -> -> 32 `i `uc ]
-[; ;interrupts.c: 222: (PR2 = 11);
+[e ( _RFon ..  ]
+[; ;interrupts.c: 222: (PR2 = 9);
 "222
-[e = _PR2 -> -> 11 `i `uc ]
+[e = _PR2 -> -> 9 `i `uc ]
 [; ;interrupts.c: 223: RFcodePlace++;
 "223
 [e ++ _RFcodePlace -> -> 1 `i `uc ]
@@ -5269,9 +5277,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 227: {
 "227
 {
-[; ;interrupts.c: 228: (LATC &= ~0x20);
+[; ;interrupts.c: 228: RFoff();
 "228
-[e =& _LATC -> ~ -> 32 `i `uc ]
+[e ( _RFoff ..  ]
 [; ;interrupts.c: 229: (PR2 = 29);
 "229
 [e = _PR2 -> -> 29 `i `uc ]
@@ -5352,9 +5360,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 254: {
 "254
 {
-[; ;interrupts.c: 255: (LATC |= 0x20);
+[; ;interrupts.c: 255: RFon();
 "255
-[e =| _LATC -> -> 32 `i `uc ]
+[e ( _RFon ..  ]
 [; ;interrupts.c: 256: (PR2 = 24);
 "256
 [e = _PR2 -> -> 24 `i `uc ]
@@ -5372,9 +5380,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 260: {
 "260
 {
-[; ;interrupts.c: 261: (LATC &= ~0x20);
+[; ;interrupts.c: 261: RFoff();
 "261
-[e =& _LATC -> ~ -> 32 `i `uc ]
+[e ( _RFoff ..  ]
 [; ;interrupts.c: 262: (PR2 = 8);
 "262
 [e = _PR2 -> -> 8 `i `uc ]
@@ -5395,9 +5403,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 267: {
 "267
 {
-[; ;interrupts.c: 268: (LATC |= 0x20);
+[; ;interrupts.c: 268: RFon();
 "268
-[e =| _LATC -> -> 32 `i `uc ]
+[e ( _RFon ..  ]
 [; ;interrupts.c: 269: (PR2 = 24);
 "269
 [e = _PR2 -> -> 24 `i `uc ]
@@ -5415,9 +5423,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 273: {
 "273
 {
-[; ;interrupts.c: 274: (LATC &= ~0x20);
+[; ;interrupts.c: 274: RFoff();
 "274
-[e =& _LATC -> ~ -> 32 `i `uc ]
+[e ( _RFoff ..  ]
 [; ;interrupts.c: 275: (PR2 = 8);
 "275
 [e = _PR2 -> -> 8 `i `uc ]
@@ -5473,9 +5481,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 292: {
 "292
 {
-[; ;interrupts.c: 293: (LATC |= 0x20);
+[; ;interrupts.c: 293: RFon();
 "293
-[e =| _LATC -> -> 32 `i `uc ]
+[e ( _RFon ..  ]
 [; ;interrupts.c: 294: (PR2 = 29);
 "294
 [e = _PR2 -> -> 29 `i `uc ]
@@ -5496,12 +5504,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 299: {
 "299
 {
-[; ;interrupts.c: 300: (LATC &= ~0x20);
+[; ;interrupts.c: 300: RFoff();
 "300
-[e =& _LATC -> ~ -> 32 `i `uc ]
-[; ;interrupts.c: 301: (PR2 = 11);
+[e ( _RFoff ..  ]
+[; ;interrupts.c: 301: (PR2 = 9);
 "301
-[e = _PR2 -> -> 11 `i `uc ]
+[e = _PR2 -> -> 9 `i `uc ]
 [; ;interrupts.c: 302: RFcodePlace = 1;
 "302
 [e = _RFcodePlace -> -> 1 `i `uc ]
@@ -5578,9 +5586,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 327: {
 "327
 {
-[; ;interrupts.c: 328: (LATC |= 0x20);
+[; ;interrupts.c: 328: RFon();
 "328
-[e =| _LATC -> -> 32 `i `uc ]
+[e ( _RFon ..  ]
 [; ;interrupts.c: 329: (PR2 = 8);
 "329
 [e = _PR2 -> -> 8 `i `uc ]
@@ -5601,9 +5609,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 334: {
 "334
 {
-[; ;interrupts.c: 335: (LATC &= ~0x20);
+[; ;interrupts.c: 335: RFoff();
 "335
-[e =& _LATC -> ~ -> 32 `i `uc ]
+[e ( _RFoff ..  ]
 [; ;interrupts.c: 336: (PR2 = 24);
 "336
 [e = _PR2 -> -> 24 `i `uc ]
@@ -5621,9 +5629,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 340: {
 "340
 {
-[; ;interrupts.c: 341: (LATC |= 0x20);
+[; ;interrupts.c: 341: RFon();
 "341
-[e =| _LATC -> -> 32 `i `uc ]
+[e ( _RFon ..  ]
 [; ;interrupts.c: 342: (PR2 = 24);
 "342
 [e = _PR2 -> -> 24 `i `uc ]
@@ -5641,9 +5649,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 346: {
 "346
 {
-[; ;interrupts.c: 347: (LATC &= ~0x20);
+[; ;interrupts.c: 347: RFoff();
 "347
-[e =& _LATC -> ~ -> 32 `i `uc ]
+[e ( _RFoff ..  ]
 [; ;interrupts.c: 348: (PR2 = 8);
 "348
 [e = _PR2 -> -> 8 `i `uc ]
@@ -5757,9 +5765,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 384: {
 "384
 {
-[; ;interrupts.c: 385: (LATC |= 0x20);
+[; ;interrupts.c: 385: RFon();
 "385
-[e =| _LATC -> -> 32 `i `uc ]
+[e ( _RFon ..  ]
 [; ;interrupts.c: 386: (PR2 = 8);
 "386
 [e = _PR2 -> -> 8 `i `uc ]
@@ -5774,12 +5782,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 389: {
 "389
 {
-[; ;interrupts.c: 390: (LATC &= ~0x20);
+[; ;interrupts.c: 390: RFoff();
 "390
-[e =& _LATC -> ~ -> 32 `i `uc ]
-[; ;interrupts.c: 391: (PR2 = 11);
+[e ( _RFoff ..  ]
+[; ;interrupts.c: 391: (PR2 = 9);
 "391
-[e = _PR2 -> -> 11 `i `uc ]
+[e = _PR2 -> -> 9 `i `uc ]
 "392
 }
 [; ;interrupts.c: 392: }
@@ -5824,9 +5832,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 405: {
 "405
 {
-[; ;interrupts.c: 406: (LATC &= ~0x20);
+[; ;interrupts.c: 406: RFoff();
 "406
-[e =& _LATC -> ~ -> 32 `i `uc ]
+[e ( _RFoff ..  ]
 [; ;interrupts.c: 407: (PR2 = 250);
 "407
 [e = _PR2 -> -> 250 `i `uc ]
@@ -5841,9 +5849,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 410: {
 "410
 {
-[; ;interrupts.c: 411: (PR2 = 149);
+[; ;interrupts.c: 411: (PR2 = 146);
 "411
-[e = _PR2 -> -> 149 `i `uc ]
+[e = _PR2 -> -> 146 `i `uc ]
 "412
 }
 [; ;interrupts.c: 412: }
@@ -6429,9 +6437,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "601
 [e :UE 379 ]
 }
-[v F4258 `(v ~T0 @X0 1 tf ]
+[v F4262 `(v ~T0 @X0 1 tf ]
 "607
-[v _low_isr `ILF4258 ~T0 @X0 1 e ]
+[v _low_isr `ILF4262 ~T0 @X0 1 e ]
 "615
 {
 [; ;interrupts.c: 607: void low_priority interrupt low_isr(void)

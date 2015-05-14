@@ -3669,7 +3669,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdio.h: 202: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
 [; ;stdio.h: 206: extern int sprintf(char *, const char *, ...);
 [; ;stdio.h: 207: extern int printf(const char *, ...);
-"52 user.h
+"53 user.h
 [v _ProductName `uc ~T0 @X0 -> 50 `i e ]
 [i _ProductName
 :U ..
@@ -3691,9 +3691,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;user.h: 52: unsigned char ProductName[50] = {"Home Automation"};
-[; ;user.h: 284: void InitApp(void);
-[; ;user.h: 285: void Init_System (void);
+[; ;user.h: 53: unsigned char ProductName[50] = {"Home Automation"};
+[; ;user.h: 283: void InitApp(void);
+[; ;user.h: 284: void Init_System (void);
 [; ;system.h: 56: void ConfigureOscillator(void);
 [; ;MISC.h: 67: void delayUS(long US);
 [; ;MISC.h: 68: unsigned char IsCharacter(unsigned char data);

@@ -4932,10 +4932,10 @@ typedef uint16_t uintptr_t;
 # 12 "C:\Program Files (x86)\Microchip\xc8\v1.34\include\stdbool.h"
 typedef unsigned char bool;
 
-# 52 "user.h"
+# 53 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
 
-# 284
+# 283
 void InitApp(void);
 void Init_System (void);
 
@@ -4970,7 +4970,7 @@ void UARTcommandMenu(const unsigned char *Command,const unsigned char *Desc);
 void EraseScreen(unsigned char characters);
 void ClearUSART(void);
 
-# 137 "RF.h"
+# 141 "RF.h"
 const unsigned char Conf1_Channels[] = "DEF";
 
 
@@ -4985,7 +4985,7 @@ const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
 const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
 const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
 
-# 163
+# 167
 const unsigned char Conf2_Channels[] = "BDH";
 
 const unsigned char Conf2_ChannelB_STR[] = "Conf2_ChannelB";
@@ -5033,12 +5033,14 @@ volatile unsigned char Sent;
 extern volatile unsigned char RF_IR_Postscaler;
 extern unsigned char RF_IR;
 
-# 214
+# 218
 unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
 void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
 void SendRF_Channel(unsigned char channel);
 unsigned char GetRFstatus(void);
 void DisplayRF_Channel(unsigned char channel);
+inline void RFon();
+inline void RFoff();
 
 # 39 "Timer.h"
 extern unsigned char Timer1_Postscaler;
@@ -5115,7 +5117,7 @@ unsigned char CheckReceivingIR(void);
 unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
 unsigned long EncodeNEC(unsigned char address, unsigned char command);
 
-# 43 "RF.c"
+# 44 "RF.c"
 unsigned char RFsendCode[20];
 volatile unsigned char RFsendFlag = 0;
 unsigned char RFcodePlace = 0;
@@ -5130,8 +5132,9 @@ unsigned char Conf2_ChannelH_1_Status = 0;
 unsigned char Conf2_ChannelH_2_Status = 0;
 unsigned char Conf2_ChannelH_3_Status = 0;
 unsigned char RF_IR = 55;
+unsigned char frequency = 31;
 
-# 68
+# 70
 unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount)
 {
 unsigned char i;
@@ -5147,11 +5150,19 @@ RFConfig = Config;
 if(Config == 1)
 {
 RF_IR_Postscaler = 2;
+frequency = 31;
 }
 else if(Config == 2)
 {
 RF_IR_Postscaler = 4;
+frequency = 31;
 }
+
+else if(Config == 3)
+{
+frequency = 43;
+}
+
 else
 {
 return 0;
@@ -5181,7 +5192,7 @@ if(Config == 1)
 }
 else
 {
-(PR2 = 149);
+(PR2 = 146);
 }
 (T2CONbits.TMR2ON = 1);
 return 1;
@@ -5189,7 +5200,7 @@ return 1;
 return 2;
 }
 
-# 130
+# 140
 unsigned char GetRFstatus(void)
 {
 if(!RFsendFlag)
@@ -5199,7 +5210,7 @@ return 1;
 return 2;
 }
 
-# 145
+# 155
 void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount)
 {
 (IOCBbits.IOCB4 = 0);
@@ -5216,11 +5227,11 @@ INTCONbits.RBIF = 0;
 INTCONbits.RBIE = 1;
 }
 
-# 165
+# 175
 void SendRF_Channel(unsigned char channel)
 {
 
-# 171
+# 181
 switch (channel)
 {
 case 0:
@@ -5305,7 +5316,7 @@ break;
 }
 }
 
-# 260
+# 270
 void DisplayRF_Channel(unsigned char channel)
 {
 switch(channel)
@@ -5337,5 +5348,39 @@ break;
 default:
 break;
 }
+}
+
+# 308
+inline void RFon(void)
+{
+
+
+
+if(frequency == 31)
+{
+LATC |= 0x20;
+}
+else
+{
+LATB |= 0x20;
+}
+
+}
+
+# 329
+inline void RFoff()
+{
+
+
+
+if(frequency == 31)
+{
+LATC &= ~0x20;
+}
+else
+{
+LATB &= ~0x20;
+}
+
 }
 

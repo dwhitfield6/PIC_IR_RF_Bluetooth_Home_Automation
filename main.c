@@ -31,6 +31,8 @@
  *                          Added commands to send/save all rf codes.
  *                          Add new command rf set all, rf clear all,
  *                            rf clear system.
+ * 05/14/15     1.0_DW0e    Fixed "AddEqual" parsing bugs.
+ *                          Added support for 433MHz transmitter.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -72,7 +74,7 @@
 /* Version number                                                             */
 /******************************************************************************/
 
-const unsigned char FirmVersion[] = {"1.0_DW0d"};
+const unsigned char FirmVersion[] = {"1.0_DW0e"};
 const unsigned char PCBVersion[] = {"RevA"};
 const unsigned char Frequency[] = {"315"};
 const unsigned char ProjectName[] = {"Home Automation IR/RF Hub"};

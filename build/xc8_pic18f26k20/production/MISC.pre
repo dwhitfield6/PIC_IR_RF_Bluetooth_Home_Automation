@@ -4961,14 +4961,14 @@ unsigned char IsAlphaNumericString(unsigned char* data);
 unsigned char IsAlphaNumeric(unsigned char data);
 unsigned char IsNumber(unsigned char data);
 
-# 52 "user.h"
+# 53 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
 
-# 284
+# 283
 void InitApp(void);
 void Init_System (void);
 
-# 53 "MISC.c"
+# 54 "MISC.c"
 void delayUS(long US)
 {
 long i;
@@ -4978,7 +4978,7 @@ __nop();
 }
 }
 
-# 67
+# 68
 void delayNOP(unsigned char NOPs)
 {
 unsigned char i;
@@ -4988,7 +4988,7 @@ __nop();
 }
 }
 
-# 83
+# 84
 void CalibrateDelay(void)
 {
 INTCONbits.PEIE = 0;
@@ -5002,7 +5002,7 @@ delayUS(5000);
 }
 }
 
-# 101
+# 102
 unsigned char IsLetter(unsigned char data)
 {
 if((data >= 65 && data <= 90) || (data >= 97 && data <= 122))
@@ -5012,7 +5012,7 @@ return 1;
 return 0;
 }
 
-# 115
+# 116
 unsigned char IsNumber(unsigned char data)
 {
 if(data >= '0' && data <= '9')
@@ -5022,7 +5022,7 @@ return 1;
 return 0;
 }
 
-# 129
+# 130
 unsigned char IsCharacter(unsigned char data)
 {
 if(data >= 32 && data <= 126)
@@ -5032,7 +5032,7 @@ return 1;
 return 0;
 }
 
-# 144
+# 145
 unsigned char IsAlphaNumeric(unsigned char data)
 {
 if(IsLetter(data) || IsNumber(data) || data == ' ')
@@ -5042,7 +5042,7 @@ return 1;
 return 0;
 }
 
-# 159
+# 160
 unsigned char IsAlphaNumericString(unsigned char* data)
 {
 while(*data != 0)
@@ -5056,7 +5056,7 @@ data++;
 return 1;
 }
 
-# 177
+# 178
 void cleanBuffer(unsigned char* data, int count)
 {
 unsigned char i=0;
@@ -5066,7 +5066,7 @@ data[i]= 0;
 }
 }
 
-# 191
+# 192
 void cleanBuffer16bit(unsigned int* data, int count)
 {
 unsigned char i=0;
@@ -5076,7 +5076,7 @@ data[i]= 0;
 }
 }
 
-# 205
+# 206
 double Round(double input)
 {
 long temp = (long)(input + 0.5);
@@ -5084,7 +5084,7 @@ long temp = (long)(input + 0.5);
 return temp;
 }
 
-# 217
+# 218
 void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift)
 {
 unsigned char i=0;
@@ -5103,7 +5103,7 @@ count--;
 }
 }
 
-# 240
+# 241
 unsigned char StringMatch(const unsigned char* This, const unsigned char* That)
 {
 while(*This != 0)
@@ -5125,7 +5125,7 @@ return 0;
 }
 }
 
-# 267
+# 268
 unsigned char StringMatchCaseInsensitive(const unsigned char* This, const unsigned char* That)
 {
 unsigned char tempThis,
@@ -5155,7 +5155,7 @@ return 0;
 }
 }
 
-# 302
+# 303
 unsigned char StringContains(const unsigned char* This, const unsigned char* That)
 {
 unsigned char MatchCount = 0;
@@ -5199,7 +5199,7 @@ This++;
 return 0;
 }
 
-# 351
+# 352
 unsigned char StringContainsCaseInsensitive(const unsigned char* This,const unsigned char* That)
 {
 unsigned char tempThis,
@@ -5250,7 +5250,7 @@ This++;
 return 0;
 }
 
-# 406
+# 407
 void lowercaseString(unsigned char* Input)
 {
 while((*Input != 0))
@@ -5263,7 +5263,7 @@ Input++;
 }
 }
 
-# 423
+# 424
 void lowercaseChar(unsigned char* Input)
 {
 if((*Input >= 65) && (*Input <= 90 ))
@@ -5272,7 +5272,7 @@ if((*Input >= 65) && (*Input <= 90 ))
 }
 }
 
-# 436
+# 437
 unsigned char Reverse_Byte(unsigned char This)
 {
 unsigned char temp=0;
@@ -5289,7 +5289,7 @@ temp += (This & 0x80) >> 7;
 return temp;
 }
 
-# 457
+# 458
 unsigned int Reverse_2Byte(unsigned int This)
 {
 unsigned int temp=0;
@@ -5314,7 +5314,7 @@ temp += (This & 0x8000) >> 15;
 return temp;
 }
 
-# 486
+# 487
 unsigned long Reverse_4Byte(unsigned long This)
 {
 unsigned long temp=0;
@@ -5355,7 +5355,7 @@ temp += (This & 0x80000000) >> 31;
 return temp;
 }
 
-# 531
+# 534
 unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, long* result)
 {
 unsigned char i =0;
@@ -5485,7 +5485,7 @@ temp = (temp * -1);
 return 0;
 }
 
-# 665
+# 670
 unsigned char GetNumberUnsigned(unsigned char* This, unsigned char CommaNumber, unsigned long* result)
 {
 unsigned char i =0;
@@ -5608,7 +5608,7 @@ This++;
 return 0;
 }
 
-# 792
+# 797
 unsigned char StringAddEqual(unsigned char* Input)
 {
 unsigned char i;
@@ -5616,6 +5616,7 @@ unsigned char j =0;
 unsigned char firstnumber = 255;
 unsigned char temp[255];
 unsigned char NullPosition;
+unsigned char equal = 0;
 for(i = 0; i<255; i++)
 {
 if(*Input == 0)
@@ -5625,6 +5626,12 @@ break;
 }
 Input++;
 }
+if(i >= 254)
+{
+
+return 0;
+}
+
 Input-=NullPosition;
 cleanBuffer(temp,NullPosition +1);
 i = 0;
@@ -5633,6 +5640,14 @@ while(Input[i] != 0)
 if(((Input[i] >= 48) && (Input[i] <= 57)) || (Input[i] == '-'))
 {
 firstnumber = i;
+if(i>=1)
+{
+if(Input[i-1] == '=')
+{
+equal = 1;
+return 3;
+}
+}
 break;
 }
 i++;
@@ -5646,6 +5661,7 @@ for(j=0;j<firstnumber;j++)
 {
 temp[j] = Input[j];
 }
+
 temp[firstnumber] = '=';
 for(j = (firstnumber);j<255;j++)
 {
@@ -5655,11 +5671,11 @@ if(Input[j] == 0)
 break;
 }
 }
-BufferCopy(temp,Input,NullPosition +1,0);
-return 1;
+BufferCopy(temp,Input,NullPosition + 1,0);
+return 2;
 }
 
-# 847
+# 868
 unsigned char GetStringAfterComma(unsigned char* This, unsigned char CommaNumber, unsigned char* result)
 {
 unsigned char tempCommaNumber = 0;

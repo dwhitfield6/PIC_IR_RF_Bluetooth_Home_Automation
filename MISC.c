@@ -12,6 +12,7 @@
  *                          Added features.
  * 04/18/15     1.0_DW0d    Add new function to check for alphanumeric and
  *                            number.
+ * 05/14/15     1.0_DW0e    Fixed "AddEqual" parsing bugs.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -527,6 +528,8 @@ unsigned long Reverse_4Byte(unsigned long This)
 /* GetNumber
  *
  * This function resembles scanf. Use 0x...for hex number.
+ * If you want the first number (before the first comma) then enter 0 for comma
+ * number. If you want the number after the first comma, enter 1...
 /******************************************************************************/
 unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, long* result)
 {
@@ -661,6 +664,8 @@ unsigned char GetNumber(unsigned char* This, unsigned char CommaNumber, long* re
 /* GetNumberUnsigned
  *
  * This function resembles scanf. Use 0x...for hex number.
+ * If you want the first number (before the first comma) then enter 0 for comma
+ * number. If you want the number after the first comma, enter 1...
 /******************************************************************************/
 unsigned char GetNumberUnsigned(unsigned char* This, unsigned char CommaNumber, unsigned long* result)
 {
@@ -796,6 +801,7 @@ unsigned char StringAddEqual(unsigned char* Input)
     unsigned char firstnumber = 255;
     unsigned char temp[255];
     unsigned char NullPosition;
+    unsigned char equal = FALSE;
     for(i = 0; i<255; i++)
     {
         if(*Input == 0)
@@ -805,17 +811,31 @@ unsigned char StringAddEqual(unsigned char* Input)
         }
         Input++;
     }
+    if(i >= 254)
+    {
+        /* There is no Null character which means the sting is greater than 255 characters */
+        return FALSE;
+    }
+
     Input-=NullPosition;
     cleanBuffer(temp,NullPosition +1);
     i = 0;
     while(Input[i] != 0)
     {
-            if(((Input[i] >= 48) && (Input[i] <= 57)) || (Input[i] == '-'))
+        if(((Input[i] >= 48) && (Input[i] <= 57)) || (Input[i] == '-'))
+        {
+            firstnumber = i;
+            if(i>=1)
             {
-                firstnumber = i;
-                break;
+                if(Input[i-1] == '=')
+                {
+                    equal = TRUE;
+                    return NOADDEDEQUAL;
+                }
             }
-            i++;
+            break;
+        }
+        i++;
     }
     if(firstnumber == 255)
     {
@@ -826,6 +846,7 @@ unsigned char StringAddEqual(unsigned char* Input)
     {
            temp[j] = Input[j];
     }
+    /* there is no equal sign yet */
     temp[firstnumber] = '=';
     for(j = (firstnumber);j<255;j++)
     {
@@ -835,8 +856,8 @@ unsigned char StringAddEqual(unsigned char* Input)
             break;
         }
     }
-    BufferCopy(temp,Input,NullPosition +1,0);
-    return TRUE;
+    BufferCopy(temp,Input,NullPosition + 1,0);
+    return ADDEDEQUAL;
 }
 
 /******************************************************************************/

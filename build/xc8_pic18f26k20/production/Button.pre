@@ -4995,10 +4995,10 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 
-# 52 "user.h"
+# 53 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
 
-# 284
+# 283
 void InitApp(void);
 void Init_System (void);
 

@@ -10,6 +10,7 @@
  *                          Derived from project 'PIC_PS2_to_UART'.
  * 04/09/15     1.0_DW0b    Fixed bugs.
  *                          Added features.
+ * 05/14/15     1.0_DW0e    Added support for 433MHz transmitter.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -64,7 +65,13 @@ unsigned char ProductName[50] = {"Home Automation"};
  *
  * This code is used with boards:
  * 1. IR_to_RF_w_bluetooth_revA
- * 1. IR_to_RF_w_bluetooth_revB
+ *    - Original board with only 315 MHz transmitter.
+ * 2. IR_to_RF_w_bluetooth_revB
+ *    - Added 433MHz transmitter and removed the logic and hardwware that
+ *      attempts to save power by turning off the voltage divider that is
+ *      used to measure the input voltage. This hardware included a zener
+ *      diode that seemed to fail and put the full input voltage into an
+ *      input on the PIC. This caused the entire board to brick.
 /******************************************************************************/
 #define IR_to_RF_w_bluetooth_revB
 
@@ -104,6 +111,8 @@ unsigned char ProductName[50] = {"Home Automation"};
 #define FAIL 0
 #define YES 1
 #define NO 0
+#define ADDEDEQUAL 2
+#define NOADDEDEQUAL 3
 
 /******************************************************************************/
 /* Pin Defines                                                                */
@@ -152,9 +161,9 @@ unsigned char ProductName[50] = {"Home Automation"};
 #define SWcodePwrTris	TRISCbits.TRISC4
 #define SWcodePwr 0x10 //RC4
 
-/* Connected to the RF transmitter */
-#define RFtransTris	TRISCbits.TRISC5
-#define RFtrans 0x20 //RC5
+/* Connected to the 315MHz RF transmitter */
+#define RF315transTris	TRISCbits.TRISC5
+#define RF315trans 0x20 //RC5
 
 /* Connected to the bluetooth modules TX */
 #define BLUE_TxTris	TRISCbits.TRISC6
@@ -188,6 +197,10 @@ unsigned char ProductName[50] = {"Home Automation"};
 /* Connected to the Voltage divider */
 #define VoltageDividerTris	TRISBbits.TRISB5
 #define VoltageDivider 0x20//RB5
+#else
+/* Connected to the 315MHz RF transmitter */
+#define RF433transTris	TRISBbits.TRISB5
+#define RF433trans 0x20//RB5
 #endif
 
 /******************************************************************************/
@@ -249,20 +262,6 @@ unsigned char ProductName[50] = {"Home Automation"};
  * The function turns off the Green LED.
 /******************************************************************************/
 #define GreenLEDTOGGLE() (LATC ^= BiGreen)
-
-/******************************************************************************/
-/* RFon()
- *
- * The function turns on the Rf transmitter.
-/******************************************************************************/
-#define RFon() (LATC |= RFtrans)
-
-/******************************************************************************/
-/* RFoff()
- *
- * The function turns off the Rf transmitter.
-/******************************************************************************/
-#define RFoff() (LATC &= ~RFtrans)
 
 /******************************************************************************/
 /* IRLEDon()

@@ -3704,7 +3704,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 210: typedef int16_t intptr_t;
 [; ;stdint.h: 215: typedef uint16_t uintptr_t;
 [; ;stdbool.h: 12: typedef unsigned char bool;
-"52 user.h
+"53 user.h
 [v _ProductName `uc ~T0 @X0 -> 50 `i e ]
 [i _ProductName
 :U ..
@@ -3726,9 +3726,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;user.h: 52: unsigned char ProductName[50] = {"Home Automation"};
-[; ;user.h: 284: void InitApp(void);
-[; ;user.h: 285: void Init_System (void);
+[; ;user.h: 53: unsigned char ProductName[50] = {"Home Automation"};
+[; ;user.h: 283: void InitApp(void);
+[; ;user.h: 284: void Init_System (void);
 [; ;ADC.h: 82: double ReadVoltage(void);
 [; ;ADC.h: 83: unsigned char InternalADC_Read(unsigned char channel, unsigned int *ADCcounts);
 [; ;ADC.h: 84: void ResetADC(void);

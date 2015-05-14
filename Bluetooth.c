@@ -14,6 +14,7 @@
  *                            configured.
  *                          Add new command rf set all, rf clear all,
  *                            rf clear system.
+ * 05/14/15     1.0_DW0e    Fixed "AddEqual" parsing bugs.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -461,6 +462,7 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
     long SerialNumberTEMP = 0;
     unsigned char ReceivedStringPosOLD = FALSE;
     unsigned char system;
+    unsigned char EqualStatus = FALSE;
 
     cleanBuffer(buf,100);
     cleanBuffer(rfchannelSTR,10);
@@ -567,7 +569,7 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
     }
     else if(StringContainsCaseInsensitive(String,"NEC"))
     {
-        if(!GetNumberUnsigned(String, 2, &temp))
+        if(!GetNumberUnsigned(String, 1, &temp))
         {
             if(temp > 0xFF)
             {
@@ -576,7 +578,7 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
                 return FAIL;
             }
             NecCommand = (unsigned char)temp;
-            if(!GetNumberUnsigned(String, 1, &temp))
+            if(!GetNumberUnsigned(String, 0, &temp))
             {
                 if(temp > 0xFF)
                 {
@@ -603,7 +605,7 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
                 return FAIL;
             }
         }
-        else if(!GetNumberUnsigned(String, 1, &EnteredNEC))
+        else if(!GetNumberUnsigned(String, 0, &EnteredNEC))
         {
             SendNEC_wait(EnteredNEC,0);
             sprintf(buf,"sent NEC code 0x%lX", EnteredNEC);
@@ -635,7 +637,7 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
             UARTstringCRLN_CONST("Usage:");
             UARTstringCRLN_CONST("NEC = (32 bit code)");
             UARTstringCRLN_CONST("        or");
-            UARTstringCRLN_CONST("NEC = address,command");
+            UARTstringCRLN_CONST("NEC = address, command");
             UARTstring_CONST(CRLN);
             UARTstringCRLN_CONST("Example:");
             UARTstringCRLN_CONST("NEC = 0x1CE350AF ");
@@ -647,10 +649,14 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
     }
     else if(StringContainsCaseInsensitive(String,"RemoteButton"))
     {
-        if(StringAddEqual(String))
+        EqualStatus = StringAddEqual(String);
+        if(EqualStatus)
         {
-            StringPos++; // we added one place by adding an equal sine
-            if(!GetNumberUnsigned(String, 1, &temp))
+            if(EqualStatus == ADDEDEQUAL)
+            {
+                StringPos++; // we added one place by adding an equal sine
+            }
+            if(!GetNumberUnsigned(String, 0, &temp))
             {
                 if(temp <= ButtonAmount && temp > 0)
                 {
@@ -713,8 +719,8 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
         UARTstringCRLN_CONST("Error: Remote button not specified");
         UARTstring_CONST(CRLN);
         UARTstringCRLN_CONST("Usage:");
-        UARTstringCRLN_CONST("RemoteButton'x'");
-        UARTstringCRLN_CONST("RemoteButton'x' set");
+        UARTstringCRLN_CONST("RemoteButton\"x\"");
+        UARTstringCRLN_CONST("RemoteButton\"x\" set");
         UARTstring_CONST(CRLN);
         UARTstringCRLN_CONST("Example:");
         UARTstringCRLN_CONST("RemoteButton1");
@@ -862,13 +868,17 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
         }
         if(system != TRUE)
         {
-            if(!StringAddEqual(String))
+            EqualStatus = StringAddEqual(String);
+            if(!EqualStatus)
             {
                 UARTstringCRLN_CONST("Error: No RF configuration specified");
                 UARTstring_CONST(CRLN);
                 return FAIL;
             }
-            StringPos++; // we added one place by adding an equal sine
+            if(EqualStatus == ADDEDEQUAL)
+            {
+                StringPos++; // we added one place by adding an equal sine
+            }
             UARTstring_CONST(CRLN);
             if(!GetNumberUnsigned(String, 0, &temp))
             {
@@ -1221,9 +1231,13 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
                 }
                 ReceivedStringPosOLD = ReceivedStringPos;
             }
-            if(StringAddEqual(ReceivedString))
+            EqualStatus = StringAddEqual(ReceivedString);
+            if(EqualStatus)
             {
-                ReceivedStringPos++;
+                if(EqualStatus == ADDEDEQUAL)
+                {
+                    ReceivedStringPos++; // we added one place by adding an equal sine
+                }
                 if(!GetNumber(ReceivedString, 1, &SerialNumberTEMP))
                 {
                     if(SerialNumberTEMP > 0)
@@ -1446,6 +1460,7 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
         UARTcommandMenu("RF clear 2,B", "Clears all saved Button for RF Config 2 channel B");
         UARTcommandMenu("RF clear 2,D", "Clears all saved Button for RF Config 2 channel D");
         UARTcommandMenu("RF clear 2,H", "Clears all saved Button for RF Config 2 channel H");
+        UARTcommandMenu("NEC = \"address\", \"command\"","NEC description for Arbitrary code send");
         UARTcommandMenu("NEC?", "NEC description for Arbitrary code send");
         UARTstring_CONST(CRLN);
         UARTstringCRLN_CONST("RF commands:");

@@ -4995,17 +4995,17 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 
-# 52 "user.h"
+# 53 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
 
-# 284
+# 283
 void InitApp(void);
 void Init_System (void);
 
 # 56 "system.h"
 void ConfigureOscillator(void);
 
-# 137 "RF.h"
+# 141 "RF.h"
 const unsigned char Conf1_Channels[] = "DEF";
 
 
@@ -5020,7 +5020,7 @@ const unsigned char Conf1_ChannelE_STR[] = "Conf1_ChannelE";
 const unsigned char Conf1_ChannelF[] = {3,0,3,3,3,3,0,0,1,0,0,0};
 const unsigned char Conf1_ChannelF_STR[] = "Conf1_ChannelF";
 
-# 163
+# 167
 const unsigned char Conf2_Channels[] = "BDH";
 
 const unsigned char Conf2_ChannelB_STR[] = "Conf2_ChannelB";
@@ -5068,12 +5068,14 @@ volatile unsigned char Sent;
 extern volatile unsigned char RF_IR_Postscaler;
 extern unsigned char RF_IR;
 
-# 214
+# 218
 unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char RepeatAmount);
 void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount);
 void SendRF_Channel(unsigned char channel);
 unsigned char GetRFstatus(void);
 void DisplayRF_Channel(unsigned char channel);
+inline void RFon();
+inline void RFoff();
 
 # 124 "UART.h"
 extern volatile unsigned char ReceivedString[100];
@@ -5248,12 +5250,12 @@ unsigned char CheckReceivingIR(void);
 unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
 unsigned long EncodeNEC(unsigned char address, unsigned char command);
 
-# 51 "user.c"
+# 52 "user.c"
 extern const unsigned char Version[];
 extern unsigned char BluetoothFirmware1[30];
 extern unsigned char BluetoothFirmware2[30];
 
-# 64
+# 65
 void InitApp(void)
 {
 LATA = 0;
@@ -5281,7 +5283,12 @@ TRISBbits.TRISB2 = 1;
 TRISBbits.TRISB3 = 1;
 TRISBbits.TRISB4 = 1;
 
-# 95
+
+
+TRISBbits.TRISB5 = 0;
+
+
+
 ANSEL = 0x01;
 ANSELH = 0x00;
 
@@ -5291,7 +5298,7 @@ INTCON2bits.RBPU = 0;
 WPUB = 0x0F;
 }
 
-# 109
+# 112
 void Init_System (void)
 {
 unsigned char buf[50];

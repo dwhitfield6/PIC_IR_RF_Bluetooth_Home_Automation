@@ -10,6 +10,7 @@
  *                          Derived from project 'PIC_PS2_to_UART'.
  * 04/09/15     1.0_DW0b    Fixed bugs.
  *                          Added features.
+ * 05/14/15     1.0_DW0e    Added support for 433MHz transmitter.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -79,7 +80,7 @@ void InitApp(void)
     BiGreenTris             = OUTPUT;
     IRLEDTris               = OUTPUT;
     SWcodePwrTris           = OUTPUT;
-    RFtransTris             = OUTPUT;
+    RF315transTris          = OUTPUT;
     BLUE_TxTris             = OUTPUT;
     BLUE_RxTris             = INPUT;
     Swcode4Tris             = INPUT;
@@ -89,6 +90,8 @@ void InitApp(void)
     IRreceiverTris          = INPUT;
 #ifdef IR_to_RF_w_bluetooth_revA
     VoltageDividerTris      = INPUT;
+#else
+    RF433transTris             = OUTPUT;
 #endif
 
     /* set all pins to digital except pin RA0 which is the voltage input */

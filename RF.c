@@ -10,6 +10,7 @@
  *                          Derived from project 'PIC_IR_to_RF_MICRF113_test'.
  * 04/09/15     1.0_DW0b    Fixed bugs.
  *                          Added features.
+ * 05/14/15     1.0_DW0e    Added support for 433MHz transmitter.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -54,6 +55,7 @@ unsigned char Conf2_ChannelH_1_Status = OFF;
 unsigned char Conf2_ChannelH_2_Status = OFF;
 unsigned char Conf2_ChannelH_3_Status = OFF;
 unsigned char RF_IR = RF;
+unsigned char frequency = _315MHz;
 
 /******************************************************************************/
 /* Functions
@@ -80,11 +82,19 @@ unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned c
         if(Config == 1)
         {
             RF_IR_Postscaler = 2;
+            frequency = _315MHz;
         }
         else if(Config == 2)
         {
             RF_IR_Postscaler = 4;
+            frequency = _315MHz;
         }
+        #ifndef IR_to_RF_w_bluetooth_revA
+        else if(Config == 3)
+        {
+            frequency = _433MHz;
+        }
+        #endif
         else
         {
             return FAIL;
@@ -288,6 +298,48 @@ void DisplayRF_Channel(unsigned char channel)
         default:
             break;
     }
+}
+
+/******************************************************************************/
+/* RFon
+ *
+ * The function turns on the specific Rf transmitter.
+/******************************************************************************/
+inline void RFon(void)
+{
+    #ifdef IR_to_RF_w_bluetooth_revA
+    LATC |= RF315trans;
+    #else
+    if(frequency == _315MHz)
+    {
+        LATC |= RF315trans;
+    }
+    else
+    {
+        LATB |= RF433trans;
+    }
+    #endif
+}
+
+/******************************************************************************/
+/* RFoff
+ *
+ * The function turns off the specific Rf transmitter.
+/******************************************************************************/
+inline void RFoff()
+{
+    #ifdef IR_to_RF_w_bluetooth_revA
+    LATC &= ~RF315trans;
+    #else
+        if(frequency == _315MHz)
+    {
+        LATC &= ~RF315trans;
+    }
+    else
+    {
+        LATB &= ~RF433trans;
+    }
+    #endif
 }
 /*-----------------------------------------------------------------------------/
  End of File
