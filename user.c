@@ -50,8 +50,6 @@
 /* User Global Variable Declaration                                           */
 /******************************************************************************/
 extern const unsigned char Version[];
-extern unsigned char BluetoothFirmware1[BlueFWbuf];
-extern unsigned char BluetoothFirmware2[BlueFWbuf];
 
 /******************************************************************************/
 /* Functions

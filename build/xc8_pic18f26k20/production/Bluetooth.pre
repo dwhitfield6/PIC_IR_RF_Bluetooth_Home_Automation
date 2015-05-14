@@ -4995,15 +4995,27 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 
-# 53 "user.h"
+# 55 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
 
-# 283
+# 84
+const unsigned char FirmVersion[] = {"1.0_DW0e"};
+
+# 89
+const unsigned char PCBVersion[] = {"RevB"};
+
+const unsigned char Frequency[] = {"315MHz and 433MHz"};
+const unsigned char ProjectName[] = {"Home Automation IR/RF Hub"};
+
+# 303
 void InitApp(void);
 void Init_System (void);
 
 # 67 "Bluetooth.h"
 extern unsigned char BluetoothChangeStatus;
+extern unsigned char BluetoothFirmware1[30];
+extern unsigned char BluetoothFirmware2[30];
+extern unsigned char BluetoothBroadcast[21];
 
 
 
@@ -5258,8 +5270,11 @@ extern unsigned char BluetoothFirmware1[30];
 extern unsigned char BluetoothFirmware2[30];
 extern unsigned char BluetoothBroadcast[21];
 unsigned char BluetoothChangeStatus = 0;
+unsigned char BluetoothFirmware1[30];
+unsigned char BluetoothFirmware2[30];
+unsigned char BluetoothBroadcast[21];
 
-# 79
+# 82
 void InitBluetooth(void)
 {
 cleanBuffer(ReceivedString,100);
@@ -5284,7 +5299,7 @@ PIE1bits.RCIE = 1;
 }
 }
 
-# 108
+# 111
 unsigned char BlueConnected(void)
 {
 
@@ -5295,7 +5310,7 @@ return 1;
 return 0;
 }
 
-# 123
+# 126
 void ResetBlue(void)
 {
 LATA &= ~0x04;
@@ -5312,7 +5327,7 @@ delayUS(50000);
 delayUS(50000);
 }
 
-# 144
+# 147
 unsigned char EnterCommandMode(void)
 {
 unsigned char count = 0;
@@ -5352,7 +5367,7 @@ CommandStringPos = 0;
 return 0;
 }
 
-# 188
+# 191
 unsigned char BluetoothInitialSetup(unsigned char Default)
 {
 unsigned char buf[50];
@@ -5592,7 +5607,7 @@ return 1;
 return 0;
 }
 
-# 432
+# 435
 unsigned char BluetoothConfigured(void)
 {
 if(Global1.BlueToothFlag != 1)
@@ -5602,7 +5617,7 @@ return 0;
 return 1;
 }
 
-# 446
+# 449
 unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
 {
 unsigned char ok = 1;
@@ -6554,13 +6569,12 @@ UARTstringCRLN(BluetoothFirmware1);
 UARTstringCRLN(BluetoothFirmware2);
 UARTstring_CONST(CRLN);
 
-# 1400
+# 1403
 sprintf(buf,"PCB Version: %s", PCBVersion);
 UARTstringCRLN(buf);
 sprintf(buf,"Transmitting Frequency: %s", Frequency);
 UARTstring(buf);
-UARTstringCRLN_CONST(" MHz");
-UARTstring_CONST(CRLN);
+UARTstringCRLN_CONST(CRLN);
 sprintf(buf,"Serial Number: %lu", Global2.SerialNumber);
 UARTstring(buf);
 UARTstring_CONST(CRLN);
@@ -6648,7 +6662,7 @@ return 0;
 return 0;
 }
 
-# 1498
+# 1500
 unsigned char WaitForIRsignal(void)
 {
 unsigned char timeout = 0;

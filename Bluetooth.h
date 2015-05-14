@@ -65,6 +65,9 @@
 /* User Global Variable Declaration                                           */
 /******************************************************************************/
 extern unsigned char BluetoothChangeStatus;
+extern unsigned char BluetoothFirmware1[BlueFWbuf];
+extern unsigned char BluetoothFirmware2[BlueFWbuf];
+extern unsigned char BluetoothBroadcast[BroadcastSize];
 
 /******************************************************************************/
 /* Function prototypes                                                        */

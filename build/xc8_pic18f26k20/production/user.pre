@@ -4995,10 +4995,37 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 
-# 53 "user.h"
+# 67 "Bluetooth.h"
+extern unsigned char BluetoothChangeStatus;
+extern unsigned char BluetoothFirmware1[30];
+extern unsigned char BluetoothFirmware2[30];
+extern unsigned char BluetoothBroadcast[21];
+
+
+
+
+void InitBluetooth(void);
+unsigned char BlueConnected(void);
+void ResetBlue(void);
+unsigned char EnterCommandMode(void);
+unsigned char BluetoothInitialSetup(unsigned char Default);
+unsigned char BluetoothConfigured(void);
+unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos);
+unsigned char WaitForIRsignal(void);
+
+# 55 "user.h"
 unsigned char ProductName[50] = {"Home Automation"};
 
-# 283
+# 84
+const unsigned char FirmVersion[] = {"1.0_DW0e"};
+
+# 89
+const unsigned char PCBVersion[] = {"RevB"};
+
+const unsigned char Frequency[] = {"315MHz and 433MHz"};
+const unsigned char ProjectName[] = {"Home Automation IR/RF Hub"};
+
+# 303
 void InitApp(void);
 void Init_System (void);
 
@@ -5203,21 +5230,6 @@ void InitADC(void);
 void VoltageDividerON(void);
 void VoltageDividerOFF(void);
 
-# 67 "Bluetooth.h"
-extern unsigned char BluetoothChangeStatus;
-
-
-
-
-void InitBluetooth(void);
-unsigned char BlueConnected(void);
-void ResetBlue(void);
-unsigned char EnterCommandMode(void);
-unsigned char BluetoothInitialSetup(unsigned char Default);
-unsigned char BluetoothConfigured(void);
-unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos);
-unsigned char WaitForIRsignal(void);
-
 # 204 "IR.h"
 extern unsigned char IRpinOLD;
 extern unsigned int IRRawCode[100];
@@ -5252,10 +5264,8 @@ unsigned long EncodeNEC(unsigned char address, unsigned char command);
 
 # 52 "user.c"
 extern const unsigned char Version[];
-extern unsigned char BluetoothFirmware1[30];
-extern unsigned char BluetoothFirmware2[30];
 
-# 65
+# 63
 void InitApp(void)
 {
 LATA = 0;
@@ -5298,7 +5308,7 @@ INTCON2bits.RBPU = 0;
 WPUB = 0x0F;
 }
 
-# 112
+# 110
 void Init_System (void)
 {
 unsigned char buf[50];

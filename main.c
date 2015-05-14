@@ -72,18 +72,6 @@
 #include "Timer.h"
 
 /******************************************************************************/
-/* Version number                                                             */
-/******************************************************************************/
-
-const unsigned char FirmVersion[] = {"1.0_DW0e"};
-const unsigned char PCBVersion[] = {"RevA"};
-const unsigned char Frequency[] = {"315"};
-const unsigned char ProjectName[] = {"Home Automation IR/RF Hub"};
-unsigned char BluetoothFirmware1[BlueFWbuf];
-unsigned char BluetoothFirmware2[BlueFWbuf];
-unsigned char BluetoothBroadcast[BroadcastSize];
-
-/******************************************************************************/
 /* Defines                                                                    */
 /******************************************************************************/
 

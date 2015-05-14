@@ -99,16 +99,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _RFConfig `uc ~T0 @X0 0 e ]
 "206
 [v _RFcodePlace `uc ~T0 @X0 0 e ]
-[v F4130 `(v ~T0 @X0 1 tf ]
+[v F4155 `(v ~T0 @X0 1 tf ]
 "223
-[v _RFon `TF4130 ~T0 @X0 0 e ]
+[v _RFon `TF4155 ~T0 @X0 0 e ]
 "5191 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [v _PR2 `Vuc ~T0 @X0 0 e@4043 ]
 "5300
 [v _TMR2 `Vuc ~T0 @X0 0 e@4044 ]
-[v F4132 `(v ~T0 @X0 1 tf ]
+[v F4157 `(v ~T0 @X0 1 tf ]
 "224 RF.h
-[v _RFoff `TF4132 ~T0 @X0 0 e ]
+[v _RFoff `TF4157 ~T0 @X0 0 e ]
 "5127 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [s S274 :2 `uc 1 :1 `uc 1 :4 `uc 1 ]
 [n S274 . T2CKPS TMR2ON T2OUTPS ]
@@ -181,7 +181,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _IRrepeatAmount `uc ~T0 @X0 0 e ]
 "596 C:\Program Files (x86)\Microchip\xc8\v1.34\include\plib\usart.h
 [v _ReadUSART `(uc ~T0 @X0 0 ef ]
-"73 Bluetooth.h
+"76 Bluetooth.h
 [v _BlueConnected `(uc ~T0 @X0 0 ef ]
 "127 UART.h
 [v _CommandStringPos `Vuc ~T0 @X0 0 e ]
@@ -3898,7 +3898,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;MISC.h: 88: unsigned char IsAlphaNumericString(unsigned char* data);
 [; ;MISC.h: 89: unsigned char IsAlphaNumeric(unsigned char data);
 [; ;MISC.h: 90: unsigned char IsNumber(unsigned char data);
-"53 user.h
+[; ;Bluetooth.h: 67: extern unsigned char BluetoothChangeStatus;
+[; ;Bluetooth.h: 68: extern unsigned char BluetoothFirmware1[30];
+[; ;Bluetooth.h: 69: extern unsigned char BluetoothFirmware2[30];
+[; ;Bluetooth.h: 70: extern unsigned char BluetoothBroadcast[21];
+[; ;Bluetooth.h: 75: void InitBluetooth(void);
+[; ;Bluetooth.h: 76: unsigned char BlueConnected(void);
+[; ;Bluetooth.h: 77: void ResetBlue(void);
+[; ;Bluetooth.h: 78: unsigned char EnterCommandMode(void);
+[; ;Bluetooth.h: 79: unsigned char BluetoothInitialSetup(unsigned char Default);
+[; ;Bluetooth.h: 80: unsigned char BluetoothConfigured(void);
+[; ;Bluetooth.h: 81: unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos);
+[; ;Bluetooth.h: 82: unsigned char WaitForIRsignal(void);
+"55 user.h
 [v _ProductName `uc ~T0 @X0 -> 50 `i e ]
 [i _ProductName
 :U ..
@@ -3920,9 +3932,95 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;user.h: 53: unsigned char ProductName[50] = {"Home Automation"};
-[; ;user.h: 283: void InitApp(void);
-[; ;user.h: 284: void Init_System (void);
+[; ;user.h: 55: unsigned char ProductName[50] = {"Home Automation"};
+"84
+[v _FirmVersion `Cuc ~T0 @X0 -> 0 `x e ]
+[i _FirmVersion
+:U ..
+-> 49 `c
+-> 46 `c
+-> 48 `c
+-> 95 `c
+-> 68 `c
+-> 87 `c
+-> 48 `c
+-> 101 `c
+-> 0 `c
+..
+]
+[; ;user.h: 84: const unsigned char FirmVersion[] = {"1.0_DW0e"};
+"89
+[v _PCBVersion `Cuc ~T0 @X0 -> 0 `x e ]
+[i _PCBVersion
+:U ..
+-> 82 `c
+-> 101 `c
+-> 118 `c
+-> 66 `c
+-> 0 `c
+..
+]
+[; ;user.h: 89: const unsigned char PCBVersion[] = {"RevB"};
+"91
+[v _Frequency `Cuc ~T0 @X0 -> 0 `x e ]
+[i _Frequency
+:U ..
+-> 51 `c
+-> 49 `c
+-> 53 `c
+-> 77 `c
+-> 72 `c
+-> 122 `c
+-> 32 `c
+-> 97 `c
+-> 110 `c
+-> 100 `c
+-> 32 `c
+-> 52 `c
+-> 51 `c
+-> 51 `c
+-> 77 `c
+-> 72 `c
+-> 122 `c
+-> 0 `c
+..
+]
+[; ;user.h: 91: const unsigned char Frequency[] = {"315MHz and 433MHz"};
+"92
+[v _ProjectName `Cuc ~T0 @X0 -> 0 `x e ]
+[i _ProjectName
+:U ..
+-> 72 `c
+-> 111 `c
+-> 109 `c
+-> 101 `c
+-> 32 `c
+-> 65 `c
+-> 117 `c
+-> 116 `c
+-> 111 `c
+-> 109 `c
+-> 97 `c
+-> 116 `c
+-> 105 `c
+-> 111 `c
+-> 110 `c
+-> 32 `c
+-> 73 `c
+-> 82 `c
+-> 47 `c
+-> 82 `c
+-> 70 `c
+-> 32 `c
+-> 72 `c
+-> 117 `c
+-> 98 `c
+-> 0 `c
+..
+]
+[; ;user.h: 92: const unsigned char ProjectName[] = {"Home Automation IR/RF Hub"};
+[; ;user.h: 303: void InitApp(void);
+[; ;user.h: 304: void Init_System (void);
 "141 RF.h
 [v _Conf1_Channels `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_Channels
@@ -4794,18 +4892,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Timer.h: 183: void InitTimer3(void);
 [; ;Timer.h: 184: void ResetTimer3(void);
 [; ;Timer.h: 185: void InitTimers(void);
-[; ;Bluetooth.h: 67: extern unsigned char BluetoothChangeStatus;
-[; ;Bluetooth.h: 72: void InitBluetooth(void);
-[; ;Bluetooth.h: 73: unsigned char BlueConnected(void);
-[; ;Bluetooth.h: 74: void ResetBlue(void);
-[; ;Bluetooth.h: 75: unsigned char EnterCommandMode(void);
-[; ;Bluetooth.h: 76: unsigned char BluetoothInitialSetup(unsigned char Default);
-[; ;Bluetooth.h: 77: unsigned char BluetoothConfigured(void);
-[; ;Bluetooth.h: 78: unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos);
-[; ;Bluetooth.h: 79: unsigned char WaitForIRsignal(void);
-[v F4256 `(v ~T0 @X0 1 tf ]
+[v F4263 `(v ~T0 @X0 1 tf ]
 "59 interrupts.c
-[v _high_isr `IF4256 ~T0 @X0 1 e ]
+[v _high_isr `IF4263 ~T0 @X0 1 e ]
 "67
 {
 [; ;interrupts.c: 59: void interrupt high_isr(void)
@@ -6437,9 +6526,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "601
 [e :UE 379 ]
 }
-[v F4262 `(v ~T0 @X0 1 tf ]
+[v F4269 `(v ~T0 @X0 1 tf ]
 "607
-[v _low_isr `ILF4262 ~T0 @X0 1 e ]
+[v _low_isr `ILF4269 ~T0 @X0 1 e ]
 "615
 {
 [; ;interrupts.c: 607: void low_priority interrupt low_isr(void)

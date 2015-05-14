@@ -66,6 +66,9 @@ extern unsigned char BluetoothFirmware1[BlueFWbuf];
 extern unsigned char BluetoothFirmware2[BlueFWbuf];
 extern unsigned char BluetoothBroadcast[BroadcastSize];
 unsigned char BluetoothChangeStatus = FALSE;
+unsigned char BluetoothFirmware1[BlueFWbuf];
+unsigned char BluetoothFirmware2[BlueFWbuf];
+unsigned char BluetoothBroadcast[BroadcastSize];
 
 /******************************************************************************/
 /* Functions                                                                  */
@@ -1401,8 +1404,7 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
         UARTstringCRLN(buf);
         sprintf(buf,"Transmitting Frequency: %s", Frequency);
         UARTstring(buf);
-        UARTstringCRLN_CONST(" MHz");
-        UARTstring_CONST(CRLN);
+        UARTstringCRLN_CONST(CRLN);
         sprintf(buf,"Serial Number: %lu", Global2.SerialNumber);
         UARTstring(buf);
         UARTstring_CONST(CRLN);

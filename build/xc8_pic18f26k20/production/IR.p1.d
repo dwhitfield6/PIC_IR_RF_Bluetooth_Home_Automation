@@ -3,6 +3,7 @@
  IR.c  \
 Button.h  \
 UART.h  \
+Bluetooth.h  \
 MISC.h  \
 EEPROM.h  \
 user.h  \

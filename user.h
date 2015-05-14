@@ -34,6 +34,8 @@
 
 #endif
 
+#include "Bluetooth.h"
+
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /******************************************************************************/
 /* Pick Which System!!!
@@ -74,6 +76,20 @@ unsigned char ProductName[50] = {"Home Automation"};
  *      input on the PIC. This caused the entire board to brick.
 /******************************************************************************/
 #define IR_to_RF_w_bluetooth_revB
+
+/******************************************************************************/
+/* Version number                                                             */
+/******************************************************************************/
+
+const unsigned char FirmVersion[] = {"1.0_DW0e"};
+#ifdef IR_to_RF_w_bluetooth_revA
+    const unsigned char PCBVersion[] = {"RevA"};
+#endif
+#ifdef IR_to_RF_w_bluetooth_revB
+    const unsigned char PCBVersion[] = {"RevB"};
+#endif
+const unsigned char Frequency[] = {"315MHz and 433MHz"};
+const unsigned char ProjectName[] = {"Home Automation IR/RF Hub"};
 
 /******************************************************************************/
 /* Important parameters.
@@ -276,6 +292,10 @@ unsigned char ProductName[50] = {"Home Automation"};
  * The function turns off the IR LED.
 /******************************************************************************/
 #define IRLEDoff() (LATC &= ~IRLED)
+
+/******************************************************************************/
+/* User Global Variable Declaration                                           */
+/******************************************************************************/
 
 /******************************************************************************/
 /* Function prototypes                                                        */
