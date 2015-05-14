@@ -3961,7 +3961,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [; ;user.h: 89: const unsigned char PCBVersion[] = {"RevB"};
-"91
+"94
 [v _Frequency `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Frequency
 :U ..
@@ -3985,8 +3985,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;user.h: 91: const unsigned char Frequency[] = {"315MHz and 433MHz"};
-"92
+[; ;user.h: 94: const unsigned char Frequency[] = {"315MHz and 433MHz"};
+"96
 [v _ProjectName `Cuc ~T0 @X0 -> 0 `x e ]
 [i _ProjectName
 :U ..
@@ -4018,9 +4018,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-[; ;user.h: 92: const unsigned char ProjectName[] = {"Home Automation IR/RF Hub"};
-[; ;user.h: 303: void InitApp(void);
-[; ;user.h: 304: void Init_System (void);
+[; ;user.h: 96: const unsigned char ProjectName[] = {"Home Automation IR/RF Hub"};
+[; ;user.h: 307: void InitApp(void);
+[; ;user.h: 308: void Init_System (void);
 "141 RF.h
 [v _Conf1_Channels `Cuc ~T0 @X0 -> 0 `x e ]
 [i _Conf1_Channels

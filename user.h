@@ -88,7 +88,11 @@ const unsigned char FirmVersion[] = {"1.0_DW0e"};
 #ifdef IR_to_RF_w_bluetooth_revB
     const unsigned char PCBVersion[] = {"RevB"};
 #endif
-const unsigned char Frequency[] = {"315MHz and 433MHz"};
+#ifdef IR_to_RF_w_bluetooth_revA
+    const unsigned char Frequency[] = {"315MHz"};
+#else
+    const unsigned char Frequency[] = {"315MHz and 433MHz"};
+#endif
 const unsigned char ProjectName[] = {"Home Automation IR/RF Hub"};
 
 /******************************************************************************/

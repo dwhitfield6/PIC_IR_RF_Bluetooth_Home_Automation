@@ -5,7 +5,7 @@ Linker command line:
 -W-1 --edf=C:\Program Files (x86)\Microchip\xc8\v1.34\dat\en_msgs.txt -cs \
   -h+dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.sym \
   --cmf=dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.cmf \
-  -z -Q18F26K20 -oC:\Users\DWHITF~1\AppData\Local\Temp\s72o.6 \
+  -z -Q18F26K20 -oC:\Users\DWHITF~1\AppData\Local\Temp\s80k.6 \
   -Mdist/xc8_pic18f26k20/production/PIC_IR_RF_Bluetooth_Home_Automation.production.map \
   -E1 -ver=XC8 -ASTACK=06C8h-0f5fh -pstack=STACK -ACODE=00h-0FFFFh \
   -ACONST=00h-0FFFFh -ASMALLCONST=01000h-010FFhx240 \
@@ -26,7 +26,7 @@ Linker command line:
   -pfarbss=FARRAM,fardata=FARRAM,nvFARRAM=FARRAM \
   -pintsave_regs=BIGRAM,bigbss=BIGRAM,bigdata=BIGRAM -pbss=RAM \
   -pidata=CODE,irdata=CODE,ibigdata=CODE,ifardata=CODE -prparam=COMRAM \
-  C:\Users\DWHITF~1\AppData\Local\Temp\s72o.obj \
+  C:\Users\DWHITF~1\AppData\Local\Temp\s80k.obj \
   dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj 
 
 Object code version is 3.11
@@ -39,7 +39,7 @@ Call graph: (short form)
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\DWHITF~1\AppData\Local\Temp\s72o.obj
+C:\Users\DWHITF~1\AppData\Local\Temp\s80k.obj
                 end_init                            1CC      1CC        4        C       0
                 reset_vec                             0        0        4        0       0
                 idloc                            200000   200000        8   200000       0

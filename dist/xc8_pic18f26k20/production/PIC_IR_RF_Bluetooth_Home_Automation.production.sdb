@@ -1045,9 +1045,9 @@ TRUE 1
 [v _FirmVersion FirmVersion `C[9]uc  1 e 9 0 ]
 "89
 [v _PCBVersion PCBVersion `C[5]uc  1 e 5 0 ]
-"91
+"94
 [v _Frequency Frequency `C[18]uc  1 e 18 0 ]
-"92
+"96
 [v _ProjectName ProjectName `C[26]uc  1 e 26 0 ]
 "87 C:\Users\dwhitfield\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\main.c
 [v _main main `(v  1 e 0 0 ]

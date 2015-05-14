@@ -11,11 +11,6 @@
 # All addresses and the length are given in unqualified hexadecimal
 # in delta units.  Any other numeric values are decimal.
 %PSECTS
-$C:\Users\DWHITF~1\AppData\Local\Temp\s72o.obj
-idloc IDLOC 0 200000 200000 8 1
-reset_vec CODE 0 0 0 4 1
-end_init CODE 0 1CC 1CC 4 1
-config CONFIG 0 300000 300000 E 1
 $dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 intcodelo CODE 0 18 18 1B4 1
 cinit CODE 0 9C50 9C50 D6 1
@@ -169,6 +164,11 @@ text127 CODE 0 B548 B548 12 1
 text128 CODE 0 6F08 6F08 32C 1
 bssCOMRAM COMRAM 1 40 40 18 1
 mediumconst MEDIUMCONST 0 EB26 EB26 14DA 1
+$C:\Users\DWHITF~1\AppData\Local\Temp\s80k.obj
+idloc IDLOC 0 200000 200000 8 1
+reset_vec CODE 0 0 0 4 1
+end_init CODE 0 1CC 1CC 4 1
+config CONFIG 0 300000 300000 E 1
 # %UNUSED Section
 # This section enumerates the unused ranges of each CLASS. Each entry
 # is described on a single line as follows:
@@ -2774,107 +2774,107 @@ FFE text4 CODE >715:C:\Users\dwhitfield\Documents\GitHub\PIC_IR_RF_Bluetooth_Hom
 9C2E text42 CODE >141:C:\Users\dwhitfield\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\EEPROM.c
 9C34 text42 CODE >148:C:\Users\dwhitfield\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\EEPROM.c
 9C4E text42 CODE >149:C:\Users\dwhitfield\Documents\GitHub\PIC_IR_RF_Bluetooth_Home_Automation\EEPROM.c
-9C50 cinit CODE >10963:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C50 cinit CODE >10965:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C50 cinit CODE >10968:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C50 cinit CODE >11181:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C54 cinit CODE >11182:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C56 cinit CODE >11183:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C56 cinit CODE >11184:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C58 cinit CODE >11185:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C5A cinit CODE >11186:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C5C cinit CODE >11189:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C60 cinit CODE >11190:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C62 cinit CODE >11191:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C62 cinit CODE >11192:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C64 cinit CODE >11193:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C66 cinit CODE >11194:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C68 cinit CODE >11197:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C6C cinit CODE >11198:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C6E cinit CODE >11199:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C6E cinit CODE >11200:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C70 cinit CODE >11201:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C72 cinit CODE >11202:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C74 cinit CODE >11205:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C78 cinit CODE >11206:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C7A cinit CODE >11207:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C7A cinit CODE >11208:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C7C cinit CODE >11209:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C7E cinit CODE >11210:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C80 cinit CODE >11213:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C84 cinit CODE >11214:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C86 cinit CODE >11215:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C86 cinit CODE >11216:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C88 cinit CODE >11217:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C8A cinit CODE >11218:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C8C cinit CODE >11221:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C8E cinit CODE >11222:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C90 cinit CODE >11223:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C92 cinit CODE >11224:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C94 cinit CODE >11225:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C96 cinit CODE >11228:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C9A cinit CODE >11229:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C9C cinit CODE >11230:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C9C cinit CODE >11231:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9C9E cinit CODE >11232:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CA0 cinit CODE >11233:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CA2 cinit CODE >11238:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CA4 cinit CODE >11239:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CA6 cinit CODE >11240:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CA8 cinit CODE >11241:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CAA cinit CODE >11242:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CAC cinit CODE >11243:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CAE cinit CODE >11244:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CB2 cinit CODE >11245:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CB6 cinit CODE >11246:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CB6 cinit CODE >11247:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CB8 cinit CODE >11248:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CBC cinit CODE >11249:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CBE cinit CODE >11250:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CC0 cinit CODE >11251:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CC2 cinit CODE >11255:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CC4 cinit CODE >11256:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CC6 cinit CODE >11257:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CC8 cinit CODE >11258:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CCA cinit CODE >11259:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CCC cinit CODE >11260:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CCE cinit CODE >11261:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CD2 cinit CODE >11262:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CD6 cinit CODE >11263:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CD6 cinit CODE >11264:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CD8 cinit CODE >11265:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CDC cinit CODE >11266:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CDE cinit CODE >11267:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CE0 cinit CODE >11268:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CE2 cinit CODE >11272:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CE4 cinit CODE >11273:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CE6 cinit CODE >11274:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CE8 cinit CODE >11275:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CEA cinit CODE >11276:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CEC cinit CODE >11277:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CEE cinit CODE >11278:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CF2 cinit CODE >11279:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CF6 cinit CODE >11280:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CF6 cinit CODE >11281:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CF8 cinit CODE >11282:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CFC cinit CODE >11283:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9CFE cinit CODE >11284:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9D00 cinit CODE >11285:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9D02 cinit CODE >11289:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9D04 cinit CODE >11290:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9D06 cinit CODE >11291:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9D08 cinit CODE >11292:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9D0A cinit CODE >11293:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9D0C cinit CODE >11294:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9D0E cinit CODE >11295:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9D10 cinit CODE >11296:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9D14 cinit CODE >11297:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9D16 cinit CODE >11298:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9D1A cinit CODE >11299:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9D1C cinit CODE >11300:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9D20 cinit CODE >11306:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9D20 cinit CODE >11307:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
-9D22 cinit CODE >11308:C:\Users\DWHITF~1\AppData\Local\Temp\s72o.
+9C50 cinit CODE >10963:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C50 cinit CODE >10965:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C50 cinit CODE >10968:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C50 cinit CODE >11181:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C54 cinit CODE >11182:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C56 cinit CODE >11183:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C56 cinit CODE >11184:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C58 cinit CODE >11185:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C5A cinit CODE >11186:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C5C cinit CODE >11189:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C60 cinit CODE >11190:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C62 cinit CODE >11191:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C62 cinit CODE >11192:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C64 cinit CODE >11193:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C66 cinit CODE >11194:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C68 cinit CODE >11197:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C6C cinit CODE >11198:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C6E cinit CODE >11199:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C6E cinit CODE >11200:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C70 cinit CODE >11201:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C72 cinit CODE >11202:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C74 cinit CODE >11205:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C78 cinit CODE >11206:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C7A cinit CODE >11207:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C7A cinit CODE >11208:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C7C cinit CODE >11209:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C7E cinit CODE >11210:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C80 cinit CODE >11213:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C84 cinit CODE >11214:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C86 cinit CODE >11215:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C86 cinit CODE >11216:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C88 cinit CODE >11217:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C8A cinit CODE >11218:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C8C cinit CODE >11221:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C8E cinit CODE >11222:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C90 cinit CODE >11223:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C92 cinit CODE >11224:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C94 cinit CODE >11225:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C96 cinit CODE >11228:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C9A cinit CODE >11229:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C9C cinit CODE >11230:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C9C cinit CODE >11231:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9C9E cinit CODE >11232:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CA0 cinit CODE >11233:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CA2 cinit CODE >11238:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CA4 cinit CODE >11239:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CA6 cinit CODE >11240:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CA8 cinit CODE >11241:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CAA cinit CODE >11242:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CAC cinit CODE >11243:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CAE cinit CODE >11244:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CB2 cinit CODE >11245:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CB6 cinit CODE >11246:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CB6 cinit CODE >11247:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CB8 cinit CODE >11248:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CBC cinit CODE >11249:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CBE cinit CODE >11250:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CC0 cinit CODE >11251:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CC2 cinit CODE >11255:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CC4 cinit CODE >11256:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CC6 cinit CODE >11257:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CC8 cinit CODE >11258:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CCA cinit CODE >11259:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CCC cinit CODE >11260:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CCE cinit CODE >11261:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CD2 cinit CODE >11262:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CD6 cinit CODE >11263:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CD6 cinit CODE >11264:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CD8 cinit CODE >11265:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CDC cinit CODE >11266:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CDE cinit CODE >11267:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CE0 cinit CODE >11268:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CE2 cinit CODE >11272:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CE4 cinit CODE >11273:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CE6 cinit CODE >11274:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CE8 cinit CODE >11275:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CEA cinit CODE >11276:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CEC cinit CODE >11277:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CEE cinit CODE >11278:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CF2 cinit CODE >11279:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CF6 cinit CODE >11280:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CF6 cinit CODE >11281:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CF8 cinit CODE >11282:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CFC cinit CODE >11283:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9CFE cinit CODE >11284:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9D00 cinit CODE >11285:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9D02 cinit CODE >11289:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9D04 cinit CODE >11290:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9D06 cinit CODE >11291:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9D08 cinit CODE >11292:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9D0A cinit CODE >11293:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9D0C cinit CODE >11294:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9D0E cinit CODE >11295:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9D10 cinit CODE >11296:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9D14 cinit CODE >11297:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9D16 cinit CODE >11298:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9D1A cinit CODE >11299:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9D1C cinit CODE >11300:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9D20 cinit CODE >11306:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9D20 cinit CODE >11307:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
+9D22 cinit CODE >11308:C:\Users\DWHITF~1\AppData\Local\Temp\s80k.
 9D26 text82 CODE >8:C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\awdiv.c
 9D26 text82 CODE >14:C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\awdiv.c
 9D2C text82 CODE >15:C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\awdiv.c
@@ -3763,7 +3763,7 @@ InitUART@spbrg C3 0 BANK0 1 cstackBANK0 dist/xc8_pic18f26k20/production\PIC_IR_R
 ___ftdiv@exp 7B 0 BANK0 1 cstackBANK0 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 __end_of_WaitForIRsignal A822 0 CODE 0 text6 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 __Hibigdata 0 0 CODE 0 ibigdata dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
-__mediumconst EB26 0 MEDIUMCONST 0 mediumconst C:\Users\DWHITF~1\AppData\Local\Temp\s72o.obj
+__mediumconst EB26 0 MEDIUMCONST 0 mediumconst C:\Users\DWHITF~1\AppData\Local\Temp\s80k.obj
 cleanBuffer@data 63 0 BANK0 1 cstackBANK0 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 __Heeprom_data 0 0 EEDATA 0 eeprom_data dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 _ResetTimer0 B5FC 0 CODE 0 text55 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
@@ -3793,7 +3793,7 @@ _RFon B536 0 CODE 0 text126 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_
 _Sent FF 0 BANK0 1 dataBANK0 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 _TMR2 FCC 0 ABS 0 - dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 _WPUB F7C 0 ABS 0 - dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
-___sp 0 0 STACK 2 stack C:\Users\DWHITF~1\AppData\Local\Temp\s72o.obj
+___sp 0 0 STACK 2 stack C:\Users\DWHITF~1\AppData\Local\Temp\s80k.obj
 _main 5B0E 0 CODE 0 text0 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 _SyncEEPROMToGlobal 7F24 0 CODE 0 text40 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 __size_of_UARTstringCRLN_CONST 0 0 ABS 0 - dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
@@ -3801,7 +3801,7 @@ __size_of_StringMatch 0 0 ABS 0 - dist/xc8_pic18f26k20/production\PIC_IR_RF_Blue
 ___ftadd@f1 96 0 BANK0 1 cstackBANK0 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 ___ftadd@f2 99 0 BANK0 1 cstackBANK0 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 __size_of_UARTstring_CONST 0 0 ABS 0 - dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
-start 1CC 0 CODE 0 init C:\Users\DWHITF~1\AppData\Local\Temp\s72o.obj
+start 1CC 0 CODE 0 init C:\Users\DWHITF~1\AppData\Local\Temp\s80k.obj
 _Timer2_Postscaler 54 0 COMRAM 1 bssCOMRAM dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 __size_of___awdiv 0 0 ABS 0 - dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 __size_of___awmod 0 0 ABS 0 - dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
@@ -3888,11 +3888,11 @@ _sprintf$4185 C5 0 BANK0 1 cstackBANK0 dist/xc8_pic18f26k20/production\PIC_IR_RF
 _SetEEPROM1 90C6 0 CODE 0 text61 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 _SetEEPROM2 9782 0 CODE 0 text60 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 EnterCommandMode@buf 100 0 BANK1 1 cstackBANK1 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
-__accesstop 60 0 ABS 0 - C:\Users\DWHITF~1\AppData\Local\Temp\s72o.obj
-intlevel0 0 0 CODE 0 text C:\Users\DWHITF~1\AppData\Local\Temp\s72o.obj
-intlevel1 0 0 CODE 0 text C:\Users\DWHITF~1\AppData\Local\Temp\s72o.obj
-intlevel2 0 0 CODE 0 text C:\Users\DWHITF~1\AppData\Local\Temp\s72o.obj
-intlevel3 0 0 CODE 0 text C:\Users\DWHITF~1\AppData\Local\Temp\s72o.obj
+__accesstop 60 0 ABS 0 - C:\Users\DWHITF~1\AppData\Local\Temp\s80k.obj
+intlevel0 0 0 CODE 0 text C:\Users\DWHITF~1\AppData\Local\Temp\s80k.obj
+intlevel1 0 0 CODE 0 text C:\Users\DWHITF~1\AppData\Local\Temp\s80k.obj
+intlevel2 0 0 CODE 0 text C:\Users\DWHITF~1\AppData\Local\Temp\s80k.obj
+intlevel3 0 0 CODE 0 text C:\Users\DWHITF~1\AppData\Local\Temp\s80k.obj
 __ptext100 B454 0 CODE 0 text100 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 __ptext101 B5B0 0 CODE 0 text101 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 __ptext102 A822 0 CODE 0 text102 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
@@ -3996,9 +3996,9 @@ _InitTimers B4C6 0 CODE 0 text49 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluet
 _ANSELH F7F 0 ABS 0 - dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 _scale$4184 8F 0 BANK0 1 cstackBANK0 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 ___awdiv@dividend 69 0 BANK0 1 cstackBANK0 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
-___inthi_sp 0 0 STACK 2 stack C:\Users\DWHITF~1\AppData\Local\Temp\s72o.obj
+___inthi_sp 0 0 STACK 2 stack C:\Users\DWHITF~1\AppData\Local\Temp\s80k.obj
 _Frequency EC9C 0 MEDIUMCONST 0 mediumconst dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
-___intlo_sp 0 0 STACK 2 stack C:\Users\DWHITF~1\AppData\Local\Temp\s72o.obj
+___intlo_sp 0 0 STACK 2 stack C:\Users\DWHITF~1\AppData\Local\Temp\s80k.obj
 __size_of___altoft 0 0 ABS 0 - dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 __size_of_GetMemoryChar 0 0 ABS 0 - dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 __size_of_GetMemoryLong 0 0 ABS 0 - dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
@@ -4284,7 +4284,7 @@ __end_of_Conf1_ChannelD EDE6 0 MEDIUMCONST 0 mediumconst dist/xc8_pic18f26k20/pr
 __end_of_Conf1_ChannelE EDF2 0 MEDIUMCONST 0 mediumconst dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 __end_of_Conf1_ChannelF EDFE 0 MEDIUMCONST 0 mediumconst dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 __end_of_Conf1_Channels EE10 0 MEDIUMCONST 0 mediumconst dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
-__smallconst 0 0 SMALLCONST 0 smallconst C:\Users\DWHITF~1\AppData\Local\Temp\s72o.obj
+__smallconst 0 0 SMALLCONST 0 smallconst C:\Users\DWHITF~1\AppData\Local\Temp\s80k.obj
 UARTstring_CONST@data 6E 0 BANK0 1 cstackBANK0 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 __end_of_cleanBuffer16bit AC5C 0 CODE 0 text54 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 __end_of_Conf2_ChannelH_1_OFF ED31 0 MEDIUMCONST 0 mediumconst dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
@@ -4806,8 +4806,8 @@ __size_of_SendRF_wait 0 0 ABS 0 - dist/xc8_pic18f26k20/production\PIC_IR_RF_Blue
 _low_isr 18 0 CODE 0 intcodelo dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 _Conf2_ChannelD_ON_STR EC8A 0 MEDIUMCONST 0 mediumconst dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 ___lwtoft@c 6B 0 BANK0 1 cstackBANK0 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
-stackhi F5F 0 ABS 0 - C:\Users\DWHITF~1\AppData\Local\Temp\s72o.obj
-stacklo 6C8 0 ABS 0 - C:\Users\DWHITF~1\AppData\Local\Temp\s72o.obj
+stackhi F5F 0 ABS 0 - C:\Users\DWHITF~1\AppData\Local\Temp\s80k.obj
+stacklo 6C8 0 ABS 0 - C:\Users\DWHITF~1\AppData\Local\Temp\s80k.obj
 _EraseScreen B3E8 0 CODE 0 text117 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 i1_BlueConnected B5CC 0 CODE 0 text115 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 __Lintcode 8 0 CODE 0 intcode dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
@@ -5032,7 +5032,7 @@ __Ltext98 0 0 ABS 0 text98 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_H
 __Ltext99 0 0 ABS 0 text99 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 __size_of_UARTstring 0 0 ABS 0 - dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 __end_of_InternalADC_Read A480 0 CODE 0 text26 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
-__ramtop 1000 0 RAM 0 ramtop C:\Users\DWHITF~1\AppData\Local\Temp\s72o.obj
+__ramtop 1000 0 RAM 0 ramtop C:\Users\DWHITF~1\AppData\Local\Temp\s80k.obj
 _sprintf 30BC 0 CODE 0 text75 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 BluetoothInitialSetup@Default 1B7 0 BANK1 1 cstackBANK1 dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj
 IRrawToNEC@NECtemp 27 0 COMRAM 1 cstackCOMRAM dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.obj

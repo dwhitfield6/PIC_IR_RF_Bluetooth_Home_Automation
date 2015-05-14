@@ -5004,10 +5004,14 @@ const unsigned char FirmVersion[] = {"1.0_DW0e"};
 # 89
 const unsigned char PCBVersion[] = {"RevB"};
 
+
+
+
 const unsigned char Frequency[] = {"315MHz and 433MHz"};
+
 const unsigned char ProjectName[] = {"Home Automation IR/RF Hub"};
 
-# 303
+# 307
 void InitApp(void);
 void Init_System (void);
 
