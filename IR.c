@@ -274,6 +274,7 @@ void UseIRCode(unsigned char* Code, unsigned long NEC)
 {
     unsigned char   i,j;
     unsigned char found = FALSE;
+    RFPause = FALSE;
 
     if(*Code == 2 || *Code == 1)
     {
@@ -310,7 +311,9 @@ void UseIRCode(unsigned char* Code, unsigned long NEC)
             {
                 if(*Code == 2)
                 {
+                    /* IR Repeat code */
                     RedLEDON();
+                    RFPause = TRUE;
                 }
                 SendRF_Channel(ReadCodeButtons());
                 found = TRUE;
@@ -334,7 +337,9 @@ void UseIRCode(unsigned char* Code, unsigned long NEC)
                         {
                             if(*Code == 2)
                             {
+                                /* IR Repeat code */
                                 RedLEDON();
+                                RFPause = TRUE;
                             }
                             SendRF_Channel(i);
                             found = TRUE;

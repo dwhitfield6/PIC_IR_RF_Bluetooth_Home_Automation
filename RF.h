@@ -52,18 +52,32 @@
  *
  * This contains the number of RF codes/channels.
  * (See amount used in SendRF_Channel).
+ *
+ * current:
+ * 1. Conf1_ChannelD
+ * 2. Conf1_ChannelE
+ * 3. Conf1_ChannelF
+ * 4. Conf2_ChannelB
+ * 5. Conf2_ChannelD
+ * 6. Conf2_ChannelH 1
+ * 7. Conf2_ChannelH 2
+ * 8. Conf2_ChannelH 3
+ * 9-89. Conf3_Channel0 - F
+ *     button 1-5
 /******************************************************************************/
-#define RFnumberOfSavedCodes 8
+#define RFnumberOfSavedCodes 89
 
 /******************************************************************************/
 /* NumRfConfigs
  *
  * This contains the number of available RF configs.
 /******************************************************************************/
-#define NumRfConfigs 2
+#define NumRfConfigs 3
 
 /******************************************************************************/
 /* RF bit Timing for RFConfig = 1
+ *
+ * 315MHz transmission
  *
  * Settings:
  * Timer clock = FOSC/4 = 16MHz
@@ -86,6 +100,8 @@
 /******************************************************************************/
 /* RF bit Timing for RFConfig = 2
  *
+ * 315MHz transmission
+ *
  * Settings:
  * Timer clock = FOSC/4 = 16MHz
  * Prescaler = 16
@@ -103,6 +119,39 @@
 /* Sync bit/pause */
 /* 11.89mS*/
 #define Conf2_Sync 146 //11220 + 660 = 11880uS
+
+/******************************************************************************/
+/* RF bit Timing for RFConfig = 3
+ *
+ * 433MHz transmission
+ *
+ * Settings:
+ * Timer clock = FOSC/4 = 16MHz
+ * Prescaler = 16
+ * Postscaler = 15 * RF_Postscaler
+ * RF_Postscaler = 2
+/******************************************************************************/
+/* Short bit/pause */
+/* Nominal 128 cycles or about 300uS*/
+#define Conf3_Short 8
+
+/* Long bit/pause */
+/* Nominal 384 cycles or about 900uS*/
+#define Conf3_Long 23
+
+/* Sync bit/pause */
+/* Nominal 4096 cycles or about 7.680mS*/
+#define Conf3_Sync 200
+
+/******************************************************************************/
+/* Conf3NumConfig
+ *
+ * This is the number of configuration channels available. If this changes then
+ * Conf3_Channels[] must also change.
+/******************************************************************************/
+#define Conf3NumConfig 16
+
+/******************************************************************************/
 
 /******************************************************************************/
 /* RFmaxSize
@@ -138,6 +187,9 @@
  * This contains the RF codes that are sent from the system.
 /******************************************************************************/
 // RF bit Timing for PT2260a
+// f = short long long short
+// 0 = short long short long
+// 1 = long short long short
 const unsigned char Conf1_Channels[] = "DEF";
 
 /* channel D */
@@ -199,6 +251,173 @@ const unsigned char Conf2_ChannelH_3_OFF[] = {0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0};
 const unsigned char Conf2_ChannelH_3_OFF_STR[] = "Conf2_ChannelH_3_OFF";
 
 /******************************************************************************/
+/* Rf Codes for RFConfig = 3
+ *
+ * This contains the RF codes that are sent from the system.
+/******************************************************************************/
+// RF bit Timing for hs2260a
+// Product is the Zap 5L
+// This uses the same bit configuration as config 1 but it is timed different
+// f = short long long short
+// 0 = short long short long
+// 1 = long short long short
+// this remote allows the factory to modify the top 5 bits of the adress.
+// The first bit can be a 0 ,1, or f.
+// The 2,3, 4, 5 bits can either be floating or ground.
+//
+
+const unsigned char Conf3_Channels[] = "0123456789abcdef"; // channels
+const unsigned char Conf3_Buttons[] = "12345"; // buttons
+
+const unsigned char Conf3[Conf3NumConfig][5][2][12] =
+{
+    {
+        /******** Channel 0 ********/
+        //           ON                      OFF
+        { {f,f,f,f,f,f,f,f,0,1,0,1},{f,f,f,f,f,f,f,f,0,1,1,0} }, //button 1
+        { {f,f,f,f,f,f,f,f,1,0,0,1},{f,f,f,f,f,f,f,f,1,0,1,0} }, //button 2
+        { {f,f,f,f,f,f,f,1,0,0,0,1},{f,f,f,f,f,f,f,1,0,0,1,0} }, //button 3
+        { {f,f,f,f,f,f,1,f,0,0,0,1},{f,f,f,f,f,f,1,f,0,0,1,0} }, //button 4
+        { {f,f,f,f,f,1,f,f,0,0,0,1},{f,f,f,f,f,1,f,f,0,0,1,0} }  //button 5
+    },
+    {
+        /******** Channel 1 ********/ 
+        //           ON                      OFF
+        { {0,f,f,f,f,f,f,f,0,1,0,1},{0,f,f,f,f,f,f,f,0,1,1,0} }, //button 1
+        { {0,f,f,f,f,f,f,f,1,0,0,1},{0,f,f,f,f,f,f,f,1,0,1,0} }, //button 2
+        { {0,f,f,f,f,f,f,1,0,0,0,1},{0,f,f,f,f,f,f,1,0,0,1,0} }, //button 3
+        { {0,f,f,f,f,f,1,f,0,0,0,1},{0,f,f,f,f,f,1,f,0,0,1,0} }, //button 4
+        { {0,f,f,f,f,1,f,f,0,0,0,1},{0,f,f,f,f,1,f,f,0,0,1,0} }  //button 5
+    },
+    {
+        /******** Channel 2 ********/
+        //           ON                      OFF
+        { {f,0,f,f,f,f,f,f,0,1,0,1},{f,0,f,f,f,f,f,f,0,1,1,0} }, //button 1
+        { {f,0,f,f,f,f,f,f,1,0,0,1},{f,0,f,f,f,f,f,f,1,0,1,0} }, //button 2
+        { {f,0,f,f,f,f,f,1,0,0,0,1},{f,0,f,f,f,f,f,1,0,0,1,0} }, //button 3
+        { {f,0,f,f,f,f,1,f,0,0,0,1},{f,0,f,f,f,f,1,f,0,0,1,0} }, //button 4
+        { {f,0,f,f,f,1,f,f,0,0,0,1},{f,0,f,f,f,1,f,f,0,0,1,0} }  //button 5
+    },
+    {
+        /******** Channel 3 ********/
+        //           ON                      OFF
+        { {0,0,f,f,f,f,f,f,0,1,0,1},{0,0,f,f,f,f,f,f,0,1,1,0} }, //button 1
+        { {0,0,f,f,f,f,f,f,1,0,0,1},{0,0,f,f,f,f,f,f,1,0,1,0} }, //button 2
+        { {0,0,f,f,f,f,f,1,0,0,0,1},{0,0,f,f,f,f,f,1,0,0,1,0} }, //button 3
+        { {0,0,f,f,f,f,1,f,0,0,0,1},{0,0,f,f,f,f,1,f,0,0,1,0} }, //button 4
+        { {0,0,f,f,f,1,f,f,0,0,0,1},{0,0,f,f,f,1,f,f,0,0,1,0} }  //button 5
+    },
+    {
+        /******** Channel 4 ********/
+        //           ON                      OFF
+        { {f,f,0,f,f,f,f,f,0,1,0,1},{f,f,0,f,f,f,f,f,0,1,1,0} }, //button 1
+        { {f,f,0,f,f,f,f,f,1,0,0,1},{f,f,0,f,f,f,f,f,1,0,1,0} }, //button 2
+        { {f,f,0,f,f,f,f,1,0,0,0,1},{f,f,0,f,f,f,f,1,0,0,1,0} }, //button 3
+        { {f,f,0,f,f,f,1,f,0,0,0,1},{f,f,0,f,f,f,1,f,0,0,1,0} }, //button 4
+        { {f,f,0,f,f,1,f,f,0,0,0,1},{f,f,0,f,f,1,f,f,0,0,1,0} }  //button 5
+    },
+    {
+        /******** Channel 5 ********/
+        //           ON                      OFF
+        { {0,f,0,f,f,f,f,f,0,1,0,1},{0,f,0,f,f,f,f,f,0,1,1,0} }, //button 1
+        { {0,f,0,f,f,f,f,f,1,0,0,1},{0,f,0,f,f,f,f,f,1,0,1,0} }, //button 2
+        { {0,f,0,f,f,f,f,1,0,0,0,1},{0,f,0,f,f,f,f,1,0,0,1,0} }, //button 3
+        { {0,f,0,f,f,f,1,f,0,0,0,1},{0,f,0,f,f,f,1,f,0,0,1,0} }, //button 4
+        { {0,f,0,f,f,1,f,f,0,0,0,1},{0,f,0,f,f,1,f,f,0,0,1,0} }  //button 5
+    },
+    {
+        /******** Channel 6 ********/
+        //           ON                      OFF
+        { {f,0,0,f,f,f,f,f,0,1,0,1},{f,0,0,f,f,f,f,f,0,1,1,0} }, //button 1
+        { {f,0,0,f,f,f,f,f,1,0,0,1},{f,0,0,f,f,f,f,f,1,0,1,0} }, //button 2
+        { {f,0,0,f,f,f,f,1,0,0,0,1},{f,0,0,f,f,f,f,1,0,0,1,0} }, //button 3
+        { {f,0,0,f,f,f,1,f,0,0,0,1},{f,0,0,f,f,f,1,f,0,0,1,0} }, //button 4
+        { {f,0,0,f,f,1,f,f,0,0,0,1},{f,0,0,f,f,1,f,f,0,0,1,0} }  //button 5
+    },
+    {
+        /******** Channel 7 ********/
+        //           ON                      OFF
+        { {0,0,0,f,f,f,f,f,0,1,0,1},{0,0,0,f,f,f,f,f,0,1,1,0} }, //button 1
+        { {0,0,0,f,f,f,f,f,1,0,0,1},{0,0,0,f,f,f,f,f,1,0,1,0} }, //button 2
+        { {0,0,0,f,f,f,f,1,0,0,0,1},{0,0,0,f,f,f,f,1,0,0,1,0} }, //button 3
+        { {0,0,0,f,f,f,1,f,0,0,0,1},{0,0,0,f,f,f,1,f,0,0,1,0} }, //button 4
+        { {0,0,0,f,f,1,f,f,0,0,0,1},{0,0,0,f,f,1,f,f,0,0,1,0} }  //button 5
+    },
+    {
+        /******** Channel 8 ********/
+        //           ON                      OFF
+        { {f,f,f,0,f,f,f,f,0,1,0,1},{f,f,f,0,f,f,f,f,0,1,1,0} }, //button 1
+        { {f,f,f,0,f,f,f,f,1,0,0,1},{f,f,f,0,f,f,f,f,1,0,1,0} }, //button 2
+        { {f,f,f,0,f,f,f,1,0,0,0,1},{f,f,f,0,f,f,f,1,0,0,1,0} }, //button 3
+        { {f,f,f,0,f,f,1,f,0,0,0,1},{f,f,f,0,f,f,1,f,0,0,1,0} }, //button 4
+        { {f,f,f,0,f,1,f,f,0,0,0,1},{f,f,f,0,f,1,f,f,0,0,1,0} }  //button 5
+    },
+    {
+        /******** Channel 9 ********/
+        //           ON                      OFF
+        { {0,f,f,0,f,f,f,f,0,1,0,1},{0,f,f,0,f,f,f,f,0,1,1,0} }, //button 1
+        { {0,f,f,0,f,f,f,f,1,0,0,1},{0,f,f,0,f,f,f,f,1,0,1,0} }, //button 2
+        { {0,f,f,0,f,f,f,1,0,0,0,1},{0,f,f,0,f,f,f,1,0,0,1,0} }, //button 3
+        { {0,f,f,0,f,f,1,f,0,0,0,1},{0,f,f,0,f,f,1,f,0,0,1,0} }, //button 4
+        { {0,f,f,0,f,1,f,f,0,0,0,1},{0,f,f,0,f,1,f,f,0,0,1,0} }  //button 5
+    },
+    {
+        /******** Channel 10 ********/
+        //           ON                      OFF
+        { {f,0,f,0,f,f,f,f,0,1,0,1},{f,0,f,0,f,f,f,f,0,1,1,0} }, //button 1
+        { {f,0,f,0,f,f,f,f,1,0,0,1},{f,0,f,0,f,f,f,f,1,0,1,0} }, //button 2
+        { {f,0,f,0,f,f,f,1,0,0,0,1},{f,0,f,0,f,f,f,1,0,0,1,0} }, //button 3
+        { {f,0,f,0,f,f,1,f,0,0,0,1},{f,0,f,0,f,f,1,f,0,0,1,0} }, //button 4
+        { {f,0,f,0,f,1,f,f,0,0,0,1},{f,0,f,0,f,1,f,f,0,0,1,0} }  //button 5
+    },
+    {
+        /******** Channel 11 ********/
+        //           ON                      OFF
+        { {0,0,f,0,f,f,f,f,0,1,0,1},{0,0,f,0,f,f,f,f,0,1,1,0} }, //button 1
+        { {0,0,f,0,f,f,f,f,1,0,0,1},{0,0,f,0,f,f,f,f,1,0,1,0} }, //button 2
+        { {0,0,f,0,f,f,f,1,0,0,0,1},{0,0,f,0,f,f,f,1,0,0,1,0} }, //button 3
+        { {0,0,f,0,f,f,1,f,0,0,0,1},{0,0,f,0,f,f,1,f,0,0,1,0} }, //button 4
+        { {0,0,f,0,f,1,f,f,0,0,0,1},{0,0,f,0,f,1,f,f,0,0,1,0} }  //button 5
+    },
+    {
+        /******** Channel 12 ********/
+        //           ON                      OFF
+        { {f,f,0,0,f,f,f,f,0,1,0,1},{f,f,0,0,f,f,f,f,0,1,1,0} }, //button 1
+        { {f,f,0,0,f,f,f,f,1,0,0,1},{f,f,0,0,f,f,f,f,1,0,1,0} }, //button 2
+        { {f,f,0,0,f,f,f,1,0,0,0,1},{f,f,0,0,f,f,f,1,0,0,1,0} }, //button 3
+        { {f,f,0,0,f,f,1,f,0,0,0,1},{f,f,0,0,f,f,1,f,0,0,1,0} }, //button 4
+        { {f,f,0,0,f,1,f,f,0,0,0,1},{f,f,0,0,f,1,f,f,0,0,1,0} }  //button 5
+    },
+    {
+        /******** Channel 13 ********/
+        //           ON                      OFF
+        { {0,f,0,0,f,f,f,f,0,1,0,1},{0,f,0,0,f,f,f,f,0,1,1,0} }, //button 1
+        { {0,f,0,0,f,f,f,f,1,0,0,1},{0,f,0,0,f,f,f,f,1,0,1,0} }, //button 2
+        { {0,f,0,0,f,f,f,1,0,0,0,1},{0,f,0,0,f,f,f,1,0,0,1,0} }, //button 3
+        { {0,f,0,0,f,f,1,f,0,0,0,1},{0,f,0,0,f,f,1,f,0,0,1,0} }, //button 4
+        { {0,f,0,0,f,1,f,f,0,0,0,1},{0,f,0,0,f,1,f,f,0,0,1,0} }  //button 5
+    },
+    {
+        /******** Channel 14 ********/
+        //           ON                      OFF
+        { {f,0,0,0,f,f,f,f,0,1,0,1},{f,0,0,0,f,f,f,f,0,1,1,0} }, //button 1
+        { {f,0,0,0,f,f,f,f,1,0,0,1},{f,0,0,0,f,f,f,f,1,0,1,0} }, //button 2
+        { {f,0,0,0,f,f,f,1,0,0,0,1},{f,0,0,0,f,f,f,1,0,0,1,0} }, //button 3
+        { {f,0,0,0,f,f,1,f,0,0,0,1},{f,0,0,0,f,f,1,f,0,0,1,0} }, //button 4
+        { {f,0,0,0,f,1,f,f,0,0,0,1},{f,0,0,0,f,1,f,f,0,0,1,0} }  //button 5
+    },
+    {
+        /******** Channel 15 ********/
+        //           ON                      OFF
+        { {0,0,0,0,f,f,f,f,0,1,0,1},{0,0,0,0,f,f,f,f,0,1,1,0} }, //button 1
+        { {0,0,0,0,f,f,f,f,1,0,0,1},{0,0,0,0,f,f,f,f,1,0,1,0} }, //button 2
+        { {0,0,0,0,f,f,f,1,0,0,0,1},{0,0,0,0,f,f,f,1,0,0,1,0} }, //button 3
+        { {0,0,0,0,f,f,1,f,0,0,0,1},{0,0,0,0,f,f,1,f,0,0,1,0} }, //button 4
+        { {0,0,0,0,f,1,f,f,0,0,0,1},{0,0,0,0,f,1,f,f,0,0,1,0} }  //button 5
+    }
+};
+//{ channel { buttons {on / off {code} } } }
+/******************************************************************************/
 /* Global Variables                                                           */
 /******************************************************************************/
 extern unsigned char RFsendCode[RFmaxSize];
@@ -210,6 +429,7 @@ extern unsigned char RFConfig;
 volatile unsigned char Sent;
 extern volatile unsigned char RF_IR_Postscaler;
 extern unsigned char RF_IR;
+extern unsigned char RFPause;
 
 /******************************************************************************/
 /* Function prototypes                                                        */

@@ -30,6 +30,7 @@
 
 #include <stdint.h>        /* For uint8_t definition */
 #include <stdbool.h>       /* For true/false definition */
+#include <stdio.h>      
 
 #include "RF.h"
 #include "Timer.h"
@@ -54,8 +55,29 @@ unsigned char Conf2_ChannelD_Status = OFF;
 unsigned char Conf2_ChannelH_1_Status = OFF;
 unsigned char Conf2_ChannelH_2_Status = OFF;
 unsigned char Conf2_ChannelH_3_Status = OFF;
+unsigned char Conf3__Status[16][5] =
+{
+    {0,0,0,0,0},
+    {0,0,0,0,0},
+    {0,0,0,0,0},
+    {0,0,0,0,0},
+    {0,0,0,0,0},
+    {0,0,0,0,0},
+    {0,0,0,0,0},
+    {0,0,0,0,0},
+    {0,0,0,0,0},
+    {0,0,0,0,0},
+    {0,0,0,0,0},
+    {0,0,0,0,0},
+    {0,0,0,0,0},
+    {0,0,0,0,0},
+    {0,0,0,0,0},
+    {0,0,0,0,0}
+
+};
 unsigned char RF_IR = RF;
 unsigned char frequency = _315MHz;
+unsigned char RFPause = FALSE;
 
 /******************************************************************************/
 /* Functions
@@ -92,6 +114,7 @@ unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned c
         #ifndef IR_to_RF_w_bluetooth_revA
         else if(Config == 3)
         {
+            RF_IR_Postscaler = 2;
             frequency = _433MHz;
         }
         #endif
@@ -122,9 +145,13 @@ unsigned char SendRF(const unsigned char* Code, unsigned char Config, unsigned c
         {
             SetTimer2(Conf1_Sync);
         }
-        else
+        else if(Config == 2)
         {
             SetTimer2(Conf2_Sync);
+        }
+        else if(Config == 3)
+        {
+            SetTimer2(Conf3_Sync);
         }
         Timer2ON();
         return PASS;        
@@ -178,87 +205,112 @@ void SendRF_Channel(unsigned char channel)
      * RF codes amount macro (RFnumberOfSavedCodes) needs to be one greater than
      * the last value.
      */
-    switch (channel)
+    unsigned char Conf3Channel;
+    unsigned char Conf3button;
+
+    if(channel < 8)
     {
-        case 0:
-            // Configuration 1 channel D
-            SendRF_wait(Conf1_ChannelD,1,12,RFrepeatAmount);
-            break;
-        case 1:
-            // Configuration 1 channel E
-            SendRF_wait(Conf1_ChannelE,1,12,RFrepeatAmount);
-            break;
-        case 2:
-            // Configuration 1 channel F
-            SendRF_wait(Conf1_ChannelF,1,12,RFrepeatAmount);
-            break;
-        case 3:
-            // Configuration 2 channel B
-            if(Conf2_ChannelB_Status)
-            {
-                SendRF_wait(Conf2_ChannelB_OFF,2,16,RFrepeatAmount);
-                Conf2_ChannelB_Status = OFF;
-            }
-            else
-            {
-                SendRF_wait(Conf2_ChannelB_ON,2,16,RFrepeatAmount);
-                Conf2_ChannelB_Status = ON;
-            }
-            break;
-        case 4:
-            // Configuration 2 channel D
-            if(Conf2_ChannelD_Status)
-            {
-                SendRF_wait(Conf2_ChannelD_OFF,2,16,RFrepeatAmount);
-                Conf2_ChannelD_Status = OFF;
-            }
-            else
-            {
-                SendRF_wait(Conf2_ChannelD_ON,2,16,RFrepeatAmount);
-                Conf2_ChannelD_Status = ON;
-            }
-            break;
-        case 5:
-            // Configuration 2 channel H device 1
-            if(Conf2_ChannelH_1_Status)
-            {
-                SendRF_wait(Conf2_ChannelH_1_OFF,2,16,RFrepeatAmount);
-                Conf2_ChannelH_1_Status = OFF;
-            }
-            else
-            {
-                SendRF_wait(Conf2_ChannelH_1_ON,2,16,RFrepeatAmount);
-                Conf2_ChannelH_1_Status = ON;
-            }
-            break;
-        case 6:
-            // Configuration 2 channel H device 2
-            if(Conf2_ChannelH_2_Status)
-            {
-                SendRF_wait(Conf2_ChannelH_2_OFF,2,16,RFrepeatAmount);
-                Conf2_ChannelH_2_Status = OFF;
-            }
-            else
-            {
-                SendRF_wait(Conf2_ChannelH_2_ON,2,16,RFrepeatAmount);
-                Conf2_ChannelH_2_Status = ON;
-            }
-            break;
-        case 7:
-            // Configuration 2 channel H device 3
-            if(Conf2_ChannelH_3_Status)
-            {
-                SendRF_wait(Conf2_ChannelH_3_OFF,2,16,RFrepeatAmount);
-                Conf2_ChannelH_3_Status = OFF;
-            }
-            else
-            {
-                SendRF_wait(Conf2_ChannelH_3_ON,2,16,RFrepeatAmount);
-                Conf2_ChannelH_3_Status = ON;
-            }
-            break;
-        default:
-            break;
+        switch (channel)
+        {
+            case 0:
+                // Configuration 1 channel D
+                SendRF_wait(Conf1_ChannelD,1,12,RFrepeatAmount);
+                break;
+            case 1:
+                // Configuration 1 channel E
+                SendRF_wait(Conf1_ChannelE,1,12,RFrepeatAmount);
+                break;
+            case 2:
+                // Configuration 1 channel F
+                SendRF_wait(Conf1_ChannelF,1,12,RFrepeatAmount);
+                break;
+            case 3:
+                // Configuration 2 channel B
+                if(Conf2_ChannelB_Status)
+                {
+                    SendRF_wait(Conf2_ChannelB_OFF,2,16,RFrepeatAmount);
+                    Conf2_ChannelB_Status = OFF;
+                }
+                else
+                {
+                    SendRF_wait(Conf2_ChannelB_ON,2,16,RFrepeatAmount);
+                    Conf2_ChannelB_Status = ON;
+                }
+                break;
+            case 4:
+                // Configuration 2 channel D
+                if(Conf2_ChannelD_Status)
+                {
+                    SendRF_wait(Conf2_ChannelD_OFF,2,16,RFrepeatAmount);
+                    Conf2_ChannelD_Status = OFF;
+                }
+                else
+                {
+                    SendRF_wait(Conf2_ChannelD_ON,2,16,RFrepeatAmount);
+                    Conf2_ChannelD_Status = ON;
+                }
+                break;
+            case 5:
+                // Configuration 2 channel H device 1
+                if(Conf2_ChannelH_1_Status)
+                {
+                    SendRF_wait(Conf2_ChannelH_1_OFF,2,16,RFrepeatAmount);
+                    Conf2_ChannelH_1_Status = OFF;
+                }
+                else
+                {
+                    SendRF_wait(Conf2_ChannelH_1_ON,2,16,RFrepeatAmount);
+                    Conf2_ChannelH_1_Status = ON;
+                }
+                break;
+            case 6:
+                // Configuration 2 channel H device 2
+                if(Conf2_ChannelH_2_Status)
+                {
+                    SendRF_wait(Conf2_ChannelH_2_OFF,2,16,RFrepeatAmount);
+                    Conf2_ChannelH_2_Status = OFF;
+                }
+                else
+                {
+                    SendRF_wait(Conf2_ChannelH_2_ON,2,16,RFrepeatAmount);
+                    Conf2_ChannelH_2_Status = ON;
+                }
+                break;
+            case 7:
+                // Configuration 2 channel H device 3
+                if(Conf2_ChannelH_3_Status)
+                {
+                    SendRF_wait(Conf2_ChannelH_3_OFF,2,16,RFrepeatAmount);
+                    Conf2_ChannelH_3_Status = OFF;
+                }
+                else
+                {
+                    SendRF_wait(Conf2_ChannelH_3_ON,2,16,RFrepeatAmount);
+                    Conf2_ChannelH_3_Status = ON;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    else if(channel < 88)
+    {
+        /* conf3 */
+        Conf3Channel = channel - 8;
+        Conf3Channel /= 5;
+        Conf3button = channel - 8;
+        Conf3button %= 5;
+
+        if(Conf3__Status[Conf3Channel][Conf3button])
+        {
+            SendRF_wait(&Conf3[Conf3Channel][Conf3button][OFF][0],3,12,RFrepeatAmount);
+            Conf3__Status[Conf3Channel][Conf3button] = OFF;
+        }
+        else
+        {
+            SendRF_wait(&Conf3[Conf3Channel][Conf3button][ON][0],3,12,RFrepeatAmount);
+            Conf3__Status[Conf3Channel][Conf3button] = ON;
+        }
     }
 }
 
@@ -269,34 +321,53 @@ void SendRF_Channel(unsigned char channel)
 /******************************************************************************/
 void DisplayRF_Channel(unsigned char channel)
 {
-    switch(channel)
+    unsigned char Conf3Channel;
+    unsigned char Conf3button;
+    unsigned char buf[50];
+    
+    if(channel < 8)
     {
-        case 0:
-            UARTstring_CONST(Conf1_ChannelD_STR);
-            break;
-        case 1:
-            UARTstring_CONST(Conf1_ChannelE_STR);
-            break;
-        case 2:
-            UARTstring_CONST(Conf1_ChannelF_STR);
-            break;
-        case 3:
-            UARTstring_CONST(Conf2_ChannelB_STR);
-            break;
-        case 4:
-            UARTstring_CONST(Conf2_ChannelD_STR);
-            break;
-        case 5:
-            UARTstring_CONST(Conf2_ChannelH_1_STR);
-            break;
-        case 6:
-            UARTstring_CONST(Conf2_ChannelH_2_STR);
-            break;
-        case 7:
-            UARTstring_CONST(Conf2_ChannelH_3_STR);
-            break;
-        default:
-            break;
+        switch(channel)
+        {
+            case 0:
+                UARTstring_CONST(Conf1_ChannelD_STR);
+                break;
+            case 1:
+                UARTstring_CONST(Conf1_ChannelE_STR);
+                break;
+            case 2:
+                UARTstring_CONST(Conf1_ChannelF_STR);
+                break;
+            case 3:
+                UARTstring_CONST(Conf2_ChannelB_STR);
+                break;
+            case 4:
+                UARTstring_CONST(Conf2_ChannelD_STR);
+                break;
+            case 5:
+                UARTstring_CONST(Conf2_ChannelH_1_STR);
+                break;
+            case 6:
+                UARTstring_CONST(Conf2_ChannelH_2_STR);
+                break;
+            case 7:
+                UARTstring_CONST(Conf2_ChannelH_3_STR);
+                break;
+            default:
+                break;
+        }
+    }
+    else if(channel < 88)
+    {
+                /* conf3 */
+        Conf3Channel = channel - 8;
+        Conf3Channel /= 5;
+        Conf3button = channel - 8;
+        Conf3button %= 5;
+        Conf3button++;
+
+        sprintf(buf,"Conf3_Channel%X%d",Conf3Channel,Conf3button);
+        UARTstring(buf);
     }
 }
 
@@ -331,7 +402,7 @@ inline void RFoff()
     #ifdef IR_to_RF_w_bluetooth_revA
     LATC &= ~RF315trans;
     #else
-        if(frequency == _315MHz)
+    if(frequency == _315MHz)
     {
         LATC &= ~RF315trans;
     }

@@ -215,21 +215,37 @@ double Round(double input)
  *
  * This function copies the 'from' array to the 'to' array.
 /******************************************************************************/
-void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift)
+void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, signed char shift)
 {
     unsigned char i=0;
     cleanBuffer(to,count);
-    for(i = shift; i>0;i--)
+    if(shift >= 0)
     {
-        *to = ' ';
-        to++;
+        for(i = shift; i>0;i--)
+        {
+            *to = ' ';
+            to++;
+        }
+        while(*from != 0 && count >0)
+        {
+            *to = *from;
+            from++;
+            to++;
+            count--;
+        }
     }
-    while(*from != 0 && count >0)
+    else
     {
-        *to = *from;
-        from++;
-        to++;
-        count--;
+        shift *= -1;
+        from += shift;
+        count -= shift;
+        while(*from != 0 && count >0)
+        {
+            *to = *from;
+            from++;
+            to++;
+            count--;
+        }
     }
 }
 

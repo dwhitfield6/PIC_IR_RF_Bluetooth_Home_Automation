@@ -69,7 +69,7 @@ unsigned char IsCharacter(unsigned char data);
 void cleanBuffer(unsigned char* data, int count);
 void cleanBuffer16bit(unsigned int* data, int count);
 double Round(double input);
-void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, unsigned char shift);
+void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, signed char shift);
 unsigned char StringMatch(const unsigned char* This, const unsigned char* That);
 unsigned char StringMatchCaseInsensitive(const unsigned char* This, const unsigned char* That);
 unsigned char StringContains(const unsigned char* This, const unsigned char* That);

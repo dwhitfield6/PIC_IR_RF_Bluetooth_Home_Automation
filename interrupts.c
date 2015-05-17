@@ -238,6 +238,43 @@ void high_isr(void)
                                     RFsendFlag = 0;
                                 }
                             }
+                            else if(RFConfig == 3)
+                            {
+                                if(RFcodePlace == 1)
+                                {
+                                    RFon();
+                                    SetTimer2(Conf3_Short);
+                                    RFcodePlace++;
+                                    ResetTimer2();
+                                }
+                                else if(RFcodePlace == 2)
+                                {
+                                    RFoff();
+                                    SetTimer2(Conf3_Long);
+                                    RFcodePlace++;
+                                }
+                                else if(RFcodePlace == 3)
+                                {
+                                    RFon();
+                                    SetTimer2(Conf3_Short);
+                                    RFcodePlace++;
+                                    ResetTimer2();
+                                }
+                                else if(RFcodePlace == 4)
+                                {
+                                    RFoff();
+                                    SetTimer2(Conf3_Long);
+                                    RFcodePlace = 1;
+                                    RFcodeBit++;
+                                }
+                                else
+                                {
+                                    /* Not supposed to get here */
+                                    Timer2OFF();
+                                    Sent = YES;
+                                    RFsendFlag = 0;
+                                }
+                            }
                             else
                             {
                                 /* Invalid */
@@ -310,6 +347,43 @@ void high_isr(void)
                                     RFsendFlag = 0;
                                 }
                             }
+                            else if(RFConfig == 3)
+                            {
+                                if(RFcodePlace == 1)
+                                {
+                                    RFon();
+                                    SetTimer2(Conf3_Long);
+                                    RFcodePlace++;
+                                }
+                                else if(RFcodePlace == 2)
+                                {
+                                    RFoff();
+                                    SetTimer2(Conf3_Short);
+                                    RFcodePlace++;
+                                    ResetTimer2();
+                                }
+                                else if(RFcodePlace == 3)
+                                {
+                                    RFon();
+                                    SetTimer2(Conf3_Long);
+                                    RFcodePlace++;
+                                }
+                                else if(RFcodePlace == 4)
+                                {
+                                    RFoff();
+                                    SetTimer2(Conf3_Short);
+                                    RFcodePlace = 1;
+                                    RFcodeBit++;
+                                    ResetTimer2();
+                                }
+                                else
+                                {
+                                    /* Not supposed to get here */
+                                    Timer2OFF();
+                                    Sent = YES;
+                                    RFsendFlag = 0;
+                                }
+                            }
                             else
                             {
                                 /* Invalid */
@@ -365,6 +439,44 @@ void high_isr(void)
                                 Sent = YES;
                                 RFsendFlag = 0;
                             }
+                            else if(RFConfig == 3)
+                            {
+                                /* The bit is an f (floating)*/
+                                if(RFcodePlace == 1)
+                                {
+                                    RFon();
+                                    SetTimer2(Conf3_Short);
+                                    RFcodePlace++;
+                                    ResetTimer2();
+                                }
+                                else if(RFcodePlace == 2)
+                                {
+                                    RFoff();
+                                    SetTimer2(Conf3_Long);
+                                    RFcodePlace++;
+                                }
+                                else if(RFcodePlace == 3)
+                                {
+                                    RFon();
+                                    SetTimer2(Conf3_Long);
+                                    RFcodePlace++;
+                                }
+                                else if(RFcodePlace == 4)
+                                {
+                                    RFoff();
+                                    SetTimer2(Conf3_Short);
+                                    RFcodePlace = 1;
+                                    RFcodeBit++;
+                                    ResetTimer2();
+                                }
+                                else
+                                {
+                                    /* Not supposed to get here */
+                                    Timer2OFF();
+                                    Sent = YES;
+                                    RFsendFlag = 0;
+                                }
+                            }
                             else
                             {
                                 /* Invalid */
@@ -390,6 +502,11 @@ void high_isr(void)
                             RFoff();
                             SetTimer2(Conf2_Short);
                         }
+                        else if(RFConfig == 3)
+                        {
+                            RFon();
+                            SetTimer2(Conf3_Short);
+                        }
                         else
                         {
                             /* Invalid */
@@ -410,6 +527,11 @@ void high_isr(void)
                         {
                             SetTimer2(Conf2_Sync);
                         }
+                        else if(RFConfig == 3)
+                        {
+                            RFoff();
+                            SetTimer2(Conf3_Sync);
+                        }
                         else
                         {
                             /* Invalid */
@@ -428,10 +550,17 @@ void high_isr(void)
                     else
                     {
                         /* Finished sending all of the repeats */
-                        ResetTimer3();
-                        PIR2bits.TMR3IF = FALSE;//Clear Flag
-                        Timer3_Postscaler = 0;
-                        Timer3ON();
+                        if(RFPause)
+                        {
+                            ResetTimer3();
+                            PIR2bits.TMR3IF = FALSE;//Clear Flag
+                            Timer3_Postscaler = 0;
+                            Timer3ON();
+                        }
+                        else
+                        {
+                            Sent = YES;
+                        }
                         Timer2OFF();
                         RFsendFlag = 0;
                     }

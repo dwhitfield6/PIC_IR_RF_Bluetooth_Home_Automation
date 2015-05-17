@@ -58,7 +58,7 @@
  * example: if this is 5 it means that 5 different Remote buttons will cause
  *  the rf channel to be sent
 /******************************************************************************/
-#define MirrorButtonsAmount 3
+#define MirrorButtonsAmount 1
 
 /******************************************************************************/
 /* EEPROM Data Addresses                                                      */
