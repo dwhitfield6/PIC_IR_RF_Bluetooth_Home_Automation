@@ -84,45 +84,56 @@ void high_isr(void)
             IR_New_Code = FALSE;
             Time0 = TMR0L;
             Time0 += (TMR0H << 8);
-            if(IRrawCodeNum < IR_SIZE)
+            if((Time0 <= StartbitHIGHnominal && Time0 >= StartbitLOWnominal))
             {
-                if((IRrawCodeNum > 0) && (IRrawCodeNum <= IR_SIZE))
+                IRstarted = TRUE;
+            }
+            if(IRstarted)
+            {
+                if(IRrawCodeNum < IR_SIZE)
                 {
-                    IRRawCode[IRrawCodeNum - 1] = Time0;
-                    if((Time0 <= PauseBurstupper && Time0 >= PauseBurstlower))
+                    if(IRrawCodeNum < IR_SIZE)
                     {
-                        /* wait for the timer to timeout and then process the raw code */
-                        IRreceiverIntOff();
-                        INTCONbits.RBIE = FALSE;
-                        /* force timeout */
-                        INTCONbits.TMR0IF = ON;
-                    }
-                    else if(Time0 <= Repeatupper && Time0 >= Repeatlower)
-                    {
-                        /* wait for the timer to timeout and then process the raw code */
-                        IRreceiverIntOff();
-                        INTCONbits.RBIE = FALSE;
-                        /* Create a pause for the timeout */
-                        SetTimer0(0x8FFF);
+                        IRRawCode[IRrawCodeNum] = Time0;
+                        if((Time0 <= PauseBurstupper && Time0 >= PauseBurstlower))
+                        {
+                            /* wait for the timer to timeout and then process the raw code */
+                            IRreceiverIntOff();
+                            INTCONbits.RBIE = FALSE;
+                            /* force timeout */
+                            INTCONbits.TMR0IF = ON;
+                        }
+                        else if(Time0 <= Repeatupper && Time0 >= Repeatlower)
+                        {
+                            /* wait for the timer to timeout and then process the raw code */
+                            IRreceiverIntOff();
+                            INTCONbits.RBIE = FALSE;
+                            /* Create a pause for the timeout */
+                            SetTimer0(0x8FFF);
+                        }
+                        else
+                        {
+                            ResetTimer0();
+                        }
                     }
                     else
                     {
                         ResetTimer0();
                     }
+                    if(IRrawCodeNum <= IR_SIZE)
+                    {
+                        IRrawCodeNum++;
+                    }
                 }
                 else
                 {
-                    ResetTimer0();
-                }
-                if(IRrawCodeNum <= IR_SIZE)
-                {
-                    IRrawCodeNum++;
+                    IRreceiverIntOff();
+                    INTCONbits.RBIE = FALSE;
                 }
             }
             else
             {
-                IRreceiverIntOff();
-                INTCONbits.RBIE = FALSE;
+                ResetTimer0();
             }
             IRpinOLD = IRpin;
         }
@@ -140,6 +151,7 @@ void high_isr(void)
         /* We had a timeout on the IR receiver */
         DisableTimer0Int();
         Timer0OFF();
+        IRstarted = FALSE;
         if(IRrawCodeNum >=  (MinNECFlipsRepeat))
         {
             IR_New_Code = IRrawToNEC(IRRawCode, &IR_NEC, TRUE);
@@ -705,19 +717,39 @@ void high_isr(void)
     else if(PIR2bits.TMR3IF)
     {
         Timer3OFF();
-        if(Timer3_Postscaler < RFsendWaitTime)
+        if(RFPause == 1)
         {
-            ResetTimer3();
-            Timer3ON();
-            Timer3_Postscaler++;
+            if(Timer3_Postscaler < RFsendPauseTime)
+            {
+                ResetTimer3();
+                Timer3ON();
+                Timer3_Postscaler++;
+            }
+            else
+            {
+                /*
+                 * We waited the specified amount of timer to allow
+                 *  for another RF send
+                 */
+                Sent = YES;
+            }
         }
         else
         {
-            /*
-             * We waited the specified amount of timer to allow
-             *  for another RF send
-             */
-            Sent = YES;
+            if(Timer3_Postscaler < RFsendWaitTime)
+            {
+                ResetTimer3();
+                Timer3ON();
+                Timer3_Postscaler++;
+            }
+            else
+            {
+                /*
+                 * We waited the specified amount of timer to allow
+                 *  for another RF send
+                 */
+                Sent = YES;
+            }
         }
         PIR2bits.TMR3IF = FALSE;
     }

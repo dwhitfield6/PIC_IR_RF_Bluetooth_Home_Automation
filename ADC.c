@@ -37,7 +37,9 @@
 
 #include "ADC.h"        
 #include "user.h"          
-#include "MISC.h"          
+#include "MISC.h"
+#include "IR.h"
+#include "RF.h"
 
 /******************************************************************************/
 /* Defines                                                                    */
@@ -110,9 +112,9 @@ unsigned char InternalADC_Read(unsigned char channel, unsigned int *ADCcounts)
 
     ADCON0bits.GO = TRUE;
     while(ADCON0bits.GO);
+    *ADCcounts = ((ADRESH << 8) + ADRESL);
     DisableADC();
 
-    *ADCcounts = ((ADRESH << 8) + ADRESL);
     return OK;
 }
 

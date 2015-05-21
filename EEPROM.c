@@ -156,7 +156,7 @@ void GetEEPROM1(GBLdata1 *Temp)
 void GetEEPROM2(GBLdata2 *Temp)
 {
     unsigned char i,j,k;
-    unsigned char Arrayspot=EE_RemoteButtonRF;
+    unsigned int Arrayspot=EE_RemoteButtonRF;
 
     for(i=0; i< RFnumberOfSavedCodes; i++)
     {
@@ -176,15 +176,15 @@ void GetEEPROM2(GBLdata2 *Temp)
  *
  * The function burns the EEdata1 struct to memory.
 /******************************************************************************/
-unsigned long SetEEPROM1(GBLdata1 Temp,unsigned long burn)
+unsigned long SetEEPROM1(unsigned long burn)
 {
     unsigned long fail = 0;
-    unsigned char i,j,k,temp;
-    unsigned char Arrayspot=EE_RemoteButtonNEC;
+    unsigned char i,j,temp;
+    unsigned int Arrayspot=EE_RemoteButtonNEC;
 
     if(burn & 0x00000001)
     {
-        if(!SetMemoryChar(Temp.BlueToothFlag,EE_BlueToothFlag))
+        if(!SetMemoryChar(Global1.BlueToothFlag,EE_BlueToothFlag))
         {
             /* Failed to burn BlueToothFlag */
             fail |= 0x00000001;
@@ -192,7 +192,7 @@ unsigned long SetEEPROM1(GBLdata1 Temp,unsigned long burn)
     }
     if(burn & 0x00000002)
     {
-        if(!SetMemoryLong(Temp.SWNECcode,EE_NECcodeBYTE1))
+        if(!SetMemoryLong(Global1.SWNECcode,EE_NECcodeBYTE1))
         {
             /* Failed to burn NECcode */
             fail |= 0x00000002;
@@ -204,7 +204,7 @@ unsigned long SetEEPROM1(GBLdata1 Temp,unsigned long burn)
         {
             for(j=0; j < 2; j++)
             {
-                temp = Temp.RemoteButtonNEC[i][j];
+                temp = Global1.RemoteButtonNEC[i][j];
                 if(!SetMemoryChar(temp,Arrayspot++))
                 {
                     /* Failed to burn RemoteButtonNEC */
@@ -215,7 +215,7 @@ unsigned long SetEEPROM1(GBLdata1 Temp,unsigned long burn)
     }
     if(burn & 0x00000008)
     {
-        if(!SetMemoryChar(Temp.EEPROMinitFlag,EE_EEPROMinitFlag))
+        if(!SetMemoryChar(Global1.EEPROMinitFlag,EE_EEPROMinitFlag))
         {
             /* Failed to burnEEPROMinitFlag */
             fail |= 0x00000008;
@@ -229,11 +229,11 @@ unsigned long SetEEPROM1(GBLdata1 Temp,unsigned long burn)
  *
  * The function burns the EEdata2 struct to memory.
 /******************************************************************************/
-unsigned long SetEEPROM2(GBLdata2 Temp,unsigned long burn)
+unsigned long SetEEPROM2(unsigned long burn)
 {
     unsigned long fail = 0;
     unsigned char i,j,k,temp;
-    unsigned char Arrayspot=EE_RemoteButtonNEC;
+    unsigned int Arrayspot=EE_RemoteButtonNEC;
     
     if(burn & 0x00000001)
     {
@@ -244,7 +244,11 @@ unsigned long SetEEPROM2(GBLdata2 Temp,unsigned long burn)
             {
                 for(k=0; k < 2; k++)
                 {
-                    temp = Temp.RemoteButtonRF[i][j][k];
+                    temp = Global2.RemoteButtonRF[i][j][k];
+                    if(Arrayspot == 150)
+                    {
+                        NOP();
+                    }
                     if(!SetMemoryChar(temp,Arrayspot++))
                     {
                         /* Failed to burn RemoteButtonRF */
@@ -256,7 +260,7 @@ unsigned long SetEEPROM2(GBLdata2 Temp,unsigned long burn)
     }
     if(burn & 0x00000002)
     {
-        if(!SetMemoryLong(Temp.SerialNumber,EE_SerialNumberBYTE1))
+        if(!SetMemoryLong(Global2.SerialNumber,EE_SerialNumberBYTE1))
         {
             /* Failed to burn NECcode */
             fail |= 0x00000002;
@@ -275,11 +279,11 @@ unsigned char SyncGlobalToEEPROM(void)
     unsigned char ok = TRUE;
 
     /* Burn all memory except serial number */
-    if(SetEEPROM1(Global1,0xFFFFFFFF))
+    if(SetEEPROM1(0xFFFFFFFF))
     {
         ok = FALSE;
     }
-    if(SetEEPROM2(Global2,0xFFFFFFFD))
+    if(SetEEPROM2(0xFFFFFFFD))
     {
         ok = FALSE;
     }
@@ -345,12 +349,21 @@ unsigned char EEPROMinitialized(void)
 /******************************************************************************/
 void SyncEEPROMToGlobal(void)
 {
-    unsigned char i,j,k;
+    SyncEEPROMToGlobal1();
+    SyncEEPROMToGlobal2();
+}
+
+/******************************************************************************/
+/* SyncEEPROMToGlobal1
+ *
+ * The function syncs EEdata1 to Global data.
+/******************************************************************************/
+void SyncEEPROMToGlobal1(void)
+{
+    unsigned char i,j;
     GBLdata1 Temp1;
-    GBLdata2 Temp2;
 
     GetEEPROM1(&Temp1);
-    GetEEPROM2(&Temp2);
 
     Global1.BlueToothFlag            = Temp1.BlueToothFlag;
     Global1.SWNECcode                = Temp1.SWNECcode;
@@ -363,6 +376,20 @@ void SyncEEPROMToGlobal(void)
         }
     }
     Global1.EEPROMinitFlag           = Temp1.EEPROMinitFlag;
+}
+
+/******************************************************************************/
+/* SyncEEPROMToGlobal2
+ *
+ * The function syncs EEdata2 to Global data.
+/******************************************************************************/
+void SyncEEPROMToGlobal2(void)
+{
+    unsigned char i,j,k;
+    GBLdata2 Temp2;
+
+    GetEEPROM2(&Temp2);
+
     for(i=0; i< RFnumberOfSavedCodes; i++)
     {
         for(j=0; j < MirrorButtonsAmount; j++)
@@ -381,7 +408,7 @@ void SyncEEPROMToGlobal(void)
  *
  * The function returns the data saved in EEPROM.
 /******************************************************************************/
-unsigned long GetMemoryLong(unsigned char AddressFirst)
+unsigned long GetMemoryLong(unsigned int AddressFirst)
 {
     unsigned char H;
     unsigned char MH;
@@ -404,7 +431,7 @@ unsigned long GetMemoryLong(unsigned char AddressFirst)
  *
  * The function burns the data to the EEPROM.
 /******************************************************************************/
-unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst)
+unsigned char SetMemoryLong(unsigned long Data, unsigned int AddressFirst)
 {
     unsigned char H;
     unsigned char MH;
@@ -438,7 +465,7 @@ unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst)
  *
  * The function returns the data saved in EEPROM.
 /******************************************************************************/
-unsigned long GetMemoryInt(unsigned char AddressFirst)
+unsigned long GetMemoryInt(unsigned int AddressFirst)
 {
     unsigned char H;
     unsigned char L;
@@ -456,7 +483,7 @@ unsigned long GetMemoryInt(unsigned char AddressFirst)
  *
  * The function burns the data to the EEPROM.
 /******************************************************************************/
-unsigned char SetMemoryInt(unsigned int Data, unsigned char AddressFirst)
+unsigned char SetMemoryInt(unsigned int Data, unsigned int AddressFirst)
 {
     unsigned char H;
     unsigned char L;
@@ -484,7 +511,7 @@ unsigned char SetMemoryInt(unsigned int Data, unsigned char AddressFirst)
  *
  * The function returns the data saved in EEPROM.
 /******************************************************************************/
-unsigned long GetMemoryChar(unsigned char AddressFirst)
+unsigned long GetMemoryChar(unsigned int AddressFirst)
 {
     unsigned char H;
 
@@ -498,7 +525,7 @@ unsigned long GetMemoryChar(unsigned char AddressFirst)
  *
  * The function burns the data to the EEPROM.
 /******************************************************************************/
-unsigned char SetMemoryChar(unsigned char Data, unsigned char AddressFirst)
+unsigned char SetMemoryChar(unsigned char Data, unsigned int AddressFirst)
 {
     unsigned char Test;
 

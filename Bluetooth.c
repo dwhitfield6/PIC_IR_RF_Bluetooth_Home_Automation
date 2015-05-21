@@ -488,6 +488,7 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
     }
     else if(StringContainsCaseInsensitive(String,"Conf1"))
     {
+        RFPause = FALSE;
         if(StringMatchCaseInsensitive(String,Conf1_ChannelD_STR))
         {
             // Configuration 1 channel D
@@ -515,55 +516,66 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
     }
     else if(StringContainsCaseInsensitive(String,"Conf2"))
     {
+        RFPause = FALSE;
         if(StringMatchCaseInsensitive(String,Conf2_ChannelB_ON_STR))
         {
             // Configuration 2 channel B ON
             SendRF_wait(Conf2_ChannelB_ON,2,16,RFrepeatAmount);
+            Conf2_ChannelB_Status = ON;
         }
         else if(StringMatchCaseInsensitive(String,Conf2_ChannelB_OFF_STR))
         {
             // Configuration 2 channel B OFF
             SendRF_wait(Conf2_ChannelB_OFF,2,16,RFrepeatAmount);
+            Conf2_ChannelB_Status = OFF;
         }
         else if(StringMatchCaseInsensitive(String,Conf2_ChannelD_ON_STR))
         {
             // Configuration 2 channel D ON
             SendRF_wait(Conf2_ChannelD_ON,2,16,RFrepeatAmount);
+            Conf2_ChannelD_Status = ON;
         }
         else if(StringMatchCaseInsensitive(String,Conf2_ChannelD_OFF_STR))
         {
             // Configuration 2 channel D OFF
             SendRF_wait(Conf2_ChannelD_OFF,2,16,RFrepeatAmount);
+            Conf2_ChannelD_Status = OFF;
         }
         else if(StringMatchCaseInsensitive(String,Conf2_ChannelH_1_ON_STR))
         {
             // Configuration 2 channel H device 1 ON
             SendRF_wait(Conf2_ChannelH_1_ON,2,16,RFrepeatAmount);
+            Conf2_ChannelH_1_Status = ON;
         }
         else if(StringMatchCaseInsensitive(String,Conf2_ChannelH_1_OFF_STR))
         {
             // Configuration 2 channel H device 1 OFF
             SendRF_wait(Conf2_ChannelH_1_OFF,2,16,RFrepeatAmount);
+            Conf2_ChannelH_1_Status = OFF;
         }
         else if(StringMatchCaseInsensitive(String,Conf2_ChannelH_2_ON_STR))
         {
             // Configuration 2 channel H device 2 ON
             SendRF_wait(Conf2_ChannelH_2_ON,2,16,RFrepeatAmount);
+            Conf2_ChannelH_2_Status = ON;
         }
         else if(StringMatchCaseInsensitive(String,Conf2_ChannelH_2_OFF_STR))
         {
             // Configuration 2 channel H device 2 OFF
             SendRF_wait(Conf2_ChannelH_2_OFF,2,16,RFrepeatAmount);
+            Conf2_ChannelH_2_Status = OFF;
         }
         else if(StringMatchCaseInsensitive(String,Conf2_ChannelH_3_ON_STR))
         {
             // Configuration 2 channel H device 3 ON
             SendRF_wait(Conf2_ChannelH_3_ON,2,16,RFrepeatAmount);
+            Conf2_ChannelH_3_Status = ON;
         }
         else if(StringMatchCaseInsensitive(String,Conf2_ChannelH_3_OFF_STR))
         {
             // Configuration 2 channel H device 3 OFF
-            SendRF_wait(Conf2_ChannelH_2_OFF,3,16,RFrepeatAmount);
+            SendRF_wait(Conf2_ChannelH_3_OFF,3,16,RFrepeatAmount);
+            Conf2_ChannelH_3_Status = OFF;
         }
         else
         {
@@ -578,6 +590,7 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
     else if(StringContainsCaseInsensitive(String,"Conf3_Channel"))
     {
         /* shift so that we read what is after "Conf3_Channel"*/
+        RFPause = FALSE;
         BufferCopy(String,buf, 127, -13);
         channel = buf[0];
         lowercaseChar(&channel);
@@ -617,6 +630,11 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
                         return FAIL;
                     }
                     SendRF_wait(&Conf3[channel][button][action][0],3,12,RFrepeatAmount);
+                    if(action == 0)
+                    {
+
+                    }
+                    Conf3_Status[channel][button] = Invert(action);
                 }
                 else
                 {
@@ -1094,13 +1112,6 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
                 else if(rfconf == 3)
                 {
                     /* two character channel */
-                    if(rfchannelSTR[0] != 'f')
-                    {
-                        /* so far we only have codes for f aka 03'15' */
-                        UARTstringCRLN_CONST("Error: RF Channel Syntax not understood (must use 'F' then number");
-                        UARTstring_CONST(CRLN);
-                        return FAIL;
-                    }
                     if((rfchannelSTR[1] != 0 && rfchannelSTR[0] != 0) && (rfchannelSTR[2] == 0 || rfchannelSTR[2] == ' '))
                     {
                         bufSmall[0] = rfchannelSTR[1]; // this is the button number
@@ -1372,7 +1383,7 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
                     if(SerialNumberTEMP > 0)
                     {
                         Global2.SerialNumber = (unsigned long) SerialNumberTEMP;
-                        if(!SetEEPROM2(Global2,0x00000002)) // burn serial number
+                        if(!SetEEPROM2(0x00000002)) // burn serial number
                         {
                             SyncEEPROMToGlobal();
                             UARTstringCRLN_CONST("Serial Number successfully burned to EEPROM");
@@ -1539,6 +1550,14 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
     else if(StringMatch(String,"???"))
     {
         UARTstring_CONST(CRLN);
+        UARTchar_CONST('|');
+        for(i=0; i< 80; i++ )
+        {
+            UARTchar_CONST('~');
+        }
+        UARTchar_CONST('|');
+        UARTstring_CONST(CRLN);
+        UARTchar_CONST('|');
         for(i=0; i< 34; i++ )
         {
             UARTchar_CONST('~');
@@ -1548,19 +1567,28 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
         {
             UARTchar_CONST('~');
         }
+        UARTchar_CONST('|');
+        UARTstring_CONST(CRLN);
+        UARTchar_CONST('|');
+        for(i=0; i< 80; i++ )
+        {
+            UARTchar_CONST('~');
+        }
+        UARTchar_CONST('|');
         UARTstring_CONST(CRLN);
         UARTstring_CONST(CRLN);
-        UARTstringCRLN_CONST("System commands:");
+        UARTstring_CONST(CRLN);
+        PrintHeader("System commands:");
         UARTcommandMenu("???", "Help Menu");
         UARTcommandMenu("Reset", "Clears memory and resets device");
         UARTcommandMenu("Version", "Displays Firmware/Hardware Version");
         UARTcommandMenu("Change SN", "Changes Serial Number");
         UARTcommandMenu("Change Bluetooth Name", "Changes Bluetooth Broadcast Name");
         UARTstring_CONST(CRLN);
-        UARTstringCRLN_CONST("Diagnostic Commands:");
+        PrintHeader("Diagnostic Commands:");
         UARTcommandMenu("Voltage", "Displays the supply voltage");
         UARTstring_CONST(CRLN);
-        UARTstringCRLN_CONST("IR commands:");
+        PrintHeader("IR commands:");
         for(i=1; i <= ButtonAmount; i++)
         {
             cleanBuffer(buf,50);
@@ -1607,7 +1635,7 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
         UARTcommandMenu("NEC = \"address\", \"command\"","NEC description for Arbitrary code send");
         UARTcommandMenu("NEC?", "NEC description for Arbitrary code send");
         UARTstring_CONST(CRLN);
-        UARTstringCRLN_CONST("RF commands:");
+        PrintHeader("RF commands:");
         UARTcommandMenu("RF all", "Send all Rf codes as stated below");
         UARTcommandMenu(Conf1_ChannelD_STR, "RFK100LC Channel D");
         UARTcommandMenu(Conf1_ChannelE_STR, "RFK100LC Channel E");
@@ -1625,16 +1653,16 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
         UARTstring_CONST(CRLN);
         UARTstringCRLN_CONST("Etekcity ZAP (model 10-bh9938u-5):");
         UARTstringCRLN_CONST("-Enter code from sticker 03\"x\" (x is 0-15 in hex):");
-        UARTcommandMenu("Conf3_Channel\"x\"1_ON_STR", "channel \"x\"button 1 ON");
-        UARTcommandMenu("Conf3_Channel\"x\"1_OFF_STR", "channel \"x\"button 1 OFF");
-        UARTcommandMenu("Conf3_Channel\"x\"2_ON_STR", "channel \"x\"button 2 ON");
-        UARTcommandMenu("Conf3_Channel\"x\"2_OFF_STR", "channel \"x\"button 2 OFF");
-        UARTcommandMenu("Conf3_Channel\"x\"3_ON_STR", "channel \"x\"button 3 ON");
-        UARTcommandMenu("Conf3_Channel\"x\"3_OFF_STR", "channel \"x\"button 3 OFF");
-        UARTcommandMenu("Conf3_Channel\"x\"4_ON_STR", "channel \"x\"button 4 ON");
-        UARTcommandMenu("Conf3_Channel\"x\"4_OFF_STR", "channel \"x\"button 4 OFF");
-        UARTcommandMenu("Conf3_Channel\"x\"5_ON_STR", "channel \"x\"button 5 ON");
-        UARTcommandMenu("Conf3_Channel\"x\"5_OFF_STR", "channel \"x\"button 5 OFF");
+        UARTcommandMenu("Conf3_Channel\"x\"1_ON", "channel \"x\"button 1 ON");
+        UARTcommandMenu("Conf3_Channel\"x\"1_OFF", "channel \"x\"button 1 OFF");
+        UARTcommandMenu("Conf3_Channel\"x\"2_ON", "channel \"x\"button 2 ON");
+        UARTcommandMenu("Conf3_Channel\"x\"2_OFF", "channel \"x\"button 2 OFF");
+        UARTcommandMenu("Conf3_Channel\"x\"3_ON", "channel \"x\"button 3 ON");
+        UARTcommandMenu("Conf3_Channel\"x\"3_OFF", "channel \"x\"button 3 OFF");
+        UARTcommandMenu("Conf3_Channel\"x\"4_ON", "channel \"x\"button 4 ON");
+        UARTcommandMenu("Conf3_Channel\"x\"4_OFF", "channel \"x\"button 4 OFF");
+        UARTcommandMenu("Conf3_Channel\"x\"5_ON", "channel \"x\"button 5 ON");
+        UARTcommandMenu("Conf3_Channel\"x\"5_OFF", "channel \"x\"button 5 OFF");
         UARTstring_CONST(CRLN);
     }
     else

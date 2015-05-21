@@ -55,7 +55,7 @@ unsigned char Conf2_ChannelD_Status = OFF;
 unsigned char Conf2_ChannelH_1_Status = OFF;
 unsigned char Conf2_ChannelH_2_Status = OFF;
 unsigned char Conf2_ChannelH_3_Status = OFF;
-unsigned char Conf3__Status[16][5] =
+unsigned char Conf3_Status[16][5] =
 {
     {0,0,0,0,0},
     {0,0,0,0,0},
@@ -301,15 +301,15 @@ void SendRF_Channel(unsigned char channel)
         Conf3button = channel - 8;
         Conf3button %= 5;
 
-        if(Conf3__Status[Conf3Channel][Conf3button])
+        if(Conf3_Status[Conf3Channel][Conf3button])
         {
-            SendRF_wait(&Conf3[Conf3Channel][Conf3button][OFF][0],3,12,RFrepeatAmount);
-            Conf3__Status[Conf3Channel][Conf3button] = OFF;
+            SendRF_wait(&Conf3[Conf3Channel][Conf3button][1][0],3,12,RFrepeatAmount);
+            Conf3_Status[Conf3Channel][Conf3button] = OFF;
         }
         else
         {
-            SendRF_wait(&Conf3[Conf3Channel][Conf3button][ON][0],3,12,RFrepeatAmount);
-            Conf3__Status[Conf3Channel][Conf3button] = ON;
+            SendRF_wait(&Conf3[Conf3Channel][Conf3button][0][0],3,12,RFrepeatAmount);
+            Conf3_Status[Conf3Channel][Conf3button] = ON;
         }
     }
 }

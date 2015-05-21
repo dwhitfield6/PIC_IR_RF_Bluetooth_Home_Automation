@@ -107,7 +107,7 @@ const unsigned char ProjectName[] = {"Home Automation IR/RF Hub"};
  *
 /******************************************************************************/
 #define NominalVDD  3.3
-#define VoltageLow  4.4
+#define VoltageLow  3.9
 #define VoltageHigh 18.6
 
 /******************************************************************************/

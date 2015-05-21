@@ -149,19 +149,21 @@ unsigned int ReadEEPROM_1Byte(unsigned int address);
 void EEPROM_UNLOCK(void);
 void WriteEEPROM_1Byte(unsigned int address, unsigned char data);
 void GetEEPROM1(GBLdata1 *Temp);
-unsigned long SetEEPROM1(GBLdata1 Temp,unsigned long burn);
+unsigned long SetEEPROM1(unsigned long burn);
 void GetEEPROM2(GBLdata2 *Temp);
-unsigned long SetEEPROM2(GBLdata2 Temp,unsigned long burn);
-unsigned long GetMemoryLong(unsigned char AddressFirst);
-unsigned char SetMemoryLong(unsigned long Data, unsigned char AddressFirst);
-unsigned long GetMemoryInt(unsigned char AddressFirst);
-unsigned char SetMemoryInt(unsigned int Data, unsigned char AddressFirst);
-unsigned long GetMemoryChar(unsigned char AddressFirst);
-unsigned char SetMemoryChar(unsigned char Data, unsigned char AddressFirst);
+unsigned long SetEEPROM2(unsigned long burn);
+unsigned long GetMemoryLong(unsigned int AddressFirst);
+unsigned char SetMemoryLong(unsigned long Data, unsigned int AddressFirst);
+unsigned long GetMemoryInt(unsigned int AddressFirst);
+unsigned char SetMemoryInt(unsigned int Data, unsigned int AddressFirst);
+unsigned long GetMemoryChar(unsigned int AddressFirst);
+unsigned char SetMemoryChar(unsigned char Data, unsigned int AddressFirst);
 unsigned char SyncGlobalToEEPROM(void);
 void SyncEEPROMToGlobal(void);
 void SetEEPROMdefault(void);
 unsigned char EEPROMinitialized(void);
+void SyncEEPROMToGlobal1(void);
+void SyncEEPROMToGlobal2(void);
 
 #endif	/* EEPROM_H */
 

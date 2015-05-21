@@ -165,9 +165,18 @@
 /* RFsendWaitTime
  *
  * This is the amount of delay that the system waits before it allows another
- *  RF code to send. This is dependant upon the toggle speed of the end system.
+ *  RF code to send while it is a Repeat code. This is dependant upon the
+ * toggle speed of the end system.
 /******************************************************************************/
 #define RFsendWaitTime 3
+
+/******************************************************************************/
+/* RFsendPauseTime
+ *
+ * This is the amount of delay that the system waits before it allows another
+ *  RF code to send whiile not a repeat code.
+/******************************************************************************/
+#define RFsendPauseTime 1
 
 /******************************************************************************/
 /* Defines                                                                    */
@@ -430,6 +439,12 @@ volatile unsigned char Sent;
 extern volatile unsigned char RF_IR_Postscaler;
 extern unsigned char RF_IR;
 extern unsigned char RFPause;
+extern unsigned char Conf2_ChannelB_Status;
+extern unsigned char Conf2_ChannelD_Status;
+extern unsigned char Conf2_ChannelH_1_Status;
+extern unsigned char Conf2_ChannelH_2_Status;
+extern unsigned char Conf2_ChannelH_3_Status;
+extern unsigned char Conf3_Status[16][5];
 
 /******************************************************************************/
 /* Function prototypes                                                        */

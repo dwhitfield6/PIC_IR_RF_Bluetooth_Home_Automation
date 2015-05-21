@@ -61,6 +61,9 @@
 #define Repeat5    18
 #define Receiving  19
 
+#define LongWait 2
+#define ShortWait 1
+
 /******************************************************************************/
 /* IRtimeoutLoops
  *
@@ -133,12 +136,15 @@
 #define DataLonglower 700
 
 /* Pause */
-/* Nominal 40mS*/
+/* Nominal is around 40mS for NEC
+ * However, the PIORNNER remote is about half of this
+ *  value so this is extended
+ */
 #define PauseBurstnominal 20000
 /* High Tolerance is 42mS */
 #define PauseBurstupper 21000
-/* Low Tolerance is 38mS */
-#define PauseBurstlower 19000
+/* Low Tolerance is 18mS */
+#define PauseBurstlower 9000
 
 /* Nominal 2.25mS*/
 #define PauseSpacenominal 1125
@@ -217,6 +223,7 @@ extern volatile unsigned char IRmod;
 extern volatile unsigned char ReceivingIR;
 extern volatile unsigned char IRbitPosition;
 extern unsigned long IRtimeout;
+extern unsigned char IRstarted;
 
 /******************************************************************************/
 /* Function prototypes                                                        */

@@ -349,7 +349,7 @@ void UARTcommandMenu(const unsigned char *Command,const unsigned char *Desc)
     }
     for(i =0; i < ((MaxCommandLen - place) + 1); i++)
     {
-        UARTchar('-');
+        UARTchar_CONST('-');
     }
     place = 0;
     while((*Desc != 0) && (place < (MaxDescLen - 1)))
@@ -360,6 +360,7 @@ void UARTcommandMenu(const unsigned char *Command,const unsigned char *Desc)
     }
     UARTstring_CONST(CRLN);
 }
+
 /******************************************************************************/
 /* EraseScreen
  *
@@ -371,12 +372,60 @@ void EraseScreen(unsigned char characters)
 {
     unsigned char i;
     
-    UARTchar('\r');
+    UARTchar_CONST('\r');
     for (i = 0; i < characters; i++)
     {
-        UARTchar(' ');
+        UARTchar_CONST(' ');
     }
-    UARTchar('\r');
+    UARTchar_CONST('\r');
+}
+
+/******************************************************************************/
+/* PrintHeader
+ *
+ * The function prints a header bar around some letters.
+/******************************************************************************/
+void PrintHeader(const unsigned char* Title)
+{
+    unsigned char i;
+    unsigned char NumLetters;
+    unsigned char PrintCharacters;
+    unsigned char buf[80];
+    
+    BufferCopy(Title,buf, 80, 0);
+
+    for(i =0; i<80; i++)
+    {
+        if (buf[i] == 0)
+        {
+            NumLetters = i;
+            break;
+        }
+    }
+
+    if(NumLetters>78)
+    {
+        NumLetters = 78;
+        buf[78] = 0;
+    }
+    PrintCharacters = ((78-NumLetters)/2);
+    UARTchar_CONST('|');
+    for(i = 0; i < PrintCharacters; i++)
+    {
+        UARTchar_CONST('-');
+    }
+    UARTstring(buf);
+    for(i = 0; i < PrintCharacters; i++)
+    {
+        UARTchar_CONST('-');
+    }
+    if(NumLetters%2)
+    {
+        /* Odd number of characters */
+        UARTchar_CONST('-');
+    }
+    UARTchar_CONST('|');
+    UARTstring_CONST(CRLN);
 }
 /*-----------------------------------------------------------------------------/
  End of File

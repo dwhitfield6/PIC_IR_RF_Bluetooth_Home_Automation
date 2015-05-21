@@ -88,6 +88,7 @@ unsigned char GetNumberUnsigned(unsigned char* This, unsigned char CommaNumber, 
 unsigned char IsAlphaNumericString(unsigned char* data);
 unsigned char IsAlphaNumeric(unsigned char data);
 unsigned char IsNumber(unsigned char data);
+unsigned char Invert(unsigned char data);
 
 #endif	/* MISC_H */
 

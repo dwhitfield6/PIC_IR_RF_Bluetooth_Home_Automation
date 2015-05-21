@@ -34,6 +34,14 @@
  * 05/14/15     1.0_DW0e    Fixed "AddEqual" parsing bugs.
  *                          Added support for 433MHz transmitter.
  *                          Fixed RF timing so that conf2_channeB works.
+ *                          Fixed IR receive to sart teh record when the start
+ *                            bit is found.
+ *                          Added support for pioneer (modified NEC) remote.
+ *                          Only sample ADC if the rf code is not sendng and
+ *                            the IR code is not being recieved.
+ *                          Fixed wierd bug where the Global2 struct was not
+ *                            being passed in to a function correctly. This is
+ *                            due to the lard size of the structure.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -96,6 +104,7 @@ void main(void)
     unsigned char Connected, ConnectedOLD;
     unsigned char BroadcastTEMP[BroadcastSize];
     unsigned char buf[100];
+    double tempVoltage = 0.0;
 
     cleanBuffer(buf, 100);
     cleanBuffer(BluetoothString, RXbufsize);
@@ -146,28 +155,36 @@ void main(void)
         IRtask          = IR_New_Code;
         Bluetoothtask   = NewReceivedString;
         /* read voltage */
-        BatteryVoltage = ReadVoltage();
-        if(VoltageStatus == FAILlow)
-        {            
-            BatteryVoltage -= 0.5;
-        }
-        else if(VoltageStatus == FAILhigh)
+        if(IRstarted == FALSE && (GetRFstatus() != SENDING))
         {
-            BatteryVoltage += 0.5;
+            tempVoltage = ReadVoltage();
+            if(tempVoltage > 0.1)
+            {
+                BatteryVoltage = tempVoltage;
+            }
+            if(VoltageStatus == FAILlow)
+            {
+                BatteryVoltage -= 0.1;
+            }
+            else if(VoltageStatus == FAILhigh)
+            {
+                BatteryVoltage += 0.1;
+            }
+
+            if(BatteryVoltage < VoltageLow )
+            {
+                VoltageStatus = FAILlow;
+            }
+            else if(BatteryVoltage > VoltageHigh)
+            {
+                VoltageStatus = FAILhigh;
+            }
+            else
+            {
+                VoltageStatus = PASS;
+            }
         }
 
-        if(BatteryVoltage < VoltageLow )
-        {
-            VoltageStatus = FAILlow;
-        }
-        else if(BatteryVoltage > VoltageHigh)
-        {
-            VoltageStatus = FAILhigh;
-        }
-        else
-        {
-            VoltageStatus = PASS;
-        }
         if(VoltageStatus != PASS)
         {
             RedLEDON();

@@ -147,6 +147,7 @@ void UARTstringCRLN_CONST(const unsigned char *data);
 void UARTcommandMenu(const unsigned char *Command,const unsigned char *Desc);
 void EraseScreen(unsigned char characters);
 void ClearUSART(void);
+void PrintHeader(const unsigned char* Title);
 
 #endif	/* UART_H */
 

@@ -69,6 +69,7 @@ volatile unsigned char IRbitPosition = 32;
 unsigned char IRaddress = 0;
 unsigned char IRcommand = 0;
 unsigned long IRtimeout = IRtimeoutLoops + 1;
+unsigned char IRstarted = FALSE;
 
 /******************************************************************************/
 /* Functions                                                                  */
@@ -274,7 +275,7 @@ void UseIRCode(unsigned char* Code, unsigned long NEC)
 {
     unsigned char   i,j;
     unsigned char found = FALSE;
-    RFPause = FALSE;
+    RFPause = ShortWait;
 
     if(*Code == 2 || *Code == 1)
     {
@@ -313,7 +314,7 @@ void UseIRCode(unsigned char* Code, unsigned long NEC)
                 {
                     /* IR Repeat code */
                     RedLEDON();
-                    RFPause = TRUE;
+                    RFPause = LongWait;
                 }
                 SendRF_Channel(ReadCodeButtons());
                 found = TRUE;
@@ -339,7 +340,11 @@ void UseIRCode(unsigned char* Code, unsigned long NEC)
                             {
                                 /* IR Repeat code */
                                 RedLEDON();
-                                RFPause = TRUE;
+                                RFPause = LongWait;
+                            }
+                            if(i > 7 && i < 88)
+                            {
+                                RFPause = LongWait;
                             }
                             SendRF_Channel(i);
                             found = TRUE;

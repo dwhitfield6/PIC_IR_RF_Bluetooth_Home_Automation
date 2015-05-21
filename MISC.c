@@ -123,6 +123,20 @@ unsigned char IsNumber(unsigned char data)
 }
 
 /******************************************************************************/
+/* Invert
+ *
+ * The function returns true if the data is false and falsu if the data is true.
+/******************************************************************************/
+unsigned char Invert(unsigned char data)
+{
+    if(data == FALSE)
+    {
+        return TRUE;
+    }
+    return FALSE;
+}
+
+/******************************************************************************/
 /* IsCharacter
  *
  * The function returns true if the data is a printable character.
@@ -246,6 +260,7 @@ void BufferCopy(unsigned char* from,unsigned char* to, unsigned char count, sign
             to++;
             count--;
         }
+        *to = 0;
     }
 }
 

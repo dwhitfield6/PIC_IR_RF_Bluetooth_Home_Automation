@@ -146,7 +146,7 @@ void Init_System (void)
     {
         /* this is the first time powering on after a firmware upload */
         Global2.SerialNumber = 0;
-        SetEEPROM2(Global2,0x00000002); // burn serial number
+        SetEEPROM2(0x00000002); // burn serial number
         SyncEEPROMToGlobal();
     }
     
