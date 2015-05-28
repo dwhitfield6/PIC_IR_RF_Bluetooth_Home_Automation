@@ -3750,11 +3750,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 68 `c
 -> 87 `c
 -> 48 `c
--> 101 `c
+-> 102 `c
 -> 0 `c
 ..
 ]
-[; ;user.h: 84: const unsigned char FirmVersion[] = {"1.0_DW0e"};
+[; ;user.h: 84: const unsigned char FirmVersion[] = {"1.0_DW0f"};
 "89
 [v _PCBVersion `Cuc ~T0 @X0 -> 0 `x e ]
 [i _PCBVersion
@@ -3859,34 +3859,36 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;MISC.h: 89: unsigned char IsAlphaNumeric(unsigned char data);
 [; ;MISC.h: 90: unsigned char IsNumber(unsigned char data);
 [; ;MISC.h: 91: unsigned char Invert(unsigned char data);
-[; ;IR.h: 210: extern unsigned char IRpinOLD;
-[; ;IR.h: 211: extern unsigned int IRRawCode[100];
-[; ;IR.h: 212: extern unsigned long IR_NEC;
-[; ;IR.h: 213: extern unsigned char IRrawCodeNum;
-[; ;IR.h: 214: extern unsigned char IR_New_Code;
-[; ;IR.h: 215: extern unsigned char IRbit;
-[; ;IR.h: 216: extern unsigned char IRrepeatflag;
-[; ;IR.h: 217: extern unsigned char IRsendFlag;
-[; ;IR.h: 218: extern unsigned char IRcodeBit;
-[; ;IR.h: 219: extern unsigned char IRcodePlace;
-[; ;IR.h: 220: extern unsigned long IRsendCode;
-[; ;IR.h: 221: extern unsigned char IRrepeatAmount;
-[; ;IR.h: 222: extern volatile unsigned char IRmod;
-[; ;IR.h: 223: extern volatile unsigned char ReceivingIR;
-[; ;IR.h: 224: extern volatile unsigned char IRbitPosition;
-[; ;IR.h: 225: extern unsigned long IRtimeout;
-[; ;IR.h: 226: extern unsigned char IRstarted;
-[; ;IR.h: 231: void InitIR(void);
-[; ;IR.h: 232: unsigned char ReadIRpin(void);
-[; ;IR.h: 233: unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char Invert);
-[; ;IR.h: 234: void UseIRCode(unsigned char* Code, unsigned long NEC);
-[; ;IR.h: 235: unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount);
-[; ;IR.h: 236: void SendNEC_wait(unsigned long code, unsigned char RepeatAmount);
-[; ;IR.h: 237: void CalibrateIR(void);
-[; ;IR.h: 238: unsigned char CheckReceivingIR(void);
-[; ;IR.h: 239: unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
-[; ;IR.h: 240: unsigned long EncodeNEC(unsigned char address, unsigned char command);
-[; ;UART.h: 124: extern volatile unsigned char ReceivedString[100];
+[; ;IR.h: 196: extern unsigned char IRpinOLD;
+[; ;IR.h: 197: extern unsigned int IRRawCode[80];
+[; ;IR.h: 198: extern volatile unsigned long IR_NEC;
+[; ;IR.h: 199: extern unsigned char IRrawCodeNum;
+[; ;IR.h: 200: extern volatile unsigned char IR_New_Code;
+[; ;IR.h: 201: extern unsigned char IRbit;
+[; ;IR.h: 202: extern unsigned char IRrepeatflag;
+[; ;IR.h: 203: extern unsigned char IRsendFlag;
+[; ;IR.h: 204: extern unsigned char IRcodeBit;
+[; ;IR.h: 205: extern unsigned char IRcodePlace;
+[; ;IR.h: 206: extern unsigned long IRsendCode;
+[; ;IR.h: 207: extern unsigned char IRrepeatAmount;
+[; ;IR.h: 208: extern volatile unsigned char IRmod;
+[; ;IR.h: 209: extern volatile unsigned char ReceivingIR;
+[; ;IR.h: 210: extern volatile unsigned char IRbitPosition;
+[; ;IR.h: 211: extern unsigned long IRtimeout;
+[; ;IR.h: 212: extern unsigned char IRstarted;
+[; ;IR.h: 217: void InitIR(void);
+[; ;IR.h: 218: unsigned char ReadIRpin(void);
+[; ;IR.h: 219: unsigned char IRrawToNEC(unsigned long* NEC, unsigned char Invert);
+[; ;IR.h: 220: void UseIRCode(unsigned char* Code, unsigned long NEC);
+[; ;IR.h: 221: unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount);
+[; ;IR.h: 222: void SendNEC_wait(unsigned long code, unsigned char RepeatAmount);
+[; ;IR.h: 223: void CalibrateIR(void);
+[; ;IR.h: 224: unsigned char CheckReceivingIR(void);
+[; ;IR.h: 225: unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
+[; ;IR.h: 226: unsigned long EncodeNEC(unsigned char address, unsigned char command);
+[; ;IR.h: 227: inline void IRreceiverIntOn(void);
+[; ;IR.h: 228: inline void IRreceiverIntOff(void);
+[; ;UART.h: 124: extern volatile unsigned char ReceivedString[70];
 [; ;UART.h: 125: extern volatile unsigned char ReceivedStringPos;
 [; ;UART.h: 126: extern volatile unsigned char CommandString[100];
 [; ;UART.h: 127: extern volatile unsigned char CommandStringPos;
@@ -4738,11 +4740,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [; ;RF.h: 279: const unsigned char Conf3_Buttons[] = "12345";
-[v F4232 `Cuc ~T0 @X0 -> 12 `i t ]
-[v F4231 `F4232 ~T0 @X0 -> 2 `i t ]
-[v F4230 `F4231 ~T0 @X0 -> 5 `i t ]
+[v F4237 `Cuc ~T0 @X0 -> 12 `i t ]
+[v F4236 `F4237 ~T0 @X0 -> 2 `i t ]
+[v F4235 `F4236 ~T0 @X0 -> 5 `i t ]
 "281
-[v _Conf3 `F4230 ~T0 @X0 -> 16 `i e ]
+[v _Conf3 `F4235 ~T0 @X0 -> 16 `i e ]
 [i _Conf3
 :U ..
 :U ..
@@ -7399,6 +7401,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;RF.h: 457: void DisplayRF_Channel(unsigned char channel);
 [; ;RF.h: 458: inline void RFon();
 [; ;RF.h: 459: inline void RFoff();
+[; ;RF.h: 460: void Send_RForIR_bit(void);
 "62 ADC.c
 [v _ReadVoltage `(d ~T0 @X0 1 ef ]
 "63

@@ -81,7 +81,7 @@ unsigned char ProductName[50] = {"Home Automation"};
 /* Version number                                                             */
 /******************************************************************************/
 
-const unsigned char FirmVersion[] = {"1.0_DW0e"};
+const unsigned char FirmVersion[] = {"1.0_DW0f"};
 #ifdef IR_to_RF_w_bluetooth_revA
     const unsigned char PCBVersion[] = {"RevA"};
 #endif

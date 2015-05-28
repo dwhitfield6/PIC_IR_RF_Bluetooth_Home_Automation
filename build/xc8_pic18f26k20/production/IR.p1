@@ -1,22 +1,14 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F4348 `uc ~T0 @X0 -> 2 `i t ]
+[v F4355 `uc ~T0 @X0 -> 2 `i t ]
 "104 EEPROM.h
-[s S380 `uc 1 `ul 1 `F4348 -> 12 `i `uc 1 ]
+[s S380 `uc 1 `ul 1 `F4355 -> 12 `i `uc 1 ]
 [n S380 EEdata BlueToothFlag SWNECcode RemoteButtonNEC EEPROMinitFlag ]
-[v F4354 `uc ~T0 @X0 -> 2 `i t ]
-[v F4353 `F4354 ~T0 @X0 -> -> 1 `i `ux t ]
+[v F4361 `uc ~T0 @X0 -> 2 `i t ]
+[v F4360 `F4361 ~T0 @X0 -> -> 1 `i `ux t ]
 "115
-[s S381 `F4353 -> 89 `i `ul 1 ]
+[s S381 `F4360 -> 89 `i `ul 1 ]
 [n S381 EEdata2 RemoteButtonRF SerialNumber ]
-"384 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
-[s S16 :4 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S16 . . IOCB4 IOCB5 IOCB6 IOCB7 ]
-"383
-[u S15 `S16 1 ]
-[n S15 . . ]
-"392
-[v _IOCBbits `VS15 ~T0 @X0 0 e@3965 ]
-"232 IR.h
+"218 IR.h
 [v _ReadIRpin `(uc ~T0 @X0 0 ef ]
 "176 Timer.h
 [v _InitTimer0 `(v ~T0 @X0 0 ef ]
@@ -55,11 +47,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S334 . . . . . . ]
 "6470
 [v _INTCONbits `VS334 ~T0 @X0 0 e@4082 ]
-"739
+[v F4137 `(v ~T0 @X0 1 tf ]
+"227 IR.h
+[v _IRreceiverIntOn `TF4137 ~T0 @X0 0 e ]
+"739 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [v _PORTB `Vuc ~T0 @X0 0 e@3969 ]
 "441 RF.h
 [v _RFPause `uc ~T0 @X0 0 e ]
-"239 IR.h
+"225 IR.h
 [v _DecodeNEC `(uc ~T0 @X0 0 ef3`ul`*uc`*uc ]
 "39 Button.h
 [v _ReadPushButton `(uc ~T0 @X0 0 ef ]
@@ -96,13 +91,24 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S273 . . . ]
 "5142
 [v _T2CONbits `VS273 ~T0 @X0 0 e@4042 ]
-"238 IR.h
+"224 IR.h
 [v _CheckReceivingIR `(uc ~T0 @X0 0 ef ]
+[v F4140 `(v ~T0 @X0 1 tf ]
+"228
+[v _IRreceiverIntOff `TF4140 ~T0 @X0 0 e ]
 "42 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18.h
 [v ___nop `(v ~T0 @X0 0 ef ]
 [p i ___nop ]
 "81 MISC.h
 [v _Reverse_Byte `(uc ~T0 @X0 0 ef1`uc ]
+"384 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
+[s S16 :4 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S16 . . IOCB4 IOCB5 IOCB6 IOCB7 ]
+"383
+[u S15 `S16 1 ]
+[n S15 . . ]
+"392
+[v _IOCBbits `VS15 ~T0 @X0 0 e@3965 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic18f26k20.h: 49: extern volatile unsigned char SSPMSK @ 0xF77;
@@ -3811,11 +3817,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 68 `c
 -> 87 `c
 -> 48 `c
--> 101 `c
+-> 102 `c
 -> 0 `c
 ..
 ]
-[; ;user.h: 84: const unsigned char FirmVersion[] = {"1.0_DW0e"};
+[; ;user.h: 84: const unsigned char FirmVersion[] = {"1.0_DW0f"};
 "89
 [v _PCBVersion `Cuc ~T0 @X0 -> 0 `x e ]
 [i _PCBVersion
@@ -3888,33 +3894,35 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;user.h: 96: const unsigned char ProjectName[] = {"Home Automation IR/RF Hub"};
 [; ;user.h: 307: void InitApp(void);
 [; ;user.h: 308: void Init_System (void);
-[; ;IR.h: 210: extern unsigned char IRpinOLD;
-[; ;IR.h: 211: extern unsigned int IRRawCode[100];
-[; ;IR.h: 212: extern unsigned long IR_NEC;
-[; ;IR.h: 213: extern unsigned char IRrawCodeNum;
-[; ;IR.h: 214: extern unsigned char IR_New_Code;
-[; ;IR.h: 215: extern unsigned char IRbit;
-[; ;IR.h: 216: extern unsigned char IRrepeatflag;
-[; ;IR.h: 217: extern unsigned char IRsendFlag;
-[; ;IR.h: 218: extern unsigned char IRcodeBit;
-[; ;IR.h: 219: extern unsigned char IRcodePlace;
-[; ;IR.h: 220: extern unsigned long IRsendCode;
-[; ;IR.h: 221: extern unsigned char IRrepeatAmount;
-[; ;IR.h: 222: extern volatile unsigned char IRmod;
-[; ;IR.h: 223: extern volatile unsigned char ReceivingIR;
-[; ;IR.h: 224: extern volatile unsigned char IRbitPosition;
-[; ;IR.h: 225: extern unsigned long IRtimeout;
-[; ;IR.h: 226: extern unsigned char IRstarted;
-[; ;IR.h: 231: void InitIR(void);
-[; ;IR.h: 232: unsigned char ReadIRpin(void);
-[; ;IR.h: 233: unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char Invert);
-[; ;IR.h: 234: void UseIRCode(unsigned char* Code, unsigned long NEC);
-[; ;IR.h: 235: unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount);
-[; ;IR.h: 236: void SendNEC_wait(unsigned long code, unsigned char RepeatAmount);
-[; ;IR.h: 237: void CalibrateIR(void);
-[; ;IR.h: 238: unsigned char CheckReceivingIR(void);
-[; ;IR.h: 239: unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
-[; ;IR.h: 240: unsigned long EncodeNEC(unsigned char address, unsigned char command);
+[; ;IR.h: 196: extern unsigned char IRpinOLD;
+[; ;IR.h: 197: extern unsigned int IRRawCode[80];
+[; ;IR.h: 198: extern volatile unsigned long IR_NEC;
+[; ;IR.h: 199: extern unsigned char IRrawCodeNum;
+[; ;IR.h: 200: extern volatile unsigned char IR_New_Code;
+[; ;IR.h: 201: extern unsigned char IRbit;
+[; ;IR.h: 202: extern unsigned char IRrepeatflag;
+[; ;IR.h: 203: extern unsigned char IRsendFlag;
+[; ;IR.h: 204: extern unsigned char IRcodeBit;
+[; ;IR.h: 205: extern unsigned char IRcodePlace;
+[; ;IR.h: 206: extern unsigned long IRsendCode;
+[; ;IR.h: 207: extern unsigned char IRrepeatAmount;
+[; ;IR.h: 208: extern volatile unsigned char IRmod;
+[; ;IR.h: 209: extern volatile unsigned char ReceivingIR;
+[; ;IR.h: 210: extern volatile unsigned char IRbitPosition;
+[; ;IR.h: 211: extern unsigned long IRtimeout;
+[; ;IR.h: 212: extern unsigned char IRstarted;
+[; ;IR.h: 217: void InitIR(void);
+[; ;IR.h: 218: unsigned char ReadIRpin(void);
+[; ;IR.h: 219: unsigned char IRrawToNEC(unsigned long* NEC, unsigned char Invert);
+[; ;IR.h: 220: void UseIRCode(unsigned char* Code, unsigned long NEC);
+[; ;IR.h: 221: unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount);
+[; ;IR.h: 222: void SendNEC_wait(unsigned long code, unsigned char RepeatAmount);
+[; ;IR.h: 223: void CalibrateIR(void);
+[; ;IR.h: 224: unsigned char CheckReceivingIR(void);
+[; ;IR.h: 225: unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
+[; ;IR.h: 226: unsigned long EncodeNEC(unsigned char address, unsigned char command);
+[; ;IR.h: 227: inline void IRreceiverIntOn(void);
+[; ;IR.h: 228: inline void IRreceiverIntOff(void);
 [; ;Timer.h: 39: extern unsigned char Timer1_Postscaler;
 [; ;Timer.h: 40: extern unsigned char Timer2_Postscaler;
 [; ;Timer.h: 41: extern unsigned char Timer3_Postscaler;
@@ -4749,11 +4757,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [; ;RF.h: 279: const unsigned char Conf3_Buttons[] = "12345";
-[v F4264 `Cuc ~T0 @X0 -> 12 `i t ]
-[v F4263 `F4264 ~T0 @X0 -> 2 `i t ]
-[v F4262 `F4263 ~T0 @X0 -> 5 `i t ]
+[v F4269 `Cuc ~T0 @X0 -> 12 `i t ]
+[v F4268 `F4269 ~T0 @X0 -> 2 `i t ]
+[v F4267 `F4268 ~T0 @X0 -> 5 `i t ]
 "281
-[v _Conf3 `F4262 ~T0 @X0 -> 16 `i e ]
+[v _Conf3 `F4267 ~T0 @X0 -> 16 `i e ]
 [i _Conf3
 :U ..
 :U ..
@@ -7410,7 +7418,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;RF.h: 457: void DisplayRF_Channel(unsigned char channel);
 [; ;RF.h: 458: inline void RFon();
 [; ;RF.h: 459: inline void RFoff();
-[; ;UART.h: 124: extern volatile unsigned char ReceivedString[100];
+[; ;RF.h: 460: void Send_RForIR_bit(void);
+[; ;UART.h: 124: extern volatile unsigned char ReceivedString[70];
 [; ;UART.h: 125: extern volatile unsigned char ReceivedStringPos;
 [; ;UART.h: 126: extern volatile unsigned char CommandString[100];
 [; ;UART.h: 127: extern volatile unsigned char CommandStringPos;
@@ -7530,11 +7539,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _IRpinOLD `uc ~T0 @X0 1 e ]
 [; ;IR.c: 54: unsigned char IRpinOLD;
 "55
-[v _IRRawCode `ui ~T0 @X0 -> 100 `i e ]
-[; ;IR.c: 55: unsigned int IRRawCode[100];
+[v _IRRawCode `ui ~T0 @X0 -> 80 `i e ]
+[; ;IR.c: 55: unsigned int IRRawCode[80];
 "56
-[v _IR_NEC `ul ~T0 @X0 1 e ]
-[; ;IR.c: 56: unsigned long IR_NEC;
+[v _IR_NEC `Vul ~T0 @X0 1 e ]
+[; ;IR.c: 56: volatile unsigned long IR_NEC;
 "57
 [v _IRrawCodeNum `uc ~T0 @X0 1 e ]
 [i _IRrawCodeNum
@@ -7542,11 +7551,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [; ;IR.c: 57: unsigned char IRrawCodeNum = 0;
 "58
-[v _IR_New_Code `uc ~T0 @X0 1 e ]
+[v _IR_New_Code `Vuc ~T0 @X0 1 e ]
 [i _IR_New_Code
 -> -> 0 `i `uc
 ]
-[; ;IR.c: 58: unsigned char IR_New_Code = 0;
+[; ;IR.c: 58: volatile unsigned char IR_New_Code = 0;
 "59
 [v _IRsendFlag `uc ~T0 @X0 1 e ]
 [i _IRsendFlag
@@ -7622,9 +7631,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "71
 [v _IRtimeout `ul ~T0 @X0 1 e ]
 [i _IRtimeout
--> -> + -> 5000 `i -> 1 `i `l `ul
+-> + -> 80000 `l -> -> 1 `i `l `ul
 ]
-[; ;IR.c: 71: unsigned long IRtimeout = 5000 + 1;
+[; ;IR.c: 71: unsigned long IRtimeout = 80000 + 1;
 "72
 [v _IRstarted `uc ~T0 @X0 1 e ]
 [i _IRstarted
@@ -7639,1234 +7648,1266 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;IR.c: 84: {
 [e :U _InitIR ]
 [f ]
-[; ;IR.c: 86: (IOCBbits.IOCB4 = 1);
-"86
-[e = . . _IOCBbits 0 1 -> -> 1 `i `uc ]
-[; ;IR.c: 88: IRpinOLD = ReadIRpin();
-"88
+[; ;IR.c: 87: IRpinOLD = ReadIRpin();
+"87
 [e = _IRpinOLD ( _ReadIRpin ..  ]
-[; ;IR.c: 90: InitTimer0();
-"90
+[; ;IR.c: 89: InitTimer0();
+"89
 [e ( _InitTimer0 ..  ]
-[; ;IR.c: 92: cleanBuffer16bit(IRRawCode, 100);
+[; ;IR.c: 91: cleanBuffer16bit(IRRawCode, 80);
+"91
+[e ( _cleanBuffer16bit (2 , &U _IRRawCode -> 80 `i ]
+[; ;IR.c: 92: IR_NEC = 0;
 "92
-[e ( _cleanBuffer16bit (2 , &U _IRRawCode -> 100 `i ]
-[; ;IR.c: 93: IR_NEC = 0;
-"93
 [e = _IR_NEC -> -> -> 0 `i `l `ul ]
-[; ;IR.c: 94: (T0CONbits.TMR0ON = 0);
-"94
+[; ;IR.c: 93: (T0CONbits.TMR0ON = 0);
+"93
 [e = . . _T0CONbits 0 5 -> -> 0 `i `uc ]
-[; ;IR.c: 96: ResetTimer0();
-"96
+[; ;IR.c: 95: ResetTimer0();
+"95
 [e ( _ResetTimer0 ..  ]
-[; ;IR.c: 98: (INTCONbits.TMR0IE = 0);
-"98
+[; ;IR.c: 97: (INTCONbits.TMR0IE = 0);
+"97
 [e = . . _INTCONbits 0 5 -> -> 0 `i `uc ]
-[; ;IR.c: 99: INTCONbits.TMR0IF = 0;
-"99
+[; ;IR.c: 98: INTCONbits.TMR0IF = 0;
+"98
 [e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
+[; ;IR.c: 100: IRreceiverIntOn();
+"100
+[e ( _IRreceiverIntOn ..  ]
 [; ;IR.c: 101: INTCONbits.RBIF = 0;
 "101
 [e = . . _INTCONbits 0 0 -> -> 0 `i `uc ]
-[; ;IR.c: 102: INTCONbits.RBIE = 1;
+[; ;IR.c: 102: }
 "102
-[e = . . _INTCONbits 0 3 -> -> 1 `i `uc ]
-[; ;IR.c: 103: }
-"103
 [e :UE 382 ]
 }
-"110
+"109
 [v _ReadIRpin `(uc ~T0 @X0 1 ef ]
-"111
+"110
 {
-[; ;IR.c: 110: unsigned char ReadIRpin(void)
-[; ;IR.c: 111: {
+[; ;IR.c: 109: unsigned char ReadIRpin(void)
+[; ;IR.c: 110: {
 [e :U _ReadIRpin ]
 [f ]
-[; ;IR.c: 113: if((PORTB & 0x10) == 0x10)
-"113
+[; ;IR.c: 112: if((PORTB & 0x10) == 0x10)
+"112
 [e $ ! == & -> _PORTB `i -> 16 `i -> 16 `i 384  ]
-[; ;IR.c: 114: {
-"114
+[; ;IR.c: 113: {
+"113
 {
-[; ;IR.c: 115: return (1);
-"115
+[; ;IR.c: 114: return (1);
+"114
 [e ) -> -> 1 `i `uc ]
 [e $UE 383  ]
-"116
+"115
 }
-[; ;IR.c: 116: }
+[; ;IR.c: 115: }
 [e $U 385  ]
-"117
+"116
 [e :U 384 ]
-[; ;IR.c: 117: else
-[; ;IR.c: 118: {
-"118
+[; ;IR.c: 116: else
+[; ;IR.c: 117: {
+"117
 {
-[; ;IR.c: 119: return 0;
-"119
+[; ;IR.c: 118: return 0;
+"118
 [e ) -> -> 0 `i `uc ]
 [e $UE 383  ]
-"120
+"119
 }
 [e :U 385 ]
+[; ;IR.c: 119: }
 [; ;IR.c: 120: }
-[; ;IR.c: 121: }
-"121
+"120
 [e :UE 383 ]
 }
+"127
+[v _IRrawToNEC `(uc ~T0 @X0 1 ef2`*ul`uc ]
 "128
-[v _IRrawToNEC `(uc ~T0 @X0 1 ef3`*ui`*ul`uc ]
-"129
 {
-[; ;IR.c: 128: unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char Invert)
-[; ;IR.c: 129: {
+[; ;IR.c: 127: unsigned char IRrawToNEC(unsigned long* NEC, unsigned char Invert)
+[; ;IR.c: 128: {
 [e :U _IRrawToNEC ]
+"127
+[v _NEC `*ul ~T0 @X0 1 r1 ]
+[v _Invert `uc ~T0 @X0 1 r2 ]
 "128
-[v _Raw `*ui ~T0 @X0 1 r1 ]
-[v _NEC `*ul ~T0 @X0 1 r2 ]
-[v _Invert `uc ~T0 @X0 1 r3 ]
-"129
 [f ]
-"156
+"155
 [v _i `uc ~T0 @X0 1 a ]
-"157
+"156
 [v _first `uc ~T0 @X0 1 a ]
-[; ;IR.c: 156: unsigned char i;
-[; ;IR.c: 157: unsigned char first =0;
+[; ;IR.c: 155: unsigned char i;
+[; ;IR.c: 156: unsigned char first =0;
 [e = _first -> -> 0 `i `uc ]
-"158
+"157
 [v _StartBit `uc ~T0 @X0 1 a ]
-[; ;IR.c: 158: unsigned char StartBit=100;
-[e = _StartBit -> -> 100 `i `uc ]
-"159
+[; ;IR.c: 157: unsigned char StartBit=80;
+[e = _StartBit -> -> 80 `i `uc ]
+"158
 [v _NECtemp `ul ~T0 @X0 1 a ]
-[; ;IR.c: 159: unsigned long NECtemp = 0;
+[; ;IR.c: 158: unsigned long NECtemp = 0;
 [e = _NECtemp -> -> -> 0 `i `l `ul ]
-[; ;IR.c: 162: for (i =0; i < 100; i++)
-"162
+[; ;IR.c: 161: for (i =0; i < 80; i++)
+"161
 {
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 100 `i 387  ]
+[e $ < -> _i `i -> 80 `i 387  ]
 [e $U 388  ]
-"163
+"162
 [e :U 387 ]
-[; ;IR.c: 163: {
+[; ;IR.c: 162: {
 {
-[; ;IR.c: 164: if(Raw[i] >= 4000 && Raw[i] <= 5000 )
+[; ;IR.c: 163: if(IRRawCode[i] >= 4000 && IRRawCode[i] <= 5000 )
+"163
+[e $ ! && >= *U + &U _IRRawCode * -> _i `ux -> -> # *U &U _IRRawCode `ui `ux -> -> 4000 `i `ui <= *U + &U _IRRawCode * -> _i `ux -> -> # *U &U _IRRawCode `ui `ux -> -> 5000 `i `ui 390  ]
+[; ;IR.c: 164: {
 "164
-[e $ ! && >= *U + _Raw * -> _i `ux -> -> # *U _Raw `ui `ux -> -> 4000 `i `ui <= *U + _Raw * -> _i `ux -> -> # *U _Raw `ui `ux -> -> 5000 `i `ui 390  ]
-[; ;IR.c: 165: {
-"165
 {
-[; ;IR.c: 167: StartBit = i;
-"167
+[; ;IR.c: 166: StartBit = i;
+"166
 [e = _StartBit _i ]
-[; ;IR.c: 168: break;
-"168
+[; ;IR.c: 167: break;
+"167
 [e $U 388  ]
-"169
+"168
 }
 [e :U 390 ]
-"170
+"169
 }
-"162
+"161
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 100 `i 387  ]
+[e $ < -> _i `i -> 80 `i 387  ]
 [e :U 388 ]
-"170
+"169
 }
+[; ;IR.c: 168: }
 [; ;IR.c: 169: }
-[; ;IR.c: 170: }
-[; ;IR.c: 171: if((100 - StartBit) < 50)
+[; ;IR.c: 170: if((80 - StartBit) < 68)
+"170
+[e $ ! < - -> 80 `i -> _StartBit `i -> 68 `i 391  ]
+[; ;IR.c: 171: {
 "171
-[e $ ! < - -> 100 `i -> _StartBit `i -> 50 `i 391  ]
-[; ;IR.c: 172: {
-"172
 {
-[; ;IR.c: 174: return 0;
-"174
+[; ;IR.c: 173: return 0;
+"173
 [e ) -> -> 0 `i `uc ]
 [e $UE 386  ]
-"175
+"174
 }
 [e :U 391 ]
-[; ;IR.c: 175: }
-[; ;IR.c: 177: StartBit++;
+[; ;IR.c: 174: }
+[; ;IR.c: 176: StartBit++;
+"176
+[e ++ _StartBit -> -> 1 `i `uc ]
+[; ;IR.c: 177: if(IRRawCode[StartBit] >= 925 && IRRawCode[StartBit] <= 1250 )
 "177
-[e ++ _StartBit -> -> 1 `i `uc ]
-[; ;IR.c: 178: if(Raw[StartBit] >= 925 && Raw[StartBit] <= 1250 )
+[e $ ! && >= *U + &U _IRRawCode * -> _StartBit `ux -> -> # *U &U _IRRawCode `ui `ux -> -> 925 `i `ui <= *U + &U _IRRawCode * -> _StartBit `ux -> -> # *U &U _IRRawCode `ui `ux -> -> 1250 `i `ui 392  ]
+[; ;IR.c: 178: {
 "178
-[e $ ! && >= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 925 `i `ui <= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 1250 `i `ui 392  ]
-[; ;IR.c: 179: {
-"179
 {
-[; ;IR.c: 181: StartBit++;
+[; ;IR.c: 180: StartBit++;
+"180
+[e ++ _StartBit -> -> 1 `i `uc ]
+[; ;IR.c: 181: if(IRRawCode[StartBit] >= 125 && IRRawCode[StartBit] <= 600 )
 "181
-[e ++ _StartBit -> -> 1 `i `uc ]
-[; ;IR.c: 182: if(Raw[StartBit] >= 125 && Raw[StartBit] <= 600 )
+[e $ ! && >= *U + &U _IRRawCode * -> _StartBit `ux -> -> # *U &U _IRRawCode `ui `ux -> -> 125 `i `ui <= *U + &U _IRRawCode * -> _StartBit `ux -> -> # *U &U _IRRawCode `ui `ux -> -> 600 `i `ui 393  ]
+[; ;IR.c: 182: {
 "182
-[e $ ! && >= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 125 `i `ui <= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 600 `i `ui 393  ]
-[; ;IR.c: 183: {
-"183
 {
-[; ;IR.c: 185: StartBit++;
-"185
+[; ;IR.c: 184: StartBit++;
+"184
 [e ++ _StartBit -> -> 1 `i `uc ]
-[; ;IR.c: 186: if(Raw[StartBit] >= 45000 && Raw[StartBit] <= 50000)
+[; ;IR.c: 185: if(IRRawCode[StartBit] >= 45000 && IRRawCode[StartBit] <= 50000)
+"185
+[e $ ! && >= -> *U + &U _IRRawCode * -> _StartBit `ux -> -> # *U &U _IRRawCode `ui `ux `l -> 45000 `l <= -> *U + &U _IRRawCode * -> _StartBit `ux -> -> # *U &U _IRRawCode `ui `ux `l -> 50000 `l 394  ]
+[; ;IR.c: 186: {
 "186
-[e $ ! && >= -> *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux `l -> 45000 `l <= -> *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux `l -> 50000 `l 394  ]
-[; ;IR.c: 187: {
-"187
 {
-[; ;IR.c: 189: return 2;
-"189
+[; ;IR.c: 188: return 2;
+"188
 [e ) -> -> 2 `i `uc ]
 [e $UE 386  ]
-"190
+"189
 }
 [e :U 394 ]
-"191
+"190
 }
 [e :U 393 ]
-"192
+"191
 }
+[; ;IR.c: 189: }
 [; ;IR.c: 190: }
 [; ;IR.c: 191: }
-[; ;IR.c: 192: }
 [e $U 395  ]
-"193
+"192
 [e :U 392 ]
-[; ;IR.c: 193: else if(Raw[StartBit] < 1750 || Raw[StartBit] > 2750 )
-[e $ ! || < *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 1750 `i `ui > *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 2750 `i `ui 396  ]
-[; ;IR.c: 194: {
-"194
+[; ;IR.c: 192: else if(IRRawCode[StartBit] < 1750 || IRRawCode[StartBit] > 2750 )
+[e $ ! || < *U + &U _IRRawCode * -> _StartBit `ux -> -> # *U &U _IRRawCode `ui `ux -> -> 1750 `i `ui > *U + &U _IRRawCode * -> _StartBit `ux -> -> # *U &U _IRRawCode `ui `ux -> -> 2750 `i `ui 396  ]
+[; ;IR.c: 193: {
+"193
 {
-[; ;IR.c: 196: return 0;
-"196
+[; ;IR.c: 195: return 0;
+"195
 [e ) -> -> 0 `i `uc ]
 [e $UE 386  ]
-"197
+"196
 }
 [e :U 396 ]
-"199
+"198
 [e :U 395 ]
-[; ;IR.c: 197: }
-[; ;IR.c: 199: StartBit++;
+[; ;IR.c: 196: }
+[; ;IR.c: 198: StartBit++;
 [e ++ _StartBit -> -> 1 `i `uc ]
-[; ;IR.c: 200: for(i = StartBit; i < 100;i++)
-"200
+[; ;IR.c: 199: for(i = StartBit; i < 80;i++)
+"199
 {
 [e = _i _StartBit ]
-[e $ < -> _i `i -> 100 `i 397  ]
+[e $ < -> _i `i -> 80 `i 397  ]
 [e $U 398  ]
-"201
+"200
 [e :U 397 ]
-[; ;IR.c: 201: {
+[; ;IR.c: 200: {
 {
-[; ;IR.c: 202: if(Raw[StartBit] >= 125 && Raw[StartBit] <= 600 )
+[; ;IR.c: 201: if(IRRawCode[StartBit] >= 125 && IRRawCode[StartBit] <= 600 )
+"201
+[e $ ! && >= *U + &U _IRRawCode * -> _StartBit `ux -> -> # *U &U _IRRawCode `ui `ux -> -> 125 `i `ui <= *U + &U _IRRawCode * -> _StartBit `ux -> -> # *U &U _IRRawCode `ui `ux -> -> 600 `i `ui 400  ]
+[; ;IR.c: 202: {
 "202
-[e $ ! && >= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 125 `i `ui <= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 600 `i `ui 400  ]
-[; ;IR.c: 203: {
+{
+[; ;IR.c: 203: if(!first)
 "203
-{
-[; ;IR.c: 204: if(!first)
-"204
 [e $ ! ! != -> _first `i -> -> -> 0 `i `uc `i 401  ]
-[; ;IR.c: 205: {
-"205
+[; ;IR.c: 204: {
+"204
 {
-[; ;IR.c: 207: first = 1;
-"207
+[; ;IR.c: 206: first = 1;
+"206
 [e = _first -> -> 1 `i `uc ]
-"208
+"207
 }
-[; ;IR.c: 208: }
+[; ;IR.c: 207: }
 [e $U 402  ]
-"209
+"208
 [e :U 401 ]
-[; ;IR.c: 209: else
-[; ;IR.c: 210: {
-"210
+[; ;IR.c: 208: else
+[; ;IR.c: 209: {
+"209
 {
-[; ;IR.c: 212: first = 0;
-"212
+[; ;IR.c: 211: first = 0;
+"211
 [e = _first -> -> 0 `i `uc ]
-[; ;IR.c: 213: NECtemp <<= 1;
-"213
+[; ;IR.c: 212: NECtemp <<= 1;
+"212
 [e =<< _NECtemp -> 1 `i ]
-[; ;IR.c: 214: if(!Invert)
-"214
+[; ;IR.c: 213: if(!Invert)
+"213
 [e $ ! ! != -> _Invert `i -> -> -> 0 `i `uc `i 403  ]
-[; ;IR.c: 215: {
-"215
+[; ;IR.c: 214: {
+"214
 {
-[; ;IR.c: 216: NECtemp++;
-"216
+[; ;IR.c: 215: NECtemp++;
+"215
 [e ++ _NECtemp -> -> -> 1 `i `l `ul ]
-"217
+"216
 }
 [e :U 403 ]
-"218
+"217
 }
 [e :U 402 ]
-"219
+"218
 }
+[; ;IR.c: 216: }
 [; ;IR.c: 217: }
 [; ;IR.c: 218: }
-[; ;IR.c: 219: }
 [e $U 404  ]
-"220
+"219
 [e :U 400 ]
-[; ;IR.c: 220: else if(Raw[StartBit] >= 700 && Raw[StartBit] <= 950)
-[e $ ! && >= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 700 `i `ui <= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 950 `i `ui 405  ]
-[; ;IR.c: 221: {
+[; ;IR.c: 219: else if(IRRawCode[StartBit] >= 700 && IRRawCode[StartBit] <= 950)
+[e $ ! && >= *U + &U _IRRawCode * -> _StartBit `ux -> -> # *U &U _IRRawCode `ui `ux -> -> 700 `i `ui <= *U + &U _IRRawCode * -> _StartBit `ux -> -> # *U &U _IRRawCode `ui `ux -> -> 950 `i `ui 405  ]
+[; ;IR.c: 220: {
+"220
+{
+[; ;IR.c: 221: if(first)
 "221
-{
-[; ;IR.c: 222: if(first)
-"222
 [e $ ! != -> _first `i -> -> -> 0 `i `uc `i 406  ]
-[; ;IR.c: 223: {
-"223
+[; ;IR.c: 222: {
+"222
 {
-[; ;IR.c: 225: NECtemp <<= 1;
-"225
+[; ;IR.c: 224: NECtemp <<= 1;
+"224
 [e =<< _NECtemp -> 1 `i ]
-[; ;IR.c: 226: if(Invert)
-"226
+[; ;IR.c: 225: if(Invert)
+"225
 [e $ ! != -> _Invert `i -> -> -> 0 `i `uc `i 407  ]
-[; ;IR.c: 227: {
-"227
+[; ;IR.c: 226: {
+"226
 {
-[; ;IR.c: 228: NECtemp++;
-"228
+[; ;IR.c: 227: NECtemp++;
+"227
 [e ++ _NECtemp -> -> -> 1 `i `l `ul ]
-"229
+"228
 }
 [e :U 407 ]
-[; ;IR.c: 229: }
-[; ;IR.c: 230: first = 0;
-"230
+[; ;IR.c: 228: }
+[; ;IR.c: 229: first = 0;
+"229
 [e = _first -> -> 0 `i `uc ]
-"231
+"230
 }
-[; ;IR.c: 231: }
+[; ;IR.c: 230: }
 [e $U 408  ]
-"232
+"231
 [e :U 406 ]
-[; ;IR.c: 232: else
-[; ;IR.c: 233: {
-"233
+[; ;IR.c: 231: else
+[; ;IR.c: 232: {
+"232
 {
-[; ;IR.c: 235: return 0;
-"235
+[; ;IR.c: 234: return 0;
+"234
 [e ) -> -> 0 `i `uc ]
 [e $UE 386  ]
-"236
+"235
 }
 [e :U 408 ]
-"237
+"236
 }
+[; ;IR.c: 235: }
 [; ;IR.c: 236: }
-[; ;IR.c: 237: }
 [e $U 409  ]
-"238
+"237
 [e :U 405 ]
-[; ;IR.c: 238: else if(Raw[StartBit] == 0 && first == 1)
-[e $ ! && == *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 0 `i `ui == -> _first `i -> 1 `i 410  ]
-[; ;IR.c: 239: {
-"239
+[; ;IR.c: 237: else if(IRRawCode[StartBit] == 0 && first == 1)
+[e $ ! && == *U + &U _IRRawCode * -> _StartBit `ux -> -> # *U &U _IRRawCode `ui `ux -> -> 0 `i `ui == -> _first `i -> 1 `i 410  ]
+[; ;IR.c: 238: {
+"238
 {
-[; ;IR.c: 244: *NEC = NECtemp;
+[; ;IR.c: 243: *NEC = NECtemp;
+"243
+[e = *U _NEC _NECtemp ]
+[; ;IR.c: 244: return 1;
 "244
-[e = *U _NEC _NECtemp ]
-[; ;IR.c: 245: return 1;
+[e ) -> -> 1 `i `uc ]
+[e $UE 386  ]
 "245
-[e ) -> -> 1 `i `uc ]
-[e $UE 386  ]
-"246
 }
-[; ;IR.c: 246: }
+[; ;IR.c: 245: }
 [e $U 411  ]
-"247
+"246
 [e :U 410 ]
-[; ;IR.c: 247: else if(Raw[StartBit] >= 9000 && Raw[StartBit] <= 21000)
-[e $ ! && >= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 9000 `i `ui <= *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux -> -> 21000 `i `ui 412  ]
-[; ;IR.c: 248: {
-"248
+[; ;IR.c: 246: else if(IRRawCode[StartBit] >= 9000 && IRRawCode[StartBit] <= 21000)
+[e $ ! && >= *U + &U _IRRawCode * -> _StartBit `ux -> -> # *U &U _IRRawCode `ui `ux -> -> 9000 `i `ui <= *U + &U _IRRawCode * -> _StartBit `ux -> -> # *U &U _IRRawCode `ui `ux -> -> 21000 `i `ui 412  ]
+[; ;IR.c: 247: {
+"247
 {
-[; ;IR.c: 250: *NEC = NECtemp;
-"250
+[; ;IR.c: 249: *NEC = NECtemp;
+"249
 [e = *U _NEC _NECtemp ]
-[; ;IR.c: 251: return 1;
-"251
+[; ;IR.c: 250: return 1;
+"250
 [e ) -> -> 1 `i `uc ]
 [e $UE 386  ]
-"252
+"251
 }
-[; ;IR.c: 252: }
+[; ;IR.c: 251: }
 [e $U 413  ]
-"253
+"252
 [e :U 412 ]
-[; ;IR.c: 253: else if(Raw[StartBit] >= 45000 && Raw[StartBit] <= 50000)
-[e $ ! && >= -> *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux `l -> 45000 `l <= -> *U + _Raw * -> _StartBit `ux -> -> # *U _Raw `ui `ux `l -> 50000 `l 414  ]
-[; ;IR.c: 254: {
-"254
+[; ;IR.c: 252: else if(IRRawCode[StartBit] >= 45000 && IRRawCode[StartBit] <= 50000)
+[e $ ! && >= -> *U + &U _IRRawCode * -> _StartBit `ux -> -> # *U &U _IRRawCode `ui `ux `l -> 45000 `l <= -> *U + &U _IRRawCode * -> _StartBit `ux -> -> # *U &U _IRRawCode `ui `ux `l -> 50000 `l 414  ]
+[; ;IR.c: 253: {
+"253
 {
-[; ;IR.c: 256: return 2;
-"256
+[; ;IR.c: 255: return 2;
+"255
 [e ) -> -> 2 `i `uc ]
 [e $UE 386  ]
-"257
+"256
 }
-[; ;IR.c: 257: }
+[; ;IR.c: 256: }
 [e $U 415  ]
-"258
+"257
 [e :U 414 ]
-[; ;IR.c: 258: else
-[; ;IR.c: 259: {
-"259
+[; ;IR.c: 257: else
+[; ;IR.c: 258: {
+"258
 {
-[; ;IR.c: 260: return 0;
-"260
+[; ;IR.c: 259: return 0;
+"259
 [e ) -> -> 0 `i `uc ]
 [e $UE 386  ]
-"261
+"260
 }
 [e :U 415 ]
 [e :U 413 ]
 [e :U 411 ]
 [e :U 409 ]
 [e :U 404 ]
-[; ;IR.c: 261: }
-[; ;IR.c: 262: StartBit++;
-"262
+[; ;IR.c: 260: }
+[; ;IR.c: 261: StartBit++;
+"261
 [e ++ _StartBit -> -> 1 `i `uc ]
-"263
+"262
 }
-"200
+"199
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 100 `i 397  ]
+[e $ < -> _i `i -> 80 `i 397  ]
 [e :U 398 ]
-"263
+"262
 }
-[; ;IR.c: 263: }
-[; ;IR.c: 265: return 0;
-"265
+[; ;IR.c: 262: }
+[; ;IR.c: 264: return 0;
+"264
 [e ) -> -> 0 `i `uc ]
 [e $UE 386  ]
-[; ;IR.c: 266: }
-"266
+[; ;IR.c: 265: }
+"265
 [e :UE 386 ]
 }
-"274
+"273
 [v _UseIRCode `(v ~T0 @X0 1 ef2`*uc`ul ]
-"275
-{
-[; ;IR.c: 274: void UseIRCode(unsigned char* Code, unsigned long NEC)
-[; ;IR.c: 275: {
-[e :U _UseIRCode ]
 "274
+{
+[; ;IR.c: 273: void UseIRCode(unsigned char* Code, unsigned long NEC)
+[; ;IR.c: 274: {
+[e :U _UseIRCode ]
+"273
 [v _Code `*uc ~T0 @X0 1 r1 ]
 [v _NEC `ul ~T0 @X0 1 r2 ]
-"275
+"274
 [f ]
-"276
+"275
 [v _i `uc ~T0 @X0 1 a ]
 [v _j `uc ~T0 @X0 1 a ]
-"277
+"276
 [v _found `uc ~T0 @X0 1 a ]
-[; ;IR.c: 276: unsigned char i,j;
-[; ;IR.c: 277: unsigned char found = 0;
+[; ;IR.c: 275: unsigned char i,j;
+[; ;IR.c: 276: unsigned char found = 0;
 [e = _found -> -> 0 `i `uc ]
-[; ;IR.c: 278: RFPause = 1;
-"278
+[; ;IR.c: 277: RFPause = 1;
+"277
 [e = _RFPause -> -> 1 `i `uc ]
-[; ;IR.c: 280: if(*Code == 2 || *Code == 1)
-"280
+[; ;IR.c: 279: if(*Code == 2 || *Code == 1)
+"279
 [e $ ! || == -> *U _Code `i -> 2 `i == -> *U _Code `i -> 1 `i 417  ]
-[; ;IR.c: 281: {
+[; ;IR.c: 280: {
+"280
+{
+[; ;IR.c: 281: DecodeNEC(NEC, &IRaddress, &IRcommand);
 "281
-{
-[; ;IR.c: 282: DecodeNEC(NEC, &IRaddress, &IRcommand);
-"282
 [e ( _DecodeNEC (3 , , _NEC &U _IRaddress &U _IRcommand ]
-[; ;IR.c: 283: if(ReadPushButton())
-"283
+[; ;IR.c: 282: if(ReadPushButton())
+"282
 [e $ ! != -> ( _ReadPushButton ..  `i -> -> -> 0 `i `uc `i 418  ]
-[; ;IR.c: 284: {
+[; ;IR.c: 283: {
+"283
+{
+[; ;IR.c: 284: Global1.SWNECcode = NEC;
 "284
-{
-[; ;IR.c: 285: Global1.SWNECcode = NEC;
-"285
 [e = . _Global1 1 _NEC ]
-[; ;IR.c: 286: if(SyncGlobalToEEPROM())
-"286
+[; ;IR.c: 285: if(SyncGlobalToEEPROM())
+"285
 [e $ ! != -> ( _SyncGlobalToEEPROM ..  `i -> -> -> 0 `i `uc `i 419  ]
-[; ;IR.c: 287: {
-"287
+[; ;IR.c: 286: {
+"286
 {
-[; ;IR.c: 289: for(i =0;i<10;i++)
-"289
+[; ;IR.c: 288: for(i =0;i<10;i++)
+"288
 {
 [e = _i -> -> 0 `i `uc ]
 [e $ < -> _i `i -> 10 `i 420  ]
 [e $U 421  ]
-"290
-[e :U 420 ]
-[; ;IR.c: 290: {
-{
-[; ;IR.c: 291: (LATC |= 0x04);
-"291
-[e =| _LATC -> -> 4 `i `uc ]
-[; ;IR.c: 292: delayUS(50000);
-"292
-[e ( _delayUS (1 -> 50000 `l ]
-[; ;IR.c: 293: (LATC &= ~0x04);
-"293
-[e =& _LATC -> ~ -> 4 `i `uc ]
-[; ;IR.c: 294: delayUS(50000);
-"294
-[e ( _delayUS (1 -> 50000 `l ]
-"295
-}
 "289
+[e :U 420 ]
+[; ;IR.c: 289: {
+{
+[; ;IR.c: 290: (LATC |= 0x04);
+"290
+[e =| _LATC -> -> 4 `i `uc ]
+[; ;IR.c: 291: delayUS(50000);
+"291
+[e ( _delayUS (1 -> 50000 `l ]
+[; ;IR.c: 292: (LATC &= ~0x04);
+"292
+[e =& _LATC -> ~ -> 4 `i `uc ]
+[; ;IR.c: 293: delayUS(50000);
+"293
+[e ( _delayUS (1 -> 50000 `l ]
+"294
+}
+"288
 [e ++ _i -> -> 1 `i `uc ]
 [e $ < -> _i `i -> 10 `i 420  ]
 [e :U 421 ]
+"294
+}
 "295
 }
-"296
-}
+[; ;IR.c: 294: }
 [; ;IR.c: 295: }
-[; ;IR.c: 296: }
 [e $U 423  ]
-"297
+"296
 [e :U 419 ]
-[; ;IR.c: 297: else
-[; ;IR.c: 298: {
-"298
+[; ;IR.c: 296: else
+[; ;IR.c: 297: {
+"297
 {
-[; ;IR.c: 300: for(i =0;i<10;i++)
-"300
+[; ;IR.c: 299: for(i =0;i<10;i++)
+"299
 {
 [e = _i -> -> 0 `i `uc ]
 [e $ < -> _i `i -> 10 `i 424  ]
 [e $U 425  ]
-"301
-[e :U 424 ]
-[; ;IR.c: 301: {
-{
-[; ;IR.c: 302: (LATC |= 0x02);
-"302
-[e =| _LATC -> -> 2 `i `uc ]
-[; ;IR.c: 303: delayUS(50000);
-"303
-[e ( _delayUS (1 -> 50000 `l ]
-[; ;IR.c: 304: (LATC &= ~0x02);
-"304
-[e =& _LATC -> ~ -> 2 `i `uc ]
-[; ;IR.c: 305: delayUS(50000);
-"305
-[e ( _delayUS (1 -> 50000 `l ]
-"306
-}
 "300
+[e :U 424 ]
+[; ;IR.c: 300: {
+{
+[; ;IR.c: 301: (LATC |= 0x02);
+"301
+[e =| _LATC -> -> 2 `i `uc ]
+[; ;IR.c: 302: delayUS(50000);
+"302
+[e ( _delayUS (1 -> 50000 `l ]
+[; ;IR.c: 303: (LATC &= ~0x02);
+"303
+[e =& _LATC -> ~ -> 2 `i `uc ]
+[; ;IR.c: 304: delayUS(50000);
+"304
+[e ( _delayUS (1 -> 50000 `l ]
+"305
+}
+"299
 [e ++ _i -> -> 1 `i `uc ]
 [e $ < -> _i `i -> 10 `i 424  ]
 [e :U 425 ]
+"305
+}
 "306
 }
+[e :U 423 ]
 "307
 }
-[e :U 423 ]
-"308
-}
+[; ;IR.c: 305: }
 [; ;IR.c: 306: }
 [; ;IR.c: 307: }
-[; ;IR.c: 308: }
 [e $U 427  ]
-"309
+"308
 [e :U 418 ]
-[; ;IR.c: 309: else
-[; ;IR.c: 310: {
+[; ;IR.c: 308: else
+[; ;IR.c: 309: {
+"309
+{
+[; ;IR.c: 310: if(NEC == Global1.SWNECcode)
 "310
-{
-[; ;IR.c: 311: if(NEC == Global1.SWNECcode)
-"311
 [e $ ! == _NEC . _Global1 1 428  ]
-[; ;IR.c: 312: {
+[; ;IR.c: 311: {
+"311
+{
+[; ;IR.c: 312: if(*Code == 2)
 "312
-{
-[; ;IR.c: 313: if(*Code == 2)
-"313
 [e $ ! == -> *U _Code `i -> 2 `i 429  ]
-[; ;IR.c: 314: {
-"314
+[; ;IR.c: 313: {
+"313
 {
-[; ;IR.c: 316: (LATC |= 0x02);
-"316
+[; ;IR.c: 315: (LATC |= 0x02);
+"315
 [e =| _LATC -> -> 2 `i `uc ]
-[; ;IR.c: 317: RFPause = 2;
-"317
+[; ;IR.c: 316: RFPause = 2;
+"316
 [e = _RFPause -> -> 2 `i `uc ]
-"318
+"317
 }
 [e :U 429 ]
-[; ;IR.c: 318: }
-[; ;IR.c: 319: SendRF_Channel(ReadCodeButtons());
-"319
+[; ;IR.c: 317: }
+[; ;IR.c: 318: SendRF_Channel(ReadCodeButtons());
+"318
 [e ( _SendRF_Channel (1 ( _ReadCodeButtons ..  ]
-[; ;IR.c: 320: found = 1;
-"320
+[; ;IR.c: 319: found = 1;
+"319
 [e = _found -> -> 1 `i `uc ]
-"321
+"320
 }
 [e :U 428 ]
-[; ;IR.c: 321: }
-[; ;IR.c: 323: for(i=0; i < 89; i++)
-"323
+[; ;IR.c: 320: }
+[; ;IR.c: 322: for(i=0; i < 89; i++)
+"322
 {
 [e = _i -> -> 0 `i `uc ]
 [e $ < -> _i `i -> 89 `i 430  ]
 [e $U 431  ]
-"324
+"323
 [e :U 430 ]
-[; ;IR.c: 324: {
+[; ;IR.c: 323: {
 {
-[; ;IR.c: 325: for(j=0; j < 1; j++)
-"325
+[; ;IR.c: 324: for(j=0; j < 1; j++)
+"324
 {
 [e = _j -> -> 0 `i `uc ]
 [e $ < -> _j `i -> 1 `i 433  ]
 [e $U 434  ]
-"326
+"325
 [e :U 433 ]
-[; ;IR.c: 326: {
+[; ;IR.c: 325: {
 {
-[; ;IR.c: 327: if(Global2.RemoteButtonRF[i][j][0] == 0)
-"327
+[; ;IR.c: 326: if(Global2.RemoteButtonRF[i][j][0] == 0)
+"326
 [e $ ! == -> *U + &U *U + &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> -> 1 `i `ux `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> -> 1 `i `ux `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> -> 1 `i `ux `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> -> 1 `i `ux `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux `ui `ux `i -> 0 `i 436  ]
-[; ;IR.c: 328: {
+[; ;IR.c: 327: {
+"327
+{
+[; ;IR.c: 328: if(Global2.RemoteButtonRF[i][j][1] == 0)
 "328
-{
-[; ;IR.c: 329: if(Global2.RemoteButtonRF[i][j][1] == 0)
-"329
 [e $ ! == -> *U + &U *U + &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> -> 1 `i `ux `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> -> 1 `i `ux `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> -> 1 `i `ux `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> -> 1 `i `ux `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux `ui `ux `i -> 0 `i 437  ]
-[; ;IR.c: 330: {
-"330
+[; ;IR.c: 329: {
+"329
 {
-[; ;IR.c: 332: break;
-"332
+[; ;IR.c: 331: break;
+"331
 [e $U 434  ]
-"333
+"332
 }
 [e :U 437 ]
-"334
+"333
 }
 [e :U 436 ]
+[; ;IR.c: 332: }
 [; ;IR.c: 333: }
-[; ;IR.c: 334: }
-[; ;IR.c: 335: if(IRaddress == Global2.RemoteButtonRF[i][j][0])
-"335
+[; ;IR.c: 334: if(IRaddress == Global2.RemoteButtonRF[i][j][0])
+"334
 [e $ ! == -> _IRaddress `i -> *U + &U *U + &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> -> 1 `i `ux `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> -> 1 `i `ux `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> -> 1 `i `ux `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> -> 1 `i `ux `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux `ui `ux `i 438  ]
-[; ;IR.c: 336: {
+[; ;IR.c: 335: {
+"335
+{
+[; ;IR.c: 336: if(IRcommand == Global2.RemoteButtonRF[i][j][1])
 "336
-{
-[; ;IR.c: 337: if(IRcommand == Global2.RemoteButtonRF[i][j][1])
-"337
 [e $ ! == -> _IRcommand `i -> *U + &U *U + &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> -> 1 `i `ux `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> -> 1 `i `ux `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> -> 1 `i `ux `ui -> -> 2 `i `ui `ux * -> _j `ux -> * -> # *U &U *U &U *U + &U . _Global2 0 * -> _i `ux -> * * -> # *U &U *U &U . _Global2 0 `ui -> -> -> 1 `i `ux `ui -> -> 2 `i `ui `ux `ui -> -> 2 `i `ui `ux `ui `ux `i 439  ]
-[; ;IR.c: 338: {
+[; ;IR.c: 337: {
+"337
+{
+[; ;IR.c: 338: if(*Code == 2)
 "338
-{
-[; ;IR.c: 339: if(*Code == 2)
-"339
 [e $ ! == -> *U _Code `i -> 2 `i 440  ]
-[; ;IR.c: 340: {
-"340
+[; ;IR.c: 339: {
+"339
 {
-[; ;IR.c: 342: (LATC |= 0x02);
-"342
+[; ;IR.c: 341: (LATC |= 0x02);
+"341
 [e =| _LATC -> -> 2 `i `uc ]
-[; ;IR.c: 343: RFPause = 2;
-"343
+[; ;IR.c: 342: RFPause = 2;
+"342
 [e = _RFPause -> -> 2 `i `uc ]
-"344
+"343
 }
 [e :U 440 ]
-[; ;IR.c: 344: }
-[; ;IR.c: 345: if(i > 7 && i < 88)
-"345
+[; ;IR.c: 343: }
+[; ;IR.c: 344: if(i > 7 && i < 88)
+"344
 [e $ ! && > -> _i `i -> 7 `i < -> _i `i -> 88 `i 441  ]
-[; ;IR.c: 346: {
-"346
+[; ;IR.c: 345: {
+"345
 {
-[; ;IR.c: 347: RFPause = 2;
-"347
+[; ;IR.c: 346: RFPause = 2;
+"346
 [e = _RFPause -> -> 2 `i `uc ]
-"348
+"347
 }
 [e :U 441 ]
-[; ;IR.c: 348: }
-[; ;IR.c: 349: SendRF_Channel(i);
-"349
+[; ;IR.c: 347: }
+[; ;IR.c: 348: SendRF_Channel(i);
+"348
 [e ( _SendRF_Channel (1 _i ]
-[; ;IR.c: 350: found = 1;
-"350
+[; ;IR.c: 349: found = 1;
+"349
 [e = _found -> -> 1 `i `uc ]
-"351
+"350
 }
 [e :U 439 ]
-"352
+"351
 }
 [e :U 438 ]
-"353
+"352
 }
-"325
+"324
 [e ++ _j -> -> 1 `i `uc ]
 [e $ < -> _j `i -> 1 `i 433  ]
 [e :U 434 ]
+"352
+}
 "353
 }
-"354
-}
-"323
+"322
 [e ++ _i -> -> 1 `i `uc ]
 [e $ < -> _i `i -> 89 `i 430  ]
 [e :U 431 ]
-"354
+"353
 }
-"356
+"355
 }
 [e :U 427 ]
-"357
+"356
 }
 [e :U 417 ]
+[; ;IR.c: 350: }
 [; ;IR.c: 351: }
 [; ;IR.c: 352: }
 [; ;IR.c: 353: }
-[; ;IR.c: 354: }
+[; ;IR.c: 355: }
 [; ;IR.c: 356: }
-[; ;IR.c: 357: }
-[; ;IR.c: 358: if(found == 0)
-"358
+[; ;IR.c: 357: if(found == 0)
+"357
 [e $ ! == -> _found `i -> 0 `i 442  ]
-[; ;IR.c: 359: {
-"359
+[; ;IR.c: 358: {
+"358
 {
-[; ;IR.c: 360: (LATC |= 0x02);
-"360
+[; ;IR.c: 359: (LATC |= 0x02);
+"359
 [e =| _LATC -> -> 2 `i `uc ]
-[; ;IR.c: 361: LEDTimerON();
-"361
+[; ;IR.c: 360: LEDTimerON();
+"360
 [e ( _LEDTimerON ..  ]
-"362
+"361
 }
 [e :U 442 ]
-[; ;IR.c: 362: }
-[; ;IR.c: 363: *Code = 0;
-"363
+[; ;IR.c: 361: }
+[; ;IR.c: 362: *Code = 0;
+"362
 [e = *U _Code -> -> 0 `i `uc ]
+[; ;IR.c: 363: ReadIRpin();
+"363
+[e ( _ReadIRpin ..  ]
 [; ;IR.c: 364: IRpinOLD = ReadIRpin();
 "364
 [e = _IRpinOLD ( _ReadIRpin ..  ]
 [; ;IR.c: 365: INTCONbits.RBIF = 0;
 "365
 [e = . . _INTCONbits 0 0 -> -> 0 `i `uc ]
-[; ;IR.c: 366: (IOCBbits.IOCB4 = 1);
+[; ;IR.c: 366: IRreceiverIntOn();
 "366
-[e = . . _IOCBbits 0 1 -> -> 1 `i `uc ]
-[; ;IR.c: 367: INTCONbits.RBIE = 1;
+[e ( _IRreceiverIntOn ..  ]
+[; ;IR.c: 367: }
 "367
-[e = . . _INTCONbits 0 3 -> -> 1 `i `uc ]
-[; ;IR.c: 368: }
-"368
 [e :UE 416 ]
 }
-"374
+"373
 [v _SendNEC_bytes `(uc ~T0 @X0 1 ef2`ul`uc ]
-"375
-{
-[; ;IR.c: 374: unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount)
-[; ;IR.c: 375: {
-[e :U _SendNEC_bytes ]
 "374
+{
+[; ;IR.c: 373: unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount)
+[; ;IR.c: 374: {
+[e :U _SendNEC_bytes ]
+"373
 [v _code `ul ~T0 @X0 1 r1 ]
 [v _RepeatAmount `uc ~T0 @X0 1 r2 ]
-"375
+"374
 [f ]
-[; ;IR.c: 403: if(Sent)
-"403
+[; ;IR.c: 402: if(Sent)
+"402
 [e $ ! != -> _Sent `i -> -> -> 0 `i `Vuc `i 444  ]
-[; ;IR.c: 404: {
-"404
+[; ;IR.c: 403: {
+"403
 {
-[; ;IR.c: 406: if(!code)
-"406
+[; ;IR.c: 405: if(!code)
+"405
 [e $ ! ! != _code -> -> 0 `i `ul 445  ]
-[; ;IR.c: 407: {
-"407
+[; ;IR.c: 406: {
+"406
 {
-[; ;IR.c: 408: return 0;
-"408
+[; ;IR.c: 407: return 0;
+"407
 [e ) -> -> 0 `i `uc ]
 [e $UE 443  ]
-"409
+"408
 }
 [e :U 445 ]
-[; ;IR.c: 409: }
-[; ;IR.c: 410: RF_IR = 66;
-"410
+[; ;IR.c: 408: }
+[; ;IR.c: 409: RF_IR = 66;
+"409
 [e = _RF_IR -> -> 66 `i `uc ]
-[; ;IR.c: 411: Sent = 0;
-"411
+[; ;IR.c: 410: Sent = 0;
+"410
 [e = _Sent -> -> 0 `i `uc ]
-[; ;IR.c: 412: IRsendFlag = 1;
-"412
+[; ;IR.c: 411: IRsendFlag = 1;
+"411
 [e = _IRsendFlag -> -> 1 `i `uc ]
-[; ;IR.c: 413: IRcodeBit = 0;
-"413
+[; ;IR.c: 412: IRcodeBit = 0;
+"412
 [e = _IRcodeBit -> -> 0 `i `uc ]
-[; ;IR.c: 414: IRcodePlace = 7;
-"414
+[; ;IR.c: 413: IRcodePlace = 7;
+"413
 [e = _IRcodePlace -> -> 7 `i `uc ]
-[; ;IR.c: 415: IRsendCode = Reverse_4Byte(code);
-"415
+[; ;IR.c: 414: IRsendCode = Reverse_4Byte(code);
+"414
 [e = _IRsendCode ( _Reverse_4Byte (1 _code ]
-[; ;IR.c: 416: if(RepeatAmount)
-"416
+[; ;IR.c: 415: if(RepeatAmount)
+"415
 [e $ ! != -> _RepeatAmount `i -> -> -> 0 `i `uc `i 446  ]
-[; ;IR.c: 417: {
-"417
+[; ;IR.c: 416: {
+"416
 {
-[; ;IR.c: 418: IRrepeatflag = 1;
-"418
+[; ;IR.c: 417: IRrepeatflag = 1;
+"417
 [e = _IRrepeatflag -> -> 1 `i `uc ]
-"419
+"418
 }
 [e :U 446 ]
-[; ;IR.c: 419: }
-[; ;IR.c: 420: IRrepeatAmount = RepeatAmount;
-"420
+[; ;IR.c: 418: }
+[; ;IR.c: 419: IRrepeatAmount = RepeatAmount;
+"419
 [e = _IRrepeatAmount _RepeatAmount ]
-[; ;IR.c: 421: (TMR2 = 0);
-"421
+[; ;IR.c: 420: (TMR2 = 0);
+"420
 [e = _TMR2 -> -> 0 `i `uc ]
-[; ;IR.c: 422: (PR2 = 150);
-"422
+[; ;IR.c: 421: (PR2 = 150);
+"421
 [e = _PR2 -> -> 150 `i `uc ]
-[; ;IR.c: 423: RF_IR_Postscaler = 4;
-"423
+[; ;IR.c: 422: RF_IR_Postscaler = 4;
+"422
 [e = _RF_IR_Postscaler -> -> 4 `i `uc ]
-[; ;IR.c: 424: (IRmod = 1);
-"424
+[; ;IR.c: 423: (IRmod = 1);
+"423
 [e = _IRmod -> -> 1 `i `uc ]
-[; ;IR.c: 425: (T2CONbits.TMR2ON = 1);
-"425
+[; ;IR.c: 424: (T2CONbits.TMR2ON = 1);
+"424
 [e = . . _T2CONbits 0 1 -> -> 1 `i `uc ]
-[; ;IR.c: 426: return 1;
-"426
+[; ;IR.c: 425: return 1;
+"425
 [e ) -> -> 1 `i `uc ]
 [e $UE 443  ]
-"427
+"426
 }
 [e :U 444 ]
-[; ;IR.c: 427: }
-[; ;IR.c: 428: return 2;
-"428
+[; ;IR.c: 426: }
+[; ;IR.c: 427: return 2;
+"427
 [e ) -> -> 2 `i `uc ]
 [e $UE 443  ]
-[; ;IR.c: 429: }
-"429
+[; ;IR.c: 428: }
+"428
 [e :UE 443 ]
 }
-"437
+"436
 [v _SendNEC_wait `(v ~T0 @X0 1 ef2`ul`uc ]
-"438
-{
-[; ;IR.c: 437: void SendNEC_wait(unsigned long code, unsigned char RepeatAmount)
-[; ;IR.c: 438: {
-[e :U _SendNEC_wait ]
 "437
+{
+[; ;IR.c: 436: void SendNEC_wait(unsigned long code, unsigned char RepeatAmount)
+[; ;IR.c: 437: {
+[e :U _SendNEC_wait ]
+"436
 [v _code `ul ~T0 @X0 1 r1 ]
 [v _RepeatAmount `uc ~T0 @X0 1 r2 ]
-"438
+"437
 [f ]
-"439
+"438
 [v _toggle `uc ~T0 @X0 1 a ]
-[; ;IR.c: 439: unsigned char toggle = 0;
+[; ;IR.c: 438: unsigned char toggle = 0;
 [e = _toggle -> -> 0 `i `uc ]
-[; ;IR.c: 440: while(CheckReceivingIR());
-"440
+[; ;IR.c: 439: while(CheckReceivingIR());
+"439
 [e $U 448  ]
 [e :U 449 ]
 [e :U 448 ]
 [e $ != -> ( _CheckReceivingIR ..  `i -> -> -> 0 `i `uc `i 449  ]
 [e :U 450 ]
-[; ;IR.c: 442: (IOCBbits.IOCB4 = 0);
+[; ;IR.c: 441: IRreceiverIntOff();
+"441
+[e ( _IRreceiverIntOff ..  ]
+[; ;IR.c: 442: INTCONbits.RBIE = 0;
 "442
-[e = . . _IOCBbits 0 1 -> -> 0 `i `uc ]
-[; ;IR.c: 443: INTCONbits.RBIE = 0;
-"443
 [e = . . _INTCONbits 0 3 -> -> 0 `i `uc ]
-[; ;IR.c: 444: INTCONbits.PEIE = 0;
-"444
+[; ;IR.c: 443: INTCONbits.PEIE = 0;
+"443
 [e = . . _INTCONbits 1 6 -> -> 0 `i `uc ]
-[; ;IR.c: 446: SendNEC_bytes(code, RepeatAmount);
-"446
+[; ;IR.c: 445: SendNEC_bytes(code, RepeatAmount);
+"445
 [e ( _SendNEC_bytes (2 , _code _RepeatAmount ]
-[; ;IR.c: 447: while(!Sent)
-"447
+[; ;IR.c: 446: while(!Sent)
+"446
 [e $U 451  ]
 [e :U 452 ]
-[; ;IR.c: 448: {
+[; ;IR.c: 447: {
+"447
+{
+[; ;IR.c: 448: if(IRmod)
 "448
-{
-[; ;IR.c: 449: if(IRmod)
-"449
 [e $ ! != -> _IRmod `i -> -> -> 0 `i `Vuc `i 454  ]
-[; ;IR.c: 450: {
-"450
+[; ;IR.c: 449: {
+"449
 {
-[; ;IR.c: 452: if(toggle < 9)
-"452
+[; ;IR.c: 451: if(toggle < 9)
+"451
 [e $ ! < -> _toggle `i -> 9 `i 455  ]
-[; ;IR.c: 453: {
+[; ;IR.c: 452: {
+"452
+{
+[; ;IR.c: 453: (LATC |= 0x08);
 "453
-{
-[; ;IR.c: 454: (LATC |= 0x08);
-"454
 [e =| _LATC -> -> 8 `i `uc ]
-"455
+"454
 }
-[; ;IR.c: 455: }
+[; ;IR.c: 454: }
 [e $U 456  ]
-"456
+"455
 [e :U 455 ]
-[; ;IR.c: 456: else if(toggle < 17)
+[; ;IR.c: 455: else if(toggle < 17)
 [e $ ! < -> _toggle `i -> 17 `i 457  ]
-[; ;IR.c: 457: {
+[; ;IR.c: 456: {
+"456
+{
+[; ;IR.c: 457: (LATC &= ~0x08);
 "457
-{
-[; ;IR.c: 458: (LATC &= ~0x08);
-"458
 [e =& _LATC -> ~ -> 8 `i `uc ]
-"459
+"458
 }
-[; ;IR.c: 459: }
+[; ;IR.c: 458: }
 [e $U 458  ]
-"460
+"459
 [e :U 457 ]
-[; ;IR.c: 460: else
-[; ;IR.c: 461: {
-"461
+[; ;IR.c: 459: else
+[; ;IR.c: 460: {
+"460
 {
-[; ;IR.c: 462: toggle = 0;
-"462
+[; ;IR.c: 461: toggle = 0;
+"461
 [e = _toggle -> -> 0 `i `uc ]
-"463
+"462
 }
 [e :U 458 ]
 [e :U 456 ]
-[; ;IR.c: 463: }
-[; ;IR.c: 464: toggle++;
-"464
+[; ;IR.c: 462: }
+[; ;IR.c: 463: toggle++;
+"463
 [e ++ _toggle -> -> 1 `i `uc ]
-"465
+"464
 }
-[; ;IR.c: 465: }
+[; ;IR.c: 464: }
 [e $U 459  ]
-"466
+"465
 [e :U 454 ]
-[; ;IR.c: 466: else
-[; ;IR.c: 467: {
-"467
+[; ;IR.c: 465: else
+[; ;IR.c: 466: {
+"466
 {
-[; ;IR.c: 468: (LATC &= ~0x08);
-"468
+[; ;IR.c: 467: (LATC &= ~0x08);
+"467
 [e =& _LATC -> ~ -> 8 `i `uc ]
-[; ;IR.c: 469: toggle = 0;
-"469
+[; ;IR.c: 468: toggle = 0;
+"468
 [e = _toggle -> -> 0 `i `uc ]
-"470
+"469
 }
 [e :U 459 ]
-"471
+"470
 }
 [e :U 451 ]
-"447
+"446
 [e $ ! != -> _Sent `i -> -> -> 0 `i `Vuc `i 452  ]
 [e :U 453 ]
+[; ;IR.c: 469: }
 [; ;IR.c: 470: }
-[; ;IR.c: 471: }
-[; ;IR.c: 473: if(IRbitPosition)
-"473
+[; ;IR.c: 472: if(IRbitPosition)
+"472
 [e $ ! != -> _IRbitPosition `i -> -> -> 0 `i `Vuc `i 460  ]
-[; ;IR.c: 474: {
-"474
+[; ;IR.c: 473: {
+"473
 {
-[; ;IR.c: 476: __nop();
-"476
+[; ;IR.c: 475: __nop();
+"475
 [e ( ___nop ..  ]
-"477
+"476
 }
 [e :U 460 ]
-[; ;IR.c: 477: }
-[; ;IR.c: 479: INTCONbits.PEIE = 1;
-"479
+[; ;IR.c: 476: }
+[; ;IR.c: 478: INTCONbits.PEIE = 1;
+"478
 [e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
-[; ;IR.c: 480: delayUS(8000);
-"480
+[; ;IR.c: 479: delayUS(8000);
+"479
 [e ( _delayUS (1 -> -> 8000 `i `l ]
-[; ;IR.c: 481: IRpinOLD = ReadIRpin();
-"481
+[; ;IR.c: 480: IRpinOLD = ReadIRpin();
+"480
 [e = _IRpinOLD ( _ReadIRpin ..  ]
-[; ;IR.c: 482: INTCONbits.RBIF = 0;
-"482
+[; ;IR.c: 481: INTCONbits.RBIF = 0;
+"481
 [e = . . _INTCONbits 0 0 -> -> 0 `i `uc ]
-[; ;IR.c: 483: (IOCBbits.IOCB4 = 1);
+[; ;IR.c: 482: IRreceiverIntOn();
+"482
+[e ( _IRreceiverIntOn ..  ]
+[; ;IR.c: 483: INTCONbits.RBIE = 1;
 "483
-[e = . . _IOCBbits 0 1 -> -> 1 `i `uc ]
-[; ;IR.c: 484: INTCONbits.RBIE = 1;
-"484
 [e = . . _INTCONbits 0 3 -> -> 1 `i `uc ]
-[; ;IR.c: 485: }
-"485
+[; ;IR.c: 484: }
+"484
 [e :UE 447 ]
 }
-"493
+"492
 [v _CalibrateIR `(v ~T0 @X0 1 ef ]
-"494
+"493
 {
-[; ;IR.c: 493: void CalibrateIR(void)
-[; ;IR.c: 494: {
+[; ;IR.c: 492: void CalibrateIR(void)
+[; ;IR.c: 493: {
 [e :U _CalibrateIR ]
 [f ]
-"495
+"494
 [v _toggle `uc ~T0 @X0 1 a ]
-[; ;IR.c: 495: unsigned char toggle = 0;
+[; ;IR.c: 494: unsigned char toggle = 0;
 [e = _toggle -> -> 0 `i `uc ]
-[; ;IR.c: 496: INTCONbits.GIE = 0;
-"496
+[; ;IR.c: 495: INTCONbits.GIE = 0;
+"495
 [e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
-[; ;IR.c: 497: INTCONbits.RBIE = 0;
-"497
+[; ;IR.c: 496: INTCONbits.RBIE = 0;
+"496
 [e = . . _INTCONbits 0 3 -> -> 0 `i `uc ]
-[; ;IR.c: 498: (IOCBbits.IOCB4 = 0);
+[; ;IR.c: 497: IRreceiverIntOff();
+"497
+[e ( _IRreceiverIntOff ..  ]
+[; ;IR.c: 498: INTCONbits.PEIE = 0;
 "498
-[e = . . _IOCBbits 0 1 -> -> 0 `i `uc ]
-[; ;IR.c: 499: INTCONbits.PEIE = 0;
-"499
 [e = . . _INTCONbits 1 6 -> -> 0 `i `uc ]
-[; ;IR.c: 501: while(1)
-"501
+[; ;IR.c: 500: while(1)
+"500
 [e :U 463 ]
-[; ;IR.c: 502: {
-"502
+[; ;IR.c: 501: {
+"501
 {
-[; ;IR.c: 504: if(toggle < 9)
-"504
+[; ;IR.c: 503: if(toggle < 9)
+"503
 [e $ ! < -> _toggle `i -> 9 `i 465  ]
-[; ;IR.c: 505: {
+[; ;IR.c: 504: {
+"504
+{
+[; ;IR.c: 505: (LATC |= 0x08);
 "505
-{
-[; ;IR.c: 506: (LATC |= 0x08);
-"506
 [e =| _LATC -> -> 8 `i `uc ]
-"507
+"506
 }
-[; ;IR.c: 507: }
+[; ;IR.c: 506: }
 [e $U 466  ]
-"508
+"507
 [e :U 465 ]
-[; ;IR.c: 508: else if(toggle < 17)
+[; ;IR.c: 507: else if(toggle < 17)
 [e $ ! < -> _toggle `i -> 17 `i 467  ]
-[; ;IR.c: 509: {
+[; ;IR.c: 508: {
+"508
+{
+[; ;IR.c: 509: (LATC &= ~0x08);
 "509
-{
-[; ;IR.c: 510: (LATC &= ~0x08);
-"510
 [e =& _LATC -> ~ -> 8 `i `uc ]
-"511
+"510
 }
-[; ;IR.c: 511: }
+[; ;IR.c: 510: }
 [e $U 468  ]
-"512
+"511
 [e :U 467 ]
-[; ;IR.c: 512: else
-[; ;IR.c: 513: {
-"513
+[; ;IR.c: 511: else
+[; ;IR.c: 512: {
+"512
 {
-[; ;IR.c: 514: toggle = 0;
-"514
+[; ;IR.c: 513: toggle = 0;
+"513
 [e = _toggle -> -> 0 `i `uc ]
-"515
+"514
 }
 [e :U 468 ]
 [e :U 466 ]
-[; ;IR.c: 515: }
-[; ;IR.c: 516: toggle++;
-"516
+[; ;IR.c: 514: }
+[; ;IR.c: 515: toggle++;
+"515
 [e ++ _toggle -> -> 1 `i `uc ]
-"517
+"516
 }
 [e :U 462 ]
-"501
+"500
 [e $U 463  ]
 [e :U 464 ]
+[; ;IR.c: 516: }
 [; ;IR.c: 517: }
-[; ;IR.c: 518: }
-"518
+"517
 [e :UE 461 ]
 }
-"526
+"525
 [v _CheckReceivingIR `(uc ~T0 @X0 1 ef ]
-"527
+"526
 {
-[; ;IR.c: 526: unsigned char CheckReceivingIR(void)
-[; ;IR.c: 527: {
+[; ;IR.c: 525: unsigned char CheckReceivingIR(void)
+[; ;IR.c: 526: {
 [e :U _CheckReceivingIR ]
 [f ]
-[; ;IR.c: 528: if(ReceivingIR == 13)
-"528
+[; ;IR.c: 527: if(ReceivingIR == 13)
+"527
 [e $ ! == -> _ReceivingIR `i -> 13 `i 470  ]
-[; ;IR.c: 529: {
-"529
+[; ;IR.c: 528: {
+"528
 {
-[; ;IR.c: 530: return 0;
-"530
+[; ;IR.c: 529: return 0;
+"529
 [e ) -> -> 0 `i `uc ]
 [e $UE 469  ]
-"531
+"530
 }
 [e :U 470 ]
-[; ;IR.c: 531: }
-[; ;IR.c: 532: return 1;
-"532
+[; ;IR.c: 530: }
+[; ;IR.c: 531: return 1;
+"531
 [e ) -> -> 1 `i `uc ]
 [e $UE 469  ]
-[; ;IR.c: 533: }
-"533
+[; ;IR.c: 532: }
+"532
 [e :UE 469 ]
 }
-"540
+"539
 [v _EncodeNEC `(ul ~T0 @X0 1 ef2`uc`uc ]
-"541
-{
-[; ;IR.c: 540: unsigned long EncodeNEC(unsigned char address, unsigned char command)
-[; ;IR.c: 541: {
-[e :U _EncodeNEC ]
 "540
+{
+[; ;IR.c: 539: unsigned long EncodeNEC(unsigned char address, unsigned char command)
+[; ;IR.c: 540: {
+[e :U _EncodeNEC ]
+"539
 [v _address `uc ~T0 @X0 1 r1 ]
 [v _command `uc ~T0 @X0 1 r2 ]
-"541
+"540
 [f ]
-"542
+"541
 [v _temp1 `ul ~T0 @X0 1 a ]
-"543
+"542
 [v _temp2 `ul ~T0 @X0 1 a ]
-"544
+"543
 [v _temp3 `ul ~T0 @X0 1 a ]
-"545
+"544
 [v _temp4 `ul ~T0 @X0 1 a ]
-[; ;IR.c: 542: unsigned long temp1,
-[; ;IR.c: 543: temp2,
-[; ;IR.c: 544: temp3,
-[; ;IR.c: 545: temp4;
-[; ;IR.c: 553: temp1 = (unsigned long) Reverse_Byte(address);
-"553
+[; ;IR.c: 541: unsigned long temp1,
+[; ;IR.c: 542: temp2,
+[; ;IR.c: 543: temp3,
+[; ;IR.c: 544: temp4;
+[; ;IR.c: 552: temp1 = (unsigned long) Reverse_Byte(address);
+"552
 [e = _temp1 -> ( _Reverse_Byte (1 _address `ul ]
-[; ;IR.c: 554: temp2 = (unsigned long) Reverse_Byte(~address);
-"554
+[; ;IR.c: 553: temp2 = (unsigned long) Reverse_Byte(~address);
+"553
 [e = _temp2 -> ( _Reverse_Byte (1 -> ~ -> _address `i `uc `ul ]
-[; ;IR.c: 555: temp3 = (unsigned long) Reverse_Byte(command);
-"555
+[; ;IR.c: 554: temp3 = (unsigned long) Reverse_Byte(command);
+"554
 [e = _temp3 -> ( _Reverse_Byte (1 _command `ul ]
-[; ;IR.c: 556: temp4 = (unsigned long) Reverse_Byte(~command);
-"556
+[; ;IR.c: 555: temp4 = (unsigned long) Reverse_Byte(~command);
+"555
 [e = _temp4 -> ( _Reverse_Byte (1 -> ~ -> _command `i `uc `ul ]
-[; ;IR.c: 558: return ((temp1 << 24) + (temp2 << 16) + (temp3 << 8) + temp4);
-"558
+[; ;IR.c: 557: return ((temp1 << 24) + (temp2 << 16) + (temp3 << 8) + temp4);
+"557
 [e ) + + + << _temp1 -> 24 `i << _temp2 -> 16 `i << _temp3 -> 8 `i _temp4 ]
 [e $UE 471  ]
-[; ;IR.c: 559: }
-"559
+[; ;IR.c: 558: }
+"558
 [e :UE 471 ]
 }
-"566
+"565
 [v _DecodeNEC `(uc ~T0 @X0 1 ef3`ul`*uc`*uc ]
-"567
-{
-[; ;IR.c: 566: unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command)
-[; ;IR.c: 567: {
-[e :U _DecodeNEC ]
 "566
+{
+[; ;IR.c: 565: unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command)
+[; ;IR.c: 566: {
+[e :U _DecodeNEC ]
+"565
 [v _Nec `ul ~T0 @X0 1 r1 ]
 [v _address `*uc ~T0 @X0 1 r2 ]
 [v _command `*uc ~T0 @X0 1 r3 ]
-"567
+"566
 [f ]
-"568
+"567
 [v _temp1 `uc ~T0 @X0 1 a ]
-"569
+"568
 [v _temp2 `uc ~T0 @X0 1 a ]
-"570
+"569
 [v _temp3 `uc ~T0 @X0 1 a ]
-[; ;IR.c: 568: unsigned char temp1,
-[; ;IR.c: 569: temp2,
-[; ;IR.c: 570: temp3;
-[; ;IR.c: 572: temp1 = ~Reverse_Byte((unsigned char) (Nec & 0x00FF));
-"572
+[; ;IR.c: 567: unsigned char temp1,
+[; ;IR.c: 568: temp2,
+[; ;IR.c: 569: temp3;
+[; ;IR.c: 571: temp1 = ~Reverse_Byte((unsigned char) (Nec & 0x00FF));
+"571
 [e = _temp1 -> ~ -> ( _Reverse_Byte (1 -> & _Nec -> -> -> 255 `i `l `ul `uc `i `uc ]
-[; ;IR.c: 573: temp2 = Reverse_Byte((unsigned char) ((Nec & 0xFF00)>> 8));
-"573
+[; ;IR.c: 572: temp2 = Reverse_Byte((unsigned char) ((Nec & 0xFF00)>> 8));
+"572
 [e = _temp2 ( _Reverse_Byte (1 -> >> & _Nec -> -> 65280 `ui `ul -> 8 `i `uc ]
-[; ;IR.c: 574: if(temp1 != temp2)
-"574
+[; ;IR.c: 573: if(temp1 != temp2)
+"573
 [e $ ! != -> _temp1 `i -> _temp2 `i 473  ]
-[; ;IR.c: 575: {
-"575
+[; ;IR.c: 574: {
+"574
 {
-[; ;IR.c: 577: return 0;
-"577
+[; ;IR.c: 576: return 0;
+"576
 [e ) -> -> 0 `i `uc ]
 [e $UE 472  ]
-"578
+"577
 }
 [e :U 473 ]
-[; ;IR.c: 578: }
-[; ;IR.c: 579: temp1 = ~Reverse_Byte((unsigned char) ((Nec & 0x00FF0000) >> 16));
-"579
+[; ;IR.c: 577: }
+[; ;IR.c: 578: temp1 = ~Reverse_Byte((unsigned char) ((Nec & 0x00FF0000) >> 16));
+"578
 [e = _temp1 -> ~ -> ( _Reverse_Byte (1 -> >> & _Nec -> -> 16711680 `l `ul -> 16 `i `uc `i `uc ]
-[; ;IR.c: 580: temp3 = Reverse_Byte((unsigned char) ((Nec & 0xFF000000) >> 24));
-"580
+[; ;IR.c: 579: temp3 = Reverse_Byte((unsigned char) ((Nec & 0xFF000000) >> 24));
+"579
 [e = _temp3 ( _Reverse_Byte (1 -> >> & _Nec -> -16777216 `ul -> 24 `i `uc ]
-[; ;IR.c: 581: if(temp1 != temp3)
-"581
+[; ;IR.c: 580: if(temp1 != temp3)
+"580
 [e $ ! != -> _temp1 `i -> _temp3 `i 474  ]
-[; ;IR.c: 582: {
-"582
+[; ;IR.c: 581: {
+"581
 {
-[; ;IR.c: 584: return 0;
-"584
+[; ;IR.c: 583: return 0;
+"583
 [e ) -> -> 0 `i `uc ]
 [e $UE 472  ]
-"585
+"584
 }
 [e :U 474 ]
-[; ;IR.c: 585: }
-[; ;IR.c: 586: *command = temp2;
-"586
+[; ;IR.c: 584: }
+[; ;IR.c: 585: *command = temp2;
+"585
 [e = *U _command _temp2 ]
-[; ;IR.c: 587: *address = temp3;
-"587
+[; ;IR.c: 586: *address = temp3;
+"586
 [e = *U _address _temp3 ]
-[; ;IR.c: 588: return 1;
-"588
+[; ;IR.c: 587: return 1;
+"587
 [e ) -> -> 1 `i `uc ]
 [e $UE 472  ]
-[; ;IR.c: 589: }
-"589
+[; ;IR.c: 588: }
+"588
 [e :UE 472 ]
+}
+"595
+[v _IRreceiverIntOn `TF4137 ~T0 @X0 1 e ]
+"596
+{
+[; ;IR.c: 595: inline void IRreceiverIntOn(void)
+[; ;IR.c: 596: {
+[e :U _IRreceiverIntOn ]
+[f ]
+[; ;IR.c: 597: IOCBbits.IOCB4 = 1;
+"597
+[e = . . _IOCBbits 0 1 -> -> 1 `i `uc ]
+[; ;IR.c: 598: INTCONbits.RBIE = 1;
+"598
+[e = . . _INTCONbits 0 3 -> -> 1 `i `uc ]
+[; ;IR.c: 599: }
+"599
+[e :UE 475 ]
+}
+"606
+[v _IRreceiverIntOff `TF4140 ~T0 @X0 1 e ]
+"607
+{
+[; ;IR.c: 606: inline void IRreceiverIntOff(void)
+[; ;IR.c: 607: {
+[e :U _IRreceiverIntOff ]
+[f ]
+[; ;IR.c: 608: IOCBbits.IOCB4 = 0;
+"608
+[e = . . _IOCBbits 0 1 -> -> 0 `i `uc ]
+[; ;IR.c: 609: INTCONbits.RBIE = 0;
+"609
+[e = . . _INTCONbits 0 3 -> -> 0 `i `uc ]
+[; ;IR.c: 610: }
+"610
+[e :UE 476 ]
 }

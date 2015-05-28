@@ -3715,11 +3715,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 68 `c
 -> 87 `c
 -> 48 `c
--> 101 `c
+-> 102 `c
 -> 0 `c
 ..
 ]
-[; ;user.h: 84: const unsigned char FirmVersion[] = {"1.0_DW0e"};
+[; ;user.h: 84: const unsigned char FirmVersion[] = {"1.0_DW0f"};
 "89
 [v _PCBVersion `Cuc ~T0 @X0 -> 0 `x e ]
 [i _PCBVersion

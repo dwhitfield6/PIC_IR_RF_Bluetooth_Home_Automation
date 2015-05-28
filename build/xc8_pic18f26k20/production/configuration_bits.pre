@@ -4848,7 +4848,7 @@ extern __nonreentrant void _delay3(unsigned char);
 
 #pragma config PWRT = OFF
 #pragma config BOREN = SBORDIS
-#pragma config BORV = 27
+#pragma config BORV = 18
 
 
 #pragma config WDTEN = OFF
@@ -4862,7 +4862,7 @@ extern __nonreentrant void _delay3(unsigned char);
 #pragma config MCLRE = ON
 
 
-#pragma config STVREN = ON
+#pragma config STVREN = OFF
 #pragma config LVP = OFF
 #pragma config XINST = OFF
 

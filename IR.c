@@ -53,9 +53,9 @@
 /******************************************************************************/
 unsigned char IRpinOLD;
 unsigned int IRRawCode[IR_SIZE];
-unsigned long IR_NEC;
+volatile unsigned long IR_NEC;
 unsigned char IRrawCodeNum = 0;
-unsigned char IR_New_Code  = 0;
+volatile unsigned char IR_New_Code  = 0;
 unsigned char IRsendFlag = 0;
 unsigned char IRcodeBit = 0;
 unsigned char IRcodePlace = 1;
@@ -82,8 +82,7 @@ unsigned char IRstarted = FALSE;
 /******************************************************************************/
 void InitIR(void)
 {
-    /* Turn on interrupt on pin RB4 */
-    IRreceiverIntOn();
+
     /* Initialize compare value of IR pin */
     IRpinOLD = ReadIRpin();
     /* Timer 0 is used for IR timing */
@@ -97,9 +96,9 @@ void InitIR(void)
     /*Clear flag and disable interrupts */
     DisableTimer0Int();
     INTCONbits.TMR0IF = 0;
-    /* Enable RB port change on interrupt */
+    /* Turn on interrupt on pin RB4 */
+    IRreceiverIntOn();
     INTCONbits.RBIF = FALSE;
-    INTCONbits.RBIE = TRUE;
 }
 
 /******************************************************************************/
@@ -125,7 +124,7 @@ unsigned char ReadIRpin(void)
  *
  * The function converts from raw counts to NEC code.
 /******************************************************************************/
-unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char Invert)
+unsigned char IRrawToNEC(unsigned long* NEC, unsigned char Invert)
 {
     /* the Protocol is as follows
      *
@@ -161,7 +160,7 @@ unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char In
     /* Start Bit begin*/
     for (i =0; i < IR_SIZE; i++)
     {
-        if(Raw[i] >= StartbitHIGHlower && Raw[i] <= StartbitHIGHupper )
+        if(IRRawCode[i] >= StartbitHIGHlower && IRRawCode[i] <= StartbitHIGHupper )
         {
             /* This is the Start bit*/
             StartBit = i;
@@ -175,22 +174,22 @@ unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char In
     }
 
     StartBit++;
-    if(Raw[StartBit] >= PauseSpacelower && Raw[StartBit] <= PauseSpaceupper )
+    if(IRRawCode[StartBit] >= PauseSpacelower && IRRawCode[StartBit] <= PauseSpaceupper )
     {
         /* This is a repeat code most likely */
         StartBit++;
-        if(Raw[StartBit] >= DataShortlower && Raw[StartBit] <= DataShortupper )
+        if(IRRawCode[StartBit] >= DataShortlower && IRRawCode[StartBit] <= DataShortupper )
         {
             /* This is a repeat code most likely */
             StartBit++;
-            if(Raw[StartBit] >= Repeatlower && Raw[StartBit] <= Repeatupper)
+            if(IRRawCode[StartBit] >= Repeatlower && IRRawCode[StartBit] <= Repeatupper)
             {
                 /* This is a repeat code */
                 return Repeat;
             }
         }       
     }
-    else if(Raw[StartBit] < StartbitLOWlower || Raw[StartBit] > StartbitLOWupper )
+    else if(IRRawCode[StartBit] < StartbitLOWlower || IRRawCode[StartBit] > StartbitLOWupper )
     {
         /* Start bit is wrong */
         return Error;
@@ -199,7 +198,7 @@ unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char In
     StartBit++;
     for(i = StartBit; i < IR_SIZE;i++)
     {
-        if(Raw[StartBit] >= DataShortlower && Raw[StartBit] <= DataShortupper )
+        if(IRRawCode[StartBit] >= DataShortlower && IRRawCode[StartBit] <= DataShortupper )
         {
             if(!first)
             {
@@ -217,7 +216,7 @@ unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char In
                 }
             }
         }
-        else if(Raw[StartBit] >= DataLonglower && Raw[StartBit] <= DataLongupper)
+        else if(IRRawCode[StartBit] >= DataLonglower && IRRawCode[StartBit] <= DataLongupper)
         {
             if(first)
             {
@@ -235,7 +234,7 @@ unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char In
                 return Error;
             }
         }
-        else if(Raw[StartBit] == 0 && first == 1)
+        else if(IRRawCode[StartBit] == 0 && first == 1)
         {
             /*
              * We got the final 562.5µs pulse burst to signify the end of
@@ -244,13 +243,13 @@ unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char In
             *NEC = NECtemp;
             return New;
         }
-        else if(Raw[StartBit] >= PauseBurstlower && Raw[StartBit] <= PauseBurstupper)
+        else if(IRRawCode[StartBit] >= PauseBurstlower && IRRawCode[StartBit] <= PauseBurstupper)
         {
             /* Pause bit */
             *NEC = NECtemp;
             return New;
         }
-        else if(Raw[StartBit] >= Repeatlower && Raw[StartBit] <= Repeatupper)
+        else if(IRRawCode[StartBit] >= Repeatlower && IRRawCode[StartBit] <= Repeatupper)
         {
             /* repeat character */
             return Repeat;
@@ -361,10 +360,10 @@ void UseIRCode(unsigned char* Code, unsigned long NEC)
         LEDTimerON();
     }
     *Code = 0;
+    ReadIRpin();
     IRpinOLD = ReadIRpin();
     INTCONbits.RBIF = FALSE;
     IRreceiverIntOn();
-    INTCONbits.RBIE = TRUE;
 }
 /******************************************************************************/
 /* SendNEC_bytes
@@ -586,6 +585,28 @@ unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char
     *command = temp2;
     *address = temp3;
     return PASS;
+}
+
+/******************************************************************************/
+/* IRreceiverIntOn()
+ *
+ * The function turns on the port b interrupt associated with the ir receiver.
+/******************************************************************************/
+inline void IRreceiverIntOn(void)
+{
+    IOCBbits.IOCB4 = ON;
+    INTCONbits.RBIE = TRUE;
+}
+
+/******************************************************************************/
+/* IRreceiverIntOff()
+ *
+ * The function turns off the port b interrupt associated with the ir receiver.
+/******************************************************************************/
+inline void IRreceiverIntOff(void)
+{
+    IOCBbits.IOCB4 = OFF;
+    INTCONbits.RBIE = FALSE;
 }
 
 /*-----------------------------------------------------------------------------/

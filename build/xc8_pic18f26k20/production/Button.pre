@@ -5017,7 +5017,7 @@ unsigned char WaitForIRsignal(void);
 unsigned char ProductName[50] = {"Home Automation"};
 
 # 84
-const unsigned char FirmVersion[] = {"1.0_DW0e"};
+const unsigned char FirmVersion[] = {"1.0_DW0f"};
 
 # 89
 const unsigned char PCBVersion[] = {"RevB"};

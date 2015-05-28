@@ -4984,7 +4984,7 @@ unsigned char WaitForIRsignal(void);
 unsigned char ProductName[50] = {"Home Automation"};
 
 # 84
-const unsigned char FirmVersion[] = {"1.0_DW0e"};
+const unsigned char FirmVersion[] = {"1.0_DW0f"};
 
 # 89
 const unsigned char PCBVersion[] = {"RevB"};
@@ -5230,9 +5230,10 @@ unsigned char GetRFstatus(void);
 void DisplayRF_Channel(unsigned char channel);
 inline void RFon();
 inline void RFoff();
+void Send_RForIR_bit(void);
 
 # 124 "UART.h"
-extern volatile unsigned char ReceivedString[100];
+extern volatile unsigned char ReceivedString[70];
 extern volatile unsigned char ReceivedStringPos;
 extern volatile unsigned char CommandString[100];
 extern volatile unsigned char CommandStringPos;
@@ -5260,12 +5261,12 @@ void EraseScreen(unsigned char characters);
 void ClearUSART(void);
 void PrintHeader(const unsigned char* Title);
 
-# 210 "IR.h"
+# 196 "IR.h"
 extern unsigned char IRpinOLD;
-extern unsigned int IRRawCode[100];
-extern unsigned long IR_NEC;
+extern unsigned int IRRawCode[80];
+extern volatile unsigned long IR_NEC;
 extern unsigned char IRrawCodeNum;
-extern unsigned char IR_New_Code;
+extern volatile unsigned char IR_New_Code;
 extern unsigned char IRbit;
 extern unsigned char IRrepeatflag;
 extern unsigned char IRsendFlag;
@@ -5284,7 +5285,7 @@ extern unsigned char IRstarted;
 
 void InitIR(void);
 unsigned char ReadIRpin(void);
-unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char Invert);
+unsigned char IRrawToNEC(unsigned long* NEC, unsigned char Invert);
 void UseIRCode(unsigned char* Code, unsigned long NEC);
 unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount);
 void SendNEC_wait(unsigned long code, unsigned char RepeatAmount);
@@ -5292,6 +5293,8 @@ void CalibrateIR(void);
 unsigned char CheckReceivingIR(void);
 unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
 unsigned long EncodeNEC(unsigned char address, unsigned char command);
+inline void IRreceiverIntOn(void);
+inline void IRreceiverIntOff(void);
 
 # 39 "Timer.h"
 extern unsigned char Timer1_Postscaler;
@@ -5315,88 +5318,10 @@ void interrupt high_isr(void)
 
 # 67
 {
-unsigned char IRpin;
-unsigned int Time0;
 
 INTCONbits.GIE = 0;
 
-if(INTCONbits.RBIF)
-{
-__nop();
-__nop();
-IRtimeout = 0;
-IRpin = ReadIRpin();
-if(IRpin != IRpinOLD)
-{
-(T0CONbits.TMR0ON = 1);
-(INTCONbits.TMR0IE = 1);
-ReceivingIR = 19;
-IR_New_Code = 0;
-Time0 = TMR0L;
-Time0 += (TMR0H << 8);
-if((Time0 <= 4500 && Time0 >= 2250))
-{
-IRstarted = 1;
-}
-if(IRstarted)
-{
-if(IRrawCodeNum < 100)
-{
-if(IRrawCodeNum < 100)
-{
-IRRawCode[IRrawCodeNum] = Time0;
-if((Time0 <= 21000 && Time0 >= 9000))
-{
-
-(IOCBbits.IOCB4 = 0);
-INTCONbits.RBIE = 0;
-
-INTCONbits.TMR0IF = 1;
-}
-else if(Time0 <= 50000 && Time0 >= 45000)
-{
-
-(IOCBbits.IOCB4 = 0);
-INTCONbits.RBIE = 0;
-
-SetTimer0(0x8FFF);
-}
-else
-{
-ResetTimer0();
-}
-}
-else
-{
-ResetTimer0();
-}
-if(IRrawCodeNum <= 100)
-{
-IRrawCodeNum++;
-}
-}
-else
-{
-(IOCBbits.IOCB4 = 0);
-INTCONbits.RBIE = 0;
-}
-}
-else
-{
-ResetTimer0();
-}
-IRpinOLD = IRpin;
-}
-else
-{
-
-__nop();
-}
-
-ReadIRpin();
-INTCONbits.RBIF = 0;
-}
-else if(INTCONbits.TMR0IF)
+if(INTCONbits.TMR0IF)
 {
 
 (INTCONbits.TMR0IE = 0);
@@ -5404,16 +5329,16 @@ else if(INTCONbits.TMR0IF)
 IRstarted = 0;
 if(IRrawCodeNum >= (4))
 {
-IR_New_Code = IRrawToNEC(IRRawCode, &IR_NEC, 1);
+IR_New_Code = IRrawToNEC(&IR_NEC, 1);
 }
-cleanBuffer16bit(IRRawCode,100);
+cleanBuffer16bit(IRRawCode,80);
 IRrawCodeNum = 0;
 if(!IR_New_Code)
 {
 ReadIRpin();
 IRpinOLD = ReadIRpin();
 INTCONbits.RBIF = 0;
-(IOCBbits.IOCB4 = 1);
+IRreceiverIntOn();
 INTCONbits.RBIE = 1;
 }
 ReceivingIR = 13;
@@ -5422,547 +5347,8 @@ INTCONbits.TMR0IF = 0;
 else if(PIR1bits.TMR2IF)
 {
 
-
-Timer2_Postscaler++;
-if(RF_IR == 55)
-{
-
-if(Timer2_Postscaler >= RF_IR_Postscaler)
-{
-Timer2_Postscaler = 0;
-if(RFsendCode[RFcodeBit] != 99)
-{
-
-if(RFsendFlag)
-{
-if(RFsendCode[RFcodeBit] == 0)
-{
-
-if(RFConfig == 1)
-{
-if(RFcodePlace == 1)
-{
-RFon();
-(PR2 = 8);
-RFcodePlace++;
-(TMR2 = 0);
-}
-else if(RFcodePlace == 2)
-{
-RFoff();
-(PR2 = 24);
-RFcodePlace++;
-}
-else if(RFcodePlace == 3)
-{
-RFon();
-(PR2 = 8);
-RFcodePlace++;
-(TMR2 = 0);
-}
-else if(RFcodePlace == 4)
-{
-RFoff();
-(PR2 = 24);
-RFcodePlace = 1;
-RFcodeBit++;
-}
-else
-{
-
-(T2CONbits.TMR2ON = 0);
-Sent = 1;
-RFsendFlag = 0;
-}
-}
-else if(RFConfig == 2)
-{
-
-if(RFcodePlace == 1)
-{
-RFon();
-(PR2 = 9);
-RFcodePlace++;
-(TMR2 = 0);
-}
-else if(RFcodePlace == 2)
-{
-RFoff();
-(PR2 = 29);
-RFcodePlace = 1;
-RFcodeBit++;
-}
-else
-{
-
-(T2CONbits.TMR2ON = 0);
-Sent = 1;
-RFsendFlag = 0;
-}
-}
-else if(RFConfig == 3)
-{
-if(RFcodePlace == 1)
-{
-RFon();
-(PR2 = 8);
-RFcodePlace++;
-(TMR2 = 0);
-}
-else if(RFcodePlace == 2)
-{
-RFoff();
-(PR2 = 23);
-RFcodePlace++;
-}
-else if(RFcodePlace == 3)
-{
-RFon();
-(PR2 = 8);
-RFcodePlace++;
-(TMR2 = 0);
-}
-else if(RFcodePlace == 4)
-{
-RFoff();
-(PR2 = 23);
-RFcodePlace = 1;
-RFcodeBit++;
-}
-else
-{
-
-(T2CONbits.TMR2ON = 0);
-Sent = 1;
-RFsendFlag = 0;
-}
-}
-else
-{
-
-(T2CONbits.TMR2ON = 0);
-Sent = 1;
-RFsendFlag = 0;
-}
-}
-else if(RFsendCode[RFcodeBit] == 1)
-{
-if(RFConfig == 1)
-{
-if(RFcodePlace == 1)
-{
-RFon();
-(PR2 = 24);
-RFcodePlace++;
-}
-else if(RFcodePlace == 2)
-{
-RFoff();
-(PR2 = 8);
-RFcodePlace++;
-(TMR2 = 0);
-}
-else if(RFcodePlace == 3)
-{
-RFon();
-(PR2 = 24);
-RFcodePlace++;
-}
-else if(RFcodePlace == 4)
-{
-RFoff();
-(PR2 = 8);
-RFcodePlace = 1;
-RFcodeBit++;
-(TMR2 = 0);
-}
-else
-{
-
-(T2CONbits.TMR2ON = 0);
-Sent = 1;
-RFsendFlag = 0;
-}
-}
-else if(RFConfig == 2)
-{
-
-if(RFcodePlace == 1)
-{
-RFon();
-(PR2 = 29);
-RFcodePlace++;
-(TMR2 = 0);
-}
-else if(RFcodePlace == 2)
-{
-RFoff();
-(PR2 = 9);
-RFcodePlace = 1;
-RFcodeBit++;
-}
-else
-{
-
-(T2CONbits.TMR2ON = 0);
-Sent = 1;
-RFsendFlag = 0;
-}
-}
-else if(RFConfig == 3)
-{
-if(RFcodePlace == 1)
-{
-RFon();
-(PR2 = 23);
-RFcodePlace++;
-}
-else if(RFcodePlace == 2)
-{
-RFoff();
-(PR2 = 8);
-RFcodePlace++;
-(TMR2 = 0);
-}
-else if(RFcodePlace == 3)
-{
-RFon();
-(PR2 = 23);
-RFcodePlace++;
-}
-else if(RFcodePlace == 4)
-{
-RFoff();
-(PR2 = 8);
-RFcodePlace = 1;
-RFcodeBit++;
-(TMR2 = 0);
-}
-else
-{
-
-(T2CONbits.TMR2ON = 0);
-Sent = 1;
-RFsendFlag = 0;
-}
-}
-else
-{
-
-(T2CONbits.TMR2ON = 0);
-Sent = 1;
-RFsendFlag = 0;
-}
-}
-else
-{
-if(RFConfig == 1)
-{
-
-if(RFcodePlace == 1)
-{
-RFon();
-(PR2 = 8);
-RFcodePlace++;
-(TMR2 = 0);
-}
-else if(RFcodePlace == 2)
-{
-RFoff();
-(PR2 = 24);
-RFcodePlace++;
-}
-else if(RFcodePlace == 3)
-{
-RFon();
-(PR2 = 24);
-RFcodePlace++;
-}
-else if(RFcodePlace == 4)
-{
-RFoff();
-(PR2 = 8);
-RFcodePlace = 1;
-RFcodeBit++;
-(TMR2 = 0);
-}
-else
-{
-
-(T2CONbits.TMR2ON = 0);
-Sent = 1;
-RFsendFlag = 0;
-}
-}
-else if(RFConfig == 2)
-{
-
-(T2CONbits.TMR2ON = 0);
-Sent = 1;
-RFsendFlag = 0;
-}
-else if(RFConfig == 3)
-{
-
-if(RFcodePlace == 1)
-{
-RFon();
-(PR2 = 8);
-RFcodePlace++;
-(TMR2 = 0);
-}
-else if(RFcodePlace == 2)
-{
-RFoff();
-(PR2 = 23);
-RFcodePlace++;
-}
-else if(RFcodePlace == 3)
-{
-RFon();
-(PR2 = 23);
-RFcodePlace++;
-}
-else if(RFcodePlace == 4)
-{
-RFoff();
-(PR2 = 8);
-RFcodePlace = 1;
-RFcodeBit++;
-(TMR2 = 0);
-}
-else
-{
-
-(T2CONbits.TMR2ON = 0);
-Sent = 1;
-RFsendFlag = 0;
-}
-}
-else
-{
-
-(T2CONbits.TMR2ON = 0);
-Sent = 1;
-RFsendFlag = 0;
-}
-}
-}
-}
-else
-{
-
-if(RFcodePlace == 1)
-{
-if(RFConfig == 1)
-{
-RFon();
-(PR2 = 8);
-}
-else if(RFConfig == 2)
-{
-RFoff();
-(PR2 = 9);
-}
-else if(RFConfig == 3)
-{
-RFon();
-(PR2 = 8);
-}
-else
-{
-
-(T2CONbits.TMR2ON = 0);
-Sent = 1;
-}
-(TMR2 = 0);
-RFcodePlace++;
-}
-else if( RFcodePlace == 2)
-{
-if(RFConfig == 1)
-{
-RFoff();
-(PR2 = 250);
-}
-else if(RFConfig == 2)
-{
-(PR2 = 146);
-}
-else if(RFConfig == 3)
-{
-RFoff();
-(PR2 = 200);
-}
-else
-{
-
-(T2CONbits.TMR2ON = 0);
-Sent = 1;
-}
-RFcodePlace++;
-Sendcount--;
-if(Sendcount)
-{
-
-RFcodePlace = 1;
-RFcodeBit = 0;
-}
-}
-else
-{
-
-if(RFPause)
-{
-ResetTimer3();
-PIR2bits.TMR3IF = 0;
-Timer3_Postscaler = 0;
-(T3CONbits.TMR3ON = 1);
-}
-else
-{
-Sent = 1;
-}
-(T2CONbits.TMR2ON = 0);
-RFsendFlag = 0;
-}
-}
-}
-if(RFsendFlag)
-{
-
-(T2CONbits.TMR2ON = 1);
-}
-}
-else
-{
-
-if(Timer2_Postscaler >= RF_IR_Postscaler)
-{
-Timer2_Postscaler = 0;
-if(IRcodePlace == 7)
-{
-IRbitPosition = 32;
-(IRmod = 0);
-(LATC &= ~0x08);
-IRcodePlace = 8;
-RF_IR_Postscaler = 4;
-(PR2 = 75);
-}
-else if(IRcodePlace == 8 || IRcodePlace == 10)
-{
-(IRmod = 1);
-RF_IR_Postscaler = 1;
-IRbit = (unsigned char) (IRsendCode & 0x01);
-IRsendCode >>= 1;
-(PR2 = 38);
-IRcodePlace = 9;
-}
-else if(IRcodePlace == 9)
-{
-(IRmod = 0);
-(LATC &= ~0x08);
-RF_IR_Postscaler = 1;
-if(IRbit)
-{
-
-(PR2 = 113);
-}
-else
-{
-
-(PR2 = 38);
-}
-IRbitPosition--;
-if(IRbitPosition == 0)
-{
-IRcodePlace = 11;
-}
-else
-{
-IRcodePlace = 10;
-}
-}
-else if(IRcodePlace == 11)
-{
-(IRmod = 1);
-(PR2 = 38);
-IRcodePlace = 12;
-}
-else if(IRcodePlace == 12)
-{
-(IRmod = 0);
-(LATC &= ~0x08);
-if(!IRrepeatflag)
-{
-
-IRcodePlace = 13;
-(T2CONbits.TMR2ON = 0);
-Sent = 1;
-}
-else
-{
-RF_IR_Postscaler = 11;
-(PR2 = 242);
-IRcodePlace = 14;
-}
-}
-else if(IRcodePlace == 14 || IRcodePlace == 18)
-{
-(IRmod = 1);
-RF_IR_Postscaler = 4;
-(PR2 = 150);
-IRcodePlace = 15;
-}
-else if(IRcodePlace == 15)
-{
-(IRmod = 0);
-(LATC &= ~0x08);
-RF_IR_Postscaler = 1;
-(PR2 = 149);
-IRcodePlace = 16;
-}
-else if(IRcodePlace == 16)
-{
-(IRmod = 1);
-RF_IR_Postscaler = 1;
-(PR2 = 38);
-IRcodePlace = 17;
-}
-else if(IRcodePlace == 17)
-{
-(IRmod = 0);
-(LATC &= ~0x08);
-RF_IR_Postscaler = 26;
-(PR2 = 246);
-IRrepeatAmount--;
-if(IRrepeatAmount)
-{
-IRcodePlace = 18;
-}
-else
-{
-IRcodePlace = 13;
-}
-}
-else if(IRcodePlace == 13)
-{
-
-(T2CONbits.TMR2ON = 0);
-Sent = 1;
-}
-else
-{
-
-(IRmod = 0);
-(LATC &= ~0x08);
-IRcodePlace = 0;
-(T2CONbits.TMR2ON = 0);
-Sent = 1;
-}
-}
-}
-PIR1bits.TMR2IF = 0;
+# 103
+Send_RForIR_bit();
 }
 else if(PIR2bits.TMR3IF)
 {
@@ -5978,7 +5364,7 @@ Timer3_Postscaler++;
 else
 {
 
-# 734
+# 122
 Sent = 1;
 }
 }
@@ -5993,7 +5379,7 @@ Timer3_Postscaler++;
 else
 {
 
-# 751
+# 139
 Sent = 1;
 }
 }
@@ -6007,12 +5393,14 @@ __nop();
 INTCONbits.GIE = 1;
 }
 
-# 768
+# 156
 void low_priority interrupt low_isr(void)
 
-# 776
+# 164
 {
 char data = 0;
+unsigned char IRpin;
+unsigned int Time0;
 
 INTCONbits.PEIE = 0;
 
@@ -6042,7 +5430,7 @@ ReceivedString[ReceivedStringPos] = '\0';
 UARTchar_CONST('>');
 UARTstring(ReceivedString);
 }
-else if(ReceivedStringPos < (100 - 2))
+else if(ReceivedStringPos < (70 - 3))
 {
 if(!NewReceivedString)
 {
@@ -6081,12 +5469,73 @@ Timer1_Postscaler = 0;
 }
 PIR1bits.TMR1IF = 0;
 }
+else if(INTCONbits.RBIF)
+{
+IRtimeout = 0;
+IRpin = ReadIRpin();
+if(IRpin != IRpinOLD)
+{
+(T0CONbits.TMR0ON = 1);
+(INTCONbits.TMR0IE = 1);
+ReceivingIR = 19;
+IR_New_Code = 0;
+Time0 = TMR0L;
+Time0 += (TMR0H << 8);
+if((Time0 <= 5000 && Time0 >= 4000))
+{
+IRstarted = 1;
+}
+if(IRstarted)
+{
+if(IRrawCodeNum < 80)
+{
+IRRawCode[IRrawCodeNum] = Time0;
+IRrawCodeNum++;
+if((Time0 <= 21000 && Time0 >= 9000))
+{
+
+IRreceiverIntOff();
+
+INTCONbits.TMR0IF = 1;
+}
+else if(Time0 <= 50000 && Time0 >= 45000)
+{
+
+IRreceiverIntOff();
+
+SetTimer0(0x8FFF);
+}
+else
+{
+ResetTimer0();
+}
+}
+else
+{
+ResetTimer0();
+IRreceiverIntOff();
+}
+}
+else
+{
+ResetTimer0();
+}
+IRpinOLD = IRpin;
+}
+else
+{
+
+__nop();
+}
+
+ReadIRpin();
+INTCONbits.RBIF = 0;
+}
 else
 {
 
 __nop();
 }
 INTCONbits.PEIE = 1;
-
 }
 

@@ -5020,7 +5020,7 @@ unsigned char WaitForIRsignal(void);
 unsigned char ProductName[50] = {"Home Automation"};
 
 # 84
-const unsigned char FirmVersion[] = {"1.0_DW0e"};
+const unsigned char FirmVersion[] = {"1.0_DW0f"};
 
 # 89
 const unsigned char PCBVersion[] = {"RevB"};
@@ -5266,9 +5266,10 @@ unsigned char GetRFstatus(void);
 void DisplayRF_Channel(unsigned char channel);
 inline void RFon();
 inline void RFoff();
+void Send_RForIR_bit(void);
 
 # 124 "UART.h"
-extern volatile unsigned char ReceivedString[100];
+extern volatile unsigned char ReceivedString[70];
 extern volatile unsigned char ReceivedStringPos;
 extern volatile unsigned char CommandString[100];
 extern volatile unsigned char CommandStringPos;
@@ -5324,7 +5325,7 @@ unsigned char IsNumber(unsigned char data);
 unsigned char Invert(unsigned char data);
 
 # 55 "UART.c"
-volatile unsigned char ReceivedString[100];
+volatile unsigned char ReceivedString[70];
 volatile unsigned char ReceivedStringPos = 0;
 volatile unsigned char CommandString[100];
 volatile unsigned char CommandStringPos = 0;

@@ -1,12 +1,12 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F4211 `uc ~T0 @X0 -> 2 `i t ]
+[v F4213 `uc ~T0 @X0 -> 2 `i t ]
 "104 EEPROM.h
-[s S380 `uc 1 `ul 1 `F4211 -> 12 `i `uc 1 ]
+[s S380 `uc 1 `ul 1 `F4213 -> 12 `i `uc 1 ]
 [n S380 EEdata BlueToothFlag SWNECcode RemoteButtonNEC EEPROMinitFlag ]
-[v F4217 `uc ~T0 @X0 -> 2 `i t ]
-[v F4216 `F4217 ~T0 @X0 -> -> 1 `i `ux t ]
+[v F4219 `uc ~T0 @X0 -> 2 `i t ]
+[v F4218 `F4219 ~T0 @X0 -> -> 1 `i `ux t ]
 "115
-[s S381 `F4216 -> 89 `i `ul 1 ]
+[s S381 `F4218 -> 89 `i `ul 1 ]
 [n S381 EEdata2 RemoteButtonRF SerialNumber ]
 "1427 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [v _LATA `Vuc ~T0 @X0 0 e@3977 ]
@@ -14,6 +14,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _LATB `Vuc ~T0 @X0 0 e@3978 ]
 "1691
 [v _LATC `Vuc ~T0 @X0 0 e@3979 ]
+"2044
+[v _TRISB `Vuc ~T0 @X0 0 e@3987 ]
 "1834
 [s S109 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S109 . TRISA0 TRISA1 TRISA2 TRISA3 TRISA4 TRISA5 TRISA6 TRISA7 ]
@@ -165,7 +167,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _SetEEPROM2 `(ul ~T0 @X0 0 ef1`ul ]
 "85 ADC.h
 [v _InitADC `(v ~T0 @X0 0 ef ]
-"231 IR.h
+"217 IR.h
 [v _InitIR `(v ~T0 @X0 0 ef ]
 "137 UART.h
 [v _InitUART `(v ~T0 @X0 0 ef1`ul ]
@@ -3881,11 +3883,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 68 `c
 -> 87 `c
 -> 48 `c
--> 101 `c
+-> 102 `c
 -> 0 `c
 ..
 ]
-[; ;user.h: 84: const unsigned char FirmVersion[] = {"1.0_DW0e"};
+[; ;user.h: 84: const unsigned char FirmVersion[] = {"1.0_DW0f"};
 "89
 [v _PCBVersion `Cuc ~T0 @X0 -> 0 `x e ]
 [i _PCBVersion
@@ -7415,7 +7417,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;RF.h: 457: void DisplayRF_Channel(unsigned char channel);
 [; ;RF.h: 458: inline void RFon();
 [; ;RF.h: 459: inline void RFoff();
-[; ;UART.h: 124: extern volatile unsigned char ReceivedString[100];
+[; ;RF.h: 460: void Send_RForIR_bit(void);
+[; ;UART.h: 124: extern volatile unsigned char ReceivedString[70];
 [; ;UART.h: 125: extern volatile unsigned char ReceivedStringPos;
 [; ;UART.h: 126: extern volatile unsigned char CommandString[100];
 [; ;UART.h: 127: extern volatile unsigned char CommandStringPos;
@@ -7573,33 +7576,35 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ADC.h: 85: void InitADC(void);
 [; ;ADC.h: 86: void VoltageDividerON(void);
 [; ;ADC.h: 87: void VoltageDividerOFF(void);
-[; ;IR.h: 210: extern unsigned char IRpinOLD;
-[; ;IR.h: 211: extern unsigned int IRRawCode[100];
-[; ;IR.h: 212: extern unsigned long IR_NEC;
-[; ;IR.h: 213: extern unsigned char IRrawCodeNum;
-[; ;IR.h: 214: extern unsigned char IR_New_Code;
-[; ;IR.h: 215: extern unsigned char IRbit;
-[; ;IR.h: 216: extern unsigned char IRrepeatflag;
-[; ;IR.h: 217: extern unsigned char IRsendFlag;
-[; ;IR.h: 218: extern unsigned char IRcodeBit;
-[; ;IR.h: 219: extern unsigned char IRcodePlace;
-[; ;IR.h: 220: extern unsigned long IRsendCode;
-[; ;IR.h: 221: extern unsigned char IRrepeatAmount;
-[; ;IR.h: 222: extern volatile unsigned char IRmod;
-[; ;IR.h: 223: extern volatile unsigned char ReceivingIR;
-[; ;IR.h: 224: extern volatile unsigned char IRbitPosition;
-[; ;IR.h: 225: extern unsigned long IRtimeout;
-[; ;IR.h: 226: extern unsigned char IRstarted;
-[; ;IR.h: 231: void InitIR(void);
-[; ;IR.h: 232: unsigned char ReadIRpin(void);
-[; ;IR.h: 233: unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char Invert);
-[; ;IR.h: 234: void UseIRCode(unsigned char* Code, unsigned long NEC);
-[; ;IR.h: 235: unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount);
-[; ;IR.h: 236: void SendNEC_wait(unsigned long code, unsigned char RepeatAmount);
-[; ;IR.h: 237: void CalibrateIR(void);
-[; ;IR.h: 238: unsigned char CheckReceivingIR(void);
-[; ;IR.h: 239: unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
-[; ;IR.h: 240: unsigned long EncodeNEC(unsigned char address, unsigned char command);
+[; ;IR.h: 196: extern unsigned char IRpinOLD;
+[; ;IR.h: 197: extern unsigned int IRRawCode[80];
+[; ;IR.h: 198: extern volatile unsigned long IR_NEC;
+[; ;IR.h: 199: extern unsigned char IRrawCodeNum;
+[; ;IR.h: 200: extern volatile unsigned char IR_New_Code;
+[; ;IR.h: 201: extern unsigned char IRbit;
+[; ;IR.h: 202: extern unsigned char IRrepeatflag;
+[; ;IR.h: 203: extern unsigned char IRsendFlag;
+[; ;IR.h: 204: extern unsigned char IRcodeBit;
+[; ;IR.h: 205: extern unsigned char IRcodePlace;
+[; ;IR.h: 206: extern unsigned long IRsendCode;
+[; ;IR.h: 207: extern unsigned char IRrepeatAmount;
+[; ;IR.h: 208: extern volatile unsigned char IRmod;
+[; ;IR.h: 209: extern volatile unsigned char ReceivingIR;
+[; ;IR.h: 210: extern volatile unsigned char IRbitPosition;
+[; ;IR.h: 211: extern unsigned long IRtimeout;
+[; ;IR.h: 212: extern unsigned char IRstarted;
+[; ;IR.h: 217: void InitIR(void);
+[; ;IR.h: 218: unsigned char ReadIRpin(void);
+[; ;IR.h: 219: unsigned char IRrawToNEC(unsigned long* NEC, unsigned char Invert);
+[; ;IR.h: 220: void UseIRCode(unsigned char* Code, unsigned long NEC);
+[; ;IR.h: 221: unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount);
+[; ;IR.h: 222: void SendNEC_wait(unsigned long code, unsigned char RepeatAmount);
+[; ;IR.h: 223: void CalibrateIR(void);
+[; ;IR.h: 224: unsigned char CheckReceivingIR(void);
+[; ;IR.h: 225: unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
+[; ;IR.h: 226: unsigned long EncodeNEC(unsigned char address, unsigned char command);
+[; ;IR.h: 227: inline void IRreceiverIntOn(void);
+[; ;IR.h: 228: inline void IRreceiverIntOff(void);
 [; ;user.c: 52: extern const unsigned char Version[];
 "63 user.c
 [v _InitApp `(v ~T0 @X0 1 ef ]
@@ -7618,202 +7623,205 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;user.c: 67: LATC = 0;
 "67
 [e = _LATC -> -> 0 `i `uc ]
-[; ;user.c: 68: LATA |= 0x04;
+[; ;user.c: 68: TRISB = 0;
 "68
+[e = _TRISB -> -> 0 `i `uc ]
+[; ;user.c: 69: LATA |= 0x04;
+"69
 [e =| _LATA -> -> 4 `i `uc ]
-[; ;user.c: 70: TRISAbits.TRISA0 = 1;
-"70
-[e = . . _TRISAbits 0 0 -> -> 1 `i `uc ]
-[; ;user.c: 71: TRISAbits.TRISA1 = 1;
+[; ;user.c: 71: TRISAbits.TRISA0 = 1;
 "71
-[e = . . _TRISAbits 0 1 -> -> 1 `i `uc ]
-[; ;user.c: 72: TRISAbits.TRISA2 = 0;
+[e = . . _TRISAbits 0 0 -> -> 1 `i `uc ]
+[; ;user.c: 72: TRISAbits.TRISA1 = 1;
 "72
-[e = . . _TRISAbits 0 2 -> -> 0 `i `uc ]
-[; ;user.c: 73: TRISAbits.TRISA3 = 0;
+[e = . . _TRISAbits 0 1 -> -> 1 `i `uc ]
+[; ;user.c: 73: TRISAbits.TRISA2 = 0;
 "73
-[e = . . _TRISAbits 0 3 -> -> 0 `i `uc ]
-[; ;user.c: 74: TRISAbits.TRISA4 = 0;
+[e = . . _TRISAbits 0 2 -> -> 0 `i `uc ]
+[; ;user.c: 74: TRISAbits.TRISA3 = 0;
 "74
-[e = . . _TRISAbits 0 4 -> -> 0 `i `uc ]
-[; ;user.c: 75: TRISAbits.TRISA5 = 0;
+[e = . . _TRISAbits 0 3 -> -> 0 `i `uc ]
+[; ;user.c: 75: TRISAbits.TRISA4 = 0;
 "75
-[e = . . _TRISAbits 0 5 -> -> 0 `i `uc ]
-[; ;user.c: 76: TRISCbits.TRISC0 = 1;
+[e = . . _TRISAbits 0 4 -> -> 0 `i `uc ]
+[; ;user.c: 76: TRISAbits.TRISA5 = 0;
 "76
-[e = . . _TRISCbits 0 0 -> -> 1 `i `uc ]
-[; ;user.c: 77: TRISCbits.TRISC1 = 0;
+[e = . . _TRISAbits 0 5 -> -> 0 `i `uc ]
+[; ;user.c: 77: TRISCbits.TRISC0 = 1;
 "77
-[e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
-[; ;user.c: 78: TRISCbits.TRISC2 = 0;
+[e = . . _TRISCbits 0 0 -> -> 1 `i `uc ]
+[; ;user.c: 78: TRISCbits.TRISC1 = 0;
 "78
-[e = . . _TRISCbits 0 2 -> -> 0 `i `uc ]
-[; ;user.c: 79: TRISCbits.TRISC3 = 0;
+[e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
+[; ;user.c: 79: TRISCbits.TRISC2 = 0;
 "79
-[e = . . _TRISCbits 0 3 -> -> 0 `i `uc ]
-[; ;user.c: 80: TRISCbits.TRISC4 = 0;
+[e = . . _TRISCbits 0 2 -> -> 0 `i `uc ]
+[; ;user.c: 80: TRISCbits.TRISC3 = 0;
 "80
-[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
-[; ;user.c: 81: TRISCbits.TRISC5 = 0;
+[e = . . _TRISCbits 0 3 -> -> 0 `i `uc ]
+[; ;user.c: 81: TRISCbits.TRISC4 = 0;
 "81
-[e = . . _TRISCbits 0 5 -> -> 0 `i `uc ]
-[; ;user.c: 82: TRISCbits.TRISC6 = 0;
+[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
+[; ;user.c: 82: TRISCbits.TRISC5 = 0;
 "82
-[e = . . _TRISCbits 0 6 -> -> 0 `i `uc ]
-[; ;user.c: 83: TRISCbits.TRISC7 = 1;
+[e = . . _TRISCbits 0 5 -> -> 0 `i `uc ]
+[; ;user.c: 83: TRISCbits.TRISC6 = 0;
 "83
-[e = . . _TRISCbits 0 7 -> -> 1 `i `uc ]
-[; ;user.c: 84: TRISBbits.TRISB0 = 1;
+[e = . . _TRISCbits 0 6 -> -> 0 `i `uc ]
+[; ;user.c: 84: TRISCbits.TRISC7 = 1;
 "84
-[e = . . _TRISBbits 0 0 -> -> 1 `i `uc ]
-[; ;user.c: 85: TRISBbits.TRISB1 = 1;
+[e = . . _TRISCbits 0 7 -> -> 1 `i `uc ]
+[; ;user.c: 85: TRISBbits.TRISB0 = 1;
 "85
-[e = . . _TRISBbits 0 1 -> -> 1 `i `uc ]
-[; ;user.c: 86: TRISBbits.TRISB2 = 1;
+[e = . . _TRISBbits 0 0 -> -> 1 `i `uc ]
+[; ;user.c: 86: TRISBbits.TRISB1 = 1;
 "86
-[e = . . _TRISBbits 0 2 -> -> 1 `i `uc ]
-[; ;user.c: 87: TRISBbits.TRISB3 = 1;
+[e = . . _TRISBbits 0 1 -> -> 1 `i `uc ]
+[; ;user.c: 87: TRISBbits.TRISB2 = 1;
 "87
-[e = . . _TRISBbits 0 3 -> -> 1 `i `uc ]
-[; ;user.c: 88: TRISBbits.TRISB4 = 1;
+[e = . . _TRISBbits 0 2 -> -> 1 `i `uc ]
+[; ;user.c: 88: TRISBbits.TRISB3 = 1;
 "88
+[e = . . _TRISBbits 0 3 -> -> 1 `i `uc ]
+[; ;user.c: 89: TRISBbits.TRISB4 = 1;
+"89
 [e = . . _TRISBbits 0 4 -> -> 1 `i `uc ]
-[; ;user.c: 92: TRISBbits.TRISB5 = 0;
-"92
+[; ;user.c: 93: TRISBbits.TRISB5 = 0;
+"93
 [e = . . _TRISBbits 0 5 -> -> 0 `i `uc ]
-[; ;user.c: 96: ANSEL = 0x01;
-"96
-[e = _ANSEL -> -> 1 `i `uc ]
-[; ;user.c: 97: ANSELH = 0x00;
+[; ;user.c: 97: ANSEL = 0x01;
 "97
+[e = _ANSEL -> -> 1 `i `uc ]
+[; ;user.c: 98: ANSELH = 0x00;
+"98
 [e = _ANSELH -> -> 0 `i `uc ]
-[; ;user.c: 100: INTCON2bits.RBPU = 0;
-"100
+[; ;user.c: 101: INTCON2bits.RBPU = 0;
+"101
 [e = . . _INTCON2bits 2 1 -> -> 0 `i `uc ]
-[; ;user.c: 102: WPUB = 0x0F;
-"102
-[e = _WPUB -> -> 15 `i `uc ]
-[; ;user.c: 103: }
+[; ;user.c: 103: WPUB = 0x0F;
 "103
+[e = _WPUB -> -> 15 `i `uc ]
+[; ;user.c: 104: }
+"104
 [e :UE 382 ]
 }
-"110
-[v _Init_System `(v ~T0 @X0 1 ef ]
 "111
+[v _Init_System `(v ~T0 @X0 1 ef ]
+"112
 {
-[; ;user.c: 110: void Init_System (void)
-[; ;user.c: 111: {
+[; ;user.c: 111: void Init_System (void)
+[; ;user.c: 112: {
 [e :U _Init_System ]
 [f ]
-"112
+"113
 [v _buf `uc ~T0 @X0 -> 50 `i a ]
-[; ;user.c: 112: unsigned char buf[50];
-[; ;user.c: 114: cleanBuffer(ReceivedString, 100);
-"114
-[e ( _cleanBuffer (2 , -> &U _ReceivedString `*uc -> 100 `i ]
-[; ;user.c: 117: IPR1bits.RCIP = 0;
-"117
-[e = . . _IPR1bits 0 5 -> -> 0 `i `uc ]
-[; ;user.c: 118: INTCON2bits.RBIP = 1;
+[; ;user.c: 113: unsigned char buf[50];
+[; ;user.c: 115: cleanBuffer(ReceivedString, 70);
+"115
+[e ( _cleanBuffer (2 , -> &U _ReceivedString `*uc -> 70 `i ]
+[; ;user.c: 118: IPR1bits.RCIP = 0;
 "118
-[e = . . _INTCON2bits 1 0 -> -> 1 `i `uc ]
-[; ;user.c: 119: INTCON2bits.TMR0IP = 1;
+[e = . . _IPR1bits 0 5 -> -> 0 `i `uc ]
+[; ;user.c: 119: INTCON2bits.RBIP = 0;
 "119
-[e = . . _INTCON2bits 1 2 -> -> 1 `i `uc ]
-[; ;user.c: 120: IPR1bits.TMR2IP = 1;
+[e = . . _INTCON2bits 1 0 -> -> 0 `i `uc ]
+[; ;user.c: 120: INTCON2bits.TMR0IP = 1;
 "120
-[e = . . _IPR1bits 0 1 -> -> 1 `i `uc ]
-[; ;user.c: 121: IPR1bits.TMR1IP = 0;
+[e = . . _INTCON2bits 1 2 -> -> 1 `i `uc ]
+[; ;user.c: 121: IPR1bits.TMR2IP = 1;
 "121
-[e = . . _IPR1bits 0 0 -> -> 0 `i `uc ]
-[; ;user.c: 122: IPR2bits.TMR3IP = 1;
+[e = . . _IPR1bits 0 1 -> -> 1 `i `uc ]
+[; ;user.c: 122: IPR1bits.TMR1IP = 0;
 "122
+[e = . . _IPR1bits 0 0 -> -> 0 `i `uc ]
+[; ;user.c: 123: IPR2bits.TMR3IP = 1;
+"123
 [e = . . _IPR2bits 0 1 -> -> 1 `i `uc ]
-[; ;user.c: 124: cleanBuffer(BluetoothFirmware1,30);
-"124
-[e ( _cleanBuffer (2 , &U _BluetoothFirmware1 -> 30 `i ]
-[; ;user.c: 125: cleanBuffer(BluetoothFirmware2,30);
+[; ;user.c: 125: cleanBuffer(BluetoothFirmware1,30);
 "125
+[e ( _cleanBuffer (2 , &U _BluetoothFirmware1 -> 30 `i ]
+[; ;user.c: 126: cleanBuffer(BluetoothFirmware2,30);
+"126
 [e ( _cleanBuffer (2 , &U _BluetoothFirmware2 -> 30 `i ]
-[; ;user.c: 127: sprintf(buf,"System must be");
-"127
-[e ( _sprintf (1 , &U _buf :s 1C ]
-[; ;user.c: 128: BufferCopy(buf, BluetoothFirmware1, 30, 0);
+[; ;user.c: 128: sprintf(buf,"System must be");
 "128
-[e ( _BufferCopy (4 , , , &U _buf &U _BluetoothFirmware1 -> -> 30 `i `uc -> -> 0 `i `c ]
-[; ;user.c: 129: sprintf(buf,"RESET to read version!");
+[e ( _sprintf (1 , &U _buf :s 1C ]
+[; ;user.c: 129: BufferCopy(buf, BluetoothFirmware1, 30, 0);
 "129
-[e ( _sprintf (1 , &U _buf :s 2C ]
-[; ;user.c: 130: BufferCopy(buf, BluetoothFirmware2, 30, 0);
+[e ( _BufferCopy (4 , , , &U _buf &U _BluetoothFirmware1 -> -> 30 `i `uc -> -> 0 `i `c ]
+[; ;user.c: 130: sprintf(buf,"RESET to read version!");
 "130
+[e ( _sprintf (1 , &U _buf :s 2C ]
+[; ;user.c: 131: BufferCopy(buf, BluetoothFirmware2, 30, 0);
+"131
 [e ( _BufferCopy (4 , , , &U _buf &U _BluetoothFirmware2 -> -> 30 `i `uc -> -> 0 `i `c ]
-[; ;user.c: 133: RCONbits.IPEN = 1;
-"133
-[e = . . _RCONbits 5 7 -> -> 1 `i `uc ]
-[; ;user.c: 134: INTCONbits.PEIE = 1;
+[; ;user.c: 134: RCONbits.IPEN = 1;
 "134
-[e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
-[; ;user.c: 135: INTCONbits.GIE = 1;
+[e = . . _RCONbits 5 7 -> -> 1 `i `uc ]
+[; ;user.c: 135: INTCONbits.PEIE = 1;
 "135
+[e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
+[; ;user.c: 136: INTCONbits.GIE = 1;
+"136
 [e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
-[; ;user.c: 137: SyncEEPROMToGlobal();
-"137
-[e ( _SyncEEPROMToGlobal ..  ]
-[; ;user.c: 138: if(!EEPROMinitialized())
+[; ;user.c: 138: SyncEEPROMToGlobal();
 "138
-[e $ ! ! != -> ( _EEPROMinitialized ..  `i -> -> -> 0 `i `uc `i 384  ]
-[; ;user.c: 139: {
+[e ( _SyncEEPROMToGlobal ..  ]
+[; ;user.c: 139: if(!EEPROMinitialized())
 "139
-{
-[; ;user.c: 140: SetEEPROMdefault();
+[e $ ! ! != -> ( _EEPROMinitialized ..  `i -> -> -> 0 `i `uc `i 384  ]
+[; ;user.c: 140: {
 "140
-[e ( _SetEEPROMdefault ..  ]
-[; ;user.c: 141: Global1.EEPROMinitFlag = 59;
+{
+[; ;user.c: 141: SetEEPROMdefault();
 "141
-[e = . _Global1 3 -> -> 59 `i `uc ]
-[; ;user.c: 142: SyncGlobalToEEPROM();
+[e ( _SetEEPROMdefault ..  ]
+[; ;user.c: 142: Global1.EEPROMinitFlag = 59;
 "142
-[e ( _SyncGlobalToEEPROM ..  ]
+[e = . _Global1 3 -> -> 59 `i `uc ]
+[; ;user.c: 143: SyncGlobalToEEPROM();
 "143
+[e ( _SyncGlobalToEEPROM ..  ]
+"144
 }
 [e :U 384 ]
-[; ;user.c: 143: }
-[; ;user.c: 145: if(Global2.SerialNumber == 0xFFFFFFFF)
-"145
-[e $ ! == . _Global2 1 -> -1 `ul 385  ]
-[; ;user.c: 146: {
+[; ;user.c: 144: }
+[; ;user.c: 146: if(Global2.SerialNumber == 0xFFFFFFFF)
 "146
+[e $ ! == . _Global2 1 -> -1 `ul 385  ]
+[; ;user.c: 147: {
+"147
 {
-[; ;user.c: 148: Global2.SerialNumber = 0;
-"148
-[e = . _Global2 1 -> -> -> 0 `i `l `ul ]
-[; ;user.c: 149: SetEEPROM2(0x00000002);
+[; ;user.c: 149: Global2.SerialNumber = 0;
 "149
-[e ( _SetEEPROM2 (1 -> -> -> 2 `i `l `ul ]
-[; ;user.c: 150: SyncEEPROMToGlobal();
+[e = . _Global2 1 -> -> -> 0 `i `l `ul ]
+[; ;user.c: 150: SetEEPROM2(0x00000002);
 "150
-[e ( _SyncEEPROMToGlobal ..  ]
+[e ( _SetEEPROM2 (1 -> -> -> 2 `i `l `ul ]
+[; ;user.c: 151: SyncEEPROMToGlobal();
 "151
+[e ( _SyncEEPROMToGlobal ..  ]
+"152
 }
 [e :U 385 ]
-[; ;user.c: 151: }
-[; ;user.c: 153: InitADC();
-"153
-[e ( _InitADC ..  ]
-[; ;user.c: 154: InitIR();
+[; ;user.c: 152: }
+[; ;user.c: 154: InitADC();
 "154
+[e ( _InitADC ..  ]
+[; ;user.c: 155: InitIR();
+"155
 [e ( _InitIR ..  ]
-[; ;user.c: 156: InitUART(115200);
-"156
-[e ( _InitUART (1 -> -> 115200 `l `ul ]
-[; ;user.c: 157: InitBluetooth();
+[; ;user.c: 157: InitUART(115200);
 "157
+[e ( _InitUART (1 -> -> 115200 `l `ul ]
+[; ;user.c: 158: InitBluetooth();
+"158
 [e ( _InitBluetooth ..  ]
-[; ;user.c: 159: InitTimers();
-"159
-[e ( _InitTimers ..  ]
-[; ;user.c: 160: }
+[; ;user.c: 160: InitTimers();
 "160
+[e ( _InitTimers ..  ]
+[; ;user.c: 161: }
+"161
 [e :UE 383 ]
 }
 [p f _sprintf 8388608 ]

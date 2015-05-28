@@ -80,7 +80,7 @@
  * This parameter is the size of the received array. Must be small so that the
  *  program gets built correctly.
 /******************************************************************************/
-#define RXbufsize 100
+#define RXbufsize 70
 
 /******************************************************************************/
 /* RXCommandsize

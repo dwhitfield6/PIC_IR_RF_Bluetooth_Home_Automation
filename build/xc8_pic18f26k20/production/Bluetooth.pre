@@ -4999,7 +4999,7 @@ extern int printf(const char *, ...);
 unsigned char ProductName[50] = {"Home Automation"};
 
 # 84
-const unsigned char FirmVersion[] = {"1.0_DW0e"};
+const unsigned char FirmVersion[] = {"1.0_DW0f"};
 
 # 89
 const unsigned char PCBVersion[] = {"RevB"};
@@ -5266,9 +5266,10 @@ unsigned char GetRFstatus(void);
 void DisplayRF_Channel(unsigned char channel);
 inline void RFon();
 inline void RFoff();
+void Send_RForIR_bit(void);
 
 # 124 "UART.h"
-extern volatile unsigned char ReceivedString[100];
+extern volatile unsigned char ReceivedString[70];
 extern volatile unsigned char ReceivedStringPos;
 extern volatile unsigned char CommandString[100];
 extern volatile unsigned char CommandStringPos;
@@ -5372,12 +5373,12 @@ unsigned char EEPROMinitialized(void);
 void SyncEEPROMToGlobal1(void);
 void SyncEEPROMToGlobal2(void);
 
-# 210 "IR.h"
+# 196 "IR.h"
 extern unsigned char IRpinOLD;
-extern unsigned int IRRawCode[100];
-extern unsigned long IR_NEC;
+extern unsigned int IRRawCode[80];
+extern volatile unsigned long IR_NEC;
 extern unsigned char IRrawCodeNum;
-extern unsigned char IR_New_Code;
+extern volatile unsigned char IR_New_Code;
 extern unsigned char IRbit;
 extern unsigned char IRrepeatflag;
 extern unsigned char IRsendFlag;
@@ -5396,7 +5397,7 @@ extern unsigned char IRstarted;
 
 void InitIR(void);
 unsigned char ReadIRpin(void);
-unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char Invert);
+unsigned char IRrawToNEC(unsigned long* NEC, unsigned char Invert);
 void UseIRCode(unsigned char* Code, unsigned long NEC);
 unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount);
 void SendNEC_wait(unsigned long code, unsigned char RepeatAmount);
@@ -5404,6 +5405,8 @@ void CalibrateIR(void);
 unsigned char CheckReceivingIR(void);
 unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
 unsigned long EncodeNEC(unsigned char address, unsigned char command);
+inline void IRreceiverIntOn(void);
+inline void IRreceiverIntOff(void);
 
 # 39 "Timer.h"
 extern unsigned char Timer1_Postscaler;
@@ -5445,7 +5448,7 @@ unsigned char BluetoothBroadcast[21];
 # 82
 void InitBluetooth(void)
 {
-cleanBuffer(ReceivedString,100);
+cleanBuffer(ReceivedString,70);
 ReceivedStringPos = 0;
 cleanBuffer(CommandString,100);
 CommandStringPos = 0;

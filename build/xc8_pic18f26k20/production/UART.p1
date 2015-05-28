@@ -3858,11 +3858,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 68 `c
 -> 87 `c
 -> 48 `c
--> 101 `c
+-> 102 `c
 -> 0 `c
 ..
 ]
-[; ;user.h: 84: const unsigned char FirmVersion[] = {"1.0_DW0e"};
+[; ;user.h: 84: const unsigned char FirmVersion[] = {"1.0_DW0f"};
 "89
 [v _PCBVersion `Cuc ~T0 @X0 -> 0 `x e ]
 [i _PCBVersion
@@ -7391,7 +7391,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;RF.h: 457: void DisplayRF_Channel(unsigned char channel);
 [; ;RF.h: 458: inline void RFon();
 [; ;RF.h: 459: inline void RFoff();
-[; ;UART.h: 124: extern volatile unsigned char ReceivedString[100];
+[; ;RF.h: 460: void Send_RForIR_bit(void);
+[; ;UART.h: 124: extern volatile unsigned char ReceivedString[70];
 [; ;UART.h: 125: extern volatile unsigned char ReceivedStringPos;
 [; ;UART.h: 126: extern volatile unsigned char CommandString[100];
 [; ;UART.h: 127: extern volatile unsigned char CommandStringPos;
@@ -7474,8 +7475,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;MISC.h: 90: unsigned char IsNumber(unsigned char data);
 [; ;MISC.h: 91: unsigned char Invert(unsigned char data);
 "55 UART.c
-[v _ReceivedString `Vuc ~T0 @X0 -> 100 `i e ]
-[; ;UART.c: 55: volatile unsigned char ReceivedString[100];
+[v _ReceivedString `Vuc ~T0 @X0 -> 70 `i e ]
+[; ;UART.c: 55: volatile unsigned char ReceivedString[70];
 "56
 [v _ReceivedStringPos `Vuc ~T0 @X0 1 e ]
 [i _ReceivedStringPos

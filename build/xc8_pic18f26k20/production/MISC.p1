@@ -3730,11 +3730,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 68 `c
 -> 87 `c
 -> 48 `c
--> 101 `c
+-> 102 `c
 -> 0 `c
 ..
 ]
-[; ;user.h: 84: const unsigned char FirmVersion[] = {"1.0_DW0e"};
+[; ;user.h: 84: const unsigned char FirmVersion[] = {"1.0_DW0f"};
 "89
 [v _PCBVersion `Cuc ~T0 @X0 -> 0 `x e ]
 [i _PCBVersion
@@ -4158,13 +4158,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 "193
 [f ]
 "194
-[v _i `uc ~T0 @X0 1 a ]
-[; ;MISC.c: 194: unsigned char i=0;
-[e = _i -> -> 0 `i `uc ]
+[v _i `i ~T0 @X0 1 a ]
+[; ;MISC.c: 194: int i=0;
+[e = _i -> 0 `i ]
 [; ;MISC.c: 195: for(i=0; i<count;i++)
 "195
 {
-[e = _i -> -> 0 `i `uc ]
+[e = _i -> 0 `i ]
 [e $U 412  ]
 "196
 [e :U 409 ]
@@ -4172,13 +4172,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;MISC.c: 197: data[i]= 0;
 "197
-[e = *U + _data * -> _i `ux -> -> # *U _data `ui `ux -> -> 0 `i `uc ]
+[e = *U + _data * -> _i `x -> -> # *U _data `i `x -> -> 0 `i `uc ]
 "198
 }
 "195
-[e ++ _i -> -> 1 `i `uc ]
+[e ++ _i -> 1 `i ]
 [e :U 412 ]
-[e $ < -> _i `i _count 409  ]
+[e $ < _i _count 409  ]
 [e :U 410 ]
 "198
 }
@@ -4200,13 +4200,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 "207
 [f ]
 "208
-[v _i `uc ~T0 @X0 1 a ]
-[; ;MISC.c: 208: unsigned char i=0;
-[e = _i -> -> 0 `i `uc ]
+[v _i `i ~T0 @X0 1 a ]
+[; ;MISC.c: 208: int i=0;
+[e = _i -> 0 `i ]
 [; ;MISC.c: 209: for(i=0; i<count;i++)
 "209
 {
-[e = _i -> -> 0 `i `uc ]
+[e = _i -> 0 `i ]
 [e $U 417  ]
 "210
 [e :U 414 ]
@@ -4214,13 +4214,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;MISC.c: 211: data[i]= 0;
 "211
-[e = *U + _data * -> _i `ux -> -> # *U _data `ui `ux -> -> 0 `i `ui ]
+[e = *U + _data * -> _i `x -> -> # *U _data `i `x -> -> 0 `i `ui ]
 "212
 }
 "209
-[e ++ _i -> -> 1 `i `uc ]
+[e ++ _i -> 1 `i ]
 [e :U 417 ]
-[e $ < -> _i `i _count 414  ]
+[e $ < _i _count 414  ]
 [e :U 415 ]
 "212
 }

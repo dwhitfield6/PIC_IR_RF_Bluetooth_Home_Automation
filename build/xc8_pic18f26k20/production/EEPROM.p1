@@ -1,12 +1,12 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F4151 `uc ~T0 @X0 -> 2 `i t ]
+[v F4153 `uc ~T0 @X0 -> 2 `i t ]
 "104 EEPROM.h
-[s S379 `uc 1 `ul 1 `F4151 -> 12 `i `uc 1 ]
+[s S379 `uc 1 `ul 1 `F4153 -> 12 `i `uc 1 ]
 [n S379 EEdata BlueToothFlag SWNECcode RemoteButtonNEC EEPROMinitFlag ]
-[v F4157 `uc ~T0 @X0 -> 2 `i t ]
-[v F4156 `F4157 ~T0 @X0 -> -> 1 `i `ux t ]
+[v F4159 `uc ~T0 @X0 -> 2 `i t ]
+[v F4158 `F4159 ~T0 @X0 -> -> 1 `i `ux t ]
 "115
-[s S380 `F4156 -> 89 `i `ul 1 ]
+[s S380 `F4158 -> 89 `i `ul 1 ]
 [n S380 EEdata2 RemoteButtonRF SerialNumber ]
 "6424 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
 [s S335 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -3740,11 +3740,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 68 `c
 -> 87 `c
 -> 48 `c
--> 101 `c
+-> 102 `c
 -> 0 `c
 ..
 ]
-[; ;user.h: 84: const unsigned char FirmVersion[] = {"1.0_DW0e"};
+[; ;user.h: 84: const unsigned char FirmVersion[] = {"1.0_DW0f"};
 "89
 [v _PCBVersion `Cuc ~T0 @X0 -> 0 `x e ]
 [i _PCBVersion
@@ -3818,7 +3818,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;user.h: 307: void InitApp(void);
 [; ;user.h: 308: void Init_System (void);
 [; ;system.h: 56: void ConfigureOscillator(void);
-[; ;UART.h: 124: extern volatile unsigned char ReceivedString[100];
+[; ;UART.h: 124: extern volatile unsigned char ReceivedString[70];
 [; ;UART.h: 125: extern volatile unsigned char ReceivedStringPos;
 [; ;UART.h: 126: extern volatile unsigned char CommandString[100];
 [; ;UART.h: 127: extern volatile unsigned char CommandStringPos;
@@ -7331,6 +7331,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;RF.h: 457: void DisplayRF_Channel(unsigned char channel);
 [; ;RF.h: 458: inline void RFon();
 [; ;RF.h: 459: inline void RFoff();
+[; ;RF.h: 460: void Send_RForIR_bit(void);
 [; ;EEPROM.h: 104: typedef struct EEdata
 [; ;EEPROM.h: 105: {
 [; ;EEPROM.h: 106: unsigned char BlueToothFlag;

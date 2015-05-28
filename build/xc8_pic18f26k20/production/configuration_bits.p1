@@ -3613,7 +3613,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "40
 [p x BOREN=SBORDIS ]
 "41
-[p x BORV=27 ]
+[p x BORV=18 ]
 "44
 [p x WDTEN=OFF ]
 "45
@@ -3629,7 +3629,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "52
 [p x MCLRE=ON ]
 "55
-[p x STVREN=ON ]
+[p x STVREN=OFF ]
 "56
 [p x LVP=OFF ]
 "57

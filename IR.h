@@ -38,7 +38,7 @@
 /******************************************************************************/
 
 #define IR_LED_TIMEOUT 2500
-#define IR_SIZE 100
+#define IR_SIZE 80
 
 #define Old   0
 #define Error   0
@@ -68,9 +68,9 @@
 /* IRtimeoutLoops
  *
  * This controls how many loops around the main program are allowed to pass
- *  before the IR receiver tiemsout and there can no longer be a repeat code.
+ *  before the IR receiver timesout and there can no longer be a repeat code.
 /******************************************************************************/
-#define IRtimeoutLoops 5000
+#define IRtimeoutLoops 80000
 
 /******************************************************************************/
 /* MinNECFlipsRepeat
@@ -86,7 +86,7 @@
  * Min number of bit flip flops for a NEC non-Repeat code.
 /******************************************************************************/
 /* this is equal to (number of bits + header) *2*/
-#define MinNECFlipsNew 50
+#define MinNECFlipsNew 68
 
 /******************************************************************************/
 /* IRmodCalOn and IRmodCalOff
@@ -179,20 +179,6 @@
 #define IRLEDmodOFF() (IRmod = FALSE)
 
 /******************************************************************************/
-/* IRreceiverIntOn()
- *
- * The function turns on the port b interrupt associated with the ir receiver.
-/******************************************************************************/
-#define IRreceiverIntOn() (IOCBbits.IOCB4 = ON)
-
-/******************************************************************************/
-/* IRreceiverIntOff()
- *
- * The function turns off the port b interrupt associated with the ir receiver.
-/******************************************************************************/
-#define IRreceiverIntOff() (IOCBbits.IOCB4 = OFF)
-
-/******************************************************************************/
 /* NEC bit Timing for Receive at 64 MHz with a prescaler of 16 and postcaler
  *  of 15 * RF_IR_Postscaler                 
 /******************************************************************************/
@@ -209,9 +195,9 @@
 /******************************************************************************/
 extern unsigned char IRpinOLD;
 extern unsigned int IRRawCode[IR_SIZE];
-extern unsigned long IR_NEC;
+extern volatile unsigned long IR_NEC;
 extern unsigned char IRrawCodeNum;
-extern unsigned char IR_New_Code;
+extern volatile unsigned char IR_New_Code;
 extern unsigned char IRbit;
 extern unsigned char IRrepeatflag;
 extern unsigned char IRsendFlag;
@@ -230,7 +216,7 @@ extern unsigned char IRstarted;
 /******************************************************************************/
 void InitIR(void);
 unsigned char ReadIRpin(void);
-unsigned char IRrawToNEC(unsigned int* Raw, unsigned long* NEC, unsigned char Invert);
+unsigned char IRrawToNEC(unsigned long* NEC, unsigned char Invert);
 void UseIRCode(unsigned char* Code, unsigned long NEC);
 unsigned char SendNEC_bytes(unsigned long code, unsigned char RepeatAmount);
 void SendNEC_wait(unsigned long code, unsigned char RepeatAmount);
@@ -238,6 +224,8 @@ void CalibrateIR(void);
 unsigned char CheckReceivingIR(void);
 unsigned char DecodeNEC(unsigned long Nec, unsigned char* address, unsigned char* command);
 unsigned long EncodeNEC(unsigned char address, unsigned char command);
+inline void IRreceiverIntOn(void);
+inline void IRreceiverIntOff(void);
 
 #endif	/* IR_H */
 

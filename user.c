@@ -65,6 +65,7 @@ void InitApp(void)
     LATA = 0;
     LATB = 0;
     LATC = 0;
+    TRISB = 0;
     LATA |= BLUE_Reset;     // Do not hold bluetooth in reset on power-up
 
     InputVoltageTris        = INPUT;
@@ -115,7 +116,7 @@ void Init_System (void)
 
     /* set up interrupt priorities */
     IPR1bits.RCIP       = OFF;  // UART receive is Low priority
-    INTCON2bits.RBIP    = ON;   // KBI0 is High priority
+    INTCON2bits.RBIP    = OFF;  // KBI0 is Low priority
     INTCON2bits.TMR0IP  = ON;   // Timer0 overflow is High priority
     IPR1bits.TMR2IP     = ON;   // Timer2 compare is High priority
     IPR1bits.TMR1IP     = OFF;  // Timer1 overflow is Low priority

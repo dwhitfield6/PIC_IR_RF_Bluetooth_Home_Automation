@@ -457,6 +457,7 @@ unsigned char GetRFstatus(void);
 void DisplayRF_Channel(unsigned char channel);
 inline void RFon();
 inline void RFoff();
+void Send_RForIR_bit(void);
 
 #endif	/* RF_H */
 

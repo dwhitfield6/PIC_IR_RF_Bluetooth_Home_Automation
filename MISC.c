@@ -191,7 +191,7 @@ unsigned char IsAlphaNumericString(unsigned char* data)
 /******************************************************************************/
 void cleanBuffer(unsigned char* data, int count)
 {
-    unsigned char i=0;
+    int i=0;
     for(i=0; i<count;i++)
     {
         data[i]= 0;
@@ -205,7 +205,7 @@ void cleanBuffer(unsigned char* data, int count)
 /******************************************************************************/
 void cleanBuffer16bit(unsigned int* data, int count)
 {
-    unsigned char i=0;
+    int i=0;
     for(i=0; i<count;i++)
     {
         data[i]= 0;

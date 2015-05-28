@@ -42,6 +42,13 @@
  *                          Fixed wierd bug where the Global2 struct was not
  *                            being passed in to a function correctly. This is
  *                            due to the lard size of the structure.
+ * 05/27/15     1.0_DW0f    Moved IR receive to low priority interrupt. This
+ *                            seems to have fixed alot of weird bugs where the
+ *                            stack pointer would be corrupt.
+ *                          Created a new function to handle the sending of one
+ *                            IR or RF bit.
+ *                          Fixed bug in detecting the IR start bit
+ *                            (Timing bug).
 /******************************************************************************/
 
 /******************************************************************************/
