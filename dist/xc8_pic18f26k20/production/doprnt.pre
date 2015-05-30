@@ -1,12 +1,12 @@
 
-# 1 "C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\doprnt.c"
+# 1 "C:\Program Files (x86)\Microchip\xc8\v1.33\sources\common\doprnt.c"
 
-# 8 "C:\Program Files (x86)\Microchip\xc8\v1.34\include\stdio.h"
+# 8 "C:\Program Files (x86)\Microchip\xc8\v1.33\include\stdio.h"
 typedef int ptrdiff_t;
 typedef unsigned size_t;
 typedef unsigned short wchar_t;
 
-# 7 "C:\Program Files (x86)\Microchip\xc8\v1.34\include\stdarg.h"
+# 7 "C:\Program Files (x86)\Microchip\xc8\v1.33\include\stdarg.h"
 typedef void * va_list[1];
 
 #pragma intrinsic(__va_start)
@@ -15,17 +15,17 @@ extern void * __va_start(void);
 #pragma intrinsic(__va_arg)
 extern void * __va_arg(void *, ...);
 
-# 24 "C:\Program Files (x86)\Microchip\xc8\v1.34\include\stdio.h"
+# 23 "C:\Program Files (x86)\Microchip\xc8\v1.33\include\stdio.h"
 extern int errno;
 
-# 55
+# 54
 struct __prbuf
 {
 char * ptr;
 void (* func)(char);
 };
 
-# 17 "C:\Program Files (x86)\Microchip\xc8\v1.34\include\conio.h"
+# 17 "C:\Program Files (x86)\Microchip\xc8\v1.33\include\conio.h"
 extern int errno;
 
 
@@ -42,7 +42,7 @@ extern __bit kbhit(void);
 extern char * cgets(char *);
 extern void cputs(const char *);
 
-# 100 "C:\Program Files (x86)\Microchip\xc8\v1.34\include\stdio.h"
+# 99 "C:\Program Files (x86)\Microchip\xc8\v1.33\include\stdio.h"
 extern int cprintf(char *, ...);
 #pragma printf_check(cprintf)
 
@@ -51,7 +51,7 @@ extern int cprintf(char *, ...);
 extern int _doprnt(struct __prbuf *, const register char *, register va_list);
 
 
-# 192
+# 191
 #pragma printf_check(vprintf) const
 #pragma printf_check(vsprintf) const
 
@@ -69,7 +69,7 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 
-# 4 "C:\Program Files (x86)\Microchip\xc8\v1.34\include\ctype.h"
+# 4 "C:\Program Files (x86)\Microchip\xc8\v1.33\include\ctype.h"
 extern __bit isalpha(char);
 extern __bit isupper(char);
 extern __bit islower(char);
@@ -86,7 +86,7 @@ extern __bit iscntrl(char);
 extern char toupper(char);
 extern char tolower(char);
 
-# 27 "C:\Program Files (x86)\Microchip\xc8\v1.34\include\stdlib.h"
+# 27 "C:\Program Files (x86)\Microchip\xc8\v1.33\include\stdlib.h"
 typedef struct {
 int rem;
 int quot;
@@ -131,12 +131,8 @@ extern void * malloc(size_t);
 extern void free(void *);
 extern void * realloc(void *, size_t);
 
-
-# 13 "C:\Program Files (x86)\Microchip\xc8\v1.34\include\xc8debug.h"
-#pragma intrinsic(__builtin_software_breakpoint)
-extern void __builtin_software_breakpoint(void);
-
-# 98 "C:\Program Files (x86)\Microchip\xc8\v1.34\include\stdlib.h"
+extern void abort(void);
+extern void exit(int);
 extern int atexit(void (*)(void));
 extern char * getenv(const char *);
 extern char ** environ;
@@ -158,7 +154,7 @@ extern char * ultoa(char * buf, unsigned long val, int base);
 
 extern char * ftoa(float f, int * status);
 
-# 22 "C:\Program Files (x86)\Microchip\xc8\v1.34\include\string.h"
+# 22 "C:\Program Files (x86)\Microchip\xc8\v1.33\include\string.h"
 extern void * memcpy(void *, const void *, size_t);
 extern void * memmove(void *, const void *, size_t);
 extern void * memset(void *, int, size_t);
@@ -190,7 +186,7 @@ extern char * strichr(const char *, int);
 extern char * strrchr(const char *, int);
 extern char * strrichr(const char *, int);
 
-# 17 "C:\Program Files (x86)\Microchip\xc8\v1.34\include\conio.h"
+# 17 "C:\Program Files (x86)\Microchip\xc8\v1.33\include\conio.h"
 extern int errno;
 
 
@@ -207,7 +203,7 @@ extern __bit kbhit(void);
 extern char * cgets(char *);
 extern void cputs(const char *);
 
-# 17 "C:\Program Files (x86)\Microchip\xc8\v1.34\include\sys.h"
+# 17 "C:\Program Files (x86)\Microchip\xc8\v1.33\include\sys.h"
 extern int errno;
 
 # 30
@@ -247,26 +243,26 @@ extern void brk(void *);
 extern int _pnum(unsigned long, signed char, signed char, unsigned char, unsigned char, struct __prbuf *, unsigned char);
 extern int _fnum(double, short, short, short, struct __prbuf *, short);
 
-# 30 "C:\Program Files (x86)\Microchip\xc8\v1.34\include\math.h"
+# 3 "C:\Program Files (x86)\Microchip\xc8\v1.33\include\math.h"
 extern double fabs(double);
 extern double floor(double);
 extern double ceil(double);
 extern double modf(double, double *);
 extern double sqrt(double);
 extern double atof(const char *);
-extern double sin(double) ;
-extern double cos(double) ;
-extern double tan(double) ;
-extern double asin(double) ;
-extern double acos(double) ;
+extern double sin(double);
+extern double cos(double);
+extern double tan(double);
+extern double asin(double);
+extern double acos(double);
 extern double atan(double);
-extern double atan2(double, double) ;
+extern double atan2(double, double);
 extern double log(double);
 extern double log10(double);
-extern double pow(double, double) ;
-extern double exp(double) ;
-extern double sinh(double) ;
-extern double cosh(double) ;
+extern double pow(double, double);
+extern double exp(double);
+extern double sinh(double);
+extern double cosh(double);
 extern double tanh(double);
 extern double eval_poly(double, const double *, int);
 extern double frexp(double, int *);
@@ -276,7 +272,7 @@ extern double trunc(double);
 extern double round(double);
 
 
-# 13 "C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\doprnt.c"
+# 13 "C:\Program Files (x86)\Microchip\xc8\v1.33\sources\common\doprnt.c"
 #pragma warning disable 350
 
 # 354
@@ -359,20 +355,18 @@ unsigned short flag;
 
 # 515
 char d;
-double fval;
+double fval, integ;
 int exp;
-
-# 523
+double ival;
 union {
-unsigned long vd;
-double integ;
-} tmpval;
+unsigned long _val;
+struct {
+const char * _cp;
+unsigned _len;
+} _str;
+} _val;
 
-unsigned long val;
-unsigned len;
-const char * cp;
-
-
+# 542
 *ap = __va_start();
 
 
@@ -393,7 +387,7 @@ flag = 0;
 for(;;) {
 switch(*f) {
 
-# 579
+# 588
 case '0':
 flag |= 0x04;
 f++;
@@ -403,7 +397,7 @@ continue;
 break;
 }
 
-# 597
+# 606
 if(isdigit((unsigned)*f)) {
 width = 0;
 do {
@@ -411,10 +405,10 @@ width *= 10;
 width += *f++ - '0';
 } while(isdigit((unsigned)*f));
 
-# 608
+# 617
 }
 
-# 633
+# 642
 loop:
 
 switch(c = *f++) {
@@ -428,20 +422,20 @@ case 'l':
 flag |= 0x10;
 goto loop;
 
-# 662
+# 671
 case 'f':
 flag |= 0x400;
 break;
 
-# 697
+# 706
 case 'd':
 case 'i':
 break;
 
-# 712
+# 721
 case 'X':
 
-# 718
+# 727
 case 'x':
 
 
@@ -454,53 +448,53 @@ break;
 
 case 's':
 
-# 734
-cp = (*(const char * *)__va_arg((*(const char * **)ap), (const char *)0));
+# 743
+_val._str._cp = (*(const char * *)__va_arg((*(const char * **)ap), (const char *)0));
 
-# 740
-if(!cp)
-cp = "(null)";
+# 749
+if(!_val._str._cp)
+_val._str._cp = "(null)";
 
 
 
-len = 0;
-while(cp[len])
-len++;
+_val._str._len = 0;
+while(_val._str._cp[_val._str._len])
+_val._str._len++;
 
 
 dostring:
 
-# 757
-if(width > len)
-width -= len;
+# 766
+if(width > _val._str._len)
+width -= _val._str._len;
 else
 width = 0;
 
-# 764
+# 773
 while(width--)
 ((*sp++ = (' ')));
 
-while(len--)
-((*sp++ = (*cp++)));
+while(_val._str._len--)
+((*sp++ = (*_val._str._cp++)));
 
-# 774
+# 783
 continue;
 
-# 784
+# 793
 case 'c':
 
-# 799
+# 808
 c = (*(int *)__va_arg((*(int **)ap), (int)0));
 
 
 default:
 
 
-cp = (char *)&c;
-len = 1;
+_val._str._cp = (char *)&c;
+_val._str._len = 1;
 goto dostring;
 
-# 817
+# 826
 case 'u':
 flag |= 0xC0;
 break;
@@ -511,7 +505,7 @@ break;
 
 if(flag & (0x700)) {
 
-# 829
+# 838
 prec = 6;
 fval = (*(double *)__va_arg((*(double **)ap), (double)0));
 if(fval < 0.0) {
@@ -529,15 +523,15 @@ exp--;
 
 
 
-tmpval.integ = scale(-exp);
-tmpval.integ *= fval;
-if(tmpval.integ < 1.0)
+integ = scale(-exp);
+integ *= fval;
+if(integ < 1.0)
 exp--;
-else if(tmpval.integ >= 10.0)
+else if(integ >= 10.0)
 exp++;
 }
 
-# 1112
+# 1121
 if(prec <= 12)
 fval += fround(prec);
 
@@ -546,24 +540,24 @@ if((exp > 9)||(fval != 0 && (unsigned long)fval == 0 && exp > 1)) {
 
 
 
-if(tmpval.integ < 4.294967296){
+if(integ < 4.294967296){
 exp -= (sizeof dpowers/sizeof dpowers[0])-1;
 }else{
 exp -= (sizeof dpowers/sizeof dpowers[0])-2;
 }
-tmpval.integ = scale(exp);
-val = ((sizeof(double)== 3) ? _tdiv_to_l_(fval,tmpval.integ) : _div_to_l_(fval,tmpval.integ));
+integ = scale(exp);
+_val._val = ((sizeof(double)== 3) ? _tdiv_to_l_(fval,integ) : _div_to_l_(fval,integ));
 
 
 fval = 0.0;
 } else {
-val = (unsigned long)fval;
-fval -= (double)val;
+_val._val = (unsigned long)fval;
+fval -= (double)_val._val;
 exp = 0;
 }
 
 for(c = 1 ; c != (sizeof dpowers/sizeof dpowers[0]) ; c++)
-if(val < dpowers[c])
+if(_val._val < dpowers[c])
 break;
 
 
@@ -571,7 +565,7 @@ break;
 width -= prec + c + exp;
 if(
 
-# 1147
+# 1156
 prec)
 width--;
 if(flag & 0x03)
@@ -586,7 +580,7 @@ if(flag & 0x03)
 
 ((*sp++ = ('-')));
 
-# 1168
+# 1177
 while(width > 0) {
 ((*sp++ = ('0')));
 width--;
@@ -596,7 +590,7 @@ width--;
 
 {
 
-# 1180
+# 1189
 while(width > 0) {
 ((*sp++ = (' ')));
 width--;
@@ -609,16 +603,16 @@ if(flag & 0x03)
 
 ((*sp++ = ('-')));
 
-# 1195
+# 1204
 }
 while(c--) {
 
 
 
 {
-tmpval.vd = val/dpowers[c];
-tmpval.vd %= 10;
-((*sp++ = ('0' + tmpval.vd)));
+unsigned long vd = _val._val/dpowers[c];
+vd %= 10;
+((*sp++ = ('0' + vd)));
 }
 
 }
@@ -638,13 +632,13 @@ if(c)
 
 ((*sp++ = ('.')));
 
-# 1227
-val = (long)(fval * scale(c));
+# 1236
+_val._val = (long)(fval * scale(c));
 while(c--) {
-tmpval.vd = val/dpowers[c];
-tmpval.vd %= 10;
-((*sp++ = ('0' + tmpval.vd)));
-val %= dpowers[c];
+unsigned long vd = _val._val/dpowers[c];
+vd %= 10;
+((*sp++ = ('0' + vd)));
+_val._val %= dpowers[c];
 }
 
 while(prec) {
@@ -652,7 +646,7 @@ while(prec) {
 prec--;
 }
 
-# 1245
+# 1254
 continue;
 }
 
@@ -664,14 +658,14 @@ if((flag & (0xC0)) == 0x00)
 {
 
 if(flag & 0x10)
-val = (*(long *)__va_arg((*(long **)ap), (long)0));
+_val._val = (*(long *)__va_arg((*(long **)ap), (long)0));
 else
 
-val = (long)(*(int *)__va_arg((*(int **)ap), (int)0));
+_val._val = (long)(*(int *)__va_arg((*(int **)ap), (int)0));
 
-if((long)val < 0) {
+if((long)_val._val < 0) {
 flag |= 0x03;
-val = -val;
+_val._val = -_val._val;
 }
 
 }
@@ -683,16 +677,16 @@ else
 
 {
 
-# 1281
+# 1290
 if(flag & 0x10)
-val = (*(unsigned long *)__va_arg((*(unsigned long **)ap), (unsigned long)0));
+_val._val = (*(unsigned long *)__va_arg((*(unsigned long **)ap), (unsigned long)0));
 else
 
 
-val = (*(unsigned *)__va_arg((*(unsigned **)ap), (unsigned)0));
+_val._val = (*(unsigned *)__va_arg((*(unsigned **)ap), (unsigned)0));
 }
 
-# 1294
+# 1303
 switch((unsigned char)(flag & (0xC0))) {
 
 
@@ -705,7 +699,7 @@ case 0xC0:
 
 
 for(c = 1 ; c != sizeof dpowers/sizeof dpowers[0] ; c++)
-if(val < dpowers[c])
+if(_val._val < dpowers[c])
 break;
 
 break;
@@ -716,19 +710,19 @@ break;
 case 0x80:
 
 for(c = 1 ; c != sizeof hexpowers/sizeof hexpowers[0] ; c++)
-if(val < hexpowers[c])
+if(_val._val < hexpowers[c])
 break;
 
 break;
-
-# 1336
-}
 
 # 1345
+}
+
+# 1354
 if(width && flag & 0x03)
 width--;
 
-# 1381
+# 1390
 if(width > c)
 width -= c;
 else
@@ -743,7 +737,7 @@ if(flag & 0x04) {
 if(flag & 0x03)
 ((*sp++ = ('-')));
 
-# 1415
+# 1424
 if(width)
 do
 ((*sp++ = ('0')));
@@ -755,17 +749,17 @@ while(--width);
 
 if(width
 
-# 1428
+# 1437
 )
 do
 ((*sp++ = (' ')));
 while(--width);
 
-# 1438
+# 1447
 if(flag & 0x03)
 ((*sp++ = ('-')));
 
-# 1469
+# 1478
 }
 
 
@@ -786,31 +780,31 @@ case 0x00:
 case 0xC0:
 
 
-c = (val / dpowers[prec]) % 10 + '0';
+c = (_val._val / dpowers[prec]) % 10 + '0';
 
 break;
 
-# 1497
+# 1506
 case 0x80:
 
 {
-unsigned char idx = (val / hexpowers[prec]) & 0xF;
+unsigned char idx = (_val._val / hexpowers[prec]) & 0xF;
 
 
 
 c = "0123456789ABCDEF"[idx];
 
-# 1508
+# 1517
 }
 
 break;
 
-# 1523
+# 1532
 }
 ((*sp++ = (c)));
 }
 
-# 1533
+# 1542
 }
 
 alldone:

@@ -182,7 +182,6 @@ unsigned char GetRFstatus(void)
 void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char size, unsigned char amount)
 {
     IRreceiverIntOff();
-    INTCONbits.RBIE = OFF;
     INTCONbits.PEIE = OFF;
     LEDTimerON();
     GreenLEDON();
@@ -192,7 +191,6 @@ void SendRF_wait(const unsigned char* Code, unsigned char Config, unsigned char 
     IRpinOLD = ReadIRpin();
     INTCONbits.RBIF = FALSE;
     IRreceiverIntOn();
-    INTCONbits.RBIE = ON;
 }
 /******************************************************************************/
 /* SendRF_Channel

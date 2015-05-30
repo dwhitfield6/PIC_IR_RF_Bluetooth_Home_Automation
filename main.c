@@ -49,6 +49,14 @@
  *                            IR or RF bit.
  *                          Fixed bug in detecting the IR start bit
  *                            (Timing bug).
+ *                          Moved the timer0 interupt to low priority.
+ *                          Fixed a couple IR receive bugs.
+ *                          Added error statements for stack overflow and
+ *                            underflow.
+ *                          Added error statment for unknown interrupts.
+ *                          FIXED P1 IR RECEIVE BUG. This was a hardware issue.
+ *                            The old IR receive TSOP38238 gives spurious
+ *                            interrupts. The new one TSOP2438 does not.
 /******************************************************************************/
 
 /******************************************************************************/
@@ -268,7 +276,6 @@ void main(void)
             IRpinOLD = ReadIRpin();
             INTCONbits.RBIF = FALSE;
             IRreceiverIntOn();
-            INTCONbits.RBIE = TRUE;
             ClearUSART();
             PIR1bits.RCIF = FALSE;
             PIE1bits.RCIE   = TRUE;

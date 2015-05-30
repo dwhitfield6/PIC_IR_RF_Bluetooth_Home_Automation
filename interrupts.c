@@ -67,31 +67,8 @@ void high_isr(void)
 {
 
     INTCONbits.GIE = OFF; //High priority interrupts
-    
-    if(INTCONbits.TMR0IF)
-    {
-        /* We had a timeout on the IR receiver */
-        DisableTimer0Int();
-        Timer0OFF();
-        IRstarted = FALSE;
-        if(IRrawCodeNum >=  (MinNECFlipsRepeat))
-        {
-            IR_New_Code = IRrawToNEC(&IR_NEC, TRUE);
-        }
-        cleanBuffer16bit(IRRawCode,IR_SIZE);
-        IRrawCodeNum = 0;
-        if(!IR_New_Code)
-        {
-            ReadIRpin();
-            IRpinOLD = ReadIRpin();
-            INTCONbits.RBIF = FALSE;
-            IRreceiverIntOn();
-            INTCONbits.RBIE = TRUE;
-        }
-        ReceivingIR = Finished;
-        INTCONbits.TMR0IF = FALSE;
-    }
-    else if(PIR1bits.TMR2IF)
+   
+    if(PIR1bits.TMR2IF)
     {
         /* Timer 2 interrupt */
         /* 
@@ -101,6 +78,18 @@ void high_isr(void)
          */
         
         Send_RForIR_bit();
+    }
+    else if(STKPTRbits.STKFUL)
+    {
+        /* Stack is full or overflowed */
+        UARTstringCRLN_CONST("Error: Stack overflow!!!");
+        STKPTRbits.STKFUL = 0;
+    }
+    else if(STKPTRbits.STKUNF)
+    {
+        /* Stack underflowed */
+        UARTstringCRLN_CONST("Error: Stack underflow!!!");
+        STKPTRbits.STKUNF = 0;
     }
     else if(PIR2bits.TMR3IF)
     {
@@ -144,6 +133,7 @@ void high_isr(void)
     else
     {
         /* We got here by error */
+        UARTstringCRLN_CONST("Error: Unknown High priority interrupt!!!");
         NOP();
     }
     INTCONbits.GIE = ON; //High priority interrupts
@@ -233,6 +223,30 @@ void low_isr(void)
         }
         PIR1bits.TMR1IF = FALSE;
     }
+    else if(INTCONbits.TMR0IF)
+    {
+        /* We had a timeout on the IR receiver */
+        DisableTimer0Int();
+        Timer0OFF();
+        IRstarted = FALSE;
+        if(IRrawCodeNum >=  (MinNECFlipsRepeat))
+        {
+            IR_New_Code = IRrawToNEC(&IR_NEC, TRUE);
+        }
+        cleanBuffer16bit(IRRawCode,IR_SIZE);
+        IRrawCodeNum = 0;
+        if(!IR_New_Code)
+        {
+            RedLEDON();
+            delayUS(1000);
+            LEDTimerON();
+            IRpinOLD = ReadIRpin();
+            INTCONbits.RBIF = FALSE;
+            IRreceiverIntOn();
+        }
+        ReceivingIR = Finished;
+        INTCONbits.TMR0IF = 0;
+    }
     else if(INTCONbits.RBIF)
     {
         IRtimeout = 0;
@@ -259,8 +273,8 @@ void low_isr(void)
                     {
                         /* wait for the timer to timeout and then process the raw code */
                         IRreceiverIntOff();
-                        /* force timeout */
-                        INTCONbits.TMR0IF = ON;
+                        /* Create a pause for the timeout */
+                        SetTimer0(0x8FFF);
                     }
                     else if(Time0 <= Repeatupper && Time0 >= Repeatlower)
                     {
@@ -298,6 +312,7 @@ void low_isr(void)
     else
     {
         /* We got here by error */
+        UARTstringCRLN_CONST("Error: Unknown Low priority interrupt!!!");
         NOP();
     }
     INTCONbits.PEIE = ON; //Low priority interrupts

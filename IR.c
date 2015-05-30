@@ -97,8 +97,8 @@ void InitIR(void)
     DisableTimer0Int();
     INTCONbits.TMR0IF = 0;
     /* Turn on interrupt on pin RB4 */
-    IRreceiverIntOn();
     INTCONbits.RBIF = FALSE;
+    IRreceiverIntOn();
 }
 
 /******************************************************************************/
@@ -360,7 +360,6 @@ void UseIRCode(unsigned char* Code, unsigned long NEC)
         LEDTimerON();
     }
     *Code = 0;
-    ReadIRpin();
     IRpinOLD = ReadIRpin();
     INTCONbits.RBIF = FALSE;
     IRreceiverIntOn();
@@ -480,7 +479,6 @@ void SendNEC_wait(unsigned long code, unsigned char RepeatAmount)
     IRpinOLD = ReadIRpin();
     INTCONbits.RBIF = FALSE;
     IRreceiverIntOn();
-    INTCONbits.RBIE = ON;
 }
 
 /******************************************************************************/

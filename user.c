@@ -117,7 +117,7 @@ void Init_System (void)
     /* set up interrupt priorities */
     IPR1bits.RCIP       = OFF;  // UART receive is Low priority
     INTCON2bits.RBIP    = OFF;  // KBI0 is Low priority
-    INTCON2bits.TMR0IP  = ON;   // Timer0 overflow is High priority
+    INTCON2bits.TMR0IP  = OFF;   // Timer0 overflow is Low priority
     IPR1bits.TMR2IP     = ON;   // Timer2 compare is High priority
     IPR1bits.TMR1IP     = OFF;  // Timer1 overflow is Low priority
     IPR2bits.TMR3IP     = ON;   // Timer3 overflow is High priority
@@ -152,11 +152,11 @@ void Init_System (void)
     }
     
     InitADC();
-    InitIR();
 #ifdef BLUETOOTHMODULE
     InitUART(BAUD);
     InitBluetooth();
 #endif
+    InitIR();
     InitTimers();
 }
 /*-----------------------------------------------------------------------------/
