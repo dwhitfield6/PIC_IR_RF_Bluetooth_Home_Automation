@@ -6719,7 +6719,7 @@ if(EqualStatus == 2)
 {
 ReceivedStringPos++;
 }
-if(!GetNumber(ReceivedString, 1, &SerialNumberTEMP))
+if(!GetNumber(ReceivedString, 0, &SerialNumberTEMP))
 {
 if(SerialNumberTEMP > 0)
 {

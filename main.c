@@ -57,6 +57,7 @@
  *                          FIXED P1 IR RECEIVE BUG. This was a hardware issue.
  *                            The old IR receive TSOP38238 gives spurious
  *                            interrupts. The new one TSOP2438 does not.
+ *                          Fixed bug in changing serial number.
 /******************************************************************************/
 
 /******************************************************************************/

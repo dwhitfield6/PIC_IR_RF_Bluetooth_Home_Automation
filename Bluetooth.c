@@ -1378,7 +1378,7 @@ unsigned char UseBluetooth(unsigned char *String, unsigned char StringPos)
                 {
                     ReceivedStringPos++; // we added one place by adding an equal sine
                 }
-                if(!GetNumber(ReceivedString, 1, &SerialNumberTEMP))
+                if(!GetNumber(ReceivedString, 0, &SerialNumberTEMP))
                 {
                     if(SerialNumberTEMP > 0)
                     {

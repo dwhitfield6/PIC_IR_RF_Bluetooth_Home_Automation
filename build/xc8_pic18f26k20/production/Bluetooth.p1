@@ -11699,9 +11699,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 [e :U 665 ]
 [; ;Bluetooth.c: 1380: }
-[; ;Bluetooth.c: 1381: if(!GetNumber(ReceivedString, 1, &SerialNumberTEMP))
+[; ;Bluetooth.c: 1381: if(!GetNumber(ReceivedString, 0, &SerialNumberTEMP))
 "1381
-[e $ ! ! != -> ( _GetNumber (3 , , -> &U _ReceivedString `*uc -> -> 1 `i `uc &U _SerialNumberTEMP `i -> -> -> 0 `i `uc `i 666  ]
+[e $ ! ! != -> ( _GetNumber (3 , , -> &U _ReceivedString `*uc -> -> 0 `i `uc &U _SerialNumberTEMP `i -> -> -> 0 `i `uc `i 666  ]
 [; ;Bluetooth.c: 1382: {
 "1382
 {
