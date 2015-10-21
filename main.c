@@ -6,22 +6,34 @@
  * Date         Revision    Comments
  * MM/DD/YY
  * --------     ---------   ----------------------------------------------------
- * 04/02/15     1.0_DW0a    Initial project make.
- *                          Added IR, Bluetooth, and RF capabilities.
- * 04/09/15     1.0_DW0b    Cleanded up project.
- *                          Added macro to pick if the system has a bluetooth
- *                            module.
- *                          Fixed bugs.
- *                          Print project title when the bluetooth gets
- *                            connected.
- *                          Fixed bug in conf2 channel H parsing.
- *                          Check bluetooth status in initiation.
- * 04/18/15     1.0_DW0c    Added a header to be printed when bluetooth is
- *                            is connected.
- *                          Dont allow full duplex UART. (It caused eratic
- *                            behavior)
- *                          Fix several high priority bugs.
- *                          Add Serial number algorithem and command.
+ * 10/21/15     5.0_DW0f    Changed version number to match new scheme.
+ * 05/27/15     1.0_DW0f    Moved IR receive to low priority interrupt. This
+ *                            seems to have fixed alot of weird bugs where the
+ *                            stack pointer would be corrupt.
+ *                          Created a new function to handle the sending of one
+ *                            IR or RF bit.
+ *                          Fixed bug in detecting the IR start bit
+ *                            (Timing bug).
+ *                          Moved the timer0 interrupt to low priority.
+ *                          Fixed a couple IR receive bugs.
+ *                          Added error statements for stack overflow and
+ *                            underflow.
+ *                          Added error statement for unknown interrupts.
+ *                          Fixed IR receive bug. This was a hardware issue.
+ *                            The old IR receive TSOP38238 gives spurious
+ *                            interrupts. The new one TSOP2438 does not.
+ *                          Fixed bug in changing serial number.
+ * 05/14/15     1.0_DW0e    Fixed "AddEqual" parsing bugs.
+ *                          Added support for 433MHz transmitter.
+ *                          Fixed RF timing so that conf2_channeB works.
+ *                          Fixed IR receive to start the record when the start
+ *                            bit is found.
+ *                          Added support for pioneer (modified NEC) remote.
+ *                          Only sample ADC if the rf code is not sending and
+ *                            the IR code is not being received.
+ *                          Fixed weird bug where the Global2 struct was not
+ *                            being passed in to a function correctly. This is
+ *                            due to the lard size of the structure.
  * 04/24/15     1.0_DW0d    Reestablish full duplex workaround.
  *                          Add command to change Bluetooth Broadcast name.
  *                          Turn on RedLed when voltage is out of range.
@@ -31,33 +43,23 @@
  *                          Added commands to send/save all rf codes.
  *                          Add new command rf set all, rf clear all,
  *                            rf clear system.
- * 05/14/15     1.0_DW0e    Fixed "AddEqual" parsing bugs.
- *                          Added support for 433MHz transmitter.
- *                          Fixed RF timing so that conf2_channeB works.
- *                          Fixed IR receive to sart teh record when the start
- *                            bit is found.
- *                          Added support for pioneer (modified NEC) remote.
- *                          Only sample ADC if the rf code is not sendng and
- *                            the IR code is not being recieved.
- *                          Fixed wierd bug where the Global2 struct was not
- *                            being passed in to a function correctly. This is
- *                            due to the lard size of the structure.
- * 05/27/15     1.0_DW0f    Moved IR receive to low priority interrupt. This
- *                            seems to have fixed alot of weird bugs where the
- *                            stack pointer would be corrupt.
- *                          Created a new function to handle the sending of one
- *                            IR or RF bit.
- *                          Fixed bug in detecting the IR start bit
- *                            (Timing bug).
- *                          Moved the timer0 interupt to low priority.
- *                          Fixed a couple IR receive bugs.
- *                          Added error statements for stack overflow and
- *                            underflow.
- *                          Added error statment for unknown interrupts.
- *                          FIXED P1 IR RECEIVE BUG. This was a hardware issue.
- *                            The old IR receive TSOP38238 gives spurious
- *                            interrupts. The new one TSOP2438 does not.
- *                          Fixed bug in changing serial number.
+ * 04/18/15     1.0_DW0c    Added a header to be printed when bluetooth is
+ *                            is connected.
+ *                          Don't allow full duplex UART. (It caused erratic
+ *                            behavior)
+ *                          Fix several high priority bugs.
+ *                          Add Serial number algorithem and command.
+ * 04/09/15     1.0_DW0b    Cleaned up project.
+ *                          Added macro to pick if the system has a bluetooth
+ *                            module.
+ *                          Fixed bugs.
+ *                          Print project title when the bluetooth gets
+ *                            connected.
+ *                          Fixed bug in conf2 channel H parsing.
+ *                          Check bluetooth status in initiation.
+ * 04/02/15     1.0_DW0a    Initial project make.
+ *                          Added IR, Bluetooth, and RF capabilities.
+ * 
 /******************************************************************************/
 
 /******************************************************************************/

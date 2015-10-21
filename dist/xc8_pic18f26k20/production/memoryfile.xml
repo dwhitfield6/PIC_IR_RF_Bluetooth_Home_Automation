@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <executable name="dist/xc8_pic18f26k20/production\PIC_IR_RF_Bluetooth_Home_Automation.production.hex">
+    <memory name="program">
+      <units>bytes</units>
+      <length>65536</length>
+      <used>59341</used>
+      <free>6195</free>
+    </memory>
+    <memory name="data">
+      <units>bytes</units>
+      <length>3936</length>
+      <used>1646</used>
+      <free>2290</free>
+    </memory>
+  </executable>
+</project>
