@@ -42,7 +42,7 @@
 /******************************************************************************/
 void ConfigureOscillator(void)
 {
-    /* this is done in configuration_bits.c */
+    OSCTUNEbits.PLLEN = 1; // PLL enabled for HFINTOSC (8 MHz and 16 MHz only)
 }
 /*-----------------------------------------------------------------------------/
  End of File

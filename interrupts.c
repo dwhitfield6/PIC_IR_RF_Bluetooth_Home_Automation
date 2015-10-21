@@ -68,7 +68,7 @@ void high_isr(void)
 
     INTCONbits.GIE = OFF; //High priority interrupts
    
-    if(PIR1bits.TMR2IF)
+    if(PIR1bits.TMR2IF && PIE1bits.TMR2IE)
     {
         /* Timer 2 interrupt */
         /* 
@@ -91,7 +91,7 @@ void high_isr(void)
         UARTstringCRLN_CONST("Error: Stack underflow!!!");
         STKPTRbits.STKUNF = 0;
     }
-    else if(PIR2bits.TMR3IF)
+    else if(PIR2bits.TMR3IF && PIE2bits.TMR3IE)
     {
         Timer3OFF();
         if(RFPause == 1)
@@ -158,7 +158,7 @@ void low_isr(void)
 
     INTCONbits.PEIE = OFF; //Low priority interrupts
 
-    if(PIR1bits.RCIF)
+    if(PIR1bits.RCIF && PIE1bits.RCIE)
     {
         /* Uart Receive interrupt*/
         data =  ReadUSART();
@@ -211,7 +211,7 @@ void low_isr(void)
         }
         PIR1bits.RCIF = FALSE;
     }
-    else if(PIR1bits.TMR1IF)
+    else if(PIR1bits.TMR1IF && PIE1bits.TMR1IE)
     {
         Timer1_Postscaler++;
         if(Timer1_Postscaler >= LEDPostscaler)
@@ -223,7 +223,7 @@ void low_isr(void)
         }
         PIR1bits.TMR1IF = FALSE;
     }
-    else if(INTCONbits.TMR0IF)
+    else if(INTCONbits.TMR0IF && INTCONbits.TMR0IE)
     {
         /* We had a timeout on the IR receiver */
         DisableTimer0Int();
@@ -247,7 +247,7 @@ void low_isr(void)
         ReceivingIR = Finished;
         INTCONbits.TMR0IF = 0;
     }
-    else if(INTCONbits.RBIF)
+    else if(INTCONbits.RBIF && INTCONbits.RBIE)
     {
         IRtimeout = 0;
         IRpin = ReadIRpin();

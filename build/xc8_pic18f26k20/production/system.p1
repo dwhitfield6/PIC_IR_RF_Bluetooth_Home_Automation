@@ -1,4 +1,15 @@
 Version 3.2 HI-TECH Software Intermediate Code
+"2492 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f26k20.h
+[s S127 :6 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S127 . TUN PLLEN INTSRC ]
+"2497
+[s S128 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S128 . TUN0 TUN1 TUN2 TUN3 TUN4 TUN5 ]
+"2491
+[u S126 `S127 1 `S128 1 ]
+[n S126 . . . ]
+"2506
+[v _OSCTUNEbits `VS126 ~T0 @X0 0 e@3995 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic18f26k20.h: 49: extern volatile unsigned char SSPMSK @ 0xF77;
@@ -3640,6 +3651,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;system.c: 44: {
 [e :U _ConfigureOscillator ]
 [f ]
+[; ;system.c: 45: OSCTUNEbits.PLLEN = 1;
+"45
+[e = . . _OSCTUNEbits 0 1 -> -> 1 `i `uc ]
 [; ;system.c: 46: }
 "46
 [e :UE 379 ]

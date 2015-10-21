@@ -4938,6 +4938,6 @@ void ConfigureOscillator(void);
 # 43 "system.c"
 void ConfigureOscillator(void)
 {
-
+OSCTUNEbits.PLLEN = 1;
 }
 

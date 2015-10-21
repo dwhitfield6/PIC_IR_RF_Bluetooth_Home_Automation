@@ -7486,647 +7486,647 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Timer.h: 183: void InitTimer3(void);
 [; ;Timer.h: 184: void ResetTimer3(void);
 [; ;Timer.h: 185: void InitTimers(void);
-"107 main.c
+"110 main.c
 [v _BatteryVoltage `d ~T0 @X0 1 e ]
 [i _BatteryVoltage
 .0.0
 ]
-[; ;main.c: 107: double BatteryVoltage = 0.0;
-"113
+[; ;main.c: 110: double BatteryVoltage = 0.0;
+"116
 [v _main `(v ~T0 @X0 1 ef ]
-"114
+"117
 {
-[; ;main.c: 113: void main(void)
-[; ;main.c: 114: {
+[; ;main.c: 116: void main(void)
+[; ;main.c: 117: {
 [e :U _main ]
 [f ]
-"115
-[v _i `uc ~T0 @X0 1 a ]
-[; ;main.c: 115: unsigned char i=0;
-[e = _i -> -> 0 `i `uc ]
-"116
-[v _IRtask `uc ~T0 @X0 1 a ]
-[; ;main.c: 116: unsigned char IRtask = 0;
-[e = _IRtask -> -> 0 `i `uc ]
-"117
-[v _Bluetoothtask `uc ~T0 @X0 1 a ]
-[; ;main.c: 117: unsigned char Bluetoothtask = 0;
-[e = _Bluetoothtask -> -> 0 `i `uc ]
 "118
-[v _VoltageStatus `uc ~T0 @X0 1 a ]
-[; ;main.c: 118: unsigned char VoltageStatus = 1;
-[e = _VoltageStatus -> -> 1 `i `uc ]
+[v _i `uc ~T0 @X0 1 a ]
+[; ;main.c: 118: unsigned char i=0;
+[e = _i -> -> 0 `i `uc ]
 "119
-[v _VoltageStatusOLD `uc ~T0 @X0 1 a ]
+[v _IRtask `uc ~T0 @X0 1 a ]
+[; ;main.c: 119: unsigned char IRtask = 0;
+[e = _IRtask -> -> 0 `i `uc ]
 "120
-[v _BluetoothString `uc ~T0 @X0 -> 70 `i a ]
+[v _Bluetoothtask `uc ~T0 @X0 1 a ]
+[; ;main.c: 120: unsigned char Bluetoothtask = 0;
+[e = _Bluetoothtask -> -> 0 `i `uc ]
 "121
-[v _BluetoothStringPos `uc ~T0 @X0 1 a ]
-[; ;main.c: 119: unsigned char VoltageStatusOLD;
-[; ;main.c: 120: unsigned char BluetoothString[70];
-[; ;main.c: 121: unsigned char BluetoothStringPos = 0;
-[e = _BluetoothStringPos -> -> 0 `i `uc ]
+[v _VoltageStatus `uc ~T0 @X0 1 a ]
+[; ;main.c: 121: unsigned char VoltageStatus = 1;
+[e = _VoltageStatus -> -> 1 `i `uc ]
 "122
+[v _VoltageStatusOLD `uc ~T0 @X0 1 a ]
+"123
+[v _BluetoothString `uc ~T0 @X0 -> 70 `i a ]
+"124
+[v _BluetoothStringPos `uc ~T0 @X0 1 a ]
+[; ;main.c: 122: unsigned char VoltageStatusOLD;
+[; ;main.c: 123: unsigned char BluetoothString[70];
+[; ;main.c: 124: unsigned char BluetoothStringPos = 0;
+[e = _BluetoothStringPos -> -> 0 `i `uc ]
+"125
 [v _Connected `uc ~T0 @X0 1 a ]
 [v _ConnectedOLD `uc ~T0 @X0 1 a ]
-"123
+"126
 [v _BroadcastTEMP `uc ~T0 @X0 -> 21 `i a ]
-"124
-[v _buf `uc ~T0 @X0 -> 100 `i a ]
-"125
-[v _tempVoltage `d ~T0 @X0 1 a ]
-[; ;main.c: 122: unsigned char Connected, ConnectedOLD;
-[; ;main.c: 123: unsigned char BroadcastTEMP[21];
-[; ;main.c: 124: unsigned char buf[100];
-[; ;main.c: 125: double tempVoltage = 0.0;
-[e = _tempVoltage .0.0 ]
-[; ;main.c: 127: cleanBuffer(buf, 100);
 "127
-[e ( _cleanBuffer (2 , &U _buf -> 100 `i ]
-[; ;main.c: 128: cleanBuffer(BluetoothString, 70);
+[v _buf `uc ~T0 @X0 -> 100 `i a ]
 "128
-[e ( _cleanBuffer (2 , &U _BluetoothString -> 70 `i ]
-[; ;main.c: 129: cleanBuffer(BroadcastTEMP, 21);
-"129
-[e ( _cleanBuffer (2 , &U _BroadcastTEMP -> 21 `i ]
-[; ;main.c: 131: ConfigureOscillator();
+[v _tempVoltage `d ~T0 @X0 1 a ]
+[; ;main.c: 125: unsigned char Connected, ConnectedOLD;
+[; ;main.c: 126: unsigned char BroadcastTEMP[21];
+[; ;main.c: 127: unsigned char buf[100];
+[; ;main.c: 128: double tempVoltage = 0.0;
+[e = _tempVoltage .0.0 ]
+[; ;main.c: 130: cleanBuffer(buf, 100);
+"130
+[e ( _cleanBuffer (2 , &U _buf -> 100 `i ]
+[; ;main.c: 131: cleanBuffer(BluetoothString, 70);
 "131
-[e ( _ConfigureOscillator ..  ]
-[; ;main.c: 132: InitApp();
+[e ( _cleanBuffer (2 , &U _BluetoothString -> 70 `i ]
+[; ;main.c: 132: cleanBuffer(BroadcastTEMP, 21);
 "132
-[e ( _InitApp ..  ]
-[; ;main.c: 133: Init_System();
-"133
-[e ( _Init_System ..  ]
-[; ;main.c: 135: BatteryVoltage = ReadVoltage();
+[e ( _cleanBuffer (2 , &U _BroadcastTEMP -> 21 `i ]
+[; ;main.c: 134: ConfigureOscillator();
+"134
+[e ( _ConfigureOscillator ..  ]
+[; ;main.c: 135: InitApp();
 "135
-[e = _BatteryVoltage ( _ReadVoltage ..  ]
-[; ;main.c: 136: if(BatteryVoltage < 3.9 )
+[e ( _InitApp ..  ]
+[; ;main.c: 136: Init_System();
 "136
-[e $ ! < _BatteryVoltage .3.9 381  ]
-[; ;main.c: 137: {
-"137
-{
-[; ;main.c: 138: VoltageStatus = 34;
+[e ( _Init_System ..  ]
+[; ;main.c: 138: BatteryVoltage = ReadVoltage();
 "138
-[e = _VoltageStatus -> -> 34 `i `uc ]
+[e = _BatteryVoltage ( _ReadVoltage ..  ]
+[; ;main.c: 139: if(BatteryVoltage < 3.9 )
 "139
-}
-[; ;main.c: 139: }
-[e $U 382  ]
+[e $ ! < _BatteryVoltage .3.9 381  ]
+[; ;main.c: 140: {
 "140
-[e :U 381 ]
-[; ;main.c: 140: else if (BatteryVoltage > 18.6)
-[e $ ! > _BatteryVoltage .18.6 383  ]
-[; ;main.c: 141: {
-"141
 {
-[; ;main.c: 142: VoltageStatus = 98;
+[; ;main.c: 141: VoltageStatus = 34;
+"141
+[e = _VoltageStatus -> -> 34 `i `uc ]
 "142
-[e = _VoltageStatus -> -> 98 `i `uc ]
+}
+[; ;main.c: 142: }
+[e $U 382  ]
 "143
+[e :U 381 ]
+[; ;main.c: 143: else if (BatteryVoltage > 18.6)
+[e $ ! > _BatteryVoltage .18.6 383  ]
+[; ;main.c: 144: {
+"144
+{
+[; ;main.c: 145: VoltageStatus = 98;
+"145
+[e = _VoltageStatus -> -> 98 `i `uc ]
+"146
 }
 [e :U 383 ]
-"144
-[e :U 382 ]
-[; ;main.c: 143: }
-[; ;main.c: 144: if(VoltageStatus == 1)
-[e $ ! == -> _VoltageStatus `i -> 1 `i 384  ]
-[; ;main.c: 145: {
-"145
-{
-[; ;main.c: 147: for(i =0;i<10;i++)
 "147
+[e :U 382 ]
+[; ;main.c: 146: }
+[; ;main.c: 147: if(VoltageStatus == 1)
+[e $ ! == -> _VoltageStatus `i -> 1 `i 384  ]
+[; ;main.c: 148: {
+"148
+{
+[; ;main.c: 150: for(i =0;i<10;i++)
+"150
 {
 [e = _i -> -> 0 `i `uc ]
 [e $ < -> _i `i -> 10 `i 385  ]
 [e $U 386  ]
-"148
-[e :U 385 ]
-[; ;main.c: 148: {
-{
-[; ;main.c: 149: (LATC |= 0x02);
-"149
-[e =| _LATC -> -> 2 `i `uc ]
-[; ;main.c: 150: (LATC &= ~0x04);
-"150
-[e =& _LATC -> ~ -> 4 `i `uc ]
-[; ;main.c: 151: delayUS(50000);
 "151
-[e ( _delayUS (1 -> 50000 `l ]
-[; ;main.c: 152: (LATC &= ~0x02);
+[e :U 385 ]
+[; ;main.c: 151: {
+{
+[; ;main.c: 152: (LATC |= 0x02);
 "152
-[e =& _LATC -> ~ -> 2 `i `uc ]
-[; ;main.c: 153: (LATC |= 0x04);
+[e =| _LATC -> -> 2 `i `uc ]
+[; ;main.c: 153: (LATC &= ~0x04);
 "153
-[e =| _LATC -> -> 4 `i `uc ]
+[e =& _LATC -> ~ -> 4 `i `uc ]
 [; ;main.c: 154: delayUS(50000);
 "154
 [e ( _delayUS (1 -> 50000 `l ]
+[; ;main.c: 155: (LATC &= ~0x02);
 "155
+[e =& _LATC -> ~ -> 2 `i `uc ]
+[; ;main.c: 156: (LATC |= 0x04);
+"156
+[e =| _LATC -> -> 4 `i `uc ]
+[; ;main.c: 157: delayUS(50000);
+"157
+[e ( _delayUS (1 -> 50000 `l ]
+"158
 }
-"147
+"150
 [e ++ _i -> -> 1 `i `uc ]
 [e $ < -> _i `i -> 10 `i 385  ]
 [e :U 386 ]
-"155
-}
-[; ;main.c: 155: }
-[; ;main.c: 156: (LATC &= ~0x04);
-"156
-[e =& _LATC -> ~ -> 4 `i `uc ]
-"157
-}
-[; ;main.c: 157: }
-[e $U 388  ]
 "158
-[e :U 384 ]
-[; ;main.c: 158: else
-[; ;main.c: 159: {
+}
+[; ;main.c: 158: }
+[; ;main.c: 159: (LATC &= ~0x04);
 "159
-{
-[; ;main.c: 160: for(i =0;i<10;i++)
+[e =& _LATC -> ~ -> 4 `i `uc ]
 "160
+}
+[; ;main.c: 160: }
+[e $U 388  ]
+"161
+[e :U 384 ]
+[; ;main.c: 161: else
+[; ;main.c: 162: {
+"162
+{
+[; ;main.c: 163: for(i =0;i<10;i++)
+"163
 {
 [e = _i -> -> 0 `i `uc ]
 [e $ < -> _i `i -> 10 `i 389  ]
 [e $U 390  ]
-"161
-[e :U 389 ]
-[; ;main.c: 161: {
-{
-[; ;main.c: 162: (LATC |= 0x02);
-"162
-[e =| _LATC -> -> 2 `i `uc ]
-[; ;main.c: 163: delayUS(100000);
-"163
-[e ( _delayUS (1 -> 100000 `l ]
-[; ;main.c: 164: (LATC &= ~0x02);
 "164
-[e =& _LATC -> ~ -> 2 `i `uc ]
-[; ;main.c: 165: delayUS(100000);
+[e :U 389 ]
+[; ;main.c: 164: {
+{
+[; ;main.c: 165: (LATC |= 0x02);
 "165
-[e ( _delayUS (1 -> 100000 `l ]
+[e =| _LATC -> -> 2 `i `uc ]
+[; ;main.c: 166: delayUS(100000);
 "166
+[e ( _delayUS (1 -> 100000 `l ]
+[; ;main.c: 167: (LATC &= ~0x02);
+"167
+[e =& _LATC -> ~ -> 2 `i `uc ]
+[; ;main.c: 168: delayUS(100000);
+"168
+[e ( _delayUS (1 -> 100000 `l ]
+"169
 }
-"160
+"163
 [e ++ _i -> -> 1 `i `uc ]
 [e $ < -> _i `i -> 10 `i 389  ]
 [e :U 390 ]
-"166
+"169
 }
-"167
+"170
 }
 [e :U 388 ]
-[; ;main.c: 166: }
-[; ;main.c: 167: }
-[; ;main.c: 168: Connected = BlueConnected();
-"168
-[e = _Connected ( _BlueConnected ..  ]
-[; ;main.c: 169: ConnectedOLD = 0;
-"169
-[e = _ConnectedOLD -> -> 0 `i `uc ]
-[; ;main.c: 170: VoltageStatusOLD = VoltageStatus;
-"170
-[e = _VoltageStatusOLD _VoltageStatus ]
-[; ;main.c: 171: while(1)
+[; ;main.c: 169: }
+[; ;main.c: 170: }
+[; ;main.c: 171: Connected = BlueConnected();
 "171
-[e :U 393 ]
-[; ;main.c: 172: {
+[e = _Connected ( _BlueConnected ..  ]
+[; ;main.c: 172: ConnectedOLD = 0;
 "172
-{
-[; ;main.c: 173: IRtask = IR_New_Code;
+[e = _ConnectedOLD -> -> 0 `i `uc ]
+[; ;main.c: 173: VoltageStatusOLD = VoltageStatus;
 "173
-[e = _IRtask _IR_New_Code ]
-[; ;main.c: 174: Bluetoothtask = NewReceivedString;
+[e = _VoltageStatusOLD _VoltageStatus ]
+[; ;main.c: 174: while(1)
 "174
-[e = _Bluetoothtask _NewReceivedString ]
-[; ;main.c: 176: if(IRstarted == 0 && (GetRFstatus() != 2))
-"176
-[e $ ! && == -> _IRstarted `i -> 0 `i != -> ( _GetRFstatus ..  `i -> 2 `i 395  ]
-[; ;main.c: 177: {
-"177
+[e :U 393 ]
+[; ;main.c: 175: {
+"175
 {
-[; ;main.c: 178: tempVoltage = ReadVoltage();
-"178
-[e = _tempVoltage ( _ReadVoltage ..  ]
-[; ;main.c: 179: if(tempVoltage > 0.1)
+[; ;main.c: 176: IRtask = IR_New_Code;
+"176
+[e = _IRtask _IR_New_Code ]
+[; ;main.c: 177: Bluetoothtask = NewReceivedString;
+"177
+[e = _Bluetoothtask _NewReceivedString ]
+[; ;main.c: 179: if(IRstarted == 0 && (GetRFstatus() != 2))
 "179
-[e $ ! > _tempVoltage .0.1 396  ]
+[e $ ! && == -> _IRstarted `i -> 0 `i != -> ( _GetRFstatus ..  `i -> 2 `i 395  ]
 [; ;main.c: 180: {
 "180
 {
-[; ;main.c: 181: BatteryVoltage = tempVoltage;
+[; ;main.c: 181: tempVoltage = ReadVoltage();
 "181
-[e = _BatteryVoltage _tempVoltage ]
+[e = _tempVoltage ( _ReadVoltage ..  ]
+[; ;main.c: 182: if(tempVoltage > 0.1)
 "182
+[e $ ! > _tempVoltage .0.1 396  ]
+[; ;main.c: 183: {
+"183
+{
+[; ;main.c: 184: BatteryVoltage = tempVoltage;
+"184
+[e = _BatteryVoltage _tempVoltage ]
+"185
 }
 [e :U 396 ]
-[; ;main.c: 182: }
-[; ;main.c: 183: if(VoltageStatus == 34)
-"183
-[e $ ! == -> _VoltageStatus `i -> 34 `i 397  ]
-[; ;main.c: 184: {
-"184
-{
-[; ;main.c: 185: BatteryVoltage -= 0.1;
-"185
-[e =- _BatteryVoltage .0.1 ]
+[; ;main.c: 185: }
+[; ;main.c: 186: if(VoltageStatus == 34)
 "186
-}
-[; ;main.c: 186: }
-[e $U 398  ]
+[e $ ! == -> _VoltageStatus `i -> 34 `i 397  ]
+[; ;main.c: 187: {
 "187
-[e :U 397 ]
-[; ;main.c: 187: else if(VoltageStatus == 98)
-[e $ ! == -> _VoltageStatus `i -> 98 `i 399  ]
-[; ;main.c: 188: {
-"188
 {
-[; ;main.c: 189: BatteryVoltage += 0.1;
+[; ;main.c: 188: BatteryVoltage -= 0.1;
+"188
+[e =- _BatteryVoltage .0.1 ]
 "189
-[e =+ _BatteryVoltage .0.1 ]
+}
+[; ;main.c: 189: }
+[e $U 398  ]
 "190
+[e :U 397 ]
+[; ;main.c: 190: else if(VoltageStatus == 98)
+[e $ ! == -> _VoltageStatus `i -> 98 `i 399  ]
+[; ;main.c: 191: {
+"191
+{
+[; ;main.c: 192: BatteryVoltage += 0.1;
+"192
+[e =+ _BatteryVoltage .0.1 ]
+"193
 }
 [e :U 399 ]
-"192
-[e :U 398 ]
-[; ;main.c: 190: }
-[; ;main.c: 192: if(BatteryVoltage < 3.9 )
-[e $ ! < _BatteryVoltage .3.9 400  ]
-[; ;main.c: 193: {
-"193
-{
-[; ;main.c: 194: VoltageStatus = 34;
-"194
-[e = _VoltageStatus -> -> 34 `i `uc ]
 "195
-}
-[; ;main.c: 195: }
-[e $U 401  ]
+[e :U 398 ]
+[; ;main.c: 193: }
+[; ;main.c: 195: if(BatteryVoltage < 3.9 )
+[e $ ! < _BatteryVoltage .3.9 400  ]
+[; ;main.c: 196: {
 "196
-[e :U 400 ]
-[; ;main.c: 196: else if(BatteryVoltage > 18.6)
-[e $ ! > _BatteryVoltage .18.6 402  ]
-[; ;main.c: 197: {
+{
+[; ;main.c: 197: VoltageStatus = 34;
 "197
-{
-[; ;main.c: 198: VoltageStatus = 98;
+[e = _VoltageStatus -> -> 34 `i `uc ]
 "198
-[e = _VoltageStatus -> -> 98 `i `uc ]
-"199
 }
-[; ;main.c: 199: }
-[e $U 403  ]
+[; ;main.c: 198: }
+[e $U 401  ]
+"199
+[e :U 400 ]
+[; ;main.c: 199: else if(BatteryVoltage > 18.6)
+[e $ ! > _BatteryVoltage .18.6 402  ]
+[; ;main.c: 200: {
 "200
-[e :U 402 ]
-[; ;main.c: 200: else
-[; ;main.c: 201: {
-"201
 {
-[; ;main.c: 202: VoltageStatus = 1;
+[; ;main.c: 201: VoltageStatus = 98;
+"201
+[e = _VoltageStatus -> -> 98 `i `uc ]
 "202
-[e = _VoltageStatus -> -> 1 `i `uc ]
+}
+[; ;main.c: 202: }
+[e $U 403  ]
 "203
+[e :U 402 ]
+[; ;main.c: 203: else
+[; ;main.c: 204: {
+"204
+{
+[; ;main.c: 205: VoltageStatus = 1;
+"205
+[e = _VoltageStatus -> -> 1 `i `uc ]
+"206
 }
 [e :U 403 ]
 [e :U 401 ]
-"204
+"207
 }
 [e :U 395 ]
-[; ;main.c: 203: }
-[; ;main.c: 204: }
-[; ;main.c: 206: if(VoltageStatus != 1)
-"206
-[e $ ! != -> _VoltageStatus `i -> 1 `i 404  ]
-[; ;main.c: 207: {
-"207
-{
-[; ;main.c: 208: (LATC |= 0x02);
-"208
-[e =| _LATC -> -> 2 `i `uc ]
+[; ;main.c: 206: }
+[; ;main.c: 207: }
+[; ;main.c: 209: if(VoltageStatus != 1)
 "209
+[e $ ! != -> _VoltageStatus `i -> 1 `i 404  ]
+[; ;main.c: 210: {
+"210
+{
+[; ;main.c: 211: (LATC |= 0x02);
+"211
+[e =| _LATC -> -> 2 `i `uc ]
+"212
 }
 [e :U 404 ]
-[; ;main.c: 209: }
-[; ;main.c: 210: if(VoltageStatus == 1 && VoltageStatusOLD != 1)
-"210
-[e $ ! && == -> _VoltageStatus `i -> 1 `i != -> _VoltageStatusOLD `i -> 1 `i 405  ]
-[; ;main.c: 211: {
-"211
-{
-[; ;main.c: 212: LEDTimerON();
-"212
-[e ( _LEDTimerON ..  ]
+[; ;main.c: 212: }
+[; ;main.c: 213: if(VoltageStatus == 1 && VoltageStatusOLD != 1)
 "213
+[e $ ! && == -> _VoltageStatus `i -> 1 `i != -> _VoltageStatusOLD `i -> 1 `i 405  ]
+[; ;main.c: 214: {
+"214
+{
+[; ;main.c: 215: LEDTimerON();
+"215
+[e ( _LEDTimerON ..  ]
+"216
 }
 [e :U 405 ]
-[; ;main.c: 213: }
-[; ;main.c: 216: if(IRtask && IR_NEC)
-"216
-[e $ ! && != -> _IRtask `i -> -> -> 0 `i `uc `i != _IR_NEC -> -> 0 `i `Vul 406  ]
-[; ;main.c: 217: {
-"217
-{
-[; ;main.c: 218: UseIRCode(&IR_New_Code, IR_NEC);
-"218
-[e ( _UseIRCode (2 , -> &U _IR_New_Code `*uc _IR_NEC ]
+[; ;main.c: 216: }
+[; ;main.c: 219: if(IRtask && IR_NEC)
 "219
+[e $ ! && != -> _IRtask `i -> -> -> 0 `i `uc `i != _IR_NEC -> -> 0 `i `Vul 406  ]
+[; ;main.c: 220: {
+"220
+{
+[; ;main.c: 221: UseIRCode(&IR_New_Code, IR_NEC);
+"221
+[e ( _UseIRCode (2 , -> &U _IR_New_Code `*uc _IR_NEC ]
+"222
 }
 [e :U 406 ]
-[; ;main.c: 219: }
-[; ;main.c: 223: Connected = BlueConnected();
-"223
-[e = _Connected ( _BlueConnected ..  ]
-[; ;main.c: 225: if(Connected != ConnectedOLD)
-"225
-[e $ ! != -> _Connected `i -> _ConnectedOLD `i 407  ]
-[; ;main.c: 226: {
+[; ;main.c: 222: }
+[; ;main.c: 226: Connected = BlueConnected();
 "226
-{
-[; ;main.c: 227: if(Connected)
-"227
-[e $ ! != -> _Connected `i -> -> -> 0 `i `uc `i 408  ]
-[; ;main.c: 228: {
+[e = _Connected ( _BlueConnected ..  ]
+[; ;main.c: 228: if(Connected != ConnectedOLD)
 "228
-{
-[; ;main.c: 229: cleanBuffer(ReceivedString, ReceivedStringPos);
+[e $ ! != -> _Connected `i -> _ConnectedOLD `i 407  ]
+[; ;main.c: 229: {
 "229
-[e ( _cleanBuffer (2 , -> &U _ReceivedString `*uc -> _ReceivedStringPos `i ]
-[; ;main.c: 230: ReceivedStringPos = 0;
-"230
-[e = _ReceivedStringPos -> -> 0 `i `uc ]
-[; ;main.c: 231: delayUS(1000000);
-"231
-[e ( _delayUS (1 -> 1000000 `l ]
-[; ;main.c: 232: UARTstringCRLN_CONST(ProjectName);
-"232
-[e ( _UARTstringCRLN_CONST (1 &U _ProjectName ]
-[; ;main.c: 233: UARTstring_CONST(CRLN);
-"233
-[e ( _UARTstring_CONST (1 &U _CRLN ]
-[; ;main.c: 234: if(BluetoothChangeStatus)
-"234
-[e $ ! != -> _BluetoothChangeStatus `i -> -> -> 0 `i `uc `i 409  ]
-[; ;main.c: 235: {
-"235
 {
+[; ;main.c: 230: if(Connected)
+"230
+[e $ ! != -> _Connected `i -> -> -> 0 `i `uc `i 408  ]
+[; ;main.c: 231: {
+"231
+{
+[; ;main.c: 232: cleanBuffer(ReceivedString, ReceivedStringPos);
+"232
+[e ( _cleanBuffer (2 , -> &U _ReceivedString `*uc -> _ReceivedStringPos `i ]
+[; ;main.c: 233: ReceivedStringPos = 0;
+"233
+[e = _ReceivedStringPos -> -> 0 `i `uc ]
+[; ;main.c: 234: delayUS(1000000);
+"234
+[e ( _delayUS (1 -> 1000000 `l ]
+[; ;main.c: 235: UARTstringCRLN_CONST(ProjectName);
+"235
+[e ( _UARTstringCRLN_CONST (1 &U _ProjectName ]
 [; ;main.c: 236: UARTstring_CONST(CRLN);
 "236
 [e ( _UARTstring_CONST (1 &U _CRLN ]
-[; ;main.c: 237: BufferCopy(BluetoothBroadcast,BroadcastTEMP, 21, 0);
+[; ;main.c: 237: if(BluetoothChangeStatus)
 "237
-[e ( _BufferCopy (4 , , , &U _BluetoothBroadcast &U _BroadcastTEMP -> -> 21 `i `uc -> -> 0 `i `c ]
-[; ;main.c: 238: sprintf(buf,"Bluetooth Name was successfully changed to \" %s \"",BroadcastTEMP);
+[e $ ! != -> _BluetoothChangeStatus `i -> -> -> 0 `i `uc `i 409  ]
+[; ;main.c: 238: {
 "238
-[e ( _sprintf (1 , (. , &U _buf :s 1C -> &U _BroadcastTEMP `*Cuc ]
-[; ;main.c: 239: UARTstringCRLN(buf);
+{
+[; ;main.c: 239: UARTstring_CONST(CRLN);
 "239
-[e ( _UARTstringCRLN (1 &U _buf ]
-[; ;main.c: 240: UARTstring_CONST(CRLN);
-"240
 [e ( _UARTstring_CONST (1 &U _CRLN ]
+[; ;main.c: 240: BufferCopy(BluetoothBroadcast,BroadcastTEMP, 21, 0);
+"240
+[e ( _BufferCopy (4 , , , &U _BluetoothBroadcast &U _BroadcastTEMP -> -> 21 `i `uc -> -> 0 `i `c ]
+[; ;main.c: 241: sprintf(buf,"Bluetooth Name was successfully changed to \" %s \"",BroadcastTEMP);
 "241
+[e ( _sprintf (1 , (. , &U _buf :s 1C -> &U _BroadcastTEMP `*Cuc ]
+[; ;main.c: 242: UARTstringCRLN(buf);
+"242
+[e ( _UARTstringCRLN (1 &U _buf ]
+[; ;main.c: 243: UARTstring_CONST(CRLN);
+"243
+[e ( _UARTstring_CONST (1 &U _CRLN ]
+"244
 }
 [e :U 409 ]
-[; ;main.c: 241: }
-[; ;main.c: 242: if(VoltageStatus != 1 && VoltageStatusOLD != 1)
-"242
-[e $ ! && != -> _VoltageStatus `i -> 1 `i != -> _VoltageStatusOLD `i -> 1 `i 410  ]
-[; ;main.c: 243: {
-"243
-{
-[; ;main.c: 244: UARTstringCRLN_CONST("Voltage out of Range!!!");
-"244
-[e ( _UARTstringCRLN_CONST (1 :s 2C ]
-[; ;main.c: 245: UARTstring_CONST(CRLN);
+[; ;main.c: 244: }
+[; ;main.c: 245: if(VoltageStatus != 1 && VoltageStatusOLD != 1)
 "245
-[e ( _UARTstring_CONST (1 &U _CRLN ]
+[e $ ! && != -> _VoltageStatus `i -> 1 `i != -> _VoltageStatusOLD `i -> 1 `i 410  ]
+[; ;main.c: 246: {
 "246
+{
+[; ;main.c: 247: UARTstringCRLN_CONST("Voltage out of Range!!!");
+"247
+[e ( _UARTstringCRLN_CONST (1 :s 2C ]
+[; ;main.c: 248: UARTstring_CONST(CRLN);
+"248
+[e ( _UARTstring_CONST (1 &U _CRLN ]
+"249
 }
 [e :U 410 ]
-[; ;main.c: 246: }
-[; ;main.c: 247: ClearUSART();
-"247
-[e ( _ClearUSART ..  ]
-[; ;main.c: 248: PIR1bits.RCIF = 0;
-"248
-[e = . . _PIR1bits 0 5 -> -> 0 `i `uc ]
-[; ;main.c: 249: PIE1bits.RCIE = 1;
-"249
-[e = . . _PIE1bits 0 5 -> -> 1 `i `uc ]
-[; ;main.c: 250: UARTchar_CONST('>');
+[; ;main.c: 249: }
+[; ;main.c: 250: ClearUSART();
 "250
-[e ( _UARTchar_CONST (1 -> -> 62 `ui `uc ]
+[e ( _ClearUSART ..  ]
+[; ;main.c: 251: PIR1bits.RCIF = 0;
 "251
-}
-[; ;main.c: 251: }
-[e $U 411  ]
+[e = . . _PIR1bits 0 5 -> -> 0 `i `uc ]
+[; ;main.c: 252: PIE1bits.RCIE = 1;
 "252
-[e :U 408 ]
-[; ;main.c: 252: else
-[; ;main.c: 253: {
+[e = . . _PIE1bits 0 5 -> -> 1 `i `uc ]
+[; ;main.c: 253: UARTchar_CONST('>');
 "253
-{
-[; ;main.c: 254: PIE1bits.RCIE = 0;
+[e ( _UARTchar_CONST (1 -> -> 62 `ui `uc ]
 "254
-[e = . . _PIE1bits 0 5 -> -> 0 `i `uc ]
+}
+[; ;main.c: 254: }
+[e $U 411  ]
 "255
+[e :U 408 ]
+[; ;main.c: 255: else
+[; ;main.c: 256: {
+"256
+{
+[; ;main.c: 257: PIE1bits.RCIE = 0;
+"257
+[e = . . _PIE1bits 0 5 -> -> 0 `i `uc ]
+"258
 }
 [e :U 411 ]
-"256
+"259
 }
 [e :U 407 ]
-[; ;main.c: 255: }
-[; ;main.c: 256: }
-[; ;main.c: 257: if(Bluetoothtask >= 1 && Connected)
-"257
-[e $ ! && >= -> _Bluetoothtask `i -> 1 `i != -> _Connected `i -> -> -> 0 `i `uc `i 412  ]
-[; ;main.c: 258: {
-"258
-{
-[; ;main.c: 259: cleanBuffer(BluetoothString, 70);
-"259
-[e ( _cleanBuffer (2 , &U _BluetoothString -> 70 `i ]
-[; ;main.c: 260: BufferCopy(ReceivedString,BluetoothString, ReceivedStringPos, 0);
+[; ;main.c: 258: }
+[; ;main.c: 259: }
+[; ;main.c: 260: if(Bluetoothtask >= 1 && Connected)
 "260
-[e ( _BufferCopy (4 , , , -> &U _ReceivedString `*uc &U _BluetoothString _ReceivedStringPos -> -> 0 `i `c ]
-[; ;main.c: 261: BluetoothStringPos = ReceivedStringPos;
+[e $ ! && >= -> _Bluetoothtask `i -> 1 `i != -> _Connected `i -> -> -> 0 `i `uc `i 412  ]
+[; ;main.c: 261: {
 "261
-[e = _BluetoothStringPos _ReceivedStringPos ]
-[; ;main.c: 262: cleanBuffer(ReceivedString, ReceivedStringPos);
-"262
-[e ( _cleanBuffer (2 , -> &U _ReceivedString `*uc -> _ReceivedStringPos `i ]
-[; ;main.c: 263: ReceivedStringPos = 0;
-"263
-[e = _ReceivedStringPos -> -> 0 `i `uc ]
-[; ;main.c: 264: NewReceivedString = 0;
-"264
-[e = _NewReceivedString -> -> 0 `i `uc ]
-[; ;main.c: 265: if(BluetoothString[0] != 0)
-"265
-[e $ ! != -> *U + &U _BluetoothString * -> -> -> 0 `i `ui `ux -> -> # *U &U _BluetoothString `ui `ux `i -> 0 `i 413  ]
-[; ;main.c: 266: {
-"266
 {
-[; ;main.c: 267: UseBluetooth(BluetoothString, BluetoothStringPos);
+[; ;main.c: 262: cleanBuffer(BluetoothString, 70);
+"262
+[e ( _cleanBuffer (2 , &U _BluetoothString -> 70 `i ]
+[; ;main.c: 263: BufferCopy(ReceivedString,BluetoothString, ReceivedStringPos, 0);
+"263
+[e ( _BufferCopy (4 , , , -> &U _ReceivedString `*uc &U _BluetoothString _ReceivedStringPos -> -> 0 `i `c ]
+[; ;main.c: 264: BluetoothStringPos = ReceivedStringPos;
+"264
+[e = _BluetoothStringPos _ReceivedStringPos ]
+[; ;main.c: 265: cleanBuffer(ReceivedString, ReceivedStringPos);
+"265
+[e ( _cleanBuffer (2 , -> &U _ReceivedString `*uc -> _ReceivedStringPos `i ]
+[; ;main.c: 266: ReceivedStringPos = 0;
+"266
+[e = _ReceivedStringPos -> -> 0 `i `uc ]
+[; ;main.c: 267: NewReceivedString = 0;
 "267
-[e ( _UseBluetooth (2 , &U _BluetoothString _BluetoothStringPos ]
+[e = _NewReceivedString -> -> 0 `i `uc ]
+[; ;main.c: 268: if(BluetoothString[0] != 0)
 "268
+[e $ ! != -> *U + &U _BluetoothString * -> -> -> 0 `i `ui `ux -> -> # *U &U _BluetoothString `ui `ux `i -> 0 `i 413  ]
+[; ;main.c: 269: {
+"269
+{
+[; ;main.c: 270: UseBluetooth(BluetoothString, BluetoothStringPos);
+"270
+[e ( _UseBluetooth (2 , &U _BluetoothString _BluetoothStringPos ]
+"271
 }
 [e :U 413 ]
-[; ;main.c: 268: }
-[; ;main.c: 269: cleanBuffer(ReceivedString, ReceivedStringPos);
-"269
-[e ( _cleanBuffer (2 , -> &U _ReceivedString `*uc -> _ReceivedStringPos `i ]
-[; ;main.c: 270: ReceivedStringPos = 0;
-"270
-[e = _ReceivedStringPos -> -> 0 `i `uc ]
-[; ;main.c: 271: NewReceivedString = 0;
-"271
-[e = _NewReceivedString -> -> 0 `i `uc ]
-[; ;main.c: 272: UARTstring_CONST(CRLN);
+[; ;main.c: 271: }
+[; ;main.c: 272: cleanBuffer(ReceivedString, ReceivedStringPos);
 "272
-[e ( _UARTstring_CONST (1 &U _CRLN ]
-[; ;main.c: 273: UARTchar_CONST('>');
+[e ( _cleanBuffer (2 , -> &U _ReceivedString `*uc -> _ReceivedStringPos `i ]
+[; ;main.c: 273: ReceivedStringPos = 0;
 "273
-[e ( _UARTchar_CONST (1 -> -> 62 `ui `uc ]
-[; ;main.c: 274: if(IR_New_Code)
+[e = _ReceivedStringPos -> -> 0 `i `uc ]
+[; ;main.c: 274: NewReceivedString = 0;
 "274
-[e $ ! != -> _IR_New_Code `i -> -> -> 0 `i `Vuc `i 414  ]
-[; ;main.c: 275: {
+[e = _NewReceivedString -> -> 0 `i `uc ]
+[; ;main.c: 275: UARTstring_CONST(CRLN);
 "275
-{
-[; ;main.c: 276: IR_New_Code = 0;
+[e ( _UARTstring_CONST (1 &U _CRLN ]
+[; ;main.c: 276: UARTchar_CONST('>');
 "276
-[e = _IR_New_Code -> -> 0 `i `uc ]
+[e ( _UARTchar_CONST (1 -> -> 62 `ui `uc ]
+[; ;main.c: 277: if(IR_New_Code)
 "277
+[e $ ! != -> _IR_New_Code `i -> -> -> 0 `i `Vuc `i 414  ]
+[; ;main.c: 278: {
+"278
+{
+[; ;main.c: 279: IR_New_Code = 0;
+"279
+[e = _IR_New_Code -> -> 0 `i `uc ]
+"280
 }
 [e :U 414 ]
-[; ;main.c: 277: }
-[; ;main.c: 279: IRpinOLD = ReadIRpin();
-"279
-[e = _IRpinOLD ( _ReadIRpin ..  ]
-[; ;main.c: 280: INTCONbits.RBIF = 0;
-"280
-[e = . . _INTCONbits 0 0 -> -> 0 `i `uc ]
-[; ;main.c: 281: IRreceiverIntOn();
-"281
-[e ( _IRreceiverIntOn ..  ]
-[; ;main.c: 282: ClearUSART();
+[; ;main.c: 280: }
+[; ;main.c: 282: IRpinOLD = ReadIRpin();
 "282
-[e ( _ClearUSART ..  ]
-[; ;main.c: 283: PIR1bits.RCIF = 0;
+[e = _IRpinOLD ( _ReadIRpin ..  ]
+[; ;main.c: 283: INTCONbits.RBIF = 0;
 "283
-[e = . . _PIR1bits 0 5 -> -> 0 `i `uc ]
-[; ;main.c: 284: PIE1bits.RCIE = 1;
+[e = . . _INTCONbits 0 0 -> -> 0 `i `uc ]
+[; ;main.c: 284: IRreceiverIntOn();
 "284
-[e = . . _PIE1bits 0 5 -> -> 1 `i `uc ]
+[e ( _IRreceiverIntOn ..  ]
+[; ;main.c: 285: ClearUSART();
 "285
+[e ( _ClearUSART ..  ]
+[; ;main.c: 286: PIR1bits.RCIF = 0;
+"286
+[e = . . _PIR1bits 0 5 -> -> 0 `i `uc ]
+[; ;main.c: 287: PIE1bits.RCIE = 1;
+"287
+[e = . . _PIE1bits 0 5 -> -> 1 `i `uc ]
+"288
 }
 [e :U 412 ]
-[; ;main.c: 285: }
-[; ;main.c: 288: if(IRtimeout < 80000)
-"288
-[e $ ! < _IRtimeout -> -> 80000 `l `ul 415  ]
-[; ;main.c: 289: {
-"289
-{
-[; ;main.c: 290: IRtimeout++;
-"290
-[e ++ _IRtimeout -> -> -> 1 `i `l `ul ]
+[; ;main.c: 288: }
+[; ;main.c: 291: if(IRtimeout < 80000)
 "291
-}
-[; ;main.c: 291: }
-[e $U 416  ]
+[e $ ! < _IRtimeout -> -> 80000 `l `ul 415  ]
+[; ;main.c: 292: {
 "292
-[e :U 415 ]
-[; ;main.c: 292: else if(IRtimeout == 80000)
-[e $ ! == _IRtimeout -> -> 80000 `l `ul 417  ]
-[; ;main.c: 293: {
-"293
 {
-[; ;main.c: 294: IRtimeout++;
-"294
+[; ;main.c: 293: IRtimeout++;
+"293
 [e ++ _IRtimeout -> -> -> 1 `i `l `ul ]
-[; ;main.c: 295: IR_NEC = 0;
+"294
+}
+[; ;main.c: 294: }
+[e $U 416  ]
 "295
-[e = _IR_NEC -> -> -> 0 `i `l `ul ]
-[; ;main.c: 296: IR_New_Code = 0;
+[e :U 415 ]
+[; ;main.c: 295: else if(IRtimeout == 80000)
+[e $ ! == _IRtimeout -> -> 80000 `l `ul 417  ]
+[; ;main.c: 296: {
 "296
-[e = _IR_New_Code -> -> 0 `i `uc ]
-[; ;main.c: 297: IRpinOLD = ReadIRpin();
+{
+[; ;main.c: 297: IRtimeout++;
 "297
-[e = _IRpinOLD ( _ReadIRpin ..  ]
-[; ;main.c: 298: INTCONbits.RBIF = 0;
+[e ++ _IRtimeout -> -> -> 1 `i `l `ul ]
+[; ;main.c: 298: IR_NEC = 0;
 "298
-[e = . . _INTCONbits 0 0 -> -> 0 `i `uc ]
-[; ;main.c: 299: IRreceiverIntOn();
+[e = _IR_NEC -> -> -> 0 `i `l `ul ]
+[; ;main.c: 299: IR_New_Code = 0;
 "299
-[e ( _IRreceiverIntOn ..  ]
-[; ;main.c: 300: INTCONbits.RBIE = 1;
+[e = _IR_New_Code -> -> 0 `i `uc ]
+[; ;main.c: 300: IRpinOLD = ReadIRpin();
 "300
-[e = . . _INTCONbits 0 3 -> -> 1 `i `uc ]
+[e = _IRpinOLD ( _ReadIRpin ..  ]
+[; ;main.c: 301: INTCONbits.RBIF = 0;
 "301
+[e = . . _INTCONbits 0 0 -> -> 0 `i `uc ]
+[; ;main.c: 302: IRreceiverIntOn();
+"302
+[e ( _IRreceiverIntOn ..  ]
+[; ;main.c: 303: INTCONbits.RBIE = 1;
+"303
+[e = . . _INTCONbits 0 3 -> -> 1 `i `uc ]
+"304
 }
 [e :U 417 ]
-"302
-[e :U 416 ]
-[; ;main.c: 301: }
-[; ;main.c: 302: if(BufferOverflow)
-[e $ ! != -> _BufferOverflow `i -> -> -> 0 `i `uc `i 418  ]
-[; ;main.c: 303: {
-"303
-{
-[; ;main.c: 305: cleanBuffer(ReceivedString,70);
 "305
-[e ( _cleanBuffer (2 , -> &U _ReceivedString `*uc -> 70 `i ]
-[; ;main.c: 306: ReceivedStringPos = 0;
+[e :U 416 ]
+[; ;main.c: 304: }
+[; ;main.c: 305: if(BufferOverflow)
+[e $ ! != -> _BufferOverflow `i -> -> -> 0 `i `uc `i 418  ]
+[; ;main.c: 306: {
 "306
-[e = _ReceivedStringPos -> -> 0 `i `uc ]
-[; ;main.c: 307: UARTstring_CONST(CRLN);
-"307
-[e ( _UARTstring_CONST (1 &U _CRLN ]
-[; ;main.c: 308: UARTstringCRLN_CONST("Buffer Overflow");
+{
+[; ;main.c: 308: cleanBuffer(ReceivedString,70);
 "308
-[e ( _UARTstringCRLN_CONST (1 :s 3C ]
-[; ;main.c: 309: UARTstring_CONST(CRLN);
+[e ( _cleanBuffer (2 , -> &U _ReceivedString `*uc -> 70 `i ]
+[; ;main.c: 309: ReceivedStringPos = 0;
 "309
-[e ( _UARTstring_CONST (1 &U _CRLN ]
-[; ;main.c: 310: UARTchar('>');
+[e = _ReceivedStringPos -> -> 0 `i `uc ]
+[; ;main.c: 310: UARTstring_CONST(CRLN);
 "310
-[e ( _UARTchar (1 -> -> 62 `ui `uc ]
-[; ;main.c: 311: BufferOverflow = 0;
+[e ( _UARTstring_CONST (1 &U _CRLN ]
+[; ;main.c: 311: UARTstringCRLN_CONST("Buffer Overflow");
 "311
-[e = _BufferOverflow -> -> 0 `i `uc ]
-[; ;main.c: 312: ClearUSART();
+[e ( _UARTstringCRLN_CONST (1 :s 3C ]
+[; ;main.c: 312: UARTstring_CONST(CRLN);
 "312
-[e ( _ClearUSART ..  ]
-[; ;main.c: 313: PIR1bits.RCIF = 0;
+[e ( _UARTstring_CONST (1 &U _CRLN ]
+[; ;main.c: 313: UARTchar('>');
 "313
-[e = . . _PIR1bits 0 5 -> -> 0 `i `uc ]
-[; ;main.c: 314: PIE1bits.RCIE = 1;
+[e ( _UARTchar (1 -> -> 62 `ui `uc ]
+[; ;main.c: 314: BufferOverflow = 0;
 "314
-[e = . . _PIE1bits 0 5 -> -> 1 `i `uc ]
+[e = _BufferOverflow -> -> 0 `i `uc ]
+[; ;main.c: 315: ClearUSART();
 "315
-}
-[e :U 418 ]
-[; ;main.c: 315: }
-[; ;main.c: 316: ConnectedOLD = Connected;
+[e ( _ClearUSART ..  ]
+[; ;main.c: 316: PIR1bits.RCIF = 0;
 "316
-[e = _ConnectedOLD _Connected ]
-[; ;main.c: 317: VoltageStatusOLD = VoltageStatus;
+[e = . . _PIR1bits 0 5 -> -> 0 `i `uc ]
+[; ;main.c: 317: PIE1bits.RCIE = 1;
 "317
-[e = _VoltageStatusOLD _VoltageStatus ]
+[e = . . _PIE1bits 0 5 -> -> 1 `i `uc ]
 "318
 }
+[e :U 418 ]
+[; ;main.c: 318: }
+[; ;main.c: 319: ConnectedOLD = Connected;
+"319
+[e = _ConnectedOLD _Connected ]
+[; ;main.c: 320: VoltageStatusOLD = VoltageStatus;
+"320
+[e = _VoltageStatusOLD _VoltageStatus ]
+"321
+}
 [e :U 392 ]
-"171
+"174
 [e $U 393  ]
 [e :U 394 ]
-[; ;main.c: 318: }
-[; ;main.c: 319: }
-"319
+[; ;main.c: 321: }
+[; ;main.c: 322: }
+"322
 [e :UE 380 ]
 }
 [p f _sprintf 8650752 ]

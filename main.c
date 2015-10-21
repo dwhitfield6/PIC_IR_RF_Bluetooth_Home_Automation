@@ -6,6 +6,9 @@
  * Date         Revision    Comments
  * MM/DD/YY
  * --------     ---------   ----------------------------------------------------
+ * 10/21/15     5.0_DW0g    Check for interrupt enable and flag in interrupt 
+ *                            vector.
+ *                          Turn on PLL when clock is set to HFINTOSC.
  * 10/21/15     5.0_DW0f    Changed version number to match new scheme.
  * 05/27/15     1.0_DW0f    Moved IR receive to low priority interrupt. This
  *                            seems to have fixed alot of weird bugs where the

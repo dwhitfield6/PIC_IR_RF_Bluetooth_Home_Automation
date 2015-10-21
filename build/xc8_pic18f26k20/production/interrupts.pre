@@ -5321,7 +5321,7 @@ void interrupt high_isr(void)
 
 INTCONbits.GIE = 0;
 
-if(PIR1bits.TMR2IF)
+if(PIR1bits.TMR2IF && PIE1bits.TMR2IE)
 {
 
 # 80
@@ -5339,7 +5339,7 @@ else if(STKPTRbits.STKUNF)
 UARTstringCRLN_CONST("Error: Stack underflow!!!");
 STKPTRbits.STKUNF = 0;
 }
-else if(PIR2bits.TMR3IF)
+else if(PIR2bits.TMR3IF && PIE2bits.TMR3IE)
 {
 (T3CONbits.TMR3ON = 0);
 if(RFPause == 1)
@@ -5394,7 +5394,7 @@ unsigned int Time0;
 
 INTCONbits.PEIE = 0;
 
-if(PIR1bits.RCIF)
+if(PIR1bits.RCIF && PIE1bits.RCIE)
 {
 
 data = ReadUSART();
@@ -5447,7 +5447,7 @@ NewReceivedString = 1;
 }
 PIR1bits.RCIF = 0;
 }
-else if(PIR1bits.TMR1IF)
+else if(PIR1bits.TMR1IF && PIE1bits.TMR1IE)
 {
 Timer1_Postscaler++;
 if(Timer1_Postscaler >= 3)
@@ -5459,7 +5459,7 @@ Timer1_Postscaler = 0;
 }
 PIR1bits.TMR1IF = 0;
 }
-else if(INTCONbits.TMR0IF)
+else if(INTCONbits.TMR0IF && INTCONbits.TMR0IE)
 {
 
 (INTCONbits.TMR0IE = 0);
@@ -5483,7 +5483,7 @@ IRreceiverIntOn();
 ReceivingIR = 13;
 INTCONbits.TMR0IF = 0;
 }
-else if(INTCONbits.RBIF)
+else if(INTCONbits.RBIF && INTCONbits.RBIE)
 {
 IRtimeout = 0;
 IRpin = ReadIRpin();
